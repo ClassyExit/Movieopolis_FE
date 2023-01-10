@@ -5,7 +5,7 @@
   >
     <div id="tabs" class="flex justify-between h-full">
       <router-link
-        to="#"
+        :to="{ name: 'Home' }"
         class="w-full justify-center inline-block text-center pt-2 pb-1"
       >
         <Icon
@@ -24,20 +24,6 @@
         <Icon class="inline-block mb-1" icon="bxs:hot" width="25" height="25" />
         <span class="block text-xs">Trending</span>
       </router-link>
-
-      <label
-        for="search"
-        class="w-full justify-center inline-block text-center pt-2 pb-1"
-      >
-        <Icon
-          class="inline-block mb-1"
-          icon="ic:baseline-search"
-          width="25"
-          height="25"
-        />
-
-        <span class="block text-xs">Search</span>
-      </label>
 
       <router-link
         to="#"

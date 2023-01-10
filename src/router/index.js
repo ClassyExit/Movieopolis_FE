@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
-
+import NotFound from "@/views/NotFound.vue";
 // Layouts
 import HomeLayout from "@/views/Layouts/HomeLayout.vue";
 
@@ -17,6 +17,9 @@ const routes = [
       },
     ],
   },
+
+  // Path not found
+  { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
   // {
   //   path: '/about',
   //   name: 'about',
