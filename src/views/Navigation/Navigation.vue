@@ -1,6 +1,6 @@
 <template>
-  <nav class="p-4 bg-base-300 text-base-content">
-    <div class="flex flex-row px-4 md:px-8 justify-between items-center">
+  <nav class="p-4 bg-base-100 text-base-content">
+    <div class="flex flex-row px-2 justify-between items-center">
       <div class="flex flex-row space-x-16">
         <div class="flex items-center">
           <img src="@/assets/logo.png" class="h-8 w-8" />

@@ -9,7 +9,7 @@
         class="w-full justify-center inline-block text-center pt-2 pb-1"
       >
         <Icon
-          class="inline-block mb-1"
+          class="inline-block mb-1 active:bg-yellow-500"
           icon="material-symbols:home-outline-rounded"
           width="25"
           height="25"
@@ -56,4 +56,10 @@
 
 <script setup></script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.router-link-active {
+  background-color: theme("colors.base-200");
+  /* width | style | color */
+  border-top: 1px solid theme("colors.primary");
+}
+</style>

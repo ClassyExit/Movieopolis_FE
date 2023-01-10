@@ -6,13 +6,11 @@
 
         <MobileNav />
       </div>
-      <div aria-label="mobile-nav" class="md:hidden">
-        <!-- <div><TopNav /></div> -->
-        <div></div>
-      </div>
     </div>
 
-    <div class="relative w-full flex flex-grow mb-[72px] md:my-0">
+    <div
+      class="relative w-full flex flex-grow px-4 md:px-6 mb-[70px] md:my-0 bg-base-100"
+    >
       <router-view></router-view>
     </div>
   </div>

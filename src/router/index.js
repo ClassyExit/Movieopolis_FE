@@ -11,11 +11,12 @@ import TVLayout from "@/views/TV/TVLayout.vue";
 const routes = [
   {
     path: "/",
+    redirect: "/home",
     name: "Layout",
     component: HomeLayout,
     children: [
       {
-        path: "/",
+        path: "/home",
         name: "Home",
         component: Home,
       },

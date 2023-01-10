@@ -1,5 +1,5 @@
 <template>
-  <router-view :key="$route.path"></router-view>
+  <router-view class="bg-base-100" :key="$route.path"></router-view>
 </template>
 
 <style>
