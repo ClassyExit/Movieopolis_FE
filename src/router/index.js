@@ -1,8 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import NotFound from "@/views/NotFound.vue";
+
 // Layouts
 import HomeLayout from "@/views/Layouts/HomeLayout.vue";
+import MoviesLayout from "@/views/Movies/MoviesLayout.vue";
+import TrendingLayout from "@/views/Trending/TrendingLayout.vue";
+import TVLayout from "@/views/TV/TVLayout.vue";
 
 const routes = [
   {
@@ -14,6 +18,21 @@ const routes = [
         path: "/",
         name: "Home",
         component: Home,
+      },
+      {
+        path: "/movies",
+        name: "Movies",
+        component: MoviesLayout,
+      },
+      {
+        path: "/trending",
+        name: "Trending",
+        component: TrendingLayout,
+      },
+      {
+        path: "/tvshows",
+        name: "TV",
+        component: TVLayout,
       },
     ],
   },

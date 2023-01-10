@@ -1,6 +1,6 @@
 <template>
   <nav class="p-4 bg-base-300 text-base-content">
-    <div class="flex flex-row px-4 md:px-12 justify-between items-center">
+    <div class="flex flex-row px-4 md:px-8 justify-between items-center">
       <div class="flex flex-row space-x-16">
         <div class="flex items-center">
           <img src="@/assets/logo.png" class="h-8 w-8" />
@@ -18,26 +18,32 @@
           <li
             class="text-lg focus:underline hover:underline underline-offset-8"
           >
-            <router-link to="#" class="">Movies</router-link>
+            <router-link :to="{ name: 'Movies' }" class="">Movies</router-link>
           </li>
           <li
             class="text-lg focus:underline hover:underline underline-offset-8"
           >
-            <router-link to="#" class="">TV Shows</router-link>
+            <router-link :to="{ name: 'TV' }" class="">TV Shows</router-link>
           </li>
           <li
             class="text-lg focus:underline hover:underline underline-offset-8"
           >
-            <router-link to="#" class="">Trending</router-link>
+            <router-link :to="{ name: 'Trending' }" class=""
+              >Trending</router-link
+            >
           </li>
         </ul>
       </div>
 
-      <div class="">Right</div>
+      <div class="">
+        <div class=""><ThemeSelect /></div>
+      </div>
     </div>
   </nav>
 </template>
 
-<script setup></script>
+<script setup>
+import ThemeSelect from "@/components/Theme/ThemeSelect.vue";
+</script>
 
 <style lang="scss" scoped></style>

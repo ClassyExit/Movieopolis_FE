@@ -18,7 +18,7 @@
       </router-link>
 
       <router-link
-        to="#"
+        :to="{ name: 'Trending' }"
         class="w-full justify-center inline-block text-center pt-2 pb-1"
       >
         <Icon class="inline-block mb-1" icon="bxs:hot" width="25" height="25" />
@@ -26,7 +26,7 @@
       </router-link>
 
       <router-link
-        to="#"
+        :to="{ name: 'Movies' }"
         class="w-full justify-center inline-block text-center pt-2 pb-1"
       >
         <Icon
@@ -38,7 +38,7 @@
         <span class="block text-xs">Movies</span>
       </router-link>
       <router-link
-        to="#"
+        :to="{ name: 'TV' }"
         class="w-full justify-center inline-block text-center pt-2 pb-1"
         aria-label="navigation"
       >
