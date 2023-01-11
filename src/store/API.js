@@ -67,5 +67,13 @@ export const useAPIStore = defineStore("API", {
       const json = await response.json();
       return json;
     },
+
+    async getPopularMoviesAPI(page = 1) {
+      const response = await fetch(
+        `https://tmdb-backend.herokuapp.com/api/movie/popular?page=${page}`
+      );
+      const json = await response.json();
+      return json;
+    },
   },
 });

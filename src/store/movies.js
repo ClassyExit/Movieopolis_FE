@@ -7,6 +7,9 @@ export const useMovieStore = defineStore("Movie", {
     movieCredits: {},
     movieRecommendations: [],
     isLoadingDetails: false,
+
+    popularMovies: [],
+    popularMoviesHome: [],
   }),
   getters: {},
   actions: {
@@ -27,6 +30,17 @@ export const useMovieStore = defineStore("Movie", {
       this.movieRecommendations = recommendations;
 
       this.isLoadingDetails = false;
+    },
+
+    async getPopularMovies(page) {
+      /*
+        Get the popular movies to display
+
+        NOTE: Only for the homepage -> limit the amount to show 
+        and use movies page to show more
+      */
+      const movies = await useAPIStore().getPopularMoviesAPI((page = page));
+      this.popularMoviesHome = movies;
     },
   },
 });

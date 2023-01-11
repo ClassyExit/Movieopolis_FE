@@ -66,7 +66,7 @@
         <div dev-hint="recommendation" class="mx-1">
           <div class="text-left text-2xl text-base-content">More Like This</div>
           <div
-            v-if="movieStore.movieRecommendations.results.length > 0"
+            v-if="movieStore.movieRecommendations.results?.length !== 0"
             class=""
           >
             <vue-horizontal responsive>
@@ -83,9 +83,11 @@
               </section>
             </vue-horizontal>
           </div>
-          <div v-else class="text-left">
-            Sorry, unable to get recommendations
-            <Icon icon="cil:sad" width="20" height="20" />
+          <div v-else class="nowrap space-x-2 text-left">
+            <span
+              >Sorry, unable to get recommendations
+              <Icon icon="cil:sad" width="20" height="20"
+            /></span>
           </div>
         </div>
 
