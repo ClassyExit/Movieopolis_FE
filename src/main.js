@@ -20,5 +20,4 @@ app.use(router);
 app.use(pinia);
 app.component("Icon", Icon);
 
-
 app.mount("#app");

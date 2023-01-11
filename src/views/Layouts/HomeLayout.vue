@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col min-h-screen min-w-screen bg-base-300">
+  <div class="flex flex-col min-h-screen min-w-screen bg-base-100">
     <div class="flex w-full items-center justify-center">
       <div aria-label="nav" class="block w-full">
         <Navigation />

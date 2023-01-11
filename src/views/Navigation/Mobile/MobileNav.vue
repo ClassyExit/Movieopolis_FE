@@ -9,7 +9,7 @@
         class="w-full justify-center inline-block text-center pt-2 pb-1"
       >
         <Icon
-          class="inline-block mb-1 active:bg-yellow-500"
+          class="inline-block mb-1"
           icon="material-symbols:home-outline-rounded"
           width="25"
           height="25"
