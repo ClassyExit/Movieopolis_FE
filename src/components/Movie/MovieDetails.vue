@@ -63,6 +63,44 @@
 
         <div class="divider"></div>
 
+        <div class="">
+          <div class="flex flex-row justify-between">
+            <div class="text-info text-2xl">Reviews</div>
+          </div>
+
+          <vue-horizontal responsive>
+            <div v-if="!movieStore.movieReviews.results?.length">
+              <span class="">Looks like there are no reviews yet.</span>
+            </div>
+            <section
+              v-for="item in movieStore.movieReviews.results"
+              :key="item.id"
+              class="px-1"
+              v-else
+            >
+              <div class="">
+                <div class="card w-60 md:w-96 bg-base-100 shadow-xl h-48">
+                  <div class="card-body">
+                    <p
+                      class="line-clamp-4 text-left text-ellipsis overflow-hidden"
+                    >
+                      {{ item.content }}
+                    </p>
+                    <label
+                      for="movie-review-modal"
+                      @click="expandReview(item.content)"
+                      class="btn btn-sm"
+                      >View full</label
+                    >
+                  </div>
+                </div>
+              </div>
+            </section>
+          </vue-horizontal>
+        </div>
+
+        <div class="divider"></div>
+
         <div dev-hint="recommendation" class="mx-1">
           <div class="text-left text-2xl text-base-content">More Like This</div>
           <div
@@ -97,9 +135,26 @@
       </div>
     </div>
   </div>
+
+  <!-- Put this part before </body> tag -->
+  <input type="checkbox" id="movie-review-modal" class="modal-toggle" />
+  <div class="modal">
+    <div class="modal-box relative" for="">
+      <label
+        for="movie-review-modal"
+        class="btn-sm btn-circle absolute right-2 top-2"
+        >✕</label
+      >
+      <p class="pt-5 text-left">{{ reviewExpand }}</p>
+      <div class="modal-action">
+        <label for="movie-review-modal" class="btn">Close</label>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
+import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useMovieStore } from "@/store/movies";
 import Loading from "../Loading.vue";
@@ -110,6 +165,13 @@ import VueHorizontal from "vue-horizontal";
 const movieStore = useMovieStore();
 
 const { isLoadingDetails } = storeToRefs(movieStore);
+
+/* Show the full review  */
+const reviewExpand = ref("");
+
+const expandReview = (content) => {
+  reviewExpand.value = content;
+};
 </script>
 
 <style lang="scss" scoped></style>

@@ -6,7 +6,10 @@ export const useTVStore = defineStore("TV", {
     tvDetails: {},
     tvCredits: {},
     tvRecommendations: [],
+    tvReviews: [],
     isLoadingDetails: false,
+
+    isLoadingPopularHome: false,
 
     popularTVShowsHome: [],
   }),
@@ -24,10 +27,12 @@ export const useTVStore = defineStore("TV", {
       const recommendations = await useAPIStore().getTVRecommendationsAPI(
         tv_id
       );
+      const reviews = await useAPIStore().getTVReviews(tv_id);
 
       this.tvCredits = credits;
       this.tvDetails = details;
       this.tvRecommendations = recommendations;
+      this.tvReviews = reviews;
 
       this.isLoadingDetails = false;
     },
@@ -36,10 +41,14 @@ export const useTVStore = defineStore("TV", {
       /* 
           Retrieve the popular tv shows to display on home screen
     */
+
+      this.isLoadingPopularHome = true;
       const popularTVShows = await useAPIStore().getPopularTVShowsAPI(
         (page = page)
       );
       this.popularTVShowsHome = popularTVShows;
+
+      this.isLoadingPopularHome = false;
     },
   },
 });

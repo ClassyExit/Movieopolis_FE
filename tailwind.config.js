@@ -7,5 +7,5 @@ module.exports = {
   daisyui: {
     themes: ["light", "dark", "night", "black"],
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"), require("@tailwindcss/line-clamp")],
 };

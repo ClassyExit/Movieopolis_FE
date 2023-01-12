@@ -8,6 +8,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@tailwindcss/line-clamp": "^0.4.2",
     "autoprefixer": "^10",
     "core-js": "^3.8.3",
     "daisyui": "^2.46.1",

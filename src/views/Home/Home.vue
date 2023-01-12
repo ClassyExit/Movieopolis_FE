@@ -3,18 +3,22 @@
     <div class="w-full">
       <div class="text-left text-3xl text-primary">Trending</div>
 
-      <vue-horizontal responsive>
-        <section
-          v-for="item in trending[0]?.results"
-          :key="item.id"
-          class="px-1"
-          @click="getMovieStats(item.id)"
-        >
-          <label for="movie-details" class="cursor-pointer"
-            ><img :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
-          /></label>
-        </section>
-      </vue-horizontal>
+      <div v-if="trendingStore.isLoadingTrending" class=""><Loading /></div>
+      <div v-else>
+        <vue-horizontal responsive snap="start">
+          <section
+            v-for="item in trending[0]?.results"
+            :key="item.id"
+            class="px-1"
+            @click="getMovieStats(item.id)"
+          >
+            <label for="movie-details" class="cursor-pointer"
+              ><img
+                :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
+            /></label>
+          </section>
+        </vue-horizontal>
+      </div>
     </div>
 
     <div class="w-full">
@@ -33,18 +37,23 @@
         /></router-link>
       </div>
 
-      <vue-horizontal responsive>
-        <section
-          v-for="item in popularMoviesHome.results"
-          :key="item.id"
-          class="px-1"
-          @click="getMovieStats(item.id)"
-        >
-          <label for="movie-details" class="cursor-pointer"
-            ><img :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
-          /></label>
-        </section>
-      </vue-horizontal>
+      <div v-if="movieStore.isLoadingPopularHome" class=""><Loading /></div>
+
+      <div v-else>
+        <vue-horizontal responsive snap="start">
+          <section
+            v-for="item in popularMoviesHome.results"
+            :key="item.id"
+            class="px-1"
+            @click="getMovieStats(item.id)"
+          >
+            <label for="movie-details" class="cursor-pointer"
+              ><img
+                :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
+            /></label>
+          </section>
+        </vue-horizontal>
+      </div>
     </div>
 
     <div class="w-full">
@@ -52,52 +61,66 @@
         <span>Upcoming Movies</span>
       </div>
 
-      <vue-horizontal responsive>
-        <section
-          v-for="item in upcomingMoviesHome.results"
-          :key="item.id"
-          class="px-1"
-          @click="getMovieStats(item.id)"
-        >
-          <label for="movie-details" class="cursor-pointer"
-            ><img :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
-          /></label>
-        </section>
-      </vue-horizontal>
+      <div v-if="movieStore.isLoadingUpcomingHome" class=""><Loading /></div>
+      <div v-else>
+        <vue-horizontal responsive snap="start">
+          <section
+            v-for="item in upcomingMoviesHome.results"
+            :key="item.id"
+            class="px-1"
+            @click="getMovieStats(item.id)"
+          >
+            <label for="movie-details" class="cursor-pointer"
+              ><img
+                :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
+            /></label>
+          </section>
+        </vue-horizontal>
+      </div>
     </div>
 
     <div class="w-full">
       <div class="text-left text-3xl text-primary">Popular Shows</div>
 
-      <vue-horizontal responsive>
-        <section
-          v-for="item in popularTVShowsHome?.results"
-          :key="item.id"
-          class="px-1"
-          @click="getTVStates(item.id)"
-        >
-          <label for="tv-details" class="cursor-pointer"
-            ><img :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
-          /></label>
-        </section>
-      </vue-horizontal>
+      <div v-if="tvStore.isLoadingPopularHome" class=""><Loading /></div>
+
+      <div v-else>
+        <vue-horizontal responsive>
+          <section
+            v-for="item in popularTVShowsHome?.results"
+            :key="item.id"
+            class="px-1"
+            @click="getTVStates(item.id)"
+          >
+            <label for="tv-details" class="cursor-pointer"
+              ><img
+                :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
+            /></label>
+          </section>
+        </vue-horizontal>
+      </div>
     </div>
 
     <div class="w-full">
       <div class="text-left text-3xl text-primary">Top Rated</div>
 
-      <vue-horizontal responsive>
-        <section
-          v-for="item in topRatedMovies?.results"
-          :key="item.id"
-          class="px-1"
-          @click="getMovieStats(item.id)"
-        >
-          <label for="movie-details" class="cursor-pointer"
-            ><img :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
-          /></label>
-        </section>
-      </vue-horizontal>
+      <div v-if="movieStore.isLoadingTopRatedHome" class=""><Loading /></div>
+
+      <div v-else>
+        <vue-horizontal responsive snap="start">
+          <section
+            v-for="item in topRatedMovies?.results"
+            :key="item.id"
+            class="px-1"
+            @click="getMovieStats(item.id)"
+          >
+            <label for="movie-details" class="cursor-pointer"
+              ><img
+                :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
+            /></label>
+          </section>
+        </vue-horizontal>
+      </div>
     </div>
   </div>
 
@@ -114,6 +137,7 @@ import { useTVStore } from "@/store/tv";
 
 // Components
 import VueHorizontal from "vue-horizontal";
+import Loading from "@/components/Loading.vue";
 
 // Modals
 import MovieDetails from "@/components/Movie/MovieDetails.vue";
