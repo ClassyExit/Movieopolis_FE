@@ -10,6 +10,9 @@ export const useMovieStore = defineStore("Movie", {
 
     popularMovies: [],
     popularMoviesHome: [],
+    upcomingMoviesHome: [],
+    latestMovies: [],
+    topRatedMovies: [],
   }),
   getters: {},
   actions: {
@@ -32,7 +35,7 @@ export const useMovieStore = defineStore("Movie", {
       this.isLoadingDetails = false;
     },
 
-    async getPopularMovies(page) {
+    async getPopularMoviesHome(page) {
       /*
         Get the popular movies to display
 
@@ -42,5 +45,24 @@ export const useMovieStore = defineStore("Movie", {
       const movies = await useAPIStore().getPopularMoviesAPI((page = page));
       this.popularMoviesHome = movies;
     },
+
+    async getUpcomingMovies(page) {
+      /* Get the upcoming movies for the home screen */
+      const upcoming = await useAPIStore().getUpcomingMoviesAPI((page = page));
+      this.upcomingMoviesHome = upcoming;
+    },
+
+    async getLatestMovie() {
+      /* Get the latest movies */
+      const latest = await useAPIStore().getLatestMoviesAPI();
+      this.latestMovies = latest;
+    },
+
+    async getTopRatedMovies(page) {
+      /* Get the top rated movies */
+      const toprated = await useAPIStore().getTopRatedMoviesAPI(page);
+      this.topRatedMovies = toprated;
+    },
+  
   },
 });

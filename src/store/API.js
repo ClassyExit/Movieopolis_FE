@@ -75,5 +75,70 @@ export const useAPIStore = defineStore("API", {
       const json = await response.json();
       return json;
     },
+
+    async getUpcomingMoviesAPI(page = 1) {
+      const response = await fetch(
+        `https://tmdb-backend.herokuapp.com/api/movie/upcoming?page=${page}`
+      );
+      const json = await response.json();
+      return json;
+    },
+
+    async getLatestMovieAPI() {
+      const response = await fetch(
+        `https://tmdb-backend.herokuapp.com/api/movie/latest`
+      );
+      const json = await response.json();
+      return json;
+    },
+
+    async getTopRatedMoviesAPI(page = 1) {
+      const response = await fetch(
+        `https://tmdb-backend.herokuapp.com/api/movie/toprated?page=${page}`
+      );
+      const json = await response.json();
+      return json;
+    },
+
+    async getPopularTVShowsAPI(page = 1) {
+      const response = await fetch(
+        `https://tmdb-backend.herokuapp.com/api/tv/popular?page=${page}`
+      );
+      const json = await response.json();
+      return json;
+    },
+
+    async getTVDetailsAPI(tv_id) {
+      if (!tv_id) return;
+
+      const response = await fetch(
+        `https://tmdb-backend.herokuapp.com/api/tv/details?tv_id=${tv_id}`
+      );
+      const json = await response.json();
+
+      return json;
+    },
+
+    async getTVRecommendationsAPI(tv_id) {
+      if (!tv_id) return;
+
+      const response = await fetch(
+        `https://tmdb-backend.herokuapp.com/api/tv/recommendations?tv_id=${tv_id}`
+      );
+      const json = await response.json();
+
+      return json;
+    },
+
+    async getTVCredits(tv_id) {
+      if (!tv_id) return;
+
+      const response = await fetch(
+        `https://tmdb-backend.herokuapp.com/api/tv/credits?tv_id=${tv_id}`
+      );
+      const json = await response.json();
+
+      return json;
+    },
   },
 });

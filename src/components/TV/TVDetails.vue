@@ -1,5 +1,5 @@
 <template>
-  <input type="checkbox" id="movie-details" class="modal-toggle" />
+  <input type="checkbox" id="tv-details" class="modal-toggle" />
   <div class="modal modal-bottom sm:modal-middle">
     <div class="modal-box w-11/12 max-w-5xl">
       <div v-if="isLoadingDetails" class=""><Loading /></div>
@@ -8,19 +8,26 @@
         <div dev-hint="poster" class="flex flex-row shadow rounded space-x-2">
           <div class="hidden md:block items-center">
             <img
-              :src="`https://image.tmdb.org/t/p/w154/${movieStore.movieDetails.poster_path}`"
+              :src="`https://image.tmdb.org/t/p/w154/${tvStore.tvDetails.poster_path}`"
             />
           </div>
 
           <div class="flex flex-col w-full">
             <span class="text-4xl md:text-2xl text-center">{{
-              movieStore.movieDetails.original_title
+              tvStore.tvDetails.name
             }}</span>
 
             <div class="flex flex-wrap justify-center w-full gap-1">
               <div
-                v-for="item in movieStore.movieDetails.genres"
+                v-for="item in tvStore.tvDetails.genres"
                 class="text-xs text-primary-content w-fit bg-primary rounded p-1"
+              >
+                {{ item.name }}
+              </div>
+
+              <div
+                v-for="item in tvStore.tvDetails.networks"
+                class="text-xs text-primary-content w-fit bg-secondary rounded p-1"
               >
                 {{ item.name }}
               </div>
@@ -45,10 +52,10 @@
                 </div>
                 <div class="stat-title">Average Rating</div>
                 <div class="stat-value text-primary">
-                  {{ movieStore.movieDetails.vote_average }} / 10
+                  {{ tvStore.tvDetails.vote_average }} / 10
                 </div>
                 <div class="stat-desc">
-                  ({{ movieStore.movieDetails.vote_count }})
+                  ({{ tvStore.tvDetails.vote_count }})
                 </div>
               </div>
             </div>
@@ -57,7 +64,7 @@
 
         <div class="">
           <div class="text-left">
-            <span>{{ movieStore.movieDetails.overview }}</span>
+            <span>{{ tvStore.tvDetails.overview }}</span>
           </div>
         </div>
 
@@ -65,16 +72,13 @@
 
         <div dev-hint="recommendation" class="mx-1">
           <div class="text-left text-2xl text-base-content">More Like This</div>
-          <div
-            v-if="movieStore.movieRecommendations.results?.length !== 0"
-            class=""
-          >
+          <div v-if="tvStore.tvRecommendations.results?.length !== 0" class="">
             <vue-horizontal responsive>
               <section
-                v-for="item in movieStore.movieRecommendations.results"
+                v-for="item in tvStore.tvRecommendations.results"
                 :key="item.id"
                 class="px-1 cursor-pointer"
-                @click="movieStore.getMovieDetails(item.id)"
+                @click="tvStore.getTVDetails(item.id)"
               >
                 <label for="movie-details"
                   ><img
@@ -92,7 +96,7 @@
         </div>
 
         <div class="modal-action">
-          <label for="movie-details" class="btn">Close</label>
+          <label for="tv-details" class="btn">Close</label>
         </div>
       </div>
     </div>
@@ -101,15 +105,15 @@
 
 <script setup>
 import { storeToRefs } from "pinia";
-import { useMovieStore } from "@/store/movies";
+import { useTVStore } from "@/store/tv";
 import Loading from "../Loading.vue";
 
 // Components
 import VueHorizontal from "vue-horizontal";
 
-const movieStore = useMovieStore();
+const tvStore = useTVStore();
 
-const { isLoadingDetails } = storeToRefs(movieStore);
+const { isLoadingDetails } = storeToRefs(tvStore);
 </script>
 
 <style lang="scss" scoped></style>

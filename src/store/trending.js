@@ -5,7 +5,7 @@ export const useTrendingStore = defineStore("Trending", {
   state: () => ({
     trending: [],
   }),
-  persist: true,
+
   getters: {},
   actions: {
     async getTrendingContent(media_type, time_window) {
