@@ -18,11 +18,11 @@
       </router-link>
 
       <router-link
-        :to="{ name: 'Trending' }"
+        :to="{ name: 'Discover' }"
         class="w-full justify-center inline-block text-center pt-2 pb-1"
       >
         <Icon class="inline-block mb-1" icon="bxs:hot" width="25" height="25" />
-        <span class="block text-xs">Trending</span>
+        <span class="block text-xs">Discover</span>
       </router-link>
 
       <router-link

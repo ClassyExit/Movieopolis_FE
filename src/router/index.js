@@ -5,7 +5,7 @@ import NotFound from "@/views/NotFound.vue";
 // Layouts
 import HomeLayout from "@/views/Layouts/HomeLayout.vue";
 import MoviesLayout from "@/views/Movies/MoviesLayout.vue";
-import TrendingLayout from "@/views/Trending/TrendingLayout.vue";
+import DiscoverLayout from "@/views/Discover/DiscoverLayout.vue";
 import TVLayout from "@/views/TV/TVLayout.vue";
 
 const routes = [
@@ -26,9 +26,9 @@ const routes = [
         component: MoviesLayout,
       },
       {
-        path: "/trending",
-        name: "Trending",
-        component: TrendingLayout,
+        path: "/discover",
+        name: "Discover",
+        component: DiscoverLayout,
       },
       {
         path: "/tvshows",
@@ -40,14 +40,6 @@ const routes = [
 
   // Path not found
   { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  // }
 ];
 
 const router = createRouter({

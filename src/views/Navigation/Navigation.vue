@@ -28,8 +28,8 @@
           <li
             class="text-lg focus:underline hover:underline underline-offset-8"
           >
-            <router-link :to="{ name: 'Trending' }" class=""
-              >Trending</router-link
+            <router-link :to="{ name: 'Discover' }" class=""
+              >Discover</router-link
             >
           </li>
         </ul>
