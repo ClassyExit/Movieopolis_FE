@@ -14,6 +14,7 @@ export const useMovieStore = defineStore("Movie", {
     isLoadingTopRatedHome: false,
 
     popularMovies: [],
+    isLoadingMovies: false,
     popularMoviesHome: [],
     upcomingMoviesHome: [],
     latestMovies: [],
@@ -81,6 +82,20 @@ export const useMovieStore = defineStore("Movie", {
       this.topRatedMovies = toprated;
 
       this.isLoadingTopRatedHome = false;
+    },
+
+    async getPopularMovies(page, showLoadingIcon = true) {
+      if (showLoadingIcon) {
+        this.isLoadingMovies = true;
+      }
+
+      const movies = await useAPIStore().getPopularMoviesAPI(page);
+
+      for (const movie in movies.results) {
+        this.popularMovies.push(movies.results[movie]);
+      }
+
+      this.isLoadingMovies = false;
     },
   },
 });

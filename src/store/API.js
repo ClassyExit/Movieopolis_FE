@@ -17,19 +17,6 @@ export const useAPIStore = defineStore("API", {
       time_window: day | week
       */
 
-      // const results = fetch(
-      //   "https://tmdb-backend.herokuapp.com/api/trending?media_type=movie&time_window=day",
-      //   {
-      //     method: "GET",
-      //   }
-      // )
-      //   .then((res) => {
-      //     res.json();
-      //   })
-      //   .then((data) => console.log(data))
-      //   .catch((err) => console.error(err));
-
-      // Async-await
       const response = await fetch(
         `https://tmdb-backend.herokuapp.com/api/trending?media_type=${media_type}&time_window=${time_window}`
       );
