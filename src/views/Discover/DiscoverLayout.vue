@@ -1,6 +1,6 @@
 <template>
-  <div>Trending Layout</div>
-  <div class="">Trending - movie, tv, people</div>
+  <div>Discover Layout</div>
+  <div class="">Discovery</div>
 </template>
 
 <script setup></script>

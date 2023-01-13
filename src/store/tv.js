@@ -8,9 +8,10 @@ export const useTVStore = defineStore("TV", {
     tvRecommendations: [],
     tvReviews: [],
     isLoadingDetails: false,
-
     isLoadingPopularHome: false,
+    isLoadingPopular: false,
 
+    popularTVShows: [],
     popularTVShowsHome: [],
   }),
   getters: {},
@@ -49,6 +50,20 @@ export const useTVStore = defineStore("TV", {
       this.popularTVShowsHome = popularTVShows;
 
       this.isLoadingPopularHome = false;
+    },
+
+    async getPopularTVShows(page, showLoadingIcon = true) {
+      if (showLoadingIcon) {
+        this.isLoadingPopular;
+      }
+
+      const tvshows = await useAPIStore().getPopularTVShowsAPI(page);
+
+      for (const show in tvshows.results) {
+        this.popularTVShows.push(tvshows.results[show]);
+      }
+
+      this.isLoadingPopular - false;
     },
   },
 });

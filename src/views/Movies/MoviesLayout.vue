@@ -16,8 +16,6 @@
         /></label>
       </div>
     </div>
-
-    <div v-if="showLoading"><Loading /></div>
   </div>
 
   <MovieDetails />
@@ -34,6 +32,7 @@ const movieStore = useMovieStore();
 
 const { popularMovies } = storeToRefs(movieStore);
 
+movieStore.popularMovies = [];
 let page = ref(1);
 
 // Get first three pages of movies to show
@@ -70,13 +69,5 @@ img:before {
   display: block;
   width: 156px;
   height: 225px;
-}
-
-.hideLoading {
-  display: none;
-}
-
-.showLoading {
-  display: block;
 }
 </style>
