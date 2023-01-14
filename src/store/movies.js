@@ -9,6 +9,8 @@ export const useMovieStore = defineStore("Movie", {
     movieReviews: [],
     isLoadingDetails: false,
 
+    movieGenres: [],
+
     isLoadingPopularHome: false,
     isLoadingUpcomingHome: false,
     isLoadingTopRatedHome: false,
@@ -96,6 +98,12 @@ export const useMovieStore = defineStore("Movie", {
       }
 
       this.isLoadingMovies = false;
+    },
+
+    async getMovieGenres() {
+      const genres = await useAPIStore().getMovieGenres();
+
+      this.movieGenres = genres;
     },
   },
 });

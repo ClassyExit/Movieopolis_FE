@@ -11,6 +11,8 @@ export const useTVStore = defineStore("TV", {
     isLoadingPopularHome: false,
     isLoadingPopular: false,
 
+    tvGenres: [],
+
     popularTVShows: [],
     popularTVShowsHome: [],
   }),
@@ -64,6 +66,12 @@ export const useTVStore = defineStore("TV", {
       }
 
       this.isLoadingPopular - false;
+    },
+
+    async getTVGenres() {
+      const genres = await useAPIStore().getTVGenres();
+
+      this.tvGenres = genres;
     },
   },
 });

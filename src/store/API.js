@@ -149,5 +149,23 @@ export const useAPIStore = defineStore("API", {
 
       return json;
     },
+
+    async getMovieGenres() {
+      const response = await fetch(
+        `https://tmdb-backend.herokuapp.com/api/genre/movies`
+      );
+      const json = await response.json();
+
+      return json;
+    },
+
+    async getTVGenres() {
+      const response = await fetch(
+        `https://tmdb-backend.herokuapp.com/api/genre/tv`
+      );
+      const json = await response.json();
+
+      return json;
+    },
   },
 });
