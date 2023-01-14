@@ -56,7 +56,7 @@ export const useTVStore = defineStore("TV", {
 
     async getPopularTVShows(page, showLoadingIcon = true) {
       if (showLoadingIcon) {
-        this.isLoadingPopular;
+        this.isLoadingPopular = true;
       }
 
       const tvshows = await useAPIStore().getPopularTVShowsAPI(page);
@@ -65,7 +65,7 @@ export const useTVStore = defineStore("TV", {
         this.popularTVShows.push(tvshows.results[show]);
       }
 
-      this.isLoadingPopular - false;
+      this.isLoadingPopular = false;
     },
 
     async getTVGenres() {

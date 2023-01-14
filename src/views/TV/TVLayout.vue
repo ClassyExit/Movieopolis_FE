@@ -37,9 +37,10 @@ tvStore.popularTVShows = [];
 let page = ref(1);
 
 // Get first three pages of tv shows to show
-tvStore.getPopularTVShows((page = 1));
-tvStore.getPopularTVShows((page = 2));
-tvStore.getPopularTVShows((page = 3));
+const showLoading = true;
+tvStore.getPopularTVShows((page = 1), showLoading);
+tvStore.getPopularTVShows((page = 2), showLoading);
+tvStore.getPopularTVShows((page = 3), showLoading);
 
 page = 4;
 
