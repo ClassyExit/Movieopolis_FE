@@ -167,5 +167,37 @@ export const useAPIStore = defineStore("API", {
 
       return json;
     },
+
+    async getMovieDiscover(
+      sort_by,
+      page,
+      vote_average,
+      vote_sort,
+      with_genres
+    ) {
+      const response = await fetch(
+        `https://tmdb-backend.herokuapp.com/api/movie/discover?sort_by=${sort_by}&page=${page}&vote_average=${vote_average}&vote_sort=${vote_sort}&with_genres=${with_genres}`
+      );
+
+      const json = await response.json();
+
+      return json;
+    },
+
+    async getTVDiscover(
+      sort_by,
+      page,
+      vote_average,
+      vote_sort = "gte",
+      with_genres
+    ) {
+      const response = await fetch(
+        `https://tmdb-backend.herokuapp.com/api/tv/discover?sort_by=${sort_by}&page=${page}&vote_average=${vote_average}&vote_sort=${vote_sort}&with_genres=${with_genres}`
+      );
+
+      const json = await response.json();
+
+      return json;
+    },
   },
 });
