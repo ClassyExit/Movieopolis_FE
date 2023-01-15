@@ -18,15 +18,15 @@
       </router-link>
 
       <router-link
-        to="#"
+        :to="{ name: 'Discover' }"
         class="w-full justify-center inline-block text-center pt-2 pb-1"
       >
         <Icon class="inline-block mb-1" icon="bxs:hot" width="25" height="25" />
-        <span class="block text-xs">Trending</span>
+        <span class="block text-xs">Discover</span>
       </router-link>
 
       <router-link
-        to="#"
+        :to="{ name: 'Movies' }"
         class="w-full justify-center inline-block text-center pt-2 pb-1"
       >
         <Icon
@@ -38,7 +38,7 @@
         <span class="block text-xs">Movies</span>
       </router-link>
       <router-link
-        to="#"
+        :to="{ name: 'TV' }"
         class="w-full justify-center inline-block text-center pt-2 pb-1"
         aria-label="navigation"
       >
@@ -56,4 +56,10 @@
 
 <script setup></script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.router-link-active {
+  background-color: theme("colors.base-200");
+  /* width | style | color */
+  border-top: 1px solid theme("colors.primary");
+}
+</style>
