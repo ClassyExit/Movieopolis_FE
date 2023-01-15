@@ -35,7 +35,8 @@
         </ul>
       </div>
 
-      <div class="">
+      <div class="flex flex-row items-center space-x-3">
+        <div class=""><SearchLayout /></div>
         <div class=""><ThemeSelect /></div>
       </div>
     </div>
@@ -44,6 +45,7 @@
 
 <script setup>
 import ThemeSelect from "@/components/Theme/ThemeSelect.vue";
+import SearchLayout from "@/components/search/SearchLayout.vue";
 </script>
 
 <style lang="scss" scoped></style>

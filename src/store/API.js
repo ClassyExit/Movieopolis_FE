@@ -199,5 +199,17 @@ export const useAPIStore = defineStore("API", {
 
       return json;
     },
+
+    async getSearchResults(query, page = 1) {
+      const type = "multi";
+
+      const response = await fetch(
+        `https://tmdb-backend.herokuapp.com/api/search/${type}?query=${query}&page=${page}`
+      );
+
+      const json = await response.json();
+
+      return json;
+    },
   },
 });
