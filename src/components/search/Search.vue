@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <div class="form-control relative px-6">
-      <div class="input-group pb-2">
+      <div class="input-group pb-2 md:pb-0">
         <input
           type="text"
           placeholder="Search..."
