@@ -69,13 +69,13 @@
             </li>
             <li>
               <button
-                data-theme="night"
-                data-set-theme="night"
+                data-theme="corporate"
+                data-set-theme="corporate"
                 data-act-class="ACTIVECLASS"
                 class="flex flex-row text-base-content"
               >
                 <Icon icon="ic:outline-dark-mode" />
-                <span class="text-left w-1/2">Night</span>
+                <span class="text-left w-1/2">Winter</span>
                 <div class="flex flex-row space-x-1">
                   <div class="bg-primary h-6 w-2 rounded"></div>
                   <div class="bg-secondary h-6 w-2 rounded"></div>
@@ -86,8 +86,8 @@
             </li>
             <li>
               <button
-                data-theme="black"
-                data-set-theme="black"
+                data-theme="business"
+                data-set-theme="business"
                 data-act-class="ACTIVECLASS"
                 class="flex flex-row text-base-content"
               >

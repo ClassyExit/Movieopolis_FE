@@ -47,4 +47,11 @@ const router = createRouter({
   routes,
 });
 
+// Sets the title of each page
+const DEFAULT_TITLE = "Movieopolis";
+router.beforeEach((to, from, next) => {
+  document.title = `${DEFAULT_TITLE} | ${to.name}`;
+  next();
+});
+
 export default router;

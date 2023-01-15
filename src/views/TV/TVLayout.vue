@@ -7,7 +7,7 @@
         v-for="item in popularTVShows"
         :key="item.id"
         @click="getTVStates(item.id)"
-        class="img"
+        class="md:hover:scale-110"
       >
         <label for="tv-details" class="cursor-pointer"
           ><img

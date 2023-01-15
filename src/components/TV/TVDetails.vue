@@ -85,7 +85,7 @@
               v-else
             >
               <div class="">
-                <div class="card w-60 md:w-96 bg-base-100 shadow-xl h-48">
+                <div class="card w-60 md:w-96 bg-base-200 shadow-xl h-48">
                   <div class="card-body">
                     <p
                       class="line-clamp-4 text-left text-ellipsis overflow-hidden"
@@ -142,7 +142,7 @@
   <!-- Put this part before </body> tag -->
   <input type="checkbox" id="review-modal" class="modal-toggle" />
   <div class="modal">
-    <div class="modal-box relative" for="">
+    <div class="modal-box relative bg-base-200" for="">
       <label for="review-modal" class="btn-sm btn-circle absolute right-2 top-2"
         >✕</label
       >

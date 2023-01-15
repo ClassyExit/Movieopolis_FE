@@ -8,7 +8,7 @@
       <div class="collapse-title text-xl font-medium">Filter Settings</div>
       <div class="flex flex-col collapse-content bg-base-300">
         <div class="flex flex-col py-2">
-          <div class="text-left text-info text-xl">Type</div>
+          <div class="text-left text-primary text-xl">Type</div>
           <select v-model="selectedClass" class="select w-full max-w-xs">
             <option disabled selected>Select...</option>
             <option value="movie">Movie</option>
@@ -21,7 +21,7 @@
           dev-hint="movie"
           class="flex flex-col py-2"
         >
-          <div class="text-left text-info text-xl">Sort By</div>
+          <div class="text-left text-primary text-xl">Sort By</div>
           <div class="flex flex-row items-center">
             <select v-model="movieSortBy" class="select w-1/2 max-w-xs">
               <option disabled selected>Sort By...</option>
@@ -54,7 +54,7 @@
           </div>
 
           <div class="flex flex-col py-2 space-y-1">
-            <div class="flex items-center text-left text-info text-xl">
+            <div class="flex items-center text-left text-primary text-xl">
               <span class="pr-2">Rating</span>
               <span
                 ><Icon
@@ -115,7 +115,7 @@
           </div>
 
           <div>
-            <div class="text-left text-info text-xl">Genre</div>
+            <div class="text-left text-primary text-xl">Genre</div>
 
             <select v-model="movieGenre" class="flex select w-full max-w-xs">
               <option disabled selected>Select Genre...</option>
@@ -131,7 +131,9 @@
           </div>
 
           <div class="text-left pt-2 flex flex-col space-y-1">
-            <span class="text-left text-info text-xl"># Pages to Display</span>
+            <span class="text-left text-primary text-xl"
+              ># Pages to Display</span
+            >
             <input
               type="range"
               min="1"
@@ -156,7 +158,7 @@
         </div>
 
         <div v-if="selectedClass == 'tv'" dev-hint="tv" class="flex flex-col">
-          <div class="text-left text-info text-xl">Sort By</div>
+          <div class="text-left text-primary text-xl">Sort By</div>
           <div class="flex flex-row items-center">
             <select v-model="tvSortBy" class="select w-1/2 max-w-xs">
               <option disabled selected>Sort By...</option>
@@ -194,7 +196,7 @@
           </div>
 
           <div class="flex flex-col py-2 space-y-1">
-            <div class="flex items-center text-left text-info text-xl">
+            <div class="flex items-center text-left text-primary text-xl">
               <span class="pr-2">Rating (or greater)</span>
               <span
                 ><Icon
@@ -230,7 +232,7 @@
           </div>
 
           <div>
-            <div class="text-left text-info text-xl">Genre</div>
+            <div class="text-left text-primary text-xl">Genre</div>
 
             <select v-model="tvGenre" class="flex select w-full max-w-xs">
               <option disabled selected>Select Genre...</option>
@@ -246,7 +248,9 @@
           </div>
 
           <div class="text-left pt-2 flex flex-col space-y-1">
-            <span class="text-left text-info text-xl"># Pages to Display</span>
+            <span class="text-left text-primary text-xl"
+              ># Pages to Display</span
+            >
             <input
               type="range"
               min="1"
@@ -283,6 +287,7 @@
               v-for="movie in discoverMovies"
               :key="movie.id"
               @click="getMovieStats(movie.id)"
+              class="md:hover:scale-110"
             >
               <label for="movie-details" class="cursor-pointer"
                 ><img
@@ -299,6 +304,7 @@
               v-for="show in discoverTV"
               :key="show.id"
               @click="getTVStates(show.id)"
+              class="md:hover:scale-110"
             >
               <label for="tv-details" class="cursor-pointer"
                 ><img

@@ -7,6 +7,7 @@
         v-for="item in popularMovies"
         :key="item.id"
         @click="getMovieStats(item.id)"
+        class="md:hover:scale-110"
       >
         <label for="movie-details" class="cursor-pointer"
           ><img

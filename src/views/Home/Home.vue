@@ -9,7 +9,7 @@
           <section
             v-for="item in trending[0]?.results"
             :key="item.id"
-            class="px-1"
+            class="px-1 md:hover:scale-110"
             @click="getMovieStats(item.id)"
           >
             <label for="movie-details" class="cursor-pointer"
@@ -26,15 +26,6 @@
         class="text-left text-3xl text-primary flex flex-row items-center space-x-4"
       >
         <span>Popular Movies</span>
-        <router-link
-          :to="{ name: 'Movies' }"
-          class="text-sm cursor-pointer flex flex-row"
-          >View More
-          <Icon
-            icon="ic:baseline-keyboard-double-arrow-right"
-            width="20"
-            height="20"
-        /></router-link>
       </div>
 
       <div v-if="movieStore.isLoadingPopularHome" class=""><Loading /></div>
@@ -44,7 +35,7 @@
           <section
             v-for="item in popularMoviesHome.results"
             :key="item.id"
-            class="px-1"
+            class="px-1 md:hover:scale-110"
             @click="getMovieStats(item.id)"
           >
             <label for="movie-details" class="cursor-pointer"
@@ -67,7 +58,7 @@
           <section
             v-for="item in upcomingMoviesHome.results"
             :key="item.id"
-            class="px-1"
+            class="px-1 md:hover:scale-110"
             @click="getMovieStats(item.id)"
           >
             <label for="movie-details" class="cursor-pointer"
@@ -89,7 +80,7 @@
           <section
             v-for="item in popularTVShowsHome?.results"
             :key="item.id"
-            class="px-1"
+            class="px-1 md:hover:scale-110"
             @click="getTVStates(item.id)"
           >
             <label for="tv-details" class="cursor-pointer"
@@ -111,7 +102,7 @@
           <section
             v-for="item in topRatedMovies?.results"
             :key="item.id"
-            class="px-1"
+            class="px-1 md:hover:scale-110"
             @click="getMovieStats(item.id)"
           >
             <label for="movie-details" class="cursor-pointer"
