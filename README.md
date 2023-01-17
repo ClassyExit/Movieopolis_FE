@@ -3,6 +3,8 @@ A project I worked on that utilizes the  [TMDB API](https://www.themoviedb.org/d
 
 
 Link to project: [https://movieopolis.web.app/home](https://movieopolis-714f2.web.app/home).
+Frontend repository: [https://github.com/ClassyExit/TMDB_Frontend](https://github.com/ClassyExit/TMDB_Frontend)
+Backend repository: [https://github.com/ClassyExit/TMDB_Backend](https://github.com/ClassyExit/TMDB_Backend)
 
 ## Project Stack
 - Frontend: HTML, CSS, JavaScript, Vuejs
