@@ -2,7 +2,10 @@
   <div class="w-full h-sceen">
     <div v-if="tvStore.isLoadingPopular" class=""><Loading /></div>
 
-    <div v-else class="flex flex-wrap gap-1">
+    <div
+      v-else
+      class="grid grid-cols-2 place-items-center md:flex md:flex-wrap gap-1"
+    >
       <div
         v-for="item in popularTVShows"
         :key="item.id"

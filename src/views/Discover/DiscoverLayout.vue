@@ -4,7 +4,7 @@
       tabindex="0"
       class="w-full md:w-1/2 lg:w-1/3 collapse collapse-arrow border border-base-300 bg-base-300 rounded-box"
     >
-      <input type="checkbox" />
+      <input type="checkbox" v-model="openFilter" />
       <div class="collapse-title text-xl font-medium">Filter Settings</div>
       <div class="flex flex-col collapse-content bg-base-300">
         <div class="flex flex-col py-2">
@@ -281,7 +281,7 @@
         <div v-if="selectedClass == 'movie'" class="">
           <div
             v-if="discoverStore?.discoverMovies"
-            class="flex flex-wrap gap-1"
+            class="grid grid-cols-2 place-items-center md:flex md:flex-wrap gap-1"
           >
             <div
               v-for="movie in discoverMovies"
@@ -299,7 +299,10 @@
         </div>
 
         <div v-if="selectedClass == 'tv'" class="">
-          <div v-if="discoverStore?.discoverTV" class="flex flex-wrap gap-1">
+          <div
+            v-if="discoverStore?.discoverTV"
+            class="grid grid-cols-2 place-items-center md:flex md:flex-wrap gap-1"
+          >
             <div
               v-for="show in discoverTV"
               :key="show.id"
@@ -347,6 +350,8 @@ tvStore.getTVGenres();
 
 const selectedClass = ref("movie");
 
+const openFilter = ref(false);
+
 /*****  MOVIE *****/
 // Sort By
 const movieSortBy = ref("popularity");
@@ -379,6 +384,9 @@ const getMovieResults = () => {
       page
     );
   }
+
+  // Closes the filter after search for movies
+  openFilter.value = false;
 };
 
 const getMovieStats = (movie_id) => {
@@ -415,6 +423,9 @@ const getTVResults = () => {
       page
     );
   }
+
+  // Closes the filter after search for tv shows
+  openFilter = false;
 };
 
 const getTVStates = (tv_id) => {

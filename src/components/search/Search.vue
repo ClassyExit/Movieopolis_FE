@@ -1,11 +1,11 @@
 <template>
-  <div class="relative">
+  <div class="relative h-screen md:h-fit">
     <div class="form-control relative px-6">
       <div class="input-group pb-2 md:pb-0">
         <input
           type="text"
           placeholder="Search..."
-          class="input input-bordered input-md relative"
+          class="w-full md:w-80 bg-base-200 pl-2 relative"
           v-model="query"
         />
         <div
@@ -38,12 +38,12 @@
     </div>
 
     <div
-      class="absolute w-full h-fit max-h-96 z-50 overflow-auto bg-base-100 flex flex-wrap justify-center"
+      class="absolute w-full h-full md:h-fit md:max-h-96 z-50 overflow-auto overscroll-none bg-base-100 grid grid-cols-2 gap-2 place-items-center px-4 pb-36 md:pb-0 md:py-2"
     >
       <div
         v-for="item in searchResults"
         :key="(item.id, item.media_type)"
-        class="flex items-center justify-center p-1"
+        class="md:py-1"
       >
         <div
           v-if="item.media_type == 'movie'"
@@ -55,6 +55,7 @@
               :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
               style="width: 156px; height: 225px"
           /></label>
+          <span class="text-left line-clamp-1">{{ item.original_title }}</span>
         </div>
 
         <div
@@ -67,6 +68,7 @@
               :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
               style="width: 156px; height: 225px"
           /></label>
+          <span class="text-left line-clamp-1">{{ item.original_name }}</span>
         </div>
       </div>
     </div>
