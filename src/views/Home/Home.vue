@@ -12,10 +12,13 @@
             class="px-1 md:hover:scale-110"
             @click="getMovieStats(item.id)"
           >
-            <label for="movie-details" class="cursor-pointer"
-              ><img
+            <label for="movie-details" class="cursor-pointer">
+              <img
                 :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
-            /></label>
+                style="width: 154px; height: 231px"
+                :alt="`${item.original_title} Trending`"
+              />
+            </label>
           </section>
         </vue-horizontal>
       </div>
@@ -41,6 +44,8 @@
             <label for="movie-details" class="cursor-pointer"
               ><img
                 :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
+                style="width: 154px; height: 231px"
+                :alt="`${item.original_title} Popular`"
             /></label>
           </section>
         </vue-horizontal>
@@ -64,6 +69,8 @@
             <label for="movie-details" class="cursor-pointer"
               ><img
                 :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
+                style="width: 154px; height: 231px"
+                :alt="`${item.original_title} Upcoming`"
             /></label>
           </section>
         </vue-horizontal>
@@ -86,6 +93,8 @@
             <label for="tv-details" class="cursor-pointer"
               ><img
                 :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
+                style="width: 154px; height: 231px"
+                :alt="`${item.original_name} TVPopular`"
             /></label>
           </section>
         </vue-horizontal>
@@ -108,6 +117,8 @@
             <label for="movie-details" class="cursor-pointer"
               ><img
                 :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
+                style="width: 154px; height: 231px"
+                :alt="`${item.original_title} TopRated`"
             /></label>
           </section>
         </vue-horizontal>
@@ -187,3 +198,13 @@ const getTVStates = (tv_id) => {
   tvStore.getTVDetails(tv_id);
 };
 </script>
+
+<style scoped>
+img:before {
+  content: " ";
+  background-image: url("@/assets/images/no-image.jpg");
+  display: block;
+  width: 154px;
+  height: 231px;
+}
+</style>

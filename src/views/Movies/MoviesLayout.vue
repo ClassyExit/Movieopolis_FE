@@ -15,7 +15,8 @@
         <label for="movie-details" class="cursor-pointer"
           ><img
             :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
-            style="width: 156px; height: 225px"
+            style="width: 154px; height: 231px"
+            :alt="`${item.original_title}`"
         /></label>
       </div>
     </div>

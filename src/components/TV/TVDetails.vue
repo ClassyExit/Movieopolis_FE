@@ -9,7 +9,13 @@
           <div dev-hint="poster" class="flex flex-row shadow rounded space-x-2">
             <div class="hidden md:block items-center">
               <img
-                :src="`https://image.tmdb.org/t/p/w154/${tvStore.tvDetails.poster_path}`"
+                :src="
+                  `https://image.tmdb.org/t/p/w154/${tvStore.tvDetails.poster_path}` ||
+                  DefaultImage
+                "
+                height="154"
+                width="154"
+                :alt="`${tvStore.tvDetails.name}`"
               />
             </div>
 
@@ -168,6 +174,8 @@ import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useTVStore } from "@/store/tv";
 import Loading from "../Loading.vue";
+
+import DefaultImage from "@/assets/images/no-image.jpg";
 
 // Components
 import VueHorizontal from "vue-horizontal";

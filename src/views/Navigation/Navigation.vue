@@ -3,7 +3,7 @@
     <div class="flex flex-row px-2 justify-between items-center">
       <div class="flex flex-row space-x-16">
         <div class="flex items-center">
-          <img src="@/assets/logo.png" class="h-8 w-8" />
+          <img src="@/assets/logo.png" class="h-8 w-8" alt="logo" />
           <h1 class="hidden md:block tracking-wide font-bold text-xl pl-4">
             Movieopolis
           </h1>

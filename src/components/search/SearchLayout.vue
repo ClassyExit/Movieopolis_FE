@@ -13,10 +13,11 @@
               icon="material-symbols:search-rounded"
               width="25"
               height="25"
+              color=""
             />
           </div>
 
-          <div class="swap-on">
+          <div class="swap-on text-error">
             <Icon
               icon="material-symbols:search-off-rounded"
               width="25"
