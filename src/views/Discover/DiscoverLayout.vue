@@ -293,6 +293,7 @@
                 ><img
                   :src="`https://image.tmdb.org/t/p/w154/${movie.poster_path}`"
                   style="width: 156px; height: 225px"
+                  :alt="`${movie.original_title}`"
               /></label>
             </div>
           </div>
@@ -313,6 +314,7 @@
                 ><img
                   :src="`https://image.tmdb.org/t/p/w154/${show.poster_path}`"
                   style="width: 156px; height: 225px"
+                  :alt="`${show.original_name}`"
               /></label>
             </div>
           </div>

@@ -2,7 +2,7 @@
   <teleport to="body">
     <input type="checkbox" id="movie-details" class="modal-toggle" />
     <div class="modal modal-bottom sm:modal-middle">
-      <div class="modal-box w-11/12 max-w-5xl">
+      <div class="modal-box w-full max-w-5xl">
         <div v-if="isLoadingDetails" class=""><Loading /></div>
 
         <div v-else class="space-y-2">
@@ -10,6 +10,9 @@
             <div class="hidden md:block items-center">
               <img
                 :src="`https://image.tmdb.org/t/p/w154/${movieStore.movieDetails.poster_path}`"
+                height="154"
+                width="154"
+                :alt="`${movieStore.movieDetails.original_title}`"
               />
             </div>
 
@@ -163,6 +166,8 @@ import { storeToRefs } from "pinia";
 import { useMovieStore } from "@/store/movies";
 import Loading from "../Loading.vue";
 
+import DefaultImage from "@/assets/images/no-image.jpg";
+
 // Components
 import VueHorizontal from "vue-horizontal";
 
@@ -178,4 +183,20 @@ const expandReview = (content) => {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+img:before {
+  content: " ";
+  background-image: url("@/assets/images/no-image.jpg");
+  display: block;
+  width: 154px;
+  height: 131px;
+}
+
+img:after {
+  content: " ";
+  background-image: url("@/assets/images/no-image.jpg");
+  display: block;
+  width: 154px;
+  height: 131px;
+}
+</style>

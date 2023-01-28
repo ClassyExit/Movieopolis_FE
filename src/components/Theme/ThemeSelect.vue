@@ -22,6 +22,7 @@
                 data-set-theme=""
                 data-act-class="ACTIVECLASS"
                 class="flex flex-row text-base-content"
+                aria-label="Default Theme"
               >
                 <Icon icon="ic:baseline-system-update-alt" />
                 <span class="text-left w-1/2"> Default</span>
@@ -39,6 +40,7 @@
                 data-set-theme="light"
                 data-act-class="ACTIVECLASS"
                 class="flex flex-row text-base-content"
+                aria-label="Light Theme"
               >
                 <Icon icon="ic:outline-light-mode" />
                 <span class="text-left w-1/2">Light</span>
@@ -56,6 +58,7 @@
                 data-set-theme="dark"
                 data-act-class="ACTIVECLASS"
                 class="flex flex-row text-base-content"
+                aria-label="Dark Theme"
               >
                 <Icon icon="ic:outline-dark-mode" />
                 <span class="text-left w-1/2">Dark</span>
@@ -73,6 +76,7 @@
                 data-set-theme="corporate"
                 data-act-class="ACTIVECLASS"
                 class="flex flex-row text-base-content"
+                aria-label="Winter Theme"
               >
                 <Icon icon="ic:outline-dark-mode" />
                 <span class="text-left w-1/2">Winter</span>
@@ -90,6 +94,7 @@
                 data-set-theme="business"
                 data-act-class="ACTIVECLASS"
                 class="flex flex-row text-base-content"
+                aria-label="Black Theme"
               >
                 <Icon icon="ic:outline-dark-mode" />
                 <span class="text-left w-1/2">Black</span>
@@ -115,17 +120,6 @@ import { themeChange } from "theme-change";
 onMounted(() => {
   themeChange(false);
 });
-
-// Toggle the themes
-const currentTheme = ref("dark");
-
-function toggleTheme(currentTheme) {
-  if (currentTheme == "dark") {
-    currentTheme = "light";
-  } else {
-    currentTheme = "dark";
-  }
-}
 </script>
 
 <style lang="scss" scoped></style>
