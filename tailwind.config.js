@@ -7,5 +7,9 @@ module.exports = {
   daisyui: {
     themes: ["light", "dark", "corporate", "business"],
   },
-  plugins: [require("daisyui"), require("@tailwindcss/line-clamp")],
+  plugins: [
+    require("daisyui"),
+    require("@tailwindcss/line-clamp"),
+    require("tailwind-scrollbar-hide"),
+  ],
 };

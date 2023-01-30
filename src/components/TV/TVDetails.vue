@@ -2,10 +2,15 @@
   <teleport to="body">
     <input type="checkbox" id="tv-details" class="modal-toggle" />
     <div class="modal modal-bottom sm:modal-middle">
-      <div class="modal-box w-full max-w-5xl">
+      <div class="modal-box w-full max-w-5xl scrollbar-hide">
         <div v-if="isLoadingDetails" class=""><Loading /></div>
 
         <div v-else class="space-y-2">
+          <label
+            for="tv-details"
+            class="btn btn-sm btn-circle absolute right-2 top-2"
+            >✕</label
+          >
           <div dev-hint="poster" class="flex flex-row shadow rounded space-x-2">
             <div class="hidden md:block items-center">
               <img
