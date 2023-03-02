@@ -1,22 +1,84 @@
 <template>
   <div class="w-full space-y-4 mx-2">
     <div class="w-full">
-      <div class="text-left text-3xl text-primary">Trending</div>
+      <div
+        class="md:items-center text-left text-3xl text-primary flex flex-col space-y-1 md:flex-row md:space-x-2 pb-1"
+      >
+        <span>Trending</span>
+
+        <div class="flex flex-row space-x-1">
+          <div class="tabs tabs-boxed w-fit">
+            <span
+              @click="selectedTrendingOption('all', trendingTime)"
+              class="tab tab-sm md:tab-md"
+              :class="trendingOption == 'all' ? 'tab-active' : ''"
+              >All</span
+            >
+            <span
+              @click="selectedTrendingOption('movie', trendingTime)"
+              class="tab tab-sm md:tab-md"
+              :class="trendingOption == 'movie' ? 'tab-active' : ''"
+              >Movie</span
+            >
+            <span
+              @click="selectedTrendingOption('tv', trendingTime)"
+              class="tab tab-sm md:tab-md"
+              :class="trendingOption == 'tv' ? 'tab-active' : ''"
+              >TV Shows</span
+            >
+          </div>
+
+          <div class="tabs tabs-boxed w-fit" @click="">
+            <span
+              @click="selectedTrendingOption(trendingOption, 'day')"
+              class="tab tab-sm md:tab-md"
+              :class="trendingTime == 'day' ? 'tab-active' : ''"
+              >Daily</span
+            >
+            <span
+              @click="selectedTrendingOption(trendingOption, 'week')"
+              class="tab tab-sm md:tab-md"
+              :class="trendingTime == 'week' ? 'tab-active' : ''"
+              >Weekly</span
+            >
+          </div>
+        </div>
+      </div>
 
       <div v-if="trendingStore.isLoadingTrending" class=""><Loading /></div>
       <div v-else>
         <vue-horizontal responsive snap="start">
           <section
-            v-for="item in trending[0]?.results"
-            :key="item.id"
-            class="px-1 md:hover:scale-110"
-            @click="getMovieStats(item.id)"
+            v-for="item in trending?.results"
+            :key="(item.id, item.media_type)"
+            class="px-1 md:hover:scale-105"
+            @click="
+              item.media_type == 'movie'
+                ? getMovieStats(item.id)
+                : getTVStats(item.id)
+            "
           >
-            <label for="movie-details" class="cursor-pointer">
+            <label
+              for="movie-details"
+              class="cursor-pointer"
+              v-if="item.media_type == 'movie'"
+            >
               <img
                 :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
                 style="width: 154px; height: 231px"
                 :alt="`${item.original_title} Trending`"
+              />
+            </label>
+
+            <label
+              for="tv-details"
+              class="cursor-pointer"
+              v-if="item.media_type == 'tv'"
+            >
+              <img
+                :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
+                style="width: 154px; height: 231px"
+                :alt="`${item.original_name} Trending`"
               />
             </label>
           </section>
@@ -26,7 +88,7 @@
 
     <div class="w-full">
       <div
-        class="text-left text-3xl text-primary flex flex-row items-center space-x-4"
+        class="text-left text-3xl text-primary flex flex-row items-center space-x-4 pb-1"
       >
         <span>Popular Movies</span>
       </div>
@@ -38,7 +100,7 @@
           <section
             v-for="item in popularMoviesHome.results"
             :key="item.id"
-            class="px-1 md:hover:scale-110"
+            class="px-1 md:hover:scale-105"
             @click="getMovieStats(item.id)"
           >
             <label for="movie-details" class="cursor-pointer"
@@ -53,7 +115,9 @@
     </div>
 
     <div class="w-full">
-      <div class="flex items-center space-x-2 text-left text-3xl text-primary">
+      <div
+        class="flex items-center space-x-2 text-left text-3xl text-primary pb-1"
+      >
         <span>Upcoming Movies</span>
       </div>
 
@@ -63,7 +127,7 @@
           <section
             v-for="item in upcomingMoviesHome.results"
             :key="item.id"
-            class="px-1 md:hover:scale-110"
+            class="px-1 md:hover:scale-105"
             @click="getMovieStats(item.id)"
           >
             <label for="movie-details" class="cursor-pointer"
@@ -78,7 +142,7 @@
     </div>
 
     <div class="w-full">
-      <div class="text-left text-3xl text-primary">Popular Shows</div>
+      <div class="text-left text-3xl text-primary pb-1">Popular Shows</div>
 
       <div v-if="tvStore.isLoadingPopularHome" class=""><Loading /></div>
 
@@ -87,8 +151,8 @@
           <section
             v-for="item in popularTVShowsHome?.results"
             :key="item.id"
-            class="px-1 md:hover:scale-110"
-            @click="getTVStates(item.id)"
+            class="px-1 md:hover:scale-105"
+            @click="getTVStats(item.id)"
           >
             <label for="tv-details" class="cursor-pointer"
               ><img
@@ -102,7 +166,7 @@
     </div>
 
     <div class="w-full">
-      <div class="text-left text-3xl text-primary">Top Rated</div>
+      <div class="text-left text-3xl text-primary pb-1">Top Rated</div>
 
       <div v-if="movieStore.isLoadingTopRatedHome" class=""><Loading /></div>
 
@@ -111,7 +175,7 @@
           <section
             v-for="item in topRatedMovies?.results"
             :key="item.id"
-            class="px-1 md:hover:scale-110"
+            class="px-1 md:hover:scale-105"
             @click="getMovieStats(item.id)"
           >
             <label for="movie-details" class="cursor-pointer"
@@ -136,6 +200,7 @@ import { storeToRefs } from "pinia";
 import { useTrendingStore } from "@/store/trending";
 import { useMovieStore } from "@/store/movies";
 import { useTVStore } from "@/store/tv";
+import { ref } from "vue";
 
 // Components
 import VueHorizontal from "vue-horizontal";
@@ -156,6 +221,16 @@ const { trending } = storeToRefs(useTrendingStore());
 if (trendingStore.trending?.length == 0) {
   useTrendingStore().getTrendingContent();
 }
+
+let trendingOption = ref("all");
+let trendingTime = ref("week");
+
+const selectedTrendingOption = (media_type, time_window) => {
+  // Update ref value and fetch new results
+  trendingOption = media_type;
+  trendingTime = time_window;
+  useTrendingStore().getTrendingContent(media_type, time_window);
+};
 
 /***** Movie section *****/
 const { popularMoviesHome } = storeToRefs(movieStore);
@@ -194,7 +269,7 @@ const getMovieStats = (movie_id) => {
   movieStore.getMovieDetails(movie_id);
 };
 
-const getTVStates = (tv_id) => {
+const getTVStats = (tv_id) => {
   tvStore.getTVDetails(tv_id);
 };
 </script>

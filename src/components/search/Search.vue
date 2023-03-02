@@ -5,7 +5,7 @@
         <input
           type="text"
           placeholder="Search..."
-          class="w-full md:w-80 bg-base-200 pl-2 relative"
+          class="w-full md:w-60 bg-base-200 pl-2 relative"
           v-model="query"
         />
         <div

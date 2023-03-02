@@ -18,10 +18,7 @@ export const useTrendingStore = defineStore("Trending", {
 
       // Update the trending state. If there is already content, write over that, otherwise
       // add the new content
-      if (this.trending.length > 0) this.trending = data;
-      else {
-        this.trending.push(data);
-      }
+      this.trending = data;
 
       this.isLoadingTrending = false;
     },
