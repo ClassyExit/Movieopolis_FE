@@ -17,6 +17,7 @@
             :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
             style="width: 154px; height: 231px"
             :alt="`${item.original_title}`"
+            :title="`${item.original_title}`"
         /></label>
       </div>
     </div>

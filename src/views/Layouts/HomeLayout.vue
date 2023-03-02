@@ -9,7 +9,7 @@
     </div>
 
     <div
-      class="relative w-full flex flex-grow px-4 md:px-6 mb-[70px] md:my-0 bg-base-100"
+      class="relative w-full flex flex-grow px-6 md:px-12 mb-[70px] md:my-0 bg-base-100"
     >
       <router-view></router-view>
     </div>
