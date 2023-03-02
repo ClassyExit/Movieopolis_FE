@@ -1,28 +1,30 @@
 <template>
-  <div class="w-full space-y-4 mx-2">
+  <div class="w-full space-y-4">
     <div class="w-full">
       <div
         class="md:items-center text-left text-3xl text-primary flex flex-col space-y-1 md:flex-row md:space-x-2 pb-1"
       >
         <span>Trending</span>
 
-        <div class="flex flex-row space-x-1">
+        <div
+          class="flex flex-row space-x-1"
+        >
           <div class="tabs tabs-boxed w-fit">
             <span
               @click="selectedTrendingOption('all', trendingTime)"
-              class="tab tab-sm md:tab-md"
+              class="tab tab-xs md:tab-md"
               :class="trendingOption == 'all' ? 'tab-active' : ''"
               >All</span
             >
             <span
               @click="selectedTrendingOption('movie', trendingTime)"
-              class="tab tab-sm md:tab-md"
+              class="tab tab-xs md:tab-md"
               :class="trendingOption == 'movie' ? 'tab-active' : ''"
               >Movie</span
             >
             <span
               @click="selectedTrendingOption('tv', trendingTime)"
-              class="tab tab-sm md:tab-md"
+              class="tab tab-xs md:tab-md"
               :class="trendingOption == 'tv' ? 'tab-active' : ''"
               >TV Shows</span
             >
@@ -31,13 +33,13 @@
           <div class="tabs tabs-boxed w-fit" @click="">
             <span
               @click="selectedTrendingOption(trendingOption, 'day')"
-              class="tab tab-sm md:tab-md"
+              class="tab tab-xs md:tab-md"
               :class="trendingTime == 'day' ? 'tab-active' : ''"
               >Daily</span
             >
             <span
               @click="selectedTrendingOption(trendingOption, 'week')"
-              class="tab tab-sm md:tab-md"
+              class="tab tab-xs md:tab-md"
               :class="trendingTime == 'week' ? 'tab-active' : ''"
               >Weekly</span
             >
@@ -67,6 +69,7 @@
                 :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
                 style="width: 154px; height: 231px"
                 :alt="`${item.original_title} Trending`"
+                :title="`${item.original_title}`"
               />
             </label>
 
@@ -79,6 +82,7 @@
                 :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
                 style="width: 154px; height: 231px"
                 :alt="`${item.original_name} Trending`"
+                :title="`${item.original_name}`"
               />
             </label>
           </section>
@@ -108,6 +112,7 @@
                 :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
                 style="width: 154px; height: 231px"
                 :alt="`${item.original_title} Popular`"
+                :title="`${item.original_title}`"
             /></label>
           </section>
         </vue-horizontal>
@@ -135,6 +140,7 @@
                 :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
                 style="width: 154px; height: 231px"
                 :alt="`${item.original_title} Upcoming`"
+                :title="`${item.original_title}`"
             /></label>
           </section>
         </vue-horizontal>
@@ -159,6 +165,7 @@
                 :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
                 style="width: 154px; height: 231px"
                 :alt="`${item.original_name} TVPopular`"
+                :title="`${item.original_name}`"
             /></label>
           </section>
         </vue-horizontal>
@@ -183,6 +190,7 @@
                 :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
                 style="width: 154px; height: 231px"
                 :alt="`${item.original_title} TopRated`"
+                :title="`${item.original_title}`"
             /></label>
           </section>
         </vue-horizontal>

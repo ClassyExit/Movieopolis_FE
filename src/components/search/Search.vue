@@ -1,65 +1,42 @@
 <template>
-  <div class="relative h-screen md:h-fit">
-    <div class="form-control relative px-6">
-      <div class="input-group pb-2 md:pb-0">
-        <input
-          type="text"
-          placeholder="Search..."
-          class="w-full md:w-60 bg-base-200 pl-2 relative"
-          v-model="query"
-        />
-        <div
-          class="hidden md:block absolute right-20 cursor-pointer top-3 text-error"
-          v-if="query || searchResults.length"
-          @click="
-            searchStore.searchResults = [];
-            query = '';
-          "
-        >
-          X
-        </div>
-        <button
-          class="btn btn-square"
-          @click="getResults(query)"
-          aria-label="Search"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
-        </button>
+  <div class="w-full h-screen md:h-fit bg-base-100">
+    <div class="relative w-full px-6 md:px-12">
+      <input
+        class="w-full p-2 pl-10 bg-base-300 text-base-content"
+        type="search"
+        placeholder="Search for movies or tv shows... "
+        v-model="searchQuery"
+        v-debounce:250ms="getResults"
+      />
+
+      <div class="absolute top-2.5 left-9 md:left-14">
+        <Icon icon="material-symbols:search" width="20" height="20" />
       </div>
     </div>
 
     <div
-      class="absolute w-full h-full md:h-fit md:max-h-96 z-50 overflow-auto overscroll-none bg-base-100 grid grid-cols-2 gap-2 place-items-center px-4 pb-36 md:pb-0 md:py-2"
+      dev-hint="search container"
+      class="w-full text-left divide-y py-2 pb-40 px-6 md:px-12 md:pb-0 h-full md:h-fit md:max-h-96 z-40 overflow-auto overscroll-none"
     >
       <div
         v-for="item in searchResults"
         :key="(item.id, item.media_type)"
-        class="md:py-1"
+        class="py-1"
       >
         <div
           v-if="item.media_type == 'movie'"
           class="w-full"
           @click="getMovieStats(item.id)"
         >
-          <label for="movie-details" class="cursor-pointer"
-            ><img
-              :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
-              style="width: 156px; height: 225px"
-          /></label>
-          <span class="text-left line-clamp-1">{{ item.original_title }}</span>
+          <label for="movie-details" class="flex space-x-1 cursor-pointer">
+            <Icon
+              icon="material-symbols:theaters-rounded"
+              width="20"
+              height="20"
+            /><span class="text-left line-clamp-1">{{
+              item.original_title
+            }}</span></label
+          >
         </div>
 
         <div
@@ -67,13 +44,33 @@
           class="w-full"
           @click="getTVStates(item.id)"
         >
-          <label for="tv-details" class="cursor-pointer"
-            ><img
-              :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
-              style="width: 156px; height: 225px"
-          /></label>
-          <span class="text-left line-clamp-1">{{ item.original_name }}</span>
+          <label for="tv-details" class="flex space-x-1 cursor-pointer">
+            <Icon icon="ic:outline-live-tv" width="20" height="20" /><span
+              class="text-left line-clamp-1"
+              >{{ item.original_name }}</span
+            ></label
+          >
         </div>
+
+        <div
+          v-if="item.media_type == 'person'"
+          class="w-full"
+          @click="getTVStates(item.id)"
+        >
+          <div class="flex space-x-1">
+            <Icon icon="material-symbols:person" width="20" height="20" /><span
+              class="text-left line-clamp-1"
+              >{{ item.name }}</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div
+        v-if="!searchResults.length && searchQuery.length"
+        class="py-2 text-lg text-error"
+      >
+        No Results
       </div>
     </div>
   </div>
@@ -95,10 +92,10 @@ const searchStore = useSearchStore();
 
 const { searchResults } = storeToRefs(searchStore);
 
-const query = ref("");
+const searchQuery = ref("");
 
 const getResults = () => {
-  searchStore.getSearch(query);
+  searchStore.getSearch(searchQuery);
 };
 
 const getTVStates = (tv_id) => {

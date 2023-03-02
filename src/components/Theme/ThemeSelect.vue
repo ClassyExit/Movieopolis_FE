@@ -6,8 +6,7 @@
           tabindex="0"
           class="btn btn-sm md:btn-md btn-ghost flex flex-row space-x-2"
           ><Icon icon="mdi:theme-light-dark" class="text-xl" />
-          <span class="hidden md:flex">Theme</span
-          ><Icon
+          <Icon
             icon="material-symbols:keyboard-arrow-down-rounded"
             class="text-xl"
         /></label>
