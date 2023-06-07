@@ -1,0 +1,27 @@
+ <div class="w-full">
+      <div
+        class="flex items-center space-x-2 text-left text-3xl text-primary pb-1"
+      >
+        <span>Upcoming Movies</span>
+      </div>
+
+      <div v-if="movieStore.isLoadingUpcomingHome" class=""><Loading /></div>
+      <div v-else>
+        <vue-horizontal responsive snap="start">
+          <section
+            v-for="item in upcomingMoviesHome.results"
+            :key="item.id"
+            class="px-1 md:hover:scale-105"
+            @click="getMovieStats(item.id)"
+          >
+            <label for="movie-details" class="cursor-pointer"
+              ><img
+                :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
+                style="width: 154px; height: 231px"
+                :alt="`${item.original_title} Upcoming`"
+                :title="`${item.original_title}`"
+            /></label>
+          </section>
+        </vue-horizontal>
+      </div>
+    </div>

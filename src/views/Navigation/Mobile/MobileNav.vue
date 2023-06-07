@@ -1,7 +1,7 @@
 <template>
   <section
     id="bottom-navigation"
-    class="block md:hidden h-16 fixed inset-x-0 bottom-0 z-40 bg-base-100 text-base-content"
+    class="block md:hidden h-16 fixed inset-x-0 bottom-0 z-40 bg-base-300 text-base-content"
   >
     <div id="tabs" class="flex justify-between h-full">
       <router-link

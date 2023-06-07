@@ -9,8 +9,7 @@
           <label
             for="movie-details"
             class="btn btn-sm btn-circle absolute right-2 top-2"
-            >✕</label
-          >
+            >✕</label>
           <div dev-hint="poster" class="flex flex-row shadow rounded space-x-2">
             <div class="hidden md:block items-center">
               <img
