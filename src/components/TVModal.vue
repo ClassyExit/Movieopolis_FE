@@ -1,34 +1,45 @@
 <template>
   <teleport to="body">
-    <input type="checkbox" id="movie-details" class="modal-toggle" />
+    <input type="checkbox" id="tv-details" class="modal-toggle" />
     <div class="modal modal-bottom sm:modal-middle">
       <div class="modal-box w-full max-w-5xl scrollbar-hide">
         <div v-if="isLoadingDetails" class=""><Loading /></div>
 
         <div v-else class="space-y-2">
           <label
-            for="movie-details"
+            for="tv-details"
             class="btn btn-sm btn-circle absolute right-2 top-2"
-            >✕</label>
+            >✕</label
+          >
           <div dev-hint="poster" class="flex flex-row shadow rounded space-x-2">
             <div class="hidden md:block items-center">
               <img
-                :src="`https://image.tmdb.org/t/p/w154/${movieStore.movieDetails.poster_path}`"
+                :src="
+                  `https://image.tmdb.org/t/p/w154/${tvStore.tvDetails.poster_path}` ||
+                  DefaultImage
+                "
                 height="154"
                 width="154"
-                :alt="`${movieStore.movieDetails.original_title}`"
+                :alt="`${tvStore.tvDetails.name}`"
               />
             </div>
 
             <div class="flex flex-col w-full">
               <span class="text-4xl md:text-2xl text-center">{{
-                movieStore.movieDetails.original_title
+                tvStore.tvDetails.name
               }}</span>
 
               <div class="flex flex-wrap justify-center w-full gap-1">
                 <div
-                  v-for="item in movieStore.movieDetails.genres"
+                  v-for="item in tvStore.tvDetails.genres"
                   class="text-xs text-primary-content w-fit bg-primary rounded p-1"
+                >
+                  {{ item.name }}
+                </div>
+
+                <div
+                  v-for="item in tvStore.tvDetails.networks"
+                  class="text-xs text-primary-content w-fit bg-secondary rounded p-1"
                 >
                   {{ item.name }}
                 </div>
@@ -53,10 +64,10 @@
                   </div>
                   <div class="stat-title">Average Rating</div>
                   <div class="stat-value text-primary">
-                    {{ movieStore.movieDetails.vote_average }} / 10
+                    {{ tvStore.tvDetails.vote_average }} / 10
                   </div>
                   <div class="stat-desc">
-                    ({{ movieStore.movieDetails.vote_count }})
+                    ({{ tvStore.tvDetails.vote_count }})
                   </div>
                 </div>
               </div>
@@ -65,23 +76,22 @@
 
           <div class="">
             <div class="text-left">
-              <span>{{ movieStore.movieDetails.overview }}</span>
+              <span>{{ tvStore.tvDetails.overview }}</span>
             </div>
           </div>
 
           <div class="divider"></div>
-
           <div class="">
             <div class="flex flex-row justify-between">
               <div class="text-info text-2xl">Reviews</div>
             </div>
 
             <vue-horizontal responsive>
-              <div v-if="!movieStore.movieReviews.results?.length">
+              <div v-if="!tvStore.tvReviews.results?.length">
                 <span class="">Looks like there are no reviews yet.</span>
               </div>
               <section
-                v-for="item in movieStore.movieReviews.results"
+                v-for="item in tvStore.tvReviews.results"
                 :key="item.id"
                 class="px-1"
                 v-else
@@ -95,7 +105,7 @@
                         {{ item.content }}
                       </p>
                       <label
-                        for="movie-review-modal"
+                        for="review-modal"
                         @click="expandReview(item.content)"
                         class="btn btn-sm"
                         >View full</label
@@ -114,15 +124,15 @@
               More Like This
             </div>
             <div
-              v-if="movieStore.movieRecommendations.results?.length !== 0"
+              v-if="tvStore.tvRecommendations.results?.length !== 0"
               class=""
             >
               <vue-horizontal responsive>
                 <section
-                  v-for="item in movieStore.movieRecommendations.results"
+                  v-for="item in tvStore.tvRecommendations.results"
                   :key="item.id"
                   class="px-1 cursor-pointer"
-                  @click="movieStore.getMovieDetails(item.id)"
+                  @click="tvStore.getTVDetails(item.id)"
                 >
                   <label for="movie-details"
                     ><img
@@ -140,24 +150,24 @@
           </div>
 
           <div class="modal-action">
-            <label for="movie-details" class="btn">Close</label>
+            <label for="tv-details" class="btn">Close</label>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Put this part before </body> tag -->
-    <input type="checkbox" id="movie-review-modal" class="modal-toggle" />
+    <!-- Expanded Review comments -->
+    <input type="checkbox" id="review-modal" class="modal-toggle" />
     <div class="modal">
       <div class="modal-box relative bg-base-200" for="">
         <label
-          for="movie-review-modal"
+          for="review-modal"
           class="btn-sm btn-circle absolute right-2 top-2"
           >✕</label
         >
         <p class="pt-5 text-left">{{ reviewExpand }}</p>
         <div class="modal-action">
-          <label for="movie-review-modal" class="btn">Close</label>
+          <label for="review-modal" class="btn">Close</label>
         </div>
       </div>
     </div>
@@ -167,17 +177,17 @@
 <script setup>
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
-import { useMovieStore } from "@/store/movies";
-import Loading from "../Loading.vue";
+import { useTVStore } from "@/store/tv";
+import Loading from "@/components/Loading.vue";
 
 import DefaultImage from "@/assets/images/no-image.jpg";
 
 // Components
 import VueHorizontal from "vue-horizontal";
 
-const movieStore = useMovieStore();
+const tvStore = useTVStore();
 
-const { isLoadingDetails } = storeToRefs(movieStore);
+const { isLoadingDetails } = storeToRefs(tvStore);
 
 /* Show the full review  */
 const reviewExpand = ref("");
@@ -187,20 +197,4 @@ const expandReview = (content) => {
 };
 </script>
 
-<style scoped>
-img:before {
-  content: " ";
-  background-image: url("@/assets/images/no-image.jpg");
-  display: block;
-  width: 154px;
-  height: 131px;
-}
-
-img:after {
-  content: " ";
-  background-image: url("@/assets/images/no-image.jpg");
-  display: block;
-  width: 154px;
-  height: 131px;
-}
-</style>
+<style scoped></style>

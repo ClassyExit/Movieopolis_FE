@@ -25,6 +25,21 @@
         <span class="block text-xs">Discover</span>
       </router-link>
 
+      <div class="w-full">
+        <label
+          for="mobileSearch"
+          class="flex flex-col items-center justify-center inline-block text-center pt-2 pb-1"
+        >
+          <Icon
+            class="inline-block mb-1"
+            icon="material-symbols:search"
+            width="25"
+            height="25"
+          />
+          <span class="block text-xs">Search</span>
+        </label>
+      </div>
+
       <router-link
         :to="{ name: 'Movies' }"
         class="w-full justify-center inline-block text-center pt-2 pb-1"
@@ -52,9 +67,13 @@
       </router-link>
     </div>
   </section>
+
+  <SearchModal />
 </template>
 
-<script setup></script>
+<script setup>
+import SearchModal from "@/components/search/SearchModal.vue";
+</script>
 
 <style scoped>
 .router-link-active {

@@ -325,9 +325,8 @@
     </div>
   </div>
 
-  <MovieDetails />
-
-  <TVDetails />
+  <MovieModal />
+  <TVModal />
 </template>
 
 <script setup>
@@ -337,8 +336,8 @@ import { useMovieStore } from "@/store/movies";
 import { useTVStore } from "@/store/tv";
 import { useDiscoverStore } from "@/store/discover";
 import Loading from "@/components/Loading.vue";
-import MovieDetails from "@/components/Movie/MovieDetails.vue";
-import TVDetails from "@/components/TV/TVDetails.vue";
+import MovieModal from "@/components/MovieModal.vue";
+import TVModal from "@/components/TVModal.vue";
 
 const movieStore = useMovieStore();
 const tvStore = useTVStore();

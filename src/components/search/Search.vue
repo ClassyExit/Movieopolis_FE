@@ -1,82 +1,45 @@
 <template>
   <div class="w-full h-screen md:h-fit bg-base-100">
-    <div class="relative w-full px-6 md:px-12">
+    <div class="relative w-full">
       <input
-        class="w-full p-2 pl-10 bg-base-300 text-base-content"
+        class="w-full p-2 pl-8 bg-base-100 text-base-content rounded"
         type="search"
-        placeholder="Search for movies or tv shows... "
+        placeholder="Search movies, tv shows... "
         v-model="searchQuery"
-        v-debounce:250ms="getResults"
+        v-debounce:1000ms="getResults"
       />
 
-      <div class="absolute top-2.5 left-9 md:left-14">
+      <div class="absolute top-2.5 left-4 md:left-2">
         <Icon icon="material-symbols:search" width="20" height="20" />
       </div>
     </div>
 
     <div
-      dev-hint="search container"
-      class="w-full text-left divide-y py-2 pb-40 px-6 md:px-12 md:pb-0 h-full md:h-fit md:max-h-96 z-40 overflow-auto overscroll-none"
+      class="absolute flex flex-row menu bg-base-200 max-w-sm w-full rounded z-50 mt-2 h-fit max-h-96 z-50 gap-2 overflow-auto overscroll-auto"
+      :class="searchQuery.length == 0 ? 'hidden' : ' '"
     >
-      <div
+      <SearchContainer
         v-for="item in searchResults"
         :key="(item.id, item.media_type)"
-        class="py-1"
-      >
-        <div
-          v-if="item.media_type == 'movie'"
-          class="w-full"
-          @click="getMovieStats(item.id)"
-        >
-          <label for="movie-details" class="flex space-x-1 cursor-pointer">
-            <Icon
-              icon="material-symbols:theaters-rounded"
-              width="20"
-              height="20"
-            /><span class="text-left line-clamp-1">{{
-              item.original_title
-            }}</span></label
-          >
-        </div>
-
-        <div
-          v-if="item.media_type == 'tv'"
-          class="w-full"
-          @click="getTVStates(item.id)"
-        >
-          <label for="tv-details" class="flex space-x-1 cursor-pointer">
-            <Icon icon="ic:outline-live-tv" width="20" height="20" /><span
-              class="text-left line-clamp-1"
-              >{{ item.original_name }}</span
-            ></label
-          >
-        </div>
-
-        <div
-          v-if="item.media_type == 'person'"
-          class="w-full"
-          @click="getTVStates(item.id)"
-        >
-          <div class="flex space-x-1">
-            <Icon icon="material-symbols:person" width="20" height="20" /><span
-              class="text-left line-clamp-1"
-              >{{ item.name }}</span
-            >
-          </div>
-        </div>
-      </div>
-
-      <div
-        v-if="!searchResults.length && searchQuery.length"
-        class="py-2 text-lg text-error"
-      >
-        No Results
-      </div>
+        :poster="`https://image.tmdb.org/t/p/w92/${item.poster_path}`"
+        :title_movie="item.title"
+        :title_tv="item.name"
+        :year_tv="item.first_air_date"
+        :year_movie="item.release_date"
+        :rating="item.vote_average"
+        :media_type="item.media_type"
+        :label="item.media_type == 'movie' ? 'movie-details' : 'tv-details'"
+        @click="
+          item.media_type == 'movie'
+            ? getMovieStats(item.id)
+            : getTVStats(item.id)
+        "
+      />
     </div>
   </div>
 
-  <TVDetails />
-  <MovieDetails />
+  <TVModal />
+  <MovieModal />
 </template>
 
 <script setup>
@@ -85,8 +48,10 @@ import { storeToRefs } from "pinia";
 import { useSearchStore } from "@/store/search";
 import { useMovieStore } from "@/store/movies";
 import { useTVStore } from "@/store/tv";
-import TVDetails from "../TV/TVDetails.vue";
-import MovieDetails from "../Movie/MovieDetails.vue";
+import TVModal from "@/components/TVModal.vue";
+import MovieModal from "@/components/MovieModal.vue";
+
+import SearchContainer from "./SearchContainer.vue";
 
 const searchStore = useSearchStore();
 
@@ -98,7 +63,7 @@ const getResults = () => {
   searchStore.getSearch(searchQuery);
 };
 
-const getTVStates = (tv_id) => {
+const getTVStats = (tv_id) => {
   useTVStore().getTVDetails(tv_id);
 };
 

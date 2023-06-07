@@ -23,22 +23,6 @@
             @click="getMovieStats(item.id)"
           ></ExtendedContainer>
         </vue-horizontal>
-        <!-- <vue-horizontal responsive snap="start">
-          <section
-            v-for="item in upcomingMoviesHome.results"
-            :key="item.id"
-            class="px-1 md:hover:scale-105"
-            @click="getMovieStats(item.id)"
-          >
-            <label for="movie-details" class="cursor-pointer"
-              ><img
-                :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
-                style="width: 154px; height: 231px"
-                :alt="`${item.original_title} Upcoming`"
-                :title="`${item.original_title}`"
-            /></label>
-          </section>
-        </vue-horizontal> -->
       </div>
     </div>
 
@@ -101,6 +85,7 @@
           :year="`2023`"
           :rating="item.vote_average"
           :media_type="item.media_type"
+          :type="item.media_type"
           @click="
             item.media_type == 'movie'
               ? getMovieStats(item.id)
@@ -150,6 +135,7 @@
           :year="`2023`"
           :rating="item.vote_average"
           :media_type="`movie`"
+          :type="item.media_type"
           @click="getMovieStats(item.id)"
         >
         </Container>
@@ -195,6 +181,7 @@
           :year="`2023`"
           :rating="item.vote_average"
           :media_type="`tv`"
+          :type="item.media_type"
           @click="getTVStats(item.id)"
         >
         </Container>
@@ -218,6 +205,7 @@
           :year="`2023`"
           :rating="item.vote_average"
           :media_type="`movie`"
+          :type="item.media_type"
           @click="getMovieStats(item.id)"
         >
         </Container>
@@ -225,9 +213,8 @@
     </div>
   </div>
 
-  <MovieDetails />
-
-  <TVDetails />
+  <MovieModal />
+  <TVModal />
 </template>
 
 <script setup>
@@ -244,8 +231,8 @@ import Container from "@/components/Container.vue";
 import ExtendedContainer from "@/components/ExtendedContainer.vue";
 
 // Modals
-import MovieDetails from "@/components/Movie/MovieDetails.vue";
-import TVDetails from "@/components/TV/TVDetails.vue";
+import MovieModal from "@/components/MovieModal.vue";
+import TVModal from "@/components/TVModal.vue";
 
 /*** Store Initializations ****/
 const movieStore = useMovieStore();

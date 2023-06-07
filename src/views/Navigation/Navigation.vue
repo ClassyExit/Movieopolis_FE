@@ -35,25 +35,9 @@
         </ul>
       </div>
 
-      <div class="flex flex-row items-center space-x-3">
-        <div @click="openSearch = !openSearch" class="cursor-pointer">
-          <div v-if="!openSearch" class="swap-off">
-            <Icon
-              icon="material-symbols:search-rounded"
-              width="25"
-              height="25"
-            />
-          </div>
-
-          <div v-else class="swap-on text-error">
-            <Icon icon="material-symbols:search-off" width="25" height="25" />
-          </div>
-        </div>
+      <div class="flex flex-row items-center max-w-sm w-full space-x-3">
+        <Search />
       </div>
-    </div>
-
-    <div v-if="openSearch" class="absolute inset-x-0 z-40 w-full">
-      <div class="pt-2"><Search /></div>
     </div>
   </nav>
 </template>
@@ -62,8 +46,6 @@
 import { ref } from "vue";
 
 import Search from "@/components/search/Search.vue";
-
-const openSearch = ref(false);
 </script>
 
 <style lang="scss" scoped></style>
