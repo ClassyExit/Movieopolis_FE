@@ -7,12 +7,12 @@
 
           <div class="space-y-2">
             <div class="line-clamp-3">{{ overview }}</div>
-            <div class="flex items-center space-x-2">
+            <div class="flex flex-row items-center space-x-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                class="w-4 h-4 fill-primary"
+                class="w-6 h-6 fill-primary"
               >
                 <path
                   stroke-linecap="round"
@@ -33,12 +33,13 @@
           </div>
         </div>
 
-        <div class="min-w-[185px] flex items-center justify-center">
+        <div
+          class="w-[100px] h-[200px] md:w-[185px] md:h-[277px] flex items-center justify-center"
+        >
           <img
             class="rounded-r-lg"
             :src="props.poster"
             :title="props.title_movie"
-            style="width: 185px; height: 277px"
           />
         </div>
       </div>

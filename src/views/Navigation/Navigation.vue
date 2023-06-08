@@ -35,7 +35,9 @@
         </ul>
       </div>
 
-      <div class="flex flex-row items-center max-w-sm w-full space-x-3">
+      <div
+        class="hidden md:flex flex-row items-center max-w-sm w-full space-x-3"
+      >
         <Search />
       </div>
     </div>
@@ -43,8 +45,6 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-
 import Search from "@/components/search/Search.vue";
 </script>
 

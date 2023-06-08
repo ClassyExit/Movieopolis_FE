@@ -1,21 +1,21 @@
 <template>
-  <div class="w-full h-screen md:h-fit bg-base-100">
-    <div class="relative w-full">
+  <div class="w-full md:h-fit bg-base-100">
+    <div class="relative w-full max-w-sm">
       <input
-        class="w-full p-2 pl-8 bg-base-100 text-base-content rounded"
+        class="w-full p-2 pl-8 bg-base-300 md:bg-base-100 text-base-content rounded"
         type="search"
         placeholder="Search movies, tv shows... "
         v-model="searchQuery"
-        v-debounce:1000ms="getResults"
+        v-debounce:1500ms="getResults"
       />
 
-      <div class="absolute top-2.5 left-4 md:left-2">
+      <div class="absolute top-3 left-2 md:left-2">
         <Icon icon="material-symbols:search" width="20" height="20" />
       </div>
     </div>
 
     <div
-      class="absolute flex flex-row menu bg-base-200 max-w-sm w-full rounded z-50 mt-2 h-fit max-h-96 z-50 gap-2 overflow-auto overscroll-auto"
+      class="absolute flex flex-row menu border border-primary bg-base-100 max-w-sm w-full rounded z-50 mt-2 h-full md:h-fit md:max-h-96 z-50 gap-2 overflow-auto overscroll-auto"
       :class="searchQuery.length == 0 ? 'hidden' : ' '"
     >
       <SearchContainer

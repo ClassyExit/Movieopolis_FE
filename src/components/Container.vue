@@ -16,7 +16,7 @@
         class="flex flex-row text-xs p-1 bg-base-100 justify-between border-b border-slate-600"
       >
         <div class="flex flex-row items-center">
-          <span>{{ year.slice(0, 4) }}</span>
+          <span>{{ year_movie.slice(0, 4) }}</span>
           <div class="px-1">|</div>
           <span class="flex flex-row items-center">
             <div class="stat-figure text-primary">
@@ -59,10 +59,9 @@
         class="flex flex-row text-xs p-1 bg-base-100 justify-between border-b border-slate-600"
       >
         <div class="flex flex-row items-center">
-          <span>{{ year.slice(0, 4) }}</span>
+          <span>{{ year_tv.slice(0, 4) }}</span>
           <div class="px-1">|</div>
           <span class="flex flex-row items-center">
-            {{ rating }}
             <div class="stat-figure text-primary">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -76,8 +75,10 @@
                   stroke-width="2"
                   d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                 ></path>
-              </svg></div
-          ></span>
+              </svg>
+            </div>
+            {{ rating }}
+          </span>
         </div>
 
         <div class="">{{ type?.toUpperCase() }}</div>
@@ -96,7 +97,8 @@ const props = defineProps({
   poster: String | undefined,
   title_movie: String | undefined,
   title_tv: String | undefined,
-  year: String | undefined,
+  year_tv: String | "0000",
+  year_movie: String | "0000",
   rating: Number | undefined,
   media_type: String | " ",
   type: String | undefined,

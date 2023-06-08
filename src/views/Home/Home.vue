@@ -1,6 +1,6 @@
 <template>
   <div class="w-full space-y-4">
-    <div class="w-full bg-base-200 rounded p-3">
+    <div class="w-full bg-base-200 rounded p-2">
       <div
         class="flex items-center space-x-2 text-left text-3xl text-primary pb-1"
       >
@@ -19,14 +19,14 @@
             :overview="item.overview"
             :rating="item.vote_average"
             :rating_amount="item.vote_count"
-            :release_date="item.release_date"
+            :release_date="item.release_date.slice(5)"
             @click="getMovieStats(item.id)"
           ></ExtendedContainer>
         </vue-horizontal>
       </div>
     </div>
 
-    <div class="w-full bg-base-200 rounded p-3">
+    <div class="w-full bg-base-200 rounded p-2">
       <div
         class="md:items-center text-left text-3xl text-primary flex flex-col space-y-1 md:flex-row md:space-x-2 pb-2"
       >
@@ -74,7 +74,7 @@
       <div v-if="trendingStore.isLoadingTrending"><Loading /></div>
       <div
         v-else
-        class="flex flex-wrap lg:grid lg:grid-cols-8 xl:grid-cols-8 2xl:grid-cols-10 gap-4"
+        class="grid grid-cols-2 place-items-center md:flex md:flex-wrap gap-2"
       >
         <Container
           v-for="item in trending.results"
@@ -82,7 +82,8 @@
           :poster="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
           :title_movie="item.title"
           :title_tv="item.name"
-          :year="`2023`"
+          :year_tv="item.first_air_date"
+          :year_movie="item.release_date"
           :rating="item.vote_average"
           :media_type="item.media_type"
           :type="item.media_type"
@@ -125,14 +126,15 @@
 
       <div
         v-else
-        class="flex flex-wrap lg:grid lg:grid-cols-8 xl:grid-cols-8 2xl:grid-cols-10 gap-4"
+        class="grid grid-cols-2 place-items-center md:flex md:flex-wrap gap-2"
       >
         <Container
           v-for="item in popularMoviesHome.results"
           :key="item.id"
           :poster="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
           :title_movie="item.title"
-          :year="`2023`"
+          :year_tv="item.first_air_date"
+          :year_movie="item.release_date"
           :rating="item.vote_average"
           :media_type="`movie`"
           :type="item.media_type"
@@ -171,14 +173,15 @@
 
       <div
         v-else
-        class="flex flex-wrap lg:grid lg:grid-cols-8 xl:grid-cols-8 2xl:grid-cols-10 gap-4"
+        class="grid grid-cols-2 place-items-center md:flex md:flex-wrap gap-2"
       >
         <Container
           v-for="item in popularTVShowsHome?.results"
           :key="item.id"
           :poster="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
           :title_tv="item.name"
-          :year="`2023`"
+          :year_tv="item.first_air_date"
+          :year_movie="item.release_date"
           :rating="item.vote_average"
           :media_type="`tv`"
           :type="item.media_type"
@@ -195,14 +198,15 @@
 
       <div
         v-else
-        class="flex flex-wrap lg:grid lg:grid-cols-8 xl:grid-cols-8 2xl:grid-cols-10 gap-4"
+        class="grid grid-cols-2 place-items-center md:flex md:flex-wrap gap-2"
       >
         <Container
           v-for="item in topRatedMovies?.results"
           :key="item.id"
           :poster="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
           :title_movie="item.title"
-          :year="`2023`"
+          :year_tv="item.first_air_date"
+          :year_movie="item.release_date"
           :rating="item.vote_average"
           :media_type="`movie`"
           :type="item.media_type"
