@@ -4,34 +4,33 @@
 
     <div
       v-else
-      class="grid grid-cols-2 place-items-center md:flex md:flex-wrap gap-1"
+      class="grid grid-cols-2 place-items-center md:flex md:flex-wrap gap-2"
     >
-      <div
+      <Container
         v-for="item in popularMovies"
-        :key="item.id"
+        :key="(item.id, item.media_type)"
+        :poster="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
+        :title_movie="item.original_title"
+        :year_tv="item.first_air_date"
+        :year_movie="item.release_date"
+        :rating="item.vote_average"
+        :media_type="`movie`"
         @click="getMovieStats(item.id)"
-        class="md:hover:scale-110"
       >
-        <label for="movie-details" class="cursor-pointer"
-          ><img
-            :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
-            style="width: 154px; height: 231px"
-            :alt="`${item.original_title}`"
-            :title="`${item.original_title}`"
-        /></label>
-      </div>
+      </Container>
     </div>
   </div>
 
-  <MovieDetails />
+  <MovieModal />
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useMovieStore } from "@/store/movies";
-import MovieDetails from "@/components/Movie/MovieDetails.vue";
 import Loading from "@/components/Loading.vue";
+import MovieModal from "@/components/MovieModal.vue";
+import Container from "@/components/Container.vue";
 
 const movieStore = useMovieStore();
 

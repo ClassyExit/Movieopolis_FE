@@ -2,7 +2,7 @@
   <div class="flex flex-col w-full">
     <div
       tabindex="0"
-      class="w-full md:w-1/2 lg:w-1/3 collapse collapse-arrow border border-base-300 bg-base-300 rounded-box"
+      class="w-full md:w-1/2 lg:w-1/3 collapse collapse-arrow border border-base-100 bg-base-100 rounded-box"
     >
       <input type="checkbox" v-model="openFilter" />
       <div class="collapse-title text-xl font-medium">Filter Settings</div>
@@ -132,7 +132,7 @@
 
           <div class="text-left pt-2 flex flex-col space-y-1">
             <span class="text-left text-primary text-xl"
-              ># Pages to Display</span
+              ># Results to Display</span
             >
             <input
               type="range"
@@ -143,11 +143,11 @@
               step="1"
             />
             <div class="w-full flex justify-between text-xs px-2">
-              <span>1</span>
-              <span>2</span>
-              <span>3</span>
-              <span>4</span>
-              <span>5</span>
+              <span>20</span>
+              <span>40</span>
+              <span>60</span>
+              <span>80</span>
+              <span>100</span>
             </div>
           </div>
 
@@ -249,7 +249,7 @@
 
           <div class="text-left pt-2 flex flex-col space-y-1">
             <span class="text-left text-primary text-xl"
-              ># Pages to Display</span
+              ># Results to Display</span
             >
             <input
               type="range"
@@ -260,11 +260,11 @@
               step="1"
             />
             <div class="w-full flex justify-between text-xs px-2">
-              <span>1</span>
-              <span>2</span>
-              <span>3</span>
-              <span>4</span>
-              <span>5</span>
+              <span>20</span>
+              <span>40</span>
+              <span>60</span>
+              <span>80</span>
+              <span>100</span>
             </div>
           </div>
 
@@ -278,56 +278,53 @@
       <div v-if="isLoadingDiscover" class=""><Loading /></div>
 
       <div v-else>
-        <div v-if="selectedClass == 'movie'" class="">
+        <div v-if="selectedClass == 'movie'">
           <div
             v-if="discoverStore?.discoverMovies"
-            class="grid grid-cols-2 place-items-center md:flex md:flex-wrap gap-1"
+            class="grid grid-cols-2 place-items-center md:flex md:flex-wrap gap-2"
           >
-            <div
-              v-for="movie in discoverMovies"
-              :key="movie.id"
-              @click="getMovieStats(movie.id)"
-              class="md:hover:scale-110"
+            <Container
+              v-for="item in discoverMovies"
+              :key="item.id"
+              :poster="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
+              :title_movie="item.title"
+              :year_tv="item.first_air_date"
+              :year_movie="item.release_date"
+              :rating="item.vote_average"
+              :media_type="`movie`"
+              :type="item.media_type"
+              @click="getMovieStats(item.id)"
             >
-              <label for="movie-details" class="cursor-pointer"
-                ><img
-                  :src="`https://image.tmdb.org/t/p/w154/${movie.poster_path}`"
-                  style="width: 156px; height: 225px"
-                  :alt="`${movie.original_title}`"
-                  :title="`${movie.original_title}`"
-              /></label>
-            </div>
+            </Container>
           </div>
         </div>
 
         <div v-if="selectedClass == 'tv'" class="">
           <div
             v-if="discoverStore?.discoverTV"
-            class="grid grid-cols-2 place-items-center md:flex md:flex-wrap gap-1"
+            class="grid grid-cols-2 place-items-center md:flex md:flex-wrap gap-2"
           >
-            <div
-              v-for="show in discoverTV"
-              :key="show.id"
-              @click="getTVStates(show.id)"
-              class="md:hover:scale-110"
+            <Container
+              v-for="item in discoverTV"
+              :key="item.id"
+              :poster="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
+              :title_tv="item.name"
+              :year_tv="item.first_air_date"
+              :year_movie="item.release_date"
+              :rating="item.vote_average"
+              :media_type="`tv`"
+              :type="item.media_type"
+              @click="getTVStats(item.id)"
             >
-              <label for="tv-details" class="cursor-pointer"
-                ><img
-                  :src="`https://image.tmdb.org/t/p/w154/${show.poster_path}`"
-                  style="width: 156px; height: 225px"
-                  :alt="`${show.original_name}`"
-                  :title="`${show.original_name}`"
-              /></label>
-            </div>
+            </Container>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <MovieDetails />
-
-  <TVDetails />
+  <MovieModal />
+  <TVModal />
 </template>
 
 <script setup>
@@ -337,8 +334,9 @@ import { useMovieStore } from "@/store/movies";
 import { useTVStore } from "@/store/tv";
 import { useDiscoverStore } from "@/store/discover";
 import Loading from "@/components/Loading.vue";
-import MovieDetails from "@/components/Movie/MovieDetails.vue";
-import TVDetails from "@/components/TV/TVDetails.vue";
+import MovieModal from "@/components/MovieModal.vue";
+import TVModal from "@/components/TVModal.vue";
+import Container from "@/components/Container.vue";
 
 const movieStore = useMovieStore();
 const tvStore = useTVStore();
@@ -432,7 +430,7 @@ const getTVResults = () => {
   openFilter = false;
 };
 
-const getTVStates = (tv_id) => {
+const getTVStats = (tv_id) => {
   tvStore.getTVDetails(tv_id);
 };
 </script>

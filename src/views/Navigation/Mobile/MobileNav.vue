@@ -1,7 +1,7 @@
 <template>
   <section
     id="bottom-navigation"
-    class="block md:hidden h-16 fixed inset-x-0 bottom-0 z-40 bg-base-100 text-base-content"
+    class="block md:hidden h-16 fixed inset-x-0 bottom-0 z-40 bg-base-300 text-base-content"
   >
     <div id="tabs" class="flex justify-between h-full">
       <router-link
@@ -24,6 +24,21 @@
         <Icon class="inline-block mb-1" icon="bxs:hot" width="25" height="25" />
         <span class="block text-xs">Discover</span>
       </router-link>
+
+      <div class="w-full">
+        <label
+          for="mobileSearch"
+          class="flex flex-col items-center justify-center inline-block text-center pt-2 pb-1"
+        >
+          <Icon
+            class="inline-block mb-1"
+            icon="material-symbols:search"
+            width="25"
+            height="25"
+          />
+          <span class="block text-xs">Search</span>
+        </label>
+      </div>
 
       <router-link
         :to="{ name: 'Movies' }"
@@ -52,9 +67,13 @@
       </router-link>
     </div>
   </section>
+
+  <SearchModal />
 </template>
 
-<script setup></script>
+<script setup>
+import SearchModal from "@/components/search/SearchModal.vue";
+</script>
 
 <style scoped>
 .router-link-active {

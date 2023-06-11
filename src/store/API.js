@@ -17,11 +17,19 @@ export const useAPIStore = defineStore("API", {
       time_window: day | week
       */
 
-      const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/trending?media_type=${media_type}&time_window=${time_window}`
-      );
-      const json = await response.json();
-      return json;
+      try {
+        const response = await fetch(
+          `https://tmdb-backend.herokuapp.com/api/trending?media_type=${media_type}&time_window=${time_window}`
+        );
+        const json = await response.json();
+
+        return json;
+      } catch {
+        // Error with API - try again after timeout
+        await setTimeout(2000);
+
+        location.reload();
+      }
     },
 
     async getMovieCreditsAPI(movie_id) {

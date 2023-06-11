@@ -4,34 +4,33 @@
 
     <div
       v-else
-      class="grid grid-cols-2 place-items-center md:flex md:flex-wrap gap-1"
+      class="grid grid-cols-2 place-items-center md:flex md:flex-wrap gap-2"
     >
-      <div
+      <Container
         v-for="item in popularTVShows"
         :key="item.id"
+        :poster="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
+        :title_tv="item.name"
+        :year_tv="item.first_air_date"
+        :year_movie="item.release_date"
+        :rating="item.vote_average"
+        :media_type="`tv`"
         @click="getTVStates(item.id)"
-        class="md:hover:scale-110"
       >
-        <label for="tv-details" class="cursor-pointer"
-          ><img
-            :src="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
-            style="width: 154px; height: 231px"
-            :alt="`${item.original_name}`"
-            :title="`${item.original_name}`"
-        /></label>
-      </div>
+      </Container>
     </div>
   </div>
 
-  <TVDetails />
+  <TVModal />
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useTVStore } from "@/store/tv";
-import TVDetails from "@/components/TV/TVDetails.vue";
+import TVModal from "@/components/TVModal.vue";
 import Loading from "@/components/Loading.vue";
+import Container from "@/components/Container.vue";
 
 const tvStore = useTVStore();
 

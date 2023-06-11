@@ -5,7 +5,7 @@ export const useSearchStore = defineStore("Search", {
   state: () => ({
     searchResults: [],
 
-    isSearchOpen: false,
+    isLoadingSearch: false,
   }),
   getters: {},
   actions: {

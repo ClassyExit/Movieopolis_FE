@@ -74,7 +74,7 @@
 
           <div class="">
             <div class="flex flex-row justify-between">
-              <div class="text-info text-2xl">Reviews</div>
+              <div class="text-primary-content text-2xl">Reviews</div>
             </div>
 
             <vue-horizontal responsive>
@@ -111,7 +111,7 @@
           <div class="divider"></div>
 
           <div dev-hint="recommendation" class="mx-1">
-            <div class="text-left text-2xl text-base-content">
+            <div class="text-left text-2xl text-primary-content">
               More Like This
             </div>
             <div
@@ -122,7 +122,7 @@
                 <section
                   v-for="item in movieStore.movieRecommendations.results"
                   :key="item.id"
-                  class="px-1 cursor-pointer"
+                  class="px-1 hover:cursor-pointer"
                   @click="movieStore.getMovieDetails(item.id)"
                 >
                   <label for="movie-details"
@@ -147,7 +147,6 @@
       </div>
     </div>
 
-    <!-- Put this part before </body> tag -->
     <input type="checkbox" id="movie-review-modal" class="modal-toggle" />
     <div class="modal">
       <div class="modal-box relative bg-base-200" for="">
@@ -169,9 +168,7 @@
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useMovieStore } from "@/store/movies";
-import Loading from "../Loading.vue";
-
-import DefaultImage from "@/assets/images/no-image.jpg";
+import Loading from "@/components/Loading.vue";
 
 // Components
 import VueHorizontal from "vue-horizontal";

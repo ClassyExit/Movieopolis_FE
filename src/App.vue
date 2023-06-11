@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import Loading from "./components/Loading.vue";
+import Loading from "@/components/Loading.vue";
 const isLoading = false;
 </script>
 
