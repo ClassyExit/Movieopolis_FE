@@ -83,7 +83,7 @@
           <div class="divider"></div>
           <div class="">
             <div class="flex flex-row justify-between">
-              <div class="text-info text-2xl">Reviews</div>
+              <div class="text-primary-content text-2xl">Reviews</div>
             </div>
 
             <vue-horizontal responsive>
@@ -120,7 +120,7 @@
           <div class="divider"></div>
 
           <div dev-hint="recommendation" class="mx-1">
-            <div class="text-left text-2xl text-base-content">
+            <div class="text-left text-2xl text-primary-content">
               More Like This
             </div>
             <div

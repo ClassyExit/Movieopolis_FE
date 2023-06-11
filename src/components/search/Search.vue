@@ -9,13 +9,13 @@
         v-debounce:1500ms="getResults"
       />
 
-      <div class="absolute top-3 left-2 md:left-2">
+      <div class="absolute top-2.5 left-2 md:left-2">
         <Icon icon="material-symbols:search" width="20" height="20" />
       </div>
     </div>
 
     <div
-      class="absolute flex flex-row menu border border-primary bg-base-100 max-w-sm w-full rounded z-50 mt-2 h-full md:h-fit md:max-h-96 z-50 gap-2 overflow-auto overscroll-auto"
+      class="absolute flex flex-row menu md:border border-primary bg-base-100 pr-3 md:pr-0 max-w-xs md:max-w-sm w-full rounded z-50 mt-2 h-full md:h-fit md:max-h-96 z-50 gap-2 overflow-auto overscroll-auto"
       :class="searchQuery.length == 0 ? 'hidden' : ' '"
     >
       <SearchContainer
