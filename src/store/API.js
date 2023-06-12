@@ -22,13 +22,12 @@ export const useAPIStore = defineStore("API", {
           `https://tmdb-backend.herokuapp.com/api/trending?media_type=${media_type}&time_window=${time_window}`
         );
         const json = await response.json();
-
         return json;
       } catch {
         // Error with API - try again after timeout
-        await setTimeout(2000);
-
-        location.reload();
+        setTimeout(() => {
+          location.reload();
+        }, 4000);
       }
     },
 
