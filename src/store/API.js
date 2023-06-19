@@ -21,13 +21,13 @@ export const useAPIStore = defineStore("API", {
         const response = await fetch(
           `https://tmdb-backend.herokuapp.com/api/trending?media_type=${media_type}&time_window=${time_window}`
         );
-        const json = await response.json();
-        return json;
+        return response.json();
       } catch {
-        // Error with API - try again after timeout
-        setTimeout(() => {
-          location.reload();
-        }, 4000);
+        // Server is idling, fallback to second URL
+        const response = await fetch(
+          `https://tmdb-backend.autoidleapp.com/api/trending?media_type=${media_type}&time_window=${time_window}`
+        );
+        return response.json();
       }
     },
 
@@ -37,9 +37,7 @@ export const useAPIStore = defineStore("API", {
       const response = await fetch(
         `https://tmdb-backend.herokuapp.com/api/movie/credits?movie_id=${movie_id}`
       );
-      const json = await response.json();
-
-      return json;
+      return response.json();
     },
 
     async getMovieRecommendationsAPI(movie_id) {
@@ -48,8 +46,7 @@ export const useAPIStore = defineStore("API", {
       const response = await fetch(
         `https://tmdb-backend.herokuapp.com/api/movie/recommendations?movie_id=${movie_id}`
       );
-      const json = await response.json();
-      return json;
+      return response.json();
     },
 
     async getMovieDetailsAPI(movie_id) {
@@ -58,48 +55,77 @@ export const useAPIStore = defineStore("API", {
       const response = await fetch(
         `https://tmdb-backend.herokuapp.com/api/movie/details?movie_id=${movie_id}`
       );
-      const json = await response.json();
-      return json;
+      return response.json();
     },
 
     async getPopularMoviesAPI(page = 1) {
-      const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/movie/popular?page=${page}`
-      );
-      const json = await response.json();
-      return json;
+      try {
+        const response = await fetch(
+          `https://tmdb-backend.herokuapp.com/api/movie/popular?page=${page}`
+        );
+        return await response.json();
+      } catch {
+        const response = await fetch(
+          `https://tmdb-backend.autoidleapp.com/api/movie/popular?page=${page}`
+        );
+        return response.json();
+      }
     },
 
     async getUpcomingMoviesAPI(page = 1) {
-      const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/movie/upcoming?page=${page}`
-      );
-      const json = await response.json();
-      return json;
+      try {
+        const response = await fetch(
+          `https://tmdb-backend.herokuapp.com/api/movie/upcoming?page=${page}`
+        );
+        return response.json();
+      } catch {
+        const response = await fetch(
+          `https://tmdb-backend.autoidleapp.com/api/movie/upcoming?page=${page}`
+        );
+        return response.json();
+      }
     },
 
     async getLatestMovieAPI() {
-      const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/movie/latest`
-      );
-      const json = await response.json();
-      return json;
+      try {
+        const response = await fetch(
+          `https://tmdb-backend.herokuapp.com/api/movie/latest`
+        );
+        return response.json();
+      } catch {
+        const response = await fetch(
+          `https://tmdb-backend.autoidleapp.com/api/movie/latest`
+        );
+        return response.json();
+      }
     },
 
     async getTopRatedMoviesAPI(page = 1) {
-      const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/movie/toprated?page=${page}`
-      );
-      const json = await response.json();
-      return json;
+      try {
+        const response = await fetch(
+          `https://tmdb-backend.herokuapp.com/api/movie/toprated?page=${page}`
+        );
+        return response.json();
+      } catch {
+        const response = await fetch(
+          `https://tmdb-backend.autoidleapp.com/api/movie/toprated?page=${page}`
+        );
+        return response.json();
+      }
     },
 
     async getPopularTVShowsAPI(page = 1) {
-      const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/tv/popular?page=${page}`
-      );
-      const json = await response.json();
-      return json;
+      try {
+        const response = await fetch(
+          `https://tmdb-backend.herokuapp.com/api/tv/popular?page=${page}`
+        );
+        return response.json();
+      } catch {
+        const response = await fetch(
+          `https://tmdb-backend.autoidleapp.com/api/tv/popular?page=${page}`
+        );
+        return response.json();
+      }
     },
 
     async getTVDetailsAPI(tv_id) {
@@ -108,9 +134,7 @@ export const useAPIStore = defineStore("API", {
       const response = await fetch(
         `https://tmdb-backend.herokuapp.com/api/tv/details?tv_id=${tv_id}`
       );
-      const json = await response.json();
-
-      return json;
+      return response.json();
     },
 
     async getTVRecommendationsAPI(tv_id) {
@@ -119,9 +143,7 @@ export const useAPIStore = defineStore("API", {
       const response = await fetch(
         `https://tmdb-backend.herokuapp.com/api/tv/recommendations?tv_id=${tv_id}`
       );
-      const json = await response.json();
-
-      return json;
+      return response.json();
     },
 
     async getTVCredits(tv_id) {
@@ -130,9 +152,7 @@ export const useAPIStore = defineStore("API", {
       const response = await fetch(
         `https://tmdb-backend.herokuapp.com/api/tv/credits?tv_id=${tv_id}`
       );
-      const json = await response.json();
-
-      return json;
+      return response.json();
     },
 
     async getTVReviews(tv_id) {
@@ -141,9 +161,7 @@ export const useAPIStore = defineStore("API", {
       const response = await fetch(
         `https://tmdb-backend.herokuapp.com/api/tv/review?tv_id=${tv_id}`
       );
-      const json = await response.json();
-
-      return json;
+      return response.json();
     },
 
     async getMovieReviews(movie_id) {
@@ -152,27 +170,21 @@ export const useAPIStore = defineStore("API", {
       const response = await fetch(
         `https://tmdb-backend.herokuapp.com/api/movie/review?movie_id=${movie_id}`
       );
-      const json = await response.json();
-
-      return json;
+      return response.json();
     },
 
     async getMovieGenres() {
       const response = await fetch(
         `https://tmdb-backend.herokuapp.com/api/genre/movies`
       );
-      const json = await response.json();
-
-      return json;
+      return response.json();
     },
 
     async getTVGenres() {
       const response = await fetch(
         `https://tmdb-backend.herokuapp.com/api/genre/tv`
       );
-      const json = await response.json();
-
-      return json;
+      return response.json();
     },
 
     async getMovieDiscover(
@@ -186,9 +198,7 @@ export const useAPIStore = defineStore("API", {
         `https://tmdb-backend.herokuapp.com/api/movie/discover?sort_by=${sort_by}&page=${page}&vote_average=${vote_average}&vote_sort=${vote_sort}&with_genres=${with_genres}`
       );
 
-      const json = await response.json();
-
-      return json;
+      return response.json();
     },
 
     async getTVDiscover(
@@ -202,9 +212,7 @@ export const useAPIStore = defineStore("API", {
         `https://tmdb-backend.herokuapp.com/api/tv/discover?sort_by=${sort_by}&page=${page}&vote_average=${vote_average}&vote_sort=${vote_sort}&with_genres=${with_genres}`
       );
 
-      const json = await response.json();
-
-      return json;
+      return response.json();
     },
 
     async getSearchResults(query, page = 1) {
@@ -214,9 +222,7 @@ export const useAPIStore = defineStore("API", {
         `https://tmdb-backend.herokuapp.com/api/search/${type}?query=${query}&page=${page}`
       );
 
-      const json = await response.json();
-
-      return json;
+      return response.json();
     },
   },
 });

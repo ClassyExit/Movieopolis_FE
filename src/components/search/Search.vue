@@ -15,7 +15,7 @@
     </div>
 
     <div
-      class="absolute flex flex-row menu md:border border-primary bg-base-100 pr-3 md:pr-0 max-w-xs md:max-w-sm w-full rounded z-50 mt-2 h-full md:h-fit md:max-h-96 z-50 gap-2 overflow-auto overscroll-auto"
+      class="md:absolute flex flex-row menu md:border border-primary bg-base-100 md:pr-0 max-w-sm md:max-w-sm w-full rounded z-50 mt-2 h-full md:h-fit md:max-h-96 z-50 gap-2 overflow-auto overscroll-auto"
       :class="searchQuery.length == 0 ? 'hidden' : ' '"
     >
       <SearchContainer
