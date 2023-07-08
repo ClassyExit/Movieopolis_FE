@@ -41,5 +41,6 @@ An improvement in the project optimization lies in the data handling. An example
 #### Future Improvements
 - Make searchbar more usable in terms if UI (displaying results) and functionality
 - Make the discover better (add in keywords, multiple genres options)
+- More responsive on different screens
 
 
