@@ -1,9 +1,5 @@
 import { defineStore } from "pinia";
 
-// Images
-//https://image.tmdb.org/t/p/w154/naQZcMJf8MlvSWtO6HhOZFbmPKQ.jpg
-// https://developers.themoviedb.org/3/configuration/get-api-configuration
-
 export const useAPIStore = defineStore("API", {
   state: () => ({}),
   getters: {},
