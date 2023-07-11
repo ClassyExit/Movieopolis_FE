@@ -1,12 +1,14 @@
 <template>
   <div class="w-full p-4 md:px-16 rounded text-content1">
-    <div class="w-full bg-backgroundSecondary text-content2 rounded p-2">
+    <div
+      class="w-full bg-backgroundSecondary text-content2 rounded p-2 space-y-1"
+    >
       <div
-        class="flex flex-col lg:flex-row items-start lg:space-x-2 text-left text-3xl text-primary pb-1"
+        class="flex flex-col lg:flex-row items-center lg:space-x-2 text-left text-3xl text-primary pb-1"
       >
         <span>Trending</span>
-        <div class="flex flex-row space-x-1">
-          <div class="tabs tabs-boxed bg-base-100 w-fit">
+        <div class="flex flex-col space-y-1 md:flex-row md:space-x-1">
+          <div class="tabs tabs-boxed w-fit">
             <span
               @click="selectedTrendingOption('all', trendingTime)"
               class="tab"
@@ -27,16 +29,16 @@
             >
           </div>
 
-          <div class="tabs tabs-boxed w-fit bg-base-100" @click="">
+          <div class="tabs tabs-boxed w-fit" @click="">
             <span
               @click="selectedTrendingOption(trendingOption, 'day')"
-              class="tab tab-xs md:tab-md"
+              class="tab"
               :class="trendingTime == 'day' ? 'tab-active' : ''"
               >Daily</span
             >
             <span
               @click="selectedTrendingOption(trendingOption, 'week')"
-              class="tab tab-xs md:tab-md"
+              class="tab"
               :class="trendingTime == 'week' ? 'tab-active' : ''"
               >Weekly</span
             >
@@ -57,11 +59,6 @@
           :rating="item.vote_average"
           :media_type="item.media_type"
           :type="item.media_type"
-          @click="
-            item.media_type == 'movie'
-              ? getMovieStats(item.id)
-              : getTVStats(item.id)
-          "
         >
         </Container>
       </div>

@@ -1,27 +1,17 @@
 <template>
   <div class="w-full space-y-12 p-4 md:px-16 rounded">
-    <div class="w-full bg-backgroundSecondary rounded p-2">
+    <div class="w-full bg-backgroundSecondary rounded p-2 space-y-1">
       <div
-        class="text-left text-3xl text-primary flex flex-row items-center justify-between space-x-4 pb-1"
+        class="text-left text-3xl text-primary flex flex-row items-center space-x-4 pb-1"
       >
         <span>Popular Movies</span>
 
         <router-link
           :to="{ name: 'MoviesLayout' }"
-          class="flex items-center badge badge-neutral text-sm text-neutral-content"
+          class="flex items-center badge badge-md text-sm text-secondary"
         >
-          <span> View all</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="12"
-            height="12"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="currentColor"
-              d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"
-            />
-          </svg>
+          <span> View more</span>
+          <Icon icon="ic:twotone-arrow-right" width="20" height="20" />
         </router-link>
       </div>
 
@@ -43,28 +33,18 @@
       </div>
     </div>
 
-    <div class="w-full bg-backgroundSecondary rounded p-2">
+    <div class="w-full bg-backgroundSecondary rounded p-2 space-y-1">
       <div
-        class="text-left text-3xl text-primary flex flex-row items-center justify-between space-x-4 pb-1"
+        class="text-left text-3xl text-primary flex flex-row items-center space-x-4 pb-1"
       >
         <span>Popular Shows</span>
 
         <router-link
           :to="{ name: 'TVLayout' }"
-          class="flex items-center badge badge-neutral text-sm text-neutral-content"
+          class="flex items-center badge badge-md text-sm text-secondary"
         >
-          <span> View all</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="12"
-            height="12"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="currentColor"
-              d="M19 12.998h-6v6h-2v-6H5v-2h6v-6h2v6h6z"
-            />
-          </svg>
+          <span> View more</span>
+          <Icon icon="ic:twotone-arrow-right" width="20" height="20" />
         </router-link>
       </div>
 

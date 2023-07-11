@@ -22,21 +22,6 @@ const routes = [
         name: "Home",
         component: Home,
       },
-      // {
-      //   path: "/movies",
-      //   name: "Movies",
-      //   component: MoviesLayout,
-      // },
-      // {
-      //   path: "/discover",
-      //   name: "Discover",
-      //   component: DiscoverLayout,
-      // },
-      // {
-      //   path: "/tvshows",
-      //   name: "TV",
-      //   component: TVLayout,
-      // },
     ],
   },
   {

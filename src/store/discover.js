@@ -86,5 +86,9 @@ export const useDiscoverStore = defineStore("Discover", {
 
       this.isLoadingDiscover = false;
     },
+
+    clearDiscoverMovies() {
+      this.discoverMovies = [];
+    },
   },
 });

@@ -15,20 +15,21 @@
             <div
               class="dropdown-menu dropdown-menu-bottom-right bg-backgroundSecondary"
             >
-              <a
+              <router-link
+                :to="{ name: 'MoviesLayout' }"
                 class="dropdown-item text-left justify-start btn btn-ghost flex flex-row items-center space-x-2 p-2 hover:bg-primary"
-                >Profile</a
               >
-              <a
-                tabindex="-1"
+                <Icon icon="mdi:movie-open" width="20" height="20" />
+                <span> Movies</span>
+              </router-link>
+
+              <router-link
+                :to="{ name: 'TVLayout' }"
                 class="dropdown-item text-left justify-start btn btn-ghost flex flex-row items-center space-x-2 p-2 hover:bg-primary"
-                >Account settings</a
               >
-              <a
-                tabindex="-1"
-                class="dropdown-item text-left justify-start btn btn-ghost flex flex-row items-center space-x-2 p-2 hover:bg-primary"
-                >Subscriptions</a
-              >
+                <Icon icon="lucide:tv" width="20" height="20" />
+                <span> TV Shows</span>
+              </router-link>
             </div>
           </div>
         </div>
@@ -53,7 +54,29 @@
           <div
             class="dropdown-menu dropdown-menu-bottom-right bg-backgroundSecondary"
           >
-            <div class="dropdown-item text-sm">Links</div>
+            <router-link
+              :to="{ name: 'Home' }"
+              class="dropdown-item text-left justify-start btn btn-ghost flex flex-row items-center space-x-2 p-2 hover:bg-primary"
+            >
+              <Icon icon="carbon:home" width="20" height="20" />
+              <span> Home</span>
+            </router-link>
+
+            <router-link
+              :to="{ name: 'MoviesLayout' }"
+              class="dropdown-item text-left justify-start btn btn-ghost flex flex-row items-center space-x-2 p-2 hover:bg-primary"
+            >
+              <Icon icon="mdi:movie-open" width="20" height="20" />
+              <span> Movies</span>
+            </router-link>
+
+            <router-link
+              :to="{ name: 'TVLayout' }"
+              class="dropdown-item text-left justify-start btn btn-ghost flex flex-row items-center space-x-2 p-2 hover:bg-primary"
+            >
+              <Icon icon="lucide:tv" width="20" height="20" />
+              <span> TV Shows</span>
+            </router-link>
           </div>
         </div>
       </template>

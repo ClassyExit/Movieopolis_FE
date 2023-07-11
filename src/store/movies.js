@@ -86,15 +86,18 @@ export const useMovieStore = defineStore("Movie", {
       this.isLoadingTopRatedHome = false;
     },
 
-    async getPopularMovies(page, showLoadingIcon = true) {
-      if (showLoadingIcon) {
-        this.isLoadingMovies = true;
-      }
+    async getPopularMovies(page) {
+      this.isLoadingMovies = true;
 
-      const movies = await useAPIStore().getPopularMoviesAPI(page);
+      // Unload the old movies
+      this.popularMovies = [];
 
-      for (const movie in movies.results) {
-        this.popularMovies.push(movies.results[movie]);
+      for (let i = page; i < 2 + page; i++) {
+        const movies = await useAPIStore().getPopularMoviesAPI(i);
+
+        for (const movie in movies.results) {
+          this.popularMovies.push(movies.results[movie]);
+        }
       }
 
       this.isLoadingMovies = false;

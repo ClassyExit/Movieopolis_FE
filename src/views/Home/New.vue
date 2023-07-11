@@ -20,7 +20,6 @@
             :rating="item.vote_average"
             :rating_amount="item.vote_count"
             :release_date="item.release_date.slice(5)"
-            @click="getMovieStats(item.id)"
           ></ExtendedContainer>
         </vue-horizontal>
       </div>
