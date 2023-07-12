@@ -4,10 +4,10 @@
       class="w-full bg-backgroundSecondary text-content2 rounded p-2 space-y-1"
     >
       <div
-        class="flex flex-col lg:flex-row items-center lg:space-x-2 text-left text-3xl text-primary pb-1"
+        class="flex flex-col lg:flex-row lg:items-center lg:space-x-2 text-left text-3xl text-primary pb-1"
       >
         <span>Trending</span>
-        <div class="flex flex-col space-y-1 md:flex-row md:space-x-1">
+        <div class="flex flex-wrap gap-1">
           <div class="tabs tabs-boxed w-fit">
             <span
               @click="selectedTrendingOption('all', trendingTime)"

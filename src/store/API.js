@@ -151,6 +151,13 @@ export const useAPIStore = defineStore("API", {
       return response.json();
     },
 
+    async getTVSeasonDetails(tv_id, season_number) {
+      const response = await fetch(
+        `https://tmdb-backend.herokuapp.com/api/tv/season/details?tv_id=${tv_id}&season_number=${season_number}`
+      );
+      return response.json();
+    },
+
     async getMovieGenres() {
       const response = await fetch(
         `https://tmdb-backend.herokuapp.com/api/genre/movies`
@@ -198,6 +205,22 @@ export const useAPIStore = defineStore("API", {
 
       const response = await fetch(
         `https://tmdb-backend.herokuapp.com/api/search/${type}?query=${query}&page=${page}`
+      );
+
+      return response.json();
+    },
+
+    async getMovieVideos(movie_id) {
+      const response = await fetch(
+        `https://tmdb-backend.autoidleapp.com/api/movie/videos?movie_id=${movie_id}`
+      );
+
+      return response.json();
+    },
+
+    async getTVVideos(tv_id) {
+      const response = await fetch(
+        `https://tmdb-backend.autoidleapp.com/api/tv/videos?tv_id=${tv_id}`
       );
 
       return response.json();

@@ -7,44 +7,39 @@
       <Loading />
     </div>
 
-    <div v-else class="flex flex-col md:h-screen">
-      <div class="relative inset-y-0 top-0 w-full h-2/5 z-0">
+    <div v-else class="flex flex-col h-screen md:h-screen">
+      <div
+        id="backdrop-movie"
+        class="relative inset-y-0 top-0 w-full h-2/5 z-0 pb-10"
+      >
         <img
           class="h-full w-full object-cover blur-sm z-0"
           :src="`https://image.tmdb.org/t/p/original/${movieDetails.backdrop_path}`"
           :alt="`${movieDetails.original_title} backdrop`"
         />
 
-        <div class="absolute left-4 top-4">
+        <div class="absolute left-4 top-2">
           <img
             class="h-full object-cover z-10"
             :src="`https://image.tmdb.org/t/p/w154/${movieDetails.poster_path}`"
             :alt="`${movieDetails.original_title} poster`"
           />
         </div>
-        <!-- <div
-            class="absolute inset-x-0 bottom-0 w-full h-fit p-2 text-left bg-backgroundPrimary text-content1"
-          >
-            <span> {{ movieDetails.original_title }} </span>
+        <div
+          class="flex flex-row space-x-2 p-2 px-6 bg-backgroundSecondary text-content1"
+        >
+          <span class="text-bold text-xl">
+            {{ movieDetails.original_title }}
+          </span>
 
-            <span>({{ movieDetails.release_date.slice(0, 4) }})</span>
-          </div> -->
+          <span class="text-xl text-content2"
+            >({{ movieDetails.release_date.slice(0, 4) }})</span
+          >
+        </div>
       </div>
 
       <div id="mobile" class="md:hidden h-screen space-y-6">
         <div class="bg-backgroundPrimary text-content2 z-20 space-y-4">
-          <div
-            class="flex flex-row space-x-2 p-2 px-6 bg-backgroundSecondary text-content1"
-          >
-            <span class="text-bold text-xl">
-              {{ movieDetails.original_title }}
-            </span>
-
-            <span class="text-xl text-content2"
-              >({{ movieDetails.release_date.slice(0, 4) }})</span
-            >
-          </div>
-
           <div class="px-6">
             <div
               class="w-full flex flex-row items-center justify-center space-x-2 p-2 rounded-lg bg-primary"
@@ -88,17 +83,16 @@
 
           <div class="px-6 text-left">{{ movieDetails.overview }}</div>
 
-          <!-- TODO: Fix video src -->
-          <div
+          <!-- <div
             id="responsiveVideoWrapper"
-            v-if="movieDetails.video != false"
-            class="h-full w-full aspect-auto px-6"
+            class="h-fit w-full aspect-video rounded-xl"
+            v-if="movieVideos.length > 0"
           >
             <iframe
-              class="w-full"
-              src="https://www.youtube.com/embed/zihoyz0u_cs"
+              class="w-full h-full rounded-4xl"
+              :src="`https://www.youtube.com/embed/${movieVideos[0]?.key}`"
             ></iframe>
-          </div>
+          </div> -->
         </div>
 
         <div class="px-6 rounded w-full max-w-md">
@@ -167,7 +161,10 @@
         </div>
       </div>
 
-      <div id="screen" class="mx-auto grid grid-cols-3 space-x-4 pt-4">
+      <div
+        id="screen"
+        class="hidden mx-auto md:grid grid-cols-3 space-x-4 pt-4"
+      >
         <div class="h-fit w-fit px-4">
           <div class="accordion-group accordion-group-bordered">
             <div class="accordion">
@@ -263,16 +260,17 @@
           <div
             id="responsiveVideoWrapper"
             class="h-fit w-full aspect-video rounded-xl"
+            v-if="movieVideos.length > 0"
           >
             <iframe
               class="w-full h-full rounded-4xl"
-              src="https://www.youtube.com/embed/zihoyz0u_cs"
+              :src="`https://www.youtube.com/embed/${movieVideos[0]?.key}`"
             ></iframe>
           </div>
         </div>
 
         <div
-          class="w-fit h-fit bg-backgroundSecondary text-content2 rounded space-y-4 p-6"
+          class="max-w-md h-fit bg-backgroundSecondary text-content2 rounded space-y-4 p-6"
         >
           <div
             class="w-full flex flex-row items-center justify-center space-x-2 p-2 rounded-lg bg-primary"
@@ -326,8 +324,13 @@ import { storeToRefs } from "pinia";
 import Container from "@/components/Container.vue";
 
 const movieStore = useMovieStore();
-const { isLoadingDetails, movieDetails, movieCredits, movieRecommendations } =
-  storeToRefs(movieStore);
+const {
+  isLoadingDetails,
+  movieDetails,
+  movieCredits,
+  movieRecommendations,
+  movieVideos,
+} = storeToRefs(movieStore);
 
 const route = useRoute();
 const id = route.params.id; // read movie id from router

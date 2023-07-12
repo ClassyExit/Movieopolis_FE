@@ -6,13 +6,15 @@ export const useTVStore = defineStore("TV", {
     tvDetails: {},
     tvCredits: {},
     tvRecommendations: [],
-    tvReviews: [],
+    tvSeasonDetails: [],
+    tvVideos: [],
 
     // TODO: Update these to only isLoadingTV
 
     isLoadingPopularHome: false,
     isLoadingPopular: false,
 
+    isLoadingSeasonDetails: false,
     isLoadingTV: false,
 
     tvGenres: [],
@@ -34,14 +36,33 @@ export const useTVStore = defineStore("TV", {
       const recommendations = await useAPIStore().getTVRecommendationsAPI(
         tv_id
       );
-      const reviews = await useAPIStore().getTVReviews(tv_id);
+      const videos = await useAPIStore().getTVVideos(tv_id);
+
+      // Find only trailers from API call
+      for (let item in videos.results) {
+        if (videos.results[item].type.includes("Trailer")) {
+          this.tvVideos.push(videos.results[item]);
+        }
+      }
 
       this.tvCredits = credits;
       this.tvDetails = details;
       this.tvRecommendations = recommendations;
-      this.tvReviews = reviews;
 
       this.isLoadingTV = false;
+    },
+
+    async getTVSeasonDetails(tv_id, season_number) {
+      this.isLoadingSeasonDetails = true;
+
+      const seasonDetails = await useAPIStore().getTVSeasonDetails(
+        tv_id,
+        season_number
+      );
+
+      this.tvSeasonDetails = seasonDetails;
+
+      this.isLoadingSeasonDetails = false;
     },
 
     async getPopularTVHome(page) {
