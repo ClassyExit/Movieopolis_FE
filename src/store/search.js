@@ -4,7 +4,6 @@ import { useAPIStore } from "./API";
 export const useSearchStore = defineStore("Search", {
   state: () => ({
     searchResults: [],
-
     isLoadingSearch: false,
   }),
   getters: {},

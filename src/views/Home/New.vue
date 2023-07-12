@@ -14,6 +14,7 @@
             class="mx-10 bg-backgroundPrimary text-content1"
             v-for="item in upcomingMoviesHome.results"
             :key="item.id"
+            :id="item.id"
             :poster="`https://image.tmdb.org/t/p/w185/${item.poster_path}`"
             :title="item.original_title"
             :overview="item.overview"

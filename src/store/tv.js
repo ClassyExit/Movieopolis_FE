@@ -7,9 +7,13 @@ export const useTVStore = defineStore("TV", {
     tvCredits: {},
     tvRecommendations: [],
     tvReviews: [],
-    isLoadingDetails: false,
+
+    // TODO: Update these to only isLoadingTV
+
     isLoadingPopularHome: false,
     isLoadingPopular: false,
+
+    isLoadingTV: false,
 
     tvGenres: [],
 
@@ -23,7 +27,7 @@ export const useTVStore = defineStore("TV", {
         Retrieve the details related to the tv show
         */
 
-      this.isLoadingDetails = true;
+      this.isLoadingTV = true;
 
       const credits = await useAPIStore().getTVCredits(tv_id);
       const details = await useAPIStore().getTVDetailsAPI(tv_id);
@@ -37,13 +41,13 @@ export const useTVStore = defineStore("TV", {
       this.tvRecommendations = recommendations;
       this.tvReviews = reviews;
 
-      this.isLoadingDetails = false;
+      this.isLoadingTV = false;
     },
 
     async getPopularTVHome(page) {
       /* 
           Retrieve the popular tv shows to display on home screen
-    */
+      */
 
       this.isLoadingPopularHome = true;
       const popularTVShows = await useAPIStore().getPopularTVShowsAPI(
@@ -54,18 +58,21 @@ export const useTVStore = defineStore("TV", {
       this.isLoadingPopularHome = false;
     },
 
-    async getPopularTVShows(page, showLoadingIcon = true) {
-      if (showLoadingIcon) {
-        this.isLoadingPopular = true;
+    async getPopularTVShows(page) {
+      this.isLoadingTV = true;
+
+      // Unload the old tv shows
+      this.popularTVShows = [];
+
+      for (let i = page; i < 2 + page; i++) {
+        const tvshows = await useAPIStore().getPopularTVShowsAPI(i);
+
+        for (const show in tvshows.results) {
+          this.popularTVShows.push(tvshows.results[show]);
+        }
       }
 
-      const tvshows = await useAPIStore().getPopularTVShowsAPI(page);
-
-      for (const show in tvshows.results) {
-        this.popularTVShows.push(tvshows.results[show]);
-      }
-
-      this.isLoadingPopular = false;
+      this.isLoadingTV = false;
     },
 
     async getTVGenres() {

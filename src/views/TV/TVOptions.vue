@@ -2,7 +2,7 @@
   <div class="p-2 space-y-6">
     <div v-if="discoverStore?.discoverMovies.length > 0">
       <div
-        @click="discoverStore.clearDiscoverMovies()"
+        @click="discoverStore.clearDiscoverTV()"
         class="flex flex-row items-center space-x-1 w-fit text-error p-2 border border-error rounded-lg cursor-pointer hover:bg-backgroundSecondary"
       >
         <Icon icon="fluent-mdl2:clear-filter" width="20" height="20" />
@@ -19,13 +19,10 @@
     <div class="max-w-xs w-full space-y-1">
       <div class="text-left text-primary text-xl">Genre</div>
 
-      <select
-        v-model="movieGenre"
-        class="flex select w-full focus:input-primary"
-      >
+      <select v-model="tvGenre" class="flex select w-full focus:input-primary">
         <option disabled selected>Select Genre...</option>
         <option
-          v-for="item in movieGenres.genres"
+          v-for="item in tvGenres.genres"
           :value="item.id"
           @click="movieGenre = item.id"
         >
@@ -38,7 +35,7 @@
       <div class="text-left text-primary text-xl">Sort By</div>
 
       <div class="flex flex-row items-center">
-        <select v-model="movieSortBy" class="select w-full">
+        <select v-model="tvSortBy" class="select w-full">
           <option disabled selected>Sort By...</option>
           <option value="average_vote">Average Vote</option>
           <option value="popularity">Popularity</option>
@@ -68,16 +65,16 @@
           max="10"
           class="range range-primary w-3/5"
           step="1"
-          v-model="vote_average"
+          v-model="tv_vote_average"
         />
         <span class="bg-primary text-content1 p-1 rounded">{{
-          vote_average
+          tv_vote_average
         }}</span>
       </div>
     </div>
 
     <div class="w-full">
-      <button class="w-1/2 btn btn-secondary" @click="getMovieResults()">
+      <button class="w-1/2 btn btn-secondary" @click="getTVResults()">
         Search!
       </button>
     </div>
@@ -86,39 +83,38 @@
 
 <script setup>
 import { useDiscoverStore } from "@/store/discover";
-import { useMovieStore } from "@/store/movies";
+import { useTVStore } from "@/store/tv";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
 
-const movieStore = useMovieStore();
 const discoverStore = useDiscoverStore();
+const tvStore = useTVStore();
 
-const { movieGenres } = storeToRefs(movieStore);
+const { tvGenres } = storeToRefs(tvStore);
 
-movieStore.getMovieGenres();
+tvStore.getTVGenres();
 
-/*****  MOVIE *****/
-// Sort By
-const movieSortBy = ref("popularity");
-const sort_order = ref("desc");
+/**** TV *****/
+const tvSortBy = ref("popularity");
+const tv_sort_order = ref("desc");
 
 // Vote Average
-const vote_average = ref(5);
-const vote_sort = ref("gte");
+let tv_vote_average = ref(5);
+const tv_vote_sort = "gte";
 
-//genre
-const movieGenre = ref(28);
+// genre
+const tvGenre = ref(10759);
 
-const getMovieResults = () => {
+const getTVResults = () => {
   // Get the results ranging from start_page to end_page from API
   const page = 1;
 
-  discoverStore.getMovieDiscover(
-    movieSortBy.value,
-    sort_order.value,
-    vote_average.value,
-    vote_sort.value,
-    movieGenre.value,
+  discoverStore.getTVDiscover(
+    tvSortBy.value,
+    tv_sort_order.value,
+    tv_vote_average.value,
+    tv_vote_sort,
+    tvGenre.value,
     page
   );
 };

@@ -1,3 +1,192 @@
-<template><div class="text-primary">Movie Details page</div></template>
+<template>
+  <div class="w-full">
+    <div
+      class="flex flex-col items-center justify-center w-full h-full"
+      v-if="isLoadingDetails"
+    >
+      <Loading />
+    </div>
 
-<script setup></script>
+    <div v-else class="flex flex-col">
+      <div id="mobile" class="md:hidden h-screen space-y-6">
+        <div class="relative inset-y-0 top-0 w-full h-2/5 z-0">
+          <img
+            class="h-full w-full object-cover blur-sm z-0"
+            :src="`https://image.tmdb.org/t/p/original/${movieDetails.backdrop_path}`"
+            :alt="`${movieDetails.original_title} backdrop`"
+          />
+
+          <div class="absolute left-4 top-4">
+            <img
+              class="h-full object-cover z-10"
+              :src="`https://image.tmdb.org/t/p/w154/${movieDetails.poster_path}`"
+              :alt="`${movieDetails.original_title} poster`"
+            />
+          </div>
+          <!-- <div
+            class="absolute inset-x-0 bottom-0 w-full h-fit p-2 text-left bg-backgroundPrimary text-content1"
+          >
+            <span> {{ movieDetails.original_title }} </span>
+
+            <span>({{ movieDetails.release_date.slice(0, 4) }})</span>
+          </div> -->
+        </div>
+
+        <div class="bg-backgroundPrimary text-content2 z-20 space-y-4">
+          <div
+            class="flex flex-row space-x-2 p-2 px-6 bg-backgroundSecondary text-content1"
+          >
+            <span class="text-bold text-xl">
+              {{ movieDetails.original_title }}
+            </span>
+
+            <span class="text-xl text-content2"
+              >({{ movieDetails.release_date.slice(0, 4) }})</span
+            >
+          </div>
+
+          <div class="px-6">
+            <div
+              class="w-full flex flex-row items-center justify-center space-x-2 p-2 rounded-lg bg-primary"
+            >
+              <Icon
+                icon="streamline:interface-favorite-heart-reward-social-rating-media-heart-it-like-favorite-love"
+                width="20"
+                height="20"
+              />
+
+              <span class="text-content1">{{
+                movieDetails.vote_average.toFixed(2)
+              }}</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 px-6">
+            <div class="flex flex-col text-left space-y-2 text-content1">
+              <div class="text-bold">Release Date</div>
+              <div class="text-bold">Runtime</div>
+              <div class="text-bold">Budget</div>
+              <div class="text-bold">Revenue</div>
+              <div class="text-bold">Genre(s)</div>
+            </div>
+
+            <div class="flex flex-col text-left space-y-2">
+              <div class="">{{ movieDetails.release_date }}</div>
+              <div class="">{{ movieDetails.runtime }} minutes</div>
+              <div class="">{{ USDollar.format(movieDetails.budget) }}</div>
+              <div class="">{{ USDollar.format(movieDetails.revenue) }}</div>
+              <div class="flex flex-wrap gap-1">
+                <div
+                  v-for="item in movieDetails.genres"
+                  class="flex flex-wrap badge badge-primary w-fit"
+                >
+                  {{ item.name }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="px-6 text-left">{{ movieDetails.overview }}</div>
+
+          <!-- TODO: Fix video src -->
+          <div
+            id="responsiveVideoWrapper"
+            v-if="movieDetails.video != false"
+            class="h-full w-full aspect-auto px-6"
+          >
+            <iframe
+              class="w-full"
+              src="https://www.youtube.com/embed/zihoyz0u_cs"
+            ></iframe>
+          </div>
+        </div>
+
+        <div class="px-6 rounded w-full">
+          <div class="accordion">
+            <input type="checkbox" id="toggle-16" class="accordion-toggle" />
+            <label for="toggle-16" class="accordion-title px-4"
+              >Show Cast</label
+            >
+            <span class="accordion-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+                ></path>
+              </svg>
+            </span>
+            <div class="accordion-content">
+              <div class="min-h-0 w-full flex flex-wrap">
+                <div
+                  v-for="person in movieCredits.cast"
+                  class="w-1/3 drop-shadow-lg"
+                >
+                  <div class="flex flex-col w-full">
+                    <img
+                      :src="`https://image.tmdb.org/t/p/w92/${person.profile_path}`"
+                      style="width: 92px; height: 138px"
+                    />
+
+                    <div
+                      class="flex flex-col flex-wrap text-left text-md max-w-sm"
+                    >
+                      <span class="text-content1">{{ person.name }}</span>
+                      <span class="text-sm text-content3">{{
+                        person.character
+                      }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col px-6">
+          <div class="text-left text-2xl text-conent1">Recommendations</div>
+          <div class="w-full flex flex-wrap gap-2">
+            <Container
+              v-for="item in movieRecommendations.results"
+              :key="item.id"
+              :id="item.id"
+              :poster="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
+              :title_movie="item.title"
+              :year_movie="item.release_date"
+              :rating="item.vote_average"
+              :media_type="`movie`"
+              :type="item.media_type"
+            >
+            </Container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { useRoute } from "vue-router";
+import { useMovieStore } from "@/store/movies";
+import Loading from "@/components/Loading.vue";
+import { storeToRefs } from "pinia";
+import Container from "@/components/Container.vue";
+
+const movieStore = useMovieStore();
+const { isLoadingDetails, movieDetails, movieCredits, movieRecommendations } =
+  storeToRefs(movieStore);
+
+const route = useRoute();
+const id = route.params.id; // read movie id from router
+
+// Get movie details
+movieStore.getMovieDetails(id);
+
+let USDollar = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
+</script>

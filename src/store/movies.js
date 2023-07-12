@@ -6,7 +6,6 @@ export const useMovieStore = defineStore("Movie", {
     movieDetails: {},
     movieCredits: {},
     movieRecommendations: [],
-    movieReviews: [],
     isLoadingDetails: false,
 
     movieGenres: [],
@@ -35,12 +34,10 @@ export const useMovieStore = defineStore("Movie", {
       const recommendations = await useAPIStore().getMovieRecommendationsAPI(
         movie_id
       );
-      const reviews = await useAPIStore().getMovieReviews(movie_id);
 
       this.movieCredits = credits;
       this.movieDetails = details;
       this.movieRecommendations = recommendations;
-      this.movieReviews = reviews;
 
       this.isLoadingDetails = false;
     },

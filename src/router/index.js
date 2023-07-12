@@ -6,9 +6,8 @@ import NotFound from "@/views/NotFound.vue";
 import DefaultLayout from "@/views/DefaultLayout.vue";
 import Movie from "@/views/Movie/Movie.vue";
 import TV from "@/views/TV/TV.vue";
-// import MoviesLayout from "@/views/Movies/MoviesLayout.vue";
-// import DiscoverLayout from "@/views/Discover/DiscoverLayout.vue";
-// import TVLayout from "@/views/TV/TVLayout.vue";
+import TVDetail from "@/views/TV/TVDetail.vue";
+import MovieDetail from "@/views/Movie/MovieDetail.vue";
 
 const routes = [
   {
@@ -29,7 +28,10 @@ const routes = [
     name: "MoviesLayout",
     redirect: { name: "Movie" },
     component: DefaultLayout,
-    children: [{ path: "/movie", name: "Movie", component: Movie }],
+    children: [
+      { path: "/movie", name: "Movie", component: Movie },
+      { path: "/movie/:id", name: "Movie-Details", component: MovieDetail },
+    ],
   },
 
   {
@@ -37,7 +39,10 @@ const routes = [
     name: "TVLayout",
     redirect: { name: "TV" },
     component: DefaultLayout,
-    children: [{ path: "/tv-show", name: "TV", component: TV }],
+    children: [
+      { path: "/tv-show", name: "TV", component: TV },
+      { path: "/tv-show/:id", name: "TV-Details", component: TVDetail },
+    ],
   },
 
   // Path not found

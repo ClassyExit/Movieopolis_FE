@@ -6,6 +6,7 @@
     <Popular />
   </div>
 
+  <!-- TODO: Add option to display top rated movies | tv shows -->
   <!-- 
     <div class="w-full bg-base-200 rounded p-3">
       <div class="text-left text-3xl text-primary pb-1">Top Rated</div>

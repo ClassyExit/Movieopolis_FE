@@ -21,6 +21,7 @@
         <Container
           v-for="item in popularMoviesHome.results"
           :key="item.id"
+          :id="item.id"
           :poster="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
           :title_movie="item.title"
           :year_tv="item.first_air_date"
@@ -54,6 +55,7 @@
         <Container
           v-for="item in popularTVShowsHome?.results"
           :key="item.id"
+          :id="item.id"
           :poster="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
           :title_tv="item.name"
           :year_tv="item.first_air_date"

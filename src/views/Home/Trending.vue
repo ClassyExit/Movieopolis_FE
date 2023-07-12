@@ -51,6 +51,7 @@
         <Container
           v-for="item in trending.results"
           :key="(item.id, item.media_type)"
+          :id="item.id"
           :poster="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
           :title_movie="item.title"
           :title_tv="item.name"

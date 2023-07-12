@@ -1,9 +1,9 @@
 <template>
   <div class="w-full max-w-[154px] rounded">
-    <label
-      for="movie-details"
+    <router-link
       v-if="media_type == 'movie'"
       class="hover:cursor-pointer"
+      :to="{ name: 'Movie-Details', params: { id: id } }"
     >
       <img
         class="rounded-t-lg"
@@ -35,7 +35,7 @@
         </div>
 
         <div class="flex flex-row items-center">
-          <span>{{ year_movie.slice(0, 4) }}</span>
+          <span>{{ year_movie?.slice(0, 4) }}</span>
         </div>
       </div>
       <div
@@ -43,9 +43,13 @@
       >
         {{ title_movie }}
       </div>
-    </label>
+    </router-link>
 
-    <label for="tv-details" v-else class="hover:cursor-pointer">
+    <router-link
+      :to="{ name: 'TV-Details', params: { id: id } }"
+      v-else
+      class="hover:cursor-pointer"
+    >
       <img
         class="rounded-t-lg"
         :src="props.poster"
@@ -76,7 +80,7 @@
         </div>
 
         <div class="flex flex-row items-center">
-          <span>{{ year_tv.slice(0, 4) }}</span>
+          <span>{{ year_tv?.slice(0, 4) }}</span>
         </div>
       </div>
       <div
@@ -84,12 +88,13 @@
       >
         {{ title_tv }}
       </div>
-    </label>
+    </router-link>
   </div>
 </template>
 
 <script setup>
 const props = defineProps({
+  id: Number,
   poster: String | undefined,
   title_movie: String | undefined,
   title_tv: String | undefined,

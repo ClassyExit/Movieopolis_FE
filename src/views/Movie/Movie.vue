@@ -50,9 +50,9 @@
               <Container
                 v-for="item in discoverMovies"
                 :key="item.id"
+                :id="item.id"
                 :poster="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
                 :title_movie="item.title"
-                :year_tv="item.first_air_date"
                 :year_movie="item.release_date"
                 :rating="item.vote_average"
                 :media_type="`movie`"
@@ -65,9 +65,9 @@
               <Container
                 v-for="item in popularMovies"
                 :key="(item.id, item.media_type)"
+                :id="item.id"
                 :poster="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
                 :title_movie="item.original_title"
-                :year_tv="item.first_air_date"
                 :year_movie="item.release_date"
                 :rating="item.vote_average"
                 :media_type="`movie`"

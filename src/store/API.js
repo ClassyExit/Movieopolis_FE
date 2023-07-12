@@ -151,24 +151,6 @@ export const useAPIStore = defineStore("API", {
       return response.json();
     },
 
-    async getTVReviews(tv_id) {
-      if (!tv_id) return;
-
-      const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/tv/review?tv_id=${tv_id}`
-      );
-      return response.json();
-    },
-
-    async getMovieReviews(movie_id) {
-      if (!movie_id) return;
-
-      const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/movie/review?movie_id=${movie_id}`
-      );
-      return response.json();
-    },
-
     async getMovieGenres() {
       const response = await fetch(
         `https://tmdb-backend.herokuapp.com/api/genre/movies`

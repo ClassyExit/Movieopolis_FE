@@ -10,8 +10,6 @@ export const useTrendingStore = defineStore("Trending", {
   getters: {},
   actions: {
     async getTrendingContent(media_type, time_window) {
-      // Send API call
-
       this.isLoadingTrending = true;
 
       const data = await useAPIStore().getTrendingAPI(media_type, time_window);
