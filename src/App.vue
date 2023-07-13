@@ -5,7 +5,7 @@
 
   <div
     v-else
-    class="fixed top-0 left-0 right-0 bottom-0 w-full h-screen z-50 flex items-center justify-center bg-base-100"
+    class="fixed top-0 left-0 right-0 bottom-0 w-full h-screen z-50 flex items-center justify-center bg-backgroundPrimary"
   >
     <Loading />
   </div>

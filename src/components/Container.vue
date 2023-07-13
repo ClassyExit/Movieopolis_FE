@@ -46,7 +46,7 @@
         />
 
         <div
-          class="flex flex-row text-sm p-1 bg-base-100 justify-between border-b border-slate-600"
+          class="flex flex-row text-sm p-1 bg-backgroundSecondary justify-between border-b border-slate-600"
         >
           <div class="flex flex-row items-center">
             <div class="stat-figure text-primary">
@@ -116,7 +116,7 @@
         </div>
       </div>
 
-      <div v-else class="">
+      <div v-else class="bg-backgroundSecondary shadow rounded">
         <img
           class="rounded-t-lg"
           :src="props.poster"
@@ -125,7 +125,7 @@
         />
 
         <div
-          class="flex flex-row text-sm p-1 bg-base-100 justify-between border-b border-slate-600"
+          class="flex flex-row text-sm p-1 justify-between border-b border-slate-600"
         >
           <div class="flex flex-row items-center">
             <div class="stat-figure text-primary">
@@ -151,7 +151,7 @@
           </div>
         </div>
         <div
-          class="bg-base-100 rounded-b-lg p-1 flex items-center justify-center text-ellipsis overflow-hidden line-clamp-1"
+          class="rounded-b-lg p-1 flex items-center justify-center text-ellipsis overflow-hidden line-clamp-1"
         >
           {{ title_tv }}
         </div>

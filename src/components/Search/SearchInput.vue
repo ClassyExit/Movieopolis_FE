@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full md:h-fit bg-base-100">
+  <div class="w-full md:h-fit">
     <div class="relative w-full max-w-sm">
       <input
         class="input focus:input-primary pl-8 pr-8"
