@@ -6,7 +6,7 @@ export const useMovieStore = defineStore("Movie", {
     movieDetails: {},
     movieCredits: {},
     movieRecommendations: [],
-    movieReviews: [],
+    movieVideos: [],
     isLoadingDetails: false,
 
     movieGenres: [],
@@ -20,7 +20,6 @@ export const useMovieStore = defineStore("Movie", {
     popularMoviesHome: [],
     upcomingMoviesHome: [],
     latestMovies: [],
-    topRatedMovies: [],
   }),
   getters: {},
   actions: {
@@ -35,12 +34,18 @@ export const useMovieStore = defineStore("Movie", {
       const recommendations = await useAPIStore().getMovieRecommendationsAPI(
         movie_id
       );
-      const reviews = await useAPIStore().getMovieReviews(movie_id);
+      const videos = await useAPIStore().getMovieVideos(movie_id);
+
+      // Find only trailers from API call
+      for (let item in videos.results) {
+        if (videos.results[item].type.includes("Trailer")) {
+          this.movieVideos.push(videos.results[item]);
+        }
+      }
 
       this.movieCredits = credits;
       this.movieDetails = details;
       this.movieRecommendations = recommendations;
-      this.movieReviews = reviews;
 
       this.isLoadingDetails = false;
     },
@@ -79,22 +84,49 @@ export const useMovieStore = defineStore("Movie", {
     async getTopRatedMovies(page) {
       /* Get the top rated movies */
 
-      this.isLoadingTopRatedHome = true;
-      const toprated = await useAPIStore().getTopRatedMoviesAPI(page);
-      this.topRatedMovies = toprated;
+      // Unload the old movies
+      this.popularMovies = [];
 
-      this.isLoadingTopRatedHome = false;
-    },
+      for (let i = page; i < 2 + page; i++) {
+        const movies = await useAPIStore().getTopRatedMoviesAPI(i);
 
-    async getPopularMovies(page, showLoadingIcon = true) {
-      if (showLoadingIcon) {
-        this.isLoadingMovies = true;
+        for (const movie in movies.results) {
+          this.popularMovies.push(movies.results[movie]);
+        }
       }
 
-      const movies = await useAPIStore().getPopularMoviesAPI(page);
+      this.isLoadingMovies = false;
+    },
 
-      for (const movie in movies.results) {
-        this.popularMovies.push(movies.results[movie]);
+    async getPopularMovies(page) {
+      this.isLoadingMovies = true;
+
+      // Unload the old movies
+      this.popularMovies = [];
+
+      for (let i = page; i < 2 + page; i++) {
+        const movies = await useAPIStore().getPopularMoviesAPI(i);
+
+        for (const movie in movies.results) {
+          this.popularMovies.push(movies.results[movie]);
+        }
+      }
+
+      this.isLoadingMovies = false;
+    },
+
+    async getNowPlayingMovies(page) {
+      this.isLoadingMovies = true;
+
+      // Unload the old movies
+      this.popularMovies = [];
+
+      for (let i = page; i < 2 + page; i++) {
+        const movies = await useAPIStore().getNowPlayingMoviesAPI(i);
+
+        for (const movie in movies.results) {
+          this.popularMovies.push(movies.results[movie]);
+        }
       }
 
       this.isLoadingMovies = false;

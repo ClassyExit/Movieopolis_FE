@@ -3,13 +3,13 @@ import { useAPIStore } from "./API";
 
 export const useSearchStore = defineStore("Search", {
   state: () => ({
-    searchResults: [],
-
+    searchMovieResults: [],
+    searchTVResults: [],
     isLoadingSearch: false,
   }),
   getters: {},
   actions: {
-    async getSearch(query, page = 1) {
+    async getSearch(query, type, page = 1) {
       /*
             Get the search results
             Type:   tv | movie | multi
@@ -19,13 +19,29 @@ export const useSearchStore = defineStore("Search", {
 
       if (!query.value) return;
 
-      this.searchResults = [];
+      this.searchMovieResults = [];
+      this.searchTVResults = [];
 
-      const results = await useAPIStore().getSearchResults(query.value, page);
+      for (let i = 1; i < 3; i++) {
+        const results = await useAPIStore().getSearchResults(
+          query.value,
+          type,
+          (page = i)
+        );
 
-      for (const result in results.results) {
-        this.searchResults.push(results.results[result]);
+        for (let item in results.results) {
+          if (type == "movie") {
+            this.searchMovieResults.push(results.results[item]);
+          } else {
+            this.searchTVResults.push(results.results[item]);
+          }
+        }
       }
+    },
+
+    clearSearchResults() {
+      this.searchMovieResults = [];
+      this.searchTVResults = [];
     },
   },
 });

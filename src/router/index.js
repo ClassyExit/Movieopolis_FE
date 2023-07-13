@@ -3,38 +3,45 @@ import Home from "../views/Home/Home.vue";
 import NotFound from "@/views/NotFound.vue";
 
 // Layouts
-import HomeLayout from "@/views/Layouts/HomeLayout.vue";
-import MoviesLayout from "@/views/Movies/MoviesLayout.vue";
-import DiscoverLayout from "@/views/Discover/DiscoverLayout.vue";
-import TVLayout from "@/views/TV/TVLayout.vue";
+import DefaultLayout from "@/views/DefaultLayout.vue";
+import Movie from "@/views/Movie/Movie.vue";
+import TV from "@/views/TV/TV.vue";
+import TVDetail from "@/views/TV/TVDetail.vue";
+import MovieDetail from "@/views/Movie/MovieDetail.vue";
 
 const routes = [
   {
     path: "/",
     redirect: "/home",
     name: "Layout",
-    component: HomeLayout,
+    component: DefaultLayout,
     children: [
       {
         path: "/home",
         name: "Home",
         component: Home,
       },
-      {
-        path: "/movies",
-        name: "Movies",
-        component: MoviesLayout,
-      },
-      {
-        path: "/discover",
-        name: "Discover",
-        component: DiscoverLayout,
-      },
-      {
-        path: "/tvshows",
-        name: "TV",
-        component: TVLayout,
-      },
+    ],
+  },
+  {
+    path: "/movies",
+    name: "MoviesLayout",
+    redirect: { name: "Movie" },
+    component: DefaultLayout,
+    children: [
+      { path: "/movie", name: "Movie", component: Movie },
+      { path: "/movie/:id", name: "Movie-Details", component: MovieDetail },
+    ],
+  },
+
+  {
+    path: "/tv",
+    name: "TVLayout",
+    redirect: { name: "TV" },
+    component: DefaultLayout,
+    children: [
+      { path: "/tv-show", name: "TV", component: TV },
+      { path: "/tv-show/:id", name: "TV-Details", component: TVDetail },
     ],
   },
 

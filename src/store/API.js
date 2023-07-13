@@ -1,9 +1,5 @@
 import { defineStore } from "pinia";
 
-// Images
-//https://image.tmdb.org/t/p/w154/naQZcMJf8MlvSWtO6HhOZFbmPKQ.jpg
-// https://developers.themoviedb.org/3/configuration/get-api-configuration
-
 export const useAPIStore = defineStore("API", {
   state: () => ({}),
   getters: {},
@@ -114,6 +110,34 @@ export const useAPIStore = defineStore("API", {
       }
     },
 
+    async getTopRatedTVAPI(page = 1) {
+      try {
+        const response = await fetch(
+          `https://tmdb-backend.herokuapp.com/api/tv/toprated?page=${page}`
+        );
+        return response.json();
+      } catch {
+        const response = await fetch(
+          `https://tmdb-backend.autoidleapp.com/api/tv/toprated?page=${page}`
+        );
+        return response.json();
+      }
+    },
+
+    async getNowPlayingMoviesAPI(page) {
+      try {
+        const response = await fetch(
+          `https://tmdb-backend.herokuapp.com/api/movie/nowplaying?page=${page}`
+        );
+        return response.json();
+      } catch {
+        const response = await fetch(
+          `https://tmdb-backend.autoidleapp.com/api/movie/nowplaying?page=${page}`
+        );
+        return response.json();
+      }
+    },
+
     async getPopularTVShowsAPI(page = 1) {
       try {
         const response = await fetch(
@@ -155,20 +179,9 @@ export const useAPIStore = defineStore("API", {
       return response.json();
     },
 
-    async getTVReviews(tv_id) {
-      if (!tv_id) return;
-
+    async getTVSeasonDetails(tv_id, season_number) {
       const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/tv/review?tv_id=${tv_id}`
-      );
-      return response.json();
-    },
-
-    async getMovieReviews(movie_id) {
-      if (!movie_id) return;
-
-      const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/movie/review?movie_id=${movie_id}`
+        `https://tmdb-backend.herokuapp.com/api/tv/season/details?tv_id=${tv_id}&season_number=${season_number}`
       );
       return response.json();
     },
@@ -195,7 +208,7 @@ export const useAPIStore = defineStore("API", {
       with_genres
     ) {
       const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/movie/discover?sort_by=${sort_by}&page=${page}&vote_average=${vote_average}&vote_sort=${vote_sort}&with_genres=${with_genres}`
+        `https://tmdb-backend.herokuapp.com/api/discover/movie?sort_by=${sort_by}&page=${page}&vote_average=${vote_average}&vote_sort=${vote_sort}&with_genres=${with_genres}`
       );
 
       return response.json();
@@ -209,17 +222,33 @@ export const useAPIStore = defineStore("API", {
       with_genres
     ) {
       const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/tv/discover?sort_by=${sort_by}&page=${page}&vote_average=${vote_average}&vote_sort=${vote_sort}&with_genres=${with_genres}`
+        `https://tmdb-backend.herokuapp.com/api/discover/tv?sort_by=${sort_by}&page=${page}&vote_average=${vote_average}&vote_sort=${vote_sort}&with_genres=${with_genres}`
       );
 
       return response.json();
     },
 
-    async getSearchResults(query, page = 1) {
-      const type = "multi";
+    async getSearchResults(query, type, page = 1) {
+      // Type : multi | movie | tv
 
       const response = await fetch(
         `https://tmdb-backend.herokuapp.com/api/search/${type}?query=${query}&page=${page}`
+      );
+
+      return response.json();
+    },
+
+    async getMovieVideos(movie_id) {
+      const response = await fetch(
+        `https://tmdb-backend.autoidleapp.com/api/movie/videos?movie_id=${movie_id}`
+      );
+
+      return response.json();
+    },
+
+    async getTVVideos(tv_id) {
+      const response = await fetch(
+        `https://tmdb-backend.autoidleapp.com/api/tv/videos?tv_id=${tv_id}`
       );
 
       return response.json();
