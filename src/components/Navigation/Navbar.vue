@@ -24,11 +24,7 @@
           <img src="@/assets/logo.png" class="h-8 w-8" />
         </div>
 
-        <slot name="mobile-right">
-          <div class="flex space-x-1">
-            <Theme class="z-10" />
-          </div>
-        </slot>
+        <slot name="mobile-right" class="flex flex-row items-center"> </slot>
       </div>
     </div>
   </nav>

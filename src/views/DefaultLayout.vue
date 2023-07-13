@@ -38,46 +38,87 @@
       <template #web-center></template>
 
       <template #web-right
-        ><div class="hidden md:flex items-center">
+        ><div class="hidden md:flex items-center space-x-2">
           <Theme />
           <div class="divider divider-vertical mx-0 h-8"></div>
 
-          <div class="space-x-2">Links</div>
-        </div></template
-      >
+          <div
+            class="avatar flex items-center bg-backgroundSecondary border border-primary"
+          >
+            <Icon icon="teenyicons:ghost-solid" width="25" height="25" />
+          </div></div
+      ></template>
 
       <template #mobile-drop>
-        <div class="dropdown">
+        <!-- <div class="dropdown">
           <label class="btn my-2" tabindex="0"
             ><Icon icon="charm:menu-hamburger" height="30" width="30"
           /></label>
           <div
             class="dropdown-menu dropdown-menu-bottom-right bg-backgroundSecondary"
-          >
-            <router-link
-              :to="{ name: 'Home' }"
-              class="dropdown-item text-left justify-start btn btn-ghost flex flex-row items-center space-x-2 p-2 hover:bg-primary"
-            >
-              <Icon icon="carbon:home" width="20" height="20" />
-              <span> Home</span>
-            </router-link>
+          ></div>
+        </div> -->
 
-            <router-link
-              :to="{ name: 'MoviesLayout' }"
-              class="dropdown-item text-left justify-start btn btn-ghost flex flex-row items-center space-x-2 p-2 hover:bg-primary"
-            >
-              <Icon icon="mdi:movie-open" width="20" height="20" />
-              <span> Movies</span>
-            </router-link>
+        <input type="checkbox" id="drawer-left" class="drawer-toggle" />
 
-            <router-link
-              :to="{ name: 'TVLayout' }"
-              class="dropdown-item text-left justify-start btn btn-ghost flex flex-row items-center space-x-2 p-2 hover:bg-primary"
+        <label for="drawer-left" class="btn"
+          ><Icon icon="charm:menu-hamburger" height="30" width="30"
+        /></label>
+        <label class="overlay" for="drawer-left"></label>
+        <div class="drawer">
+          <div class="drawer-content pt-12 flex flex-col h-full">
+            <label
+              for="drawer-left"
+              class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+              >✕</label
             >
-              <Icon icon="lucide:tv" width="20" height="20" />
-              <span> TV Shows</span>
-            </router-link>
+            <div
+              class="bg-backgroundSecondary py-4 rounded-xl flex flex-row items-center px-4 space-x-4"
+            >
+              <div
+                class="avatar flex items-center bg-backgroundPrimary border border-primary"
+              >
+                <Icon icon="teenyicons:ghost-solid" width="25" height="25" />
+              </div>
+              <div class="">Welcome to Movieopolis!</div>
+            </div>
+
+            <div class="divider"></div>
+            <div class="flex flex-col space-y-2">
+              <span class="text-left text-primary text-xl">Explore</span>
+              <div class="flex flex-col space-y-2">
+                <router-link
+                  :to="{ name: 'Home' }"
+                  class="bg-backgroundSecondary text-left justify-start btn btn-ghost flex flex-row items-center space-x-2 p-2 hover:bg-primary"
+                >
+                  <Icon icon="carbon:home" width="20" height="20" />
+                  <span> Home</span>
+                </router-link>
+
+                <router-link
+                  :to="{ name: 'MoviesLayout' }"
+                  class="bg-backgroundSecondary text-left justify-start btn btn-ghost flex flex-row items-center space-x-2 p-2 hover:bg-primary"
+                >
+                  <Icon icon="mdi:movie-open" width="20" height="20" />
+                  <span> Movies</span>
+                </router-link>
+
+                <router-link
+                  :to="{ name: 'TVLayout' }"
+                  class="bg-backgroundSecondary text-left justify-start btn btn-ghost flex flex-row items-center space-x-2 p-2 hover:bg-primary"
+                >
+                  <Icon icon="lucide:tv" width="20" height="20" />
+                  <span> TV Shows</span>
+                </router-link>
+              </div>
+            </div>
           </div>
+        </div>
+      </template>
+
+      <template #mobile-right>
+        <div class="flex flex-row space-x-4">
+          <Theme />
         </div>
       </template>
     </Navbar>

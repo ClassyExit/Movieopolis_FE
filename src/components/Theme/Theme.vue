@@ -1,8 +1,10 @@
 <template>
-  <div class="flex items-center">
-    <div class="dropdown">
-      <label class="btn btn-ghost my-2" tabindex="0"
-        ><Icon icon="mdi:theme-light-dark" width="20" height="20"
+  <div class="flex items-center cursor-pointer">
+    <div
+      class="dropdown md:py-2 md:px-3 hover:bg-backgroundSecondary rounded-lg"
+    >
+      <label class="btn-ghost cursor-pointer" tabindex="0"
+        ><Icon icon="mdi:theme-light-dark" width="22" height="22"
       /></label>
       <div
         class="dropdown-menu dropdown-menu-bottom-left bg-backgroundSecondary w-fit"
