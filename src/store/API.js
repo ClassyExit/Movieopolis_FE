@@ -110,6 +110,34 @@ export const useAPIStore = defineStore("API", {
       }
     },
 
+    async getTopRatedTVAPI(page = 1) {
+      try {
+        const response = await fetch(
+          `https://tmdb-backend.herokuapp.com/api/tv/toprated?page=${page}`
+        );
+        return response.json();
+      } catch {
+        const response = await fetch(
+          `https://tmdb-backend.autoidleapp.com/api/tv/toprated?page=${page}`
+        );
+        return response.json();
+      }
+    },
+
+    async getNowPlayingMoviesAPI(page) {
+      try {
+        const response = await fetch(
+          `https://tmdb-backend.herokuapp.com/api/movie/nowplaying?page=${page}`
+        );
+        return response.json();
+      } catch {
+        const response = await fetch(
+          `https://tmdb-backend.autoidleapp.com/api/movie/nowplaying?page=${page}`
+        );
+        return response.json();
+      }
+    },
+
     async getPopularTVShowsAPI(page = 1) {
       try {
         const response = await fetch(
@@ -180,7 +208,7 @@ export const useAPIStore = defineStore("API", {
       with_genres
     ) {
       const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/movie/discover?sort_by=${sort_by}&page=${page}&vote_average=${vote_average}&vote_sort=${vote_sort}&with_genres=${with_genres}`
+        `https://tmdb-backend.herokuapp.com/api/discover/movie?sort_by=${sort_by}&page=${page}&vote_average=${vote_average}&vote_sort=${vote_sort}&with_genres=${with_genres}`
       );
 
       return response.json();
@@ -194,14 +222,14 @@ export const useAPIStore = defineStore("API", {
       with_genres
     ) {
       const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/tv/discover?sort_by=${sort_by}&page=${page}&vote_average=${vote_average}&vote_sort=${vote_sort}&with_genres=${with_genres}`
+        `https://tmdb-backend.herokuapp.com/api/discover/tv?sort_by=${sort_by}&page=${page}&vote_average=${vote_average}&vote_sort=${vote_sort}&with_genres=${with_genres}`
       );
 
       return response.json();
     },
 
-    async getSearchResults(query, page = 1) {
-      const type = "multi";
+    async getSearchResults(query, type, page = 1) {
+      // Type : multi | movie | tv
 
       const response = await fetch(
         `https://tmdb-backend.herokuapp.com/api/search/${type}?query=${query}&page=${page}`

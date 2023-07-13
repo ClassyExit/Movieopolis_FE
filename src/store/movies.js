@@ -20,7 +20,6 @@ export const useMovieStore = defineStore("Movie", {
     popularMoviesHome: [],
     upcomingMoviesHome: [],
     latestMovies: [],
-    topRatedMovies: [],
   }),
   getters: {},
   actions: {
@@ -85,11 +84,18 @@ export const useMovieStore = defineStore("Movie", {
     async getTopRatedMovies(page) {
       /* Get the top rated movies */
 
-      this.isLoadingTopRatedHome = true;
-      const toprated = await useAPIStore().getTopRatedMoviesAPI(page);
-      this.topRatedMovies = toprated;
+      // Unload the old movies
+      this.popularMovies = [];
 
-      this.isLoadingTopRatedHome = false;
+      for (let i = page; i < 2 + page; i++) {
+        const movies = await useAPIStore().getTopRatedMoviesAPI(i);
+
+        for (const movie in movies.results) {
+          this.popularMovies.push(movies.results[movie]);
+        }
+      }
+
+      this.isLoadingMovies = false;
     },
 
     async getPopularMovies(page) {
@@ -100,6 +106,23 @@ export const useMovieStore = defineStore("Movie", {
 
       for (let i = page; i < 2 + page; i++) {
         const movies = await useAPIStore().getPopularMoviesAPI(i);
+
+        for (const movie in movies.results) {
+          this.popularMovies.push(movies.results[movie]);
+        }
+      }
+
+      this.isLoadingMovies = false;
+    },
+
+    async getNowPlayingMovies(page) {
+      this.isLoadingMovies = true;
+
+      // Unload the old movies
+      this.popularMovies = [];
+
+      for (let i = page; i < 2 + page; i++) {
+        const movies = await useAPIStore().getNowPlayingMoviesAPI(i);
 
         for (const movie in movies.results) {
           this.popularMovies.push(movies.results[movie]);

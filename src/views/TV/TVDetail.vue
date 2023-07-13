@@ -119,7 +119,7 @@
           <div class="text-left text-2xl">Seasons</div>
           <div class="w-full flex flex-wrap gap-2">
             <div
-              class="flex flex-col"
+              class="flex flex-col cursor-pointer"
               v-for="season in tvDetails.seasons"
               @click="getSeasonDetails(tvDetails.id, season.season_number)"
             >
@@ -279,7 +279,7 @@
                 v-for="season in tvDetails.seasons"
                 @click="getSeasonDetails(tvDetails.id, season.season_number)"
               >
-                <label for="season-details">
+                <label for="season-details" class="cursor-pointer">
                   <img
                     :src="`https://image.tmdb.org/t/p/w154/${season.poster_path}`"
                     :title="season.seaon_number"

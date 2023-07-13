@@ -23,29 +23,106 @@
         </aside>
       </div>
       <div class="flex w-full flex-col">
-        <div class="flex flex-row space-x-2 items-center w-fit md:hidden p-2">
-          <label
-            for="sidebar-mobile-fixed"
-            class="flex flex-row items-center space-x-1 w-fit text-secondary p-2 border border-secondary rounded-lg cursor-pointer hover:bg-backgroundSecondary sm:hidden"
-            ><Icon icon="carbon:filter" width="20" height="20" />
-            <span>Filter</span></label
-          >
+        <div
+          class="flex flex-row items-center justify-between p-2 md:justify-end"
+        >
           <div
-            v-if="discoverStore.discoverMovies.length > 0"
-            @click="discoverStore.clearDiscoverMovies()"
-            class="flex flex-row items-center space-x-1 w-fit text-error p-2 border border-error rounded-lg cursor-pointer hover:bg-backgroundSecondary"
+            class="md:hidden flex flex-row space-x-2 overflow-auto scrollbar-hide"
           >
-            <Icon icon="fluent-mdl2:clear-filter" width="20" height="20" />
-            <span>Clear</span>
+            <label
+              for="sidebar-mobile-fixed"
+              class="flex flex-row items-center space-x-1 w-fit text-secondary p-2 border border-secondary rounded-lg cursor-pointer hover:bg-backgroundSecondary sm:hidden"
+              ><Icon icon="carbon:filter" width="20" height="20" />
+              <span>Filter</span></label
+            >
+            <div
+              v-if="discoverStore.discoverMovies.length > 0"
+              @click="discoverStore.clearDiscoverMovies()"
+              class="flex flex-row items-center space-x-1 w-fit text-error p-2 border border-error rounded-lg cursor-pointer hover:bg-backgroundSecondary"
+            >
+              <Icon icon="fluent-mdl2:clear-filter" width="20" height="20" />
+              <span>Clear</span>
+            </div>
+
+            <div
+              v-if="searchStore?.searchMovieResults.length > 0"
+              @click="searchStore.clearSearchResults"
+              class="flex flex-row items-center space-x-1 w-fit text-error p-2 border border-error rounded-lg cursor-pointer hover:bg-backgroundSecondary"
+            >
+              <Icon icon="pajamas:cancel" width="15" height="15" />
+              <span>Search</span>
+            </div>
+          </div>
+          <div
+            @click="isListView = !isListView"
+            class="w-24 h-12 rounded-lg border border-borde cursor-pointer"
+          >
+            <div class="relative">
+              <div
+                class="absolute right-1 top-0.5 text-content1 p-2 rounded"
+                :class="isListView ? 'bg-primary' : ''"
+              >
+                <Icon icon="ph:list-fill" width="25" height="25" />
+              </div>
+              <div
+                class="absolute left-1 top-0.5 p-2 text-content1 rounded"
+                :class="isListView ? '' : 'bg-primary '"
+              >
+                <Icon icon="bi:grid" width="25" height="25" />
+              </div>
+            </div>
           </div>
         </div>
+
         <div class="bg-backgroundPrimary flex-1 w-full">
+          <div class="flex flex-row justify-between py-2 px-2 md:px-3 w-full">
+            <div class="flex flex-row space-x-3 overflow-auto scrollbar-hide">
+              <span
+                @click="movieStore.getPopularMovies(1)"
+                class="badge badge-outline-primary badge-sm md:badge-lg hover:badge-primary cursor-pointer"
+                >Show Standard</span
+              >
+              <span
+                @click="movieStore.getNowPlayingMovies(1)"
+                class="badge badge-outline-primary badge-sm md:badge-lg hover:badge-primary cursor-pointer"
+                >Show Now Playing</span
+              >
+              <span
+                @click="movieStore.getTopRatedMovies(1)"
+                class="badge badge-outline-success badge-sm md:badge-lg hover:badge-success cursor-pointer"
+                >Show Top Rated</span
+              >
+            </div>
+          </div>
           <div class="p-2">
-            <div v-if="isLoadingMovies || isLoadingDiscover"><Loading /></div>
+            <div v-if="isLoadingMovies || isLoadingDiscover || isLoadingSearch">
+              <Loading />
+            </div>
+
+            <div
+              v-else-if="searchMovieResults.length > 0"
+              class="flex gap-2"
+              :class="isListView ? 'w-full flex flex-col' : 'flex-wrap '"
+            >
+              <Container
+                v-for="item in searchMovieResults"
+                :key="item.id"
+                :id="item.id"
+                :poster="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
+                :title_movie="item.title"
+                :year_movie="item.release_date"
+                :rating="item.vote_average"
+                :media_type="`movie`"
+                :type="item.media_type"
+                :listView="isListView"
+              >
+              </Container>
+            </div>
 
             <div
               v-else-if="discoverMovies.length > 0"
-              class="flex flex-wrap gap-2"
+              class="flex gap-2"
+              :class="isListView ? 'w-full flex flex-col' : 'flex-wrap '"
             >
               <Container
                 v-for="item in discoverMovies"
@@ -57,11 +134,16 @@
                 :rating="item.vote_average"
                 :media_type="`movie`"
                 :type="item.media_type"
+                :listView="isListView"
               >
               </Container>
             </div>
 
-            <div v-else class="flex flex-wrap gap-2">
+            <div
+              v-else
+              class="flex gap-2"
+              :class="isListView ? 'w-full flex flex-col' : 'flex-wrap '"
+            >
               <Container
                 v-for="item in popularMovies"
                 :key="(item.id, item.media_type)"
@@ -71,6 +153,7 @@
                 :year_movie="item.release_date"
                 :rating="item.vote_average"
                 :media_type="`movie`"
+                :listView="isListView"
               >
               </Container>
             </div>
@@ -78,7 +161,11 @@
 
           <div
             class="pagination flex justify-center w-full pb-8 pt-4"
-            :class="discoverMovies.length > 0 ? 'hidden' : ''"
+            :class="
+              discoverMovies.length || searchMovieResults.length > 0
+                ? 'hidden'
+                : ''
+            "
           >
             <div
               class="flex items-center rounded-lg p-2 bg-backgroundSecondary hover:bg-primary cursor-pointer"
@@ -126,11 +213,18 @@
 import MovieOptions from "./MovieOptions.vue";
 import { useMovieStore } from "@/store/movies";
 import { useDiscoverStore } from "@/store/discover";
+import { useSearchStore } from "@/store/search";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
 import Container from "@/components/Container.vue";
 import Loading from "@/components/Loading.vue";
 
+let isListView = ref(false);
+// Search
+const searchStore = useSearchStore();
+const { searchMovieResults, isLoadingSearch } = storeToRefs(searchStore);
+
+// Movies
 const movieStore = useMovieStore();
 const { popularMovies, isLoadingMovies } = storeToRefs(movieStore);
 

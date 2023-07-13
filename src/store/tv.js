@@ -96,6 +96,23 @@ export const useTVStore = defineStore("TV", {
       this.isLoadingTV = false;
     },
 
+    async getTopRatedTVShows(page) {
+      this.isLoadingTV = true;
+
+      // Unload the old tv shows
+      this.popularTVShows = [];
+
+      for (let i = page; i < 2 + page; i++) {
+        const tvshows = await useAPIStore().getTopRatedTVAPI(i);
+
+        for (const show in tvshows.results) {
+          this.popularTVShows.push(tvshows.results[show]);
+        }
+      }
+
+      this.isLoadingTV = false;
+    },
+
     async getTVGenres() {
       const genres = await useAPIStore().getTVGenres();
 
