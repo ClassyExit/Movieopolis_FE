@@ -27,7 +27,7 @@
         </div>
 
         <div
-          class="flex flex-row p-2 pt-6 mb-4 px-6 bg-backgroundSecondary text-content1"
+          class="flex flex-row p-2 pt-6 mb-4 px-6 bg-backgroundSecondary text-content1 space-x-2"
         >
           <span class="text-bold text-xl">
             {{ tvDetails.original_name }}
@@ -39,8 +39,8 @@
         </div>
       </div>
 
-      <div id="mobile" class="md:hidden w-full h-screen space-y-6 pt-10">
-        <div class="bg-backgroundPrimary text-content2 z-20 space-y-4">
+      <div id="mobile" class="md:hidden w-full h-screen space-y-6">
+        <div class="bg-backgroundPrimary text-content2 z-20 space-y-4 pt-8">
           <div class="px-6 text-left text-md text-content1">
             {{ tvDetails?.overview }}
           </div>

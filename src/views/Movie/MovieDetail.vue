@@ -26,7 +26,7 @@
           />
         </div>
         <div
-          class="flex flex-row space-x-2 p-2 px-6 bg-backgroundSecondary text-content1"
+          class="flex flex-row space-x-2 p-2 pt-6 md:pt-8 px-6 bg-backgroundSecondary text-content1 space-x-2"
         >
           <span class="text-bold text-xl">
             {{ movieDetails.original_title }}
@@ -39,7 +39,7 @@
       </div>
 
       <div id="mobile" class="md:hidden h-screen space-y-6">
-        <div class="bg-backgroundPrimary text-content2 z-20 space-y-4">
+        <div class="bg-backgroundPrimary text-content2 z-20 space-y-4 pt-8">
           <div class="px-6">
             <div
               class="w-full flex flex-row items-center justify-center space-x-2 p-2 rounded-lg bg-primary"
@@ -163,7 +163,7 @@
 
       <div
         id="screen"
-        class="hidden mx-auto md:grid grid-cols-3 space-x-4 pt-4"
+        class="hidden mx-auto md:grid grid-cols-3 space-x-4 pt-10"
       >
         <div class="h-fit w-fit px-4">
           <div class="accordion-group accordion-group-bordered">
