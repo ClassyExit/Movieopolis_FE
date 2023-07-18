@@ -55,7 +55,7 @@
           </div>
           <div
             @click="isListView = !isListView"
-            class="w-24 h-12 rounded-lg border border-borde cursor-pointer"
+            class="w-24 h-12 rounded-lg border border-border cursor-pointer"
           >
             <div class="relative">
               <div
