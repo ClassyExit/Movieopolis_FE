@@ -40,28 +40,23 @@
       <template #web-right
         ><div class="hidden md:flex items-center space-x-2">
           <Theme />
-          <div class="divider divider-vertical mx-0 h-8"></div>
+          <div class="divider divider-vertical h-8"></div>
 
-          <div
-            class="avatar flex items-center bg-backgroundSecondary border border-primary"
-          >
-            <Icon icon="teenyicons:ghost-solid" width="25" height="25" />
-          </div></div
-      ></template>
+          <div class="avatar avatar-ring-primary px-2">
+            <Icon
+              class="avatar"
+              icon="teenyicons:ghost-solid"
+              width="20"
+              height="20"
+            />
+          </div>
+        </div>
+      </template>
 
       <template #mobile-drop>
-        <!-- <div class="dropdown">
-          <label class="btn my-2" tabindex="0"
-            ><Icon icon="charm:menu-hamburger" height="30" width="30"
-          /></label>
-          <div
-            class="dropdown-menu dropdown-menu-bottom-right bg-backgroundSecondary"
-          ></div>
-        </div> -->
-
         <input type="checkbox" id="drawer-left" class="drawer-toggle" />
 
-        <label for="drawer-left" class="btn"
+        <label for="drawer-left"
           ><Icon icon="charm:menu-hamburger" height="30" width="30"
         /></label>
         <label class="overlay" for="drawer-left"></label>

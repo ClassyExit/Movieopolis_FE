@@ -8,7 +8,7 @@
 
         <router-link
           :to="{ name: 'MoviesLayout' }"
-          class="flex items-center badge badge-md text-sm text-secondary"
+          class="flex items-center badge badge-md text-sm text-content1"
         >
           <span> View more</span>
           <Icon icon="ic:twotone-arrow-right" width="20" height="20" />
@@ -42,7 +42,7 @@
 
         <router-link
           :to="{ name: 'TVLayout' }"
-          class="flex items-center badge badge-md text-sm text-secondary"
+          class="flex items-center badge badge-md text-sm text-content1"
         >
           <span> View more</span>
           <Icon icon="ic:twotone-arrow-right" width="20" height="20" />

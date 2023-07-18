@@ -37,7 +37,7 @@
         </div>
       </div>
 
-      <div id="cardView" v-else>
+      <div id="cardView" v-else class="shadow rounded">
         <img
           class="rounded-t-lg"
           :src="props.poster"
@@ -72,9 +72,9 @@
           </div>
         </div>
         <div
-          class="bg-backgroundSecondary rounded-b-lg p-1 flex items-center justify-center overflow-hidden line-clamp-1"
+          class="bg-backgroundSecondary rounded-b-lg p-1 flex items-center justify-center h-16"
         >
-          {{ title_movie }}
+          <span class="line-clamp-2">{{ title_movie }}</span>
         </div>
       </div>
     </router-link>
@@ -151,9 +151,9 @@
           </div>
         </div>
         <div
-          class="rounded-b-lg p-1 flex items-center justify-center text-ellipsis overflow-hidden line-clamp-1"
+          class="rounded-b-lg p-1 flex items-center justify-center overflow-hidden line-clamp-2 h-16"
         >
-          {{ title_tv }}
+          <span class="line-clamp-2">{{ title_tv }}</span>
         </div>
       </div>
     </router-link>
