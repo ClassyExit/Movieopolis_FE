@@ -160,7 +160,7 @@
         id="screen"
         class="hidden mx-auto md:grid grid-cols-3 space-x-4 pt-10"
       >
-        <div class="h-fit w-fit px-4">
+        <div class="h-fit w-fit px-2">
           <div class="accordion-group accordion-group-bordered">
             <div class="accordion">
               <input
@@ -185,7 +185,7 @@
               </span>
               <div class="accordion-content text-content2">
                 <div class="min-h-0">
-                  <div class="w-full flex flex-wrap gap-1">
+                  <div class="w-full flex flex-wrap gap-2">
                     <Container
                       v-for="item in tvRecommendations.results"
                       :key="item.id"

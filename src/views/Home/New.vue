@@ -1,6 +1,6 @@
 <template>
   <div class="w-full p-4 md:px-16 rounded">
-    <div class="w-full bg-backgroundSecondary text-content2 rounded p-2">
+    <div class="w-full text-content2 rounded p-2">
       <div
         class="flex flex-col lg:flex-row items-start lg:space-x-2 text-left text-3xl text-primary pb-1"
       >
@@ -11,7 +11,7 @@
       <div v-else>
         <vue-horizontal responsive snap="start">
           <ExtendedContainer
-            class="mx-10 bg-backgroundPrimary text-content1"
+            class="mx-5 text-content1"
             v-for="item in upcomingMoviesHome.results"
             :key="item.id"
             :id="item.id"

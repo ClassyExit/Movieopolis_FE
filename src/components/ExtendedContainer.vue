@@ -4,7 +4,7 @@
       :to="{ name: 'Movie-Details', params: { id: id } }"
       class="hover:cursor-pointer"
     >
-      <div class="flex justify-between bg-backgroundPrimary rounded-lg">
+      <div class="flex justify-between bg-backgroundSecondary rounded-lg">
         <div class="flex-1 space-y-8 p-2">
           <div class="text-2xl text-primary-content h-[64px]">{{ title }}</div>
 

@@ -1,8 +1,6 @@
 <template>
   <div class="w-full p-4 md:px-16 rounded text-content1">
-    <div
-      class="w-full bg-backgroundSecondary text-content2 rounded p-2 space-y-1"
-    >
+    <div class="w-full text-content2 rounded p-2 space-y-1">
       <div
         class="flex flex-col lg:flex-row lg:items-center lg:space-x-2 text-left text-3xl text-primary pb-1"
       >
