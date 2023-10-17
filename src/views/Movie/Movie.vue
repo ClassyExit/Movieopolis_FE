@@ -31,7 +31,7 @@
           >
             <label
               for="sidebar-mobile-fixed"
-              class="flex flex-row items-center space-x-1 w-fit text-secondary p-2 border border-secondary rounded-lg cursor-pointer hover:bg-backgroundSecondary sm:hidden"
+              class="flex flex-row items-center space-x-1 w-fit text-secondary font-semibold p-2 border border-secondary rounded-lg cursor-pointer sm:hidden"
               ><Icon icon="carbon:filter" width="20" height="20" />
               <span>Filter</span></label
             >
@@ -102,7 +102,11 @@
             <div
               v-else-if="searchMovieResults.length > 0"
               class="flex gap-2"
-              :class="isListView ? 'w-full flex flex-col' : 'flex-wrap '"
+              :class="
+                isListView
+                  ? 'w-full flex flex-col'
+                  : 'justify-center gap-4 md:gap-2 md:justify-start flex-wrap'
+              "
             >
               <Container
                 v-for="item in searchMovieResults"
@@ -122,7 +126,11 @@
             <div
               v-else-if="discoverMovies.length > 0"
               class="flex gap-2"
-              :class="isListView ? 'w-full flex flex-col' : 'flex-wrap '"
+              :class="
+                isListView
+                  ? 'w-full flex flex-col'
+                  : 'justify-center gap-4 md:gap-2 md:justify-start flex-wrap '
+              "
             >
               <Container
                 v-for="item in discoverMovies"
@@ -141,8 +149,12 @@
 
             <div
               v-else
-              class="flex gap-2"
-              :class="isListView ? 'w-full flex flex-col' : 'flex-wrap '"
+              class="flex"
+              :class="
+                isListView
+                  ? 'w-full flex flex-col'
+                  : 'justify-center gap-4 md:gap-2 md:justify-start flex-wrap '
+              "
             >
               <Container
                 v-for="item in popularMovies"

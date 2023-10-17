@@ -27,7 +27,6 @@
 
 <script setup>
 import { ref } from "vue";
-import { storeToRefs } from "pinia";
 import { useSearchStore } from "@/store/search";
 
 const props = defineProps({

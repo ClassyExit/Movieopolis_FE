@@ -5,8 +5,8 @@
         class="flex flex-col lg:flex-row lg:items-center lg:space-x-2 text-left text-3xl text-primary pb-1"
       >
         <span>Trending</span>
-        <div class="flex flex-wrap gap-1">
-          <div class="tabs tabs-boxed w-fit">
+        <div class="flex flex-wrap gap-2">
+          <div class="tabs tabs-boxed w-fit bg-backgroundSecondary">
             <span
               @click="selectedTrendingOption('all', trendingTime)"
               class="tab"
@@ -27,7 +27,7 @@
             >
           </div>
 
-          <div class="tabs tabs-boxed w-fit" @click="">
+          <div class="tabs tabs-boxed w-fit bg-backgroundSecondary" @click="">
             <span
               @click="selectedTrendingOption(trendingOption, 'day')"
               class="tab"

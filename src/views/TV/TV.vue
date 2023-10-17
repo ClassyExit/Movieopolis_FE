@@ -31,14 +31,14 @@
           >
             <label
               for="sidebar-mobile-fixed"
-              class="flex flex-row items-center space-x-1 w-fit text-secondary p-2 border border-secondary rounded-lg cursor-pointer hover:bg-backgroundSecondary sm:hidden"
+              class="flex flex-row items-center space-x-1 w-fit text-secondary font-semibold p-2 border border-secondary rounded-lg cursor-pointer sm:hidden"
               ><Icon icon="carbon:filter" width="20" height="20" />
               <span>Filter</span></label
             >
             <div
               v-if="discoverStore.discoverTV.length > 0"
               @click="discoverStore.clearDiscoverTV()"
-              class="flex flex-row items-center space-x-1 w-fit text-error p-2 border border-error rounded-lg cursor-pointer hover:bg-backgroundSecondary"
+              class="flex flex-row items-center space-x-1 w-fit text-error font-semibold p-2 border border-error rounded-lg cursor-pointer"
             >
               <Icon icon="fluent-mdl2:clear-filter" width="20" height="20" />
               <span>Clear</span>
@@ -47,7 +47,7 @@
             <div
               v-if="searchStore?.searchTVResults.length > 0"
               @click="searchStore.clearSearchResults()"
-              class="flex flex-row items-center space-x-1 w-fit text-error p-2 border border-error rounded-lg cursor-pointer hover:bg-backgroundSecondary"
+              class="flex flex-row items-center space-x-1 w-fit text-error font-semibold p-2 border border-error rounded-lg cursor-pointer"
             >
               <Icon icon="pajamas:cancel" width="15" height="15" />
 
@@ -99,7 +99,11 @@
             <div
               v-else-if="searchStore.searchTVResults.length > 0"
               class="flex gap-2"
-              :class="isListView ? 'w-full flex flex-col' : 'flex-wrap '"
+              :class="
+                isListView
+                  ? 'w-full flex flex-col'
+                  : 'justify-center gap-4 md:gap-2 md:justify-start flex-wrap '
+              "
             >
               <Container
                 v-for="item in searchTVResults"
@@ -119,7 +123,11 @@
             <div
               v-else-if="discoverTV.length > 0"
               class="flex gap-2"
-              :class="isListView ? 'w-full flex flex-col' : 'flex-wrap '"
+              :class="
+                isListView
+                  ? 'w-full flex flex-col'
+                  : 'justify-center gap-4 md:gap-2 md:justify-start flex-wrap'
+              "
             >
               <Container
                 v-for="item in discoverTV"
@@ -139,7 +147,11 @@
             <div
               v-else
               class="flex gap-2"
-              :class="isListView ? 'w-full flex flex-col' : 'flex-wrap '"
+              :class="
+                isListView
+                  ? 'w-full flex flex-col'
+                  : 'justify-center gap-4 md:gap-2 md:justify-start flex-wrap '
+              "
             >
               <Container
                 v-for="item in popularTVShows"
