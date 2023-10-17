@@ -60,51 +60,53 @@
           ><Icon icon="charm:menu-hamburger" height="30" width="30"
         /></label>
         <label class="overlay" for="drawer-left"></label>
+
         <div class="drawer">
-          <div class="drawer-content pt-12 flex flex-col h-full">
+          <div class="drawer-content px-0 pt-12 flex flex-col h-full">
             <label
               for="drawer-left"
               class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
               >✕</label
             >
             <div
-              class="bg-backgroundSecondary py-4 rounded-xl flex flex-row items-center px-4 space-x-4"
+              class="py-8 flex flex-row items-center text-center px-4 space-x-4 border-b border-border"
             >
-              <div
-                class="avatar flex items-center bg-backgroundPrimary border border-primary"
-              >
-                <Icon icon="teenyicons:ghost-solid" width="25" height="25" />
-              </div>
-              <div class="">Welcome to Movieopolis!</div>
+              <div class="w-full text-4xl">Movieopolis</div>
             </div>
 
-            <div class="divider"></div>
-            <div class="flex flex-col space-y-2">
-              <span class="text-left text-primary text-xl">Explore</span>
-              <div class="flex flex-col space-y-2">
-                <router-link
-                  :to="{ name: 'Home' }"
-                  class="bg-backgroundSecondary text-left justify-start btn btn-ghost flex flex-row items-center space-x-2 p-2 hover:bg-primary"
-                >
-                  <Icon icon="carbon:home" width="20" height="20" />
-                  <span> Home</span>
-                </router-link>
+            <div class="flex flex-col">
+              <div
+                class="flex flex-col divide-y divide-border border-b border-border"
+              >
+                <div class="px-4">
+                  <router-link
+                    :to="{ name: 'Home' }"
+                    class="flex flex-row space-x-4 py-4"
+                  >
+                    <Icon icon="carbon:home" width="20" height="20" />
+                    <span> Home</span>
+                  </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'MoviesLayout' }"
-                  class="bg-backgroundSecondary text-left justify-start btn btn-ghost flex flex-row items-center space-x-2 p-2 hover:bg-primary"
-                >
-                  <Icon icon="mdi:movie-open" width="20" height="20" />
-                  <span> Movies</span>
-                </router-link>
+                <div class="px-4">
+                  <router-link
+                    :to="{ name: 'MoviesLayout' }"
+                    class="flex flex-row space-x-4 py-4"
+                  >
+                    <Icon icon="mdi:movie-open" width="20" height="20" />
+                    <span> Movies</span>
+                  </router-link>
+                </div>
 
-                <router-link
-                  :to="{ name: 'TVLayout' }"
-                  class="bg-backgroundSecondary text-left justify-start btn btn-ghost flex flex-row items-center space-x-2 p-2 hover:bg-primary"
-                >
-                  <Icon icon="lucide:tv" width="20" height="20" />
-                  <span> TV Shows</span>
-                </router-link>
+                <div class="px-4">
+                  <router-link
+                    :to="{ name: 'TVLayout' }"
+                    class="flex flex-row space-x-4 py-4"
+                  >
+                    <Icon icon="lucide:tv" width="20" height="20" />
+                    <span> TV Shows</span>
+                  </router-link>
+                </div>
               </div>
             </div>
           </div>

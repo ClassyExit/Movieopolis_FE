@@ -4,7 +4,7 @@
       <div
         v-if="discoverStore?.discoverMovies.length > 0"
         @click="discoverStore.clearDiscoverMovies()"
-        class="flex flex-row items-center space-x-1 w-fit text-error p-2 border border-error rounded-lg cursor-pointer hover:bg-backgroundSecondary"
+        class="flex flex-row items-center space-x-1 w-fit text-error font-semibold p-2 border border-error rounded-lg cursor-pointer"
       >
         <Icon icon="fluent-mdl2:clear-filter" width="15" height="15" />
         <span>Clear</span>
@@ -12,7 +12,7 @@
       <div
         v-if="searchStore?.searchMovieResults.length > 0"
         @click="searchStore.clearSearchResults"
-        class="flex flex-row items-center space-x-1 w-fit text-error p-2 border border-error rounded-lg cursor-pointer hover:bg-backgroundSecondary"
+        class="flex flex-row items-center space-x-1 w-fit text-error font-semibold p-2 border border-error rounded-lg cursor-pointer"
       >
         <Icon icon="pajamas:cancel" width="15" height="15" />
         <span>Search</span>
