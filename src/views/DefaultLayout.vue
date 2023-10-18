@@ -8,28 +8,34 @@
             <h1 class="tracking-wide font-bold text-xl pl-2">Movieopolis</h1>
           </router-link>
 
-          <div class="dropdown">
-            <label class="btn btn-ghost my-2 text-lg" tabindex="0"
-              >Browse</label
-            >
-            <div
-              class="dropdown-menu dropdown-menu-bottom-right bg-backgroundSecondary"
-            >
-              <router-link
-                :to="{ name: 'MoviesLayout' }"
-                class="dropdown-item text-left justify-start btn btn-ghost flex flex-row items-center space-x-2 p-2 hover:bg-primary"
-              >
-                <Icon icon="mdi:movie-open" width="20" height="20" />
-                <span> Movies</span>
-              </router-link>
+          <div class="flex flex-row">
+            <router-link :to="{ name: 'Home' }" class="flex items-center">
+              <div class="btn btn-ghost my-2 text-lg">Home</div>
+            </router-link>
 
-              <router-link
-                :to="{ name: 'TVLayout' }"
-                class="dropdown-item text-left justify-start btn btn-ghost flex flex-row items-center space-x-2 p-2 hover:bg-primary"
+            <div class="dropdown">
+              <label class="btn btn-ghost my-2 text-lg" tabindex="0"
+                >Browse</label
               >
-                <Icon icon="lucide:tv" width="20" height="20" />
-                <span> TV Shows</span>
-              </router-link>
+              <div
+                class="dropdown-menu dropdown-menu-bottom-right bg-backgroundSecondary"
+              >
+                <router-link
+                  :to="{ name: 'MoviesLayout' }"
+                  class="dropdown-item text-left justify-start btn btn-ghost flex flex-row items-center space-x-2 p-2 hover:bg-primary"
+                >
+                  <Icon icon="mdi:movie-open" width="20" height="20" />
+                  <span> Movies</span>
+                </router-link>
+
+                <router-link
+                  :to="{ name: 'TVLayout' }"
+                  class="dropdown-item text-left justify-start btn btn-ghost flex flex-row items-center space-x-2 p-2 hover:bg-primary"
+                >
+                  <Icon icon="lucide:tv" width="20" height="20" />
+                  <span> TV Shows</span>
+                </router-link>
+              </div>
             </div>
           </div>
         </div>

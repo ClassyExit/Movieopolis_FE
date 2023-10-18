@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex flex-col space-y-4 overflow-none">
+  <div class="w-full flex flex-col overflow-none">
     <New />
     <Trending />
     <Popular />

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full p-4 md:px-16 rounded">
+  <div class="w-full p-4 md:px-16 rounded text-content1">
     <div class="w-full text-content2 rounded p-2">
       <div
         class="flex flex-col lg:flex-row items-start lg:space-x-2 text-left text-3xl text-primary pb-1"

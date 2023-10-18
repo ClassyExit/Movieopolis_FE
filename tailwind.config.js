@@ -80,7 +80,6 @@ module.exports = {
     extend: {},
   },
   plugins: [
-    require("@tailwindcss/line-clamp"),
     require("tailwind-scrollbar-hide"),
     require("rippleui")({
       ...rippleUIconfig,

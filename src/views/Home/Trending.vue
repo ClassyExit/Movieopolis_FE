@@ -1,45 +1,53 @@
 <template>
-  <div class="w-full p-4 md:px-16 rounded text-content1">
+  <div class="w-full px-4 pb-4 md:px-16 rounded text-content1">
     <div class="w-full text-content2 rounded p-2 space-y-1">
       <div
-        class="flex flex-col lg:flex-row lg:items-center lg:space-x-2 text-left text-3xl text-primary pb-1"
+        class="flex flex-col lg:flex-row lg:items-center lg:space-x-2 text-left text-3xl pb-1"
       >
-        <span>Trending</span>
-        <div class="flex flex-wrap gap-2">
-          <div class="tabs tabs-boxed w-fit bg-backgroundSecondary">
-            <span
-              @click="selectedTrendingOption('all', trendingTime)"
-              class="tab"
-              :class="trendingOption == 'all' ? 'tab-active' : ''"
-              >All</span
+        <span class="text-primary pb-1">Trending</span>
+        <div class="flex flex-row space-x-2">
+          <div class="flex flex-row space-x-2 overflow-auto scrollbar-hide">
+            <div
+              class="flex flex-row h-10 rounded-xl bg-backgroundSecondary text-content1 text-sm hover:cursor-pointer"
             >
-            <span
-              @click="selectedTrendingOption('movie', trendingTime)"
-              class="tab"
-              :class="trendingOption == 'movie' ? 'tab-active ' : ''"
-              >Movie</span
-            >
-            <span
-              @click="selectedTrendingOption('tv', trendingTime)"
-              class="tab"
-              :class="trendingOption == 'tv' ? 'tab-active' : ''"
-              >TV Shows</span
-            >
-          </div>
+              <span
+                @click="selectedTrendingOption('all', trendingTime)"
+                :class="trendingOption == 'all' ? ' border border-primary' : ''"
+                class="min-w-[50px] text-center rounded-xl items-center justify-center flex p-2"
+                >All</span
+              >
+              <span
+                @click="selectedTrendingOption('movie', trendingTime)"
+                :class="
+                  trendingOption == 'movie' ? 'border border-primary' : ''
+                "
+                class="min-w-[50px] text-center rounded-xl items-center justify-center flex p-2"
+                >Movie</span
+              >
+              <span
+                @click="selectedTrendingOption('tv', trendingTime)"
+                :class="trendingOption == 'tv' ? 'border border-primary' : ''"
+                class="min-w-[50px] text-center rounded-xl items-center justify-center flex p-2"
+                >TV Shows</span
+              >
+            </div>
 
-          <div class="tabs tabs-boxed w-fit bg-backgroundSecondary" @click="">
-            <span
-              @click="selectedTrendingOption(trendingOption, 'day')"
-              class="tab"
-              :class="trendingTime == 'day' ? 'tab-active' : ''"
-              >Daily</span
+            <div
+              class="flex flex-row h-10 rounded-xl bg-backgroundSecondary text-content1 text-sm hover:cursor-pointer"
             >
-            <span
-              @click="selectedTrendingOption(trendingOption, 'week')"
-              class="tab"
-              :class="trendingTime == 'week' ? 'tab-active' : ''"
-              >Weekly</span
-            >
+              <span
+                @click="selectedTrendingOption(trendingOption, 'day')"
+                class="min-w-[50px] text-center rounded-xl items-center justify-center flex p-1 md:p-2"
+                :class="trendingTime == 'day' ? 'border border-primary' : ''"
+                >Daily</span
+              >
+              <span
+                @click="selectedTrendingOption(trendingOption, 'week')"
+                class="min-w-[50px] text-center rounded-xl items-center justify-center flex p-1 md:p-2"
+                :class="trendingTime == 'week' ? 'border border-primary' : ''"
+                >Weekly</span
+              >
+            </div>
           </div>
         </div>
       </div>

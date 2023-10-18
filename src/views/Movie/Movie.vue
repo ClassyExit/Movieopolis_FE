@@ -104,7 +104,7 @@
               class="flex gap-2"
               :class="
                 isListView
-                  ? 'w-full flex flex-col'
+                  ? 'w-full flex flex-col gap-2'
                   : 'justify-center gap-4 md:gap-2 md:justify-start flex-wrap'
               "
             >
@@ -128,7 +128,7 @@
               class="flex gap-2"
               :class="
                 isListView
-                  ? 'w-full flex flex-col'
+                  ? 'w-full flex flex-col gap-2'
                   : 'justify-center gap-4 md:gap-2 md:justify-start flex-wrap '
               "
             >
@@ -152,7 +152,7 @@
               class="flex"
               :class="
                 isListView
-                  ? 'w-full flex flex-col'
+                  ? 'w-full flex flex-col gap-2'
                   : 'justify-center gap-4 md:gap-2 md:justify-start flex-wrap '
               "
             >

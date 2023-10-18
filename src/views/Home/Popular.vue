@@ -1,14 +1,14 @@
 <template>
-  <div class="w-full space-y-12 p-4 md:px-16 rounded">
+  <div class="w-full p-4 md:px-16 rounded text-content1">
     <div class="w-full rounded p-2 space-y-1">
       <div
         class="text-left text-3xl text-primary flex flex-row items-center space-x-4 pb-1"
       >
-        <span>Popular Movies</span>
+        <span class="w-fit line-clamp-1">Popular Movies</span>
 
         <router-link
           :to="{ name: 'MoviesLayout' }"
-          class="flex items-center badge badge-md text-sm text-content1 bg-backgroundSecondary"
+          class="flex items-center badge badge-sm md:badge-md text-sm text-content1 bg-backgroundSecondary"
         >
           <span> View more</span>
           <Icon icon="ic:twotone-arrow-right" width="20" height="20" />
@@ -38,11 +38,11 @@
       <div
         class="text-left text-3xl text-primary flex flex-row items-center space-x-4 pb-1"
       >
-        <span>Popular Shows</span>
+        <span class="line-clamp-1">Popular Shows</span>
 
         <router-link
           :to="{ name: 'TVLayout' }"
-          class="flex items-center badge badge-md text-sm text-content1 bg-backgroundSecondary"
+          class="flex items-center badge badge-sm md:badge-md text-sm text-content1 bg-backgroundSecondary"
         >
           <span> View more</span>
           <Icon icon="ic:twotone-arrow-right" width="20" height="20" />
