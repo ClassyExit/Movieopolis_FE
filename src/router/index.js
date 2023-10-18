@@ -9,6 +9,14 @@ import TV from "@/views/TV/TV.vue";
 import TVDetail from "@/views/TV/TVDetail.vue";
 import MovieDetail from "@/views/Movie/MovieDetail.vue";
 
+// Auth
+import Login from "@/views/Auth/Login.vue";
+import Register from "@/views/Auth/Register.vue";
+import Reset from "@/views/Auth/Reset.vue";
+
+// Settings
+import SettingsLayout from "@/views/Settings/SettingLayout.vue";
+
 const routes = [
   {
     path: "/",
@@ -42,6 +50,28 @@ const routes = [
     children: [
       { path: "/tv-show", name: "TV", component: TV },
       { path: "/tv-show/:id", name: "TV-Details", component: TVDetail },
+    ],
+  },
+
+  {
+    path: "/auth",
+    name: "Auth",
+    redirect: { name: "Login" },
+    component: DefaultLayout,
+    children: [
+      { path: "/login", name: "Login", component: Login },
+      { path: "/register", name: "Register", component: Register },
+      { path: "/reset", name: "Reset", component: Reset },
+    ],
+  },
+
+  {
+    path: "/settingslayout",
+    name: "SettingLayout",
+    redirect: { name: "Settings" },
+    component: DefaultLayout,
+    children: [
+      { path: "/settings", name: "Settings", component: SettingsLayout },
     ],
   },
 

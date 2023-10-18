@@ -37,6 +37,9 @@
                 </router-link>
               </div>
             </div>
+
+            <div v-if="user" class="">authenticated</div>
+            <div v-else class="">not auth</div>
           </div>
         </div>
       </template>
@@ -48,13 +51,28 @@
           <Theme />
           <div class="divider divider-vertical h-8"></div>
 
-          <div class="avatar avatar-ring-primary px-2">
-            <Icon
-              class="avatar"
-              icon="teenyicons:ghost-solid"
-              width="20"
-              height="20"
-            />
+          <div class="avatar avatar-ring-primary avatar-md">
+            <div class="dropdown-container">
+              <div class="dropdown">
+                <label
+                  class="btn btn-ghost flex cursor-pointer px-0 hover:bg-inherit"
+                  tabindex="0"
+                >
+                  <Icon icon="iconamoon:profile" width="30" height="30" />
+                </label>
+                <div
+                  class="dropdown-menu dropdown-menu-bottom-left bg-backgroundSecondary"
+                >
+                  <a class="dropdown-item text-sm">Profile</a>
+                  <a tabindex="-1" class="dropdown-item text-sm"
+                    >Account settings</a
+                  >
+                  <a tabindex="-1" class="dropdown-item text-sm"
+                    >Subscriptions</a
+                  >
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </template>
@@ -135,6 +153,11 @@
 <script setup>
 import Theme from "@/components/Theme/Theme.vue";
 import Navbar from "@/components/Navigation/Navbar.vue";
+
+import { useUserStore } from "@/store/user";
+import { storeToRefs } from "pinia";
+
+const { user } = storeToRefs(useUserStore());
 </script>
 
 <style scoped></style>
