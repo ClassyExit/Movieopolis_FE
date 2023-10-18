@@ -5,12 +5,13 @@
   "scripts": {
     "dev": "vue-cli-service serve && npm run build-css",
     "build-css": "tailwindcss build ./src/assets/tailwind.css -o ./src/assets/css/tailwind.css",
-    "build": "CI=false vue-cli-service build"
+    "build": "vue-cli-service build"
   },
   "dependencies": {
     "@tailwindcss/line-clamp": "^0.4.2",
     "autoprefixer": "^10",
     "core-js": "^3.8.3",
+    "firebase-tools": "^12.7.0",
     "pinia": "^2.0.28",
     "pinia-plugin-persistedstate": "^3.0.2",
     "postcss": "^8",
