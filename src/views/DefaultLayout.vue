@@ -148,18 +148,6 @@
 
                 <div v-if="user" class="divide-y divide-border">
                   <div class="px-4">
-                    <!-- <router-link
-                      :to="{ name: 'TVLayout' }"
-                      class="flex flex-row space-x-4 py-4"
-                    >
-                      <Icon
-                        icon="material-symbols:settings-outline"
-                        width="20"
-                        height="20"
-                      />
-                      <span> Settings</span>
-                    </router-link> -->
-
                     <section class="menu-section py-4 px-0">
                       <ul class="menu-items">
                         <li>
@@ -199,9 +187,9 @@
                           </label>
 
                           <div class="menu-item-collapse">
-                            <div class="min-h-0">
+                            <div class="min-h-0 space-y-2">
                               <router-link
-                                class="menu-item ml-6"
+                                class="menu-item ml-6 pt-4"
                                 :to="{ name: 'ChangePassword' }"
                                 >Change Password</router-link
                               >
