@@ -168,7 +168,7 @@ const schema = yup.object({
     .string()
     .email("Please enter a valid email")
     .required("This field is required"),
-  password: yup.string().required("Tshis field is required"),
+  password: yup.string().required("This field is required"),
 });
 
 const formValue = reactive({

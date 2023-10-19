@@ -37,9 +37,6 @@
                 </router-link>
               </div>
             </div>
-
-            <div v-if="user" class="">authenticated</div>
-            <div v-else class="">not auth</div>
           </div>
         </div>
       </template>
@@ -51,7 +48,19 @@
           <Theme />
           <div class="divider divider-vertical h-8"></div>
 
-          <div class="avatar avatar-ring-primary avatar-md">
+          <div v-if="!user">
+            <div class="space-x-2">
+              <router-link :to="{ name: 'Login' }" class="btn btn-ghost"
+                ><span class="font-semibold">Log In</span></router-link
+              >
+              <router-link
+                :to="{ name: 'Register' }"
+                class="btn btn-primary hover:bg-primary2"
+                ><span class="font-semibold">Sign Up</span></router-link
+              >
+            </div>
+          </div>
+          <div v-else class="avatar avatar-ring-primary avatar-md">
             <div class="dropdown-container">
               <div class="dropdown">
                 <label
@@ -63,13 +72,18 @@
                 <div
                   class="dropdown-menu dropdown-menu-bottom-left bg-backgroundSecondary"
                 >
-                  <a class="dropdown-item text-sm">Profile</a>
-                  <a tabindex="-1" class="dropdown-item text-sm"
-                    >Account settings</a
+                  <router-link
+                    class="dropdown-item text-sm"
+                    :to="{ name: 'Settings' }"
+                    >Settings</router-link
                   >
-                  <a tabindex="-1" class="dropdown-item text-sm"
-                    >Subscriptions</a
+                  <div class="dropdown-divider" role="separator"></div>
+                  <div
+                    @click="useUserStore().logout"
+                    class="dropdown-item text-sm text-error"
                   >
+                    Logout
+                  </div>
                 </div>
               </div>
             </div>
@@ -131,6 +145,101 @@
                     <span> TV Shows</span>
                   </router-link>
                 </div>
+
+                <div v-if="user" class="divide-y divide-border">
+                  <div class="px-4">
+                    <!-- <router-link
+                      :to="{ name: 'TVLayout' }"
+                      class="flex flex-row space-x-4 py-4"
+                    >
+                      <Icon
+                        icon="material-symbols:settings-outline"
+                        width="20"
+                        height="20"
+                      />
+                      <span> Settings</span>
+                    </router-link> -->
+
+                    <section class="menu-section py-4 px-0">
+                      <ul class="menu-items">
+                        <li>
+                          <input
+                            type="checkbox"
+                            id="menu-1"
+                            class="menu-toggle"
+                            v-model="openSettings"
+                          />
+
+                          <label
+                            class="w-full flex flex-row justify-between"
+                            for="menu-1"
+                          >
+                            <div class="flex flex-row space-x-4">
+                              <Icon
+                                icon="material-symbols:settings-outline"
+                                width="20"
+                                height="20"
+                              />
+                              <span> Settings</span>
+                            </div>
+                            <span class="menu-icon">
+                              <Icon
+                                v-if="!openSettings"
+                                icon="formkit:arrowright"
+                                width="20"
+                                height="20"
+                              />
+                              <Icon
+                                v-else
+                                icon="formkit:arrowdown"
+                                width="20"
+                                height="20"
+                              />
+                            </span>
+                          </label>
+
+                          <div class="menu-item-collapse">
+                            <div class="min-h-0">
+                              <router-link
+                                class="menu-item ml-6"
+                                :to="{ name: 'ChangePassword' }"
+                                >Change Password</router-link
+                              >
+                              <router-link
+                                class="text-error menu-item ml-6"
+                                :to="{ name: 'Delete' }"
+                                >Delete Account</router-link
+                              >
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </section>
+                  </div>
+
+                  <div class="px-4">
+                    <router-link
+                      :to="{ name: 'TVLayout' }"
+                      class="flex flex-row space-x-4 py-4 text-error"
+                    >
+                      <Icon icon="circum:logout" width="20" height="20" />
+                      <span> Logout</span>
+                    </router-link>
+                  </div>
+                </div>
+
+                <div v-else class="py-4">
+                  <div class="space-x-8">
+                    <router-link :to="{ name: 'Login' }" class="btn btn-ghost"
+                      ><span class="font-semibold">Log In</span></router-link
+                    >
+                    <router-link
+                      :to="{ name: 'Register' }"
+                      class="btn btn-primary hover:bg-primary2"
+                      ><span class="font-semibold">Sign Up</span></router-link
+                    >
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -153,9 +262,12 @@
 <script setup>
 import Theme from "@/components/Theme/Theme.vue";
 import Navbar from "@/components/Navigation/Navbar.vue";
+import { ref } from "vue";
 
 import { useUserStore } from "@/store/user";
 import { storeToRefs } from "pinia";
+
+let openSettings = ref(false);
 
 const { user } = storeToRefs(useUserStore());
 </script>

@@ -19,8 +19,10 @@ import { resetStore } from "./resetStore";
 export const useUserStore = defineStore("user", {
   state: () => ({
     user: null,
-    changePasswordValidation: { type: "", message: "" },
-    deleteAccountErrors: "",
+
+    // type: success || error, message: Describe to user what happen
+    deleteAccountResults: { result: "", message: "" },
+    updatePasswordResults: { result: "", message: "" },
     isLoading: false,
   }),
   persist: true,
@@ -155,6 +157,8 @@ export const useUserStore = defineStore("user", {
       const auth = getAuth();
       const user = auth.currentUser;
 
+      this.updatePasswordResults = { result: "", message: "" };
+
       try {
         const credential = EmailAuthProvider.credential(
           user.email,
@@ -166,34 +170,34 @@ export const useUserStore = defineStore("user", {
             updatePassword(user, newPassword)
               .then(() => {
                 //Update success
-                this.changePasswordValidation.type = "success";
-                this.changePasswordValidation.message =
+                this.updatePasswordResults.result = "success";
+                this.updatePasswordResults.message =
                   "Your password has been updated!";
               })
               .catch((error) => {
-                this.changePasswordValidation.type = "error";
-                this.changePasswordValidation.message =
+                this.updatePasswordResults.result = "error";
+                this.updatePasswordResults.message =
                   "Uh-oh, something went wrong here. Please try again";
               });
           })
           .catch((error) => {
             switch (error.code) {
               case "auth/wrong-password":
-                this.changePasswordValidation.type = "error";
-                this.changePasswordValidation.message =
+                this.updatePasswordResults.result = "error";
+                this.updatePasswordResults.message =
                   "Incorrect current password";
                 break;
               default:
-                this.changePasswordValidation.type = "error";
-                this.changePasswordValidation.message =
+                this.updatePasswordResults.result = "error";
+                this.updatePasswordResults.message =
                   "Uh-oh, something went wrong. Please try again";
 
                 break;
             }
           });
       } catch (error) {
-        this.changePasswordValidation.type = "error";
-        this.changePasswordValidation.message =
+        this.updatePasswordResults.result = "error";
+        this.updatePasswordResults.message =
           "Uh-oh, something went wrong here. Please try again";
       }
     },
@@ -203,6 +207,8 @@ export const useUserStore = defineStore("user", {
 
       const auth = getAuth();
       const user = auth.currentUser;
+
+      this.deleteAccountResults = { result: "", message: "" };
 
       try {
         const credential = EmailAuthProvider.credential(
@@ -222,7 +228,8 @@ export const useUserStore = defineStore("user", {
               })
               .catch((error) => {
                 //Error
-                this.deleteAccountErrors =
+                this.deleteAccountResults.result = "error";
+                this.deleteAccountResults.message =
                   "Uh-oh, something went wrong. Please try again";
               });
           })
@@ -231,21 +238,26 @@ export const useUserStore = defineStore("user", {
 
             switch (error.code) {
               case "auth/wrong-password":
-                this.deleteAccountErrors = "Incorrect Current Password";
+                this.deleteAccountResults.result = "error";
+                this.deleteAccountResults.message =
+                  "Incorrect Current Password";
                 break;
               case "auth/too-many-requests":
-                this.deleteAccountErrors =
+                this.deleteAccountResults.result = "error";
+                this.deleteAccountResults.message =
                   "Uh-oh, too many requests. Try again in a few seconds";
                 break;
               default:
-                this.deleteAccountErrors =
+                this.deleteAccountResults.result = "error";
+                this.deleteAccountResults.message =
                   "Uh-oh, something went wrong. Please try again";
                 break;
             }
           });
       } catch (error) {
         //error
-        this.deleteAccountErrors =
+        this.deleteAccountResults.result = "error";
+        this.deleteAccountResults.message =
           "Uh-oh, something went wrong. Please try again";
       }
     },
