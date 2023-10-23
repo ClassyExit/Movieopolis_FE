@@ -35,7 +35,7 @@ export const useListStore = defineStore("List", {
       if (!useUserStore().user) return;
 
       this.list.push(data);
-      this.filteredList.push(data);
+      this.filteredList = this.list;
 
       try {
         // Set Ref point
