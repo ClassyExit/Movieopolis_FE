@@ -185,6 +185,7 @@
 
 <script setup>
 import { useListStore } from "@/store/list";
+import { useUserStore } from "@/store/user";
 
 const props = defineProps({
   id: Number,
@@ -217,6 +218,8 @@ const removeFromList = (id) => {
 };
 
 const checkListIfMarked = (id) => {
+  if (!useUserStore().user) return;
+
   if (useListStore().list.filter((item) => item.id == id).length > 0)
     return true;
   return false;
