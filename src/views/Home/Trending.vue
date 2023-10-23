@@ -66,6 +66,7 @@
           :rating="item.vote_average"
           :media_type="item.media_type"
           :type="item.media_type"
+          :overview="item.overview"
         >
         </Container>
       </div>

@@ -119,6 +119,7 @@
                 :media_type="`movie`"
                 :type="item.media_type"
                 :listView="isListView"
+                :overview="item.overview"
               >
               </Container>
             </div>
@@ -143,6 +144,7 @@
                 :media_type="`movie`"
                 :type="item.media_type"
                 :listView="isListView"
+                :overview="item.overview"
               >
               </Container>
             </div>
@@ -166,6 +168,7 @@
                 :rating="item.vote_average"
                 :media_type="`movie`"
                 :listView="isListView"
+                :overview="item.overview"
               >
               </Container>
             </div>

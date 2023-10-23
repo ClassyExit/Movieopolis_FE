@@ -37,6 +37,10 @@
                 </router-link>
               </div>
             </div>
+
+            <router-link :to="{ name: 'List' }" class="flex items-center">
+              <div class="btn btn-ghost my-2 text-lg">My List</div>
+            </router-link>
           </div>
         </div>
       </template>
@@ -143,6 +147,16 @@
                   >
                     <Icon icon="lucide:tv" width="20" height="20" />
                     <span> TV Shows</span>
+                  </router-link>
+                </div>
+
+                <div class="px-4">
+                  <router-link
+                    :to="{ name: 'List' }"
+                    class="flex flex-row space-x-4 py-4"
+                  >
+                    <Icon icon="pixelarticons:list" width="20" height="20" />
+                    <span> My List</span>
                   </router-link>
                 </div>
 

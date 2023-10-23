@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getDocFromCache, getFirestore } from "firebase/firestore";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -17,4 +18,7 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 
-export { auth };
+// Initialize Cloud Firestore
+const db = getFirestore(app);
+
+export { auth, db };

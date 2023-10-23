@@ -116,6 +116,7 @@
                 :media_type="`tv`"
                 :type="item.media_type"
                 :listView="isListView"
+                :overview="item.overview"
               >
               </Container>
             </div>
@@ -140,6 +141,7 @@
                 :media_type="`tv`"
                 :type="item.media_type"
                 :listView="isListView"
+                :overview="item.overview"
               >
               </Container>
             </div>
@@ -163,6 +165,7 @@
                 :rating="item.vote_average"
                 :media_type="`tv`"
                 :listView="isListView"
+                :overview="item.overview"
               >
               </Container>
             </div>
