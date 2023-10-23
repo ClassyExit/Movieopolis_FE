@@ -1,5 +1,18 @@
 <template>
-  <div class="w-full rounded" :class="listView ? 'w-full ' : 'max-w-[154px]'">
+  <div
+    class="relative w-full rounded"
+    :class="listView ? 'w-full ' : 'max-w-[154px]'"
+  >
+    <div
+      class="absolute right-2 top-1 z-40 hover:cursor-pointer text-white"
+      @click="
+        addToList(id, poster, title_movie, title_tv, overview, media_type)
+      "
+    >
+      <Icon icon="material-symbols:bookmark" width="25" height="25" />
+      <Icon icon="material-symbols:bookmark-outline" width="25" height="25" />
+    </div>
+
     <router-link
       v-if="media_type == 'movie'"
       class="hover:cursor-pointer"
@@ -74,7 +87,7 @@
         <div
           class="bg-backgroundSecondary rounded-b-lg p-1 flex items-center justify-center h-16"
         >
-          <span class="line-clamp-2">{{ title_movie }}</span>
+          <span class="line-clamp-2">{{ title_movie }} </span>
         </div>
       </div>
     </router-link>
@@ -161,6 +174,8 @@
 </template>
 
 <script setup>
+import { useListStore } from "@/store/list";
+
 const props = defineProps({
   id: Number,
   poster: String | undefined,
@@ -171,8 +186,21 @@ const props = defineProps({
   rating: Number | undefined,
   media_type: String | " ",
   type: String | undefined,
+  overview: String | undefined,
   listView: Boolean,
 });
+
+const addToList = (id, poster, title_movie, title_tv, overview, media_type) => {
+  const details = {
+    id: id,
+    poster: poster,
+    title: title_movie || title_tv,
+    overview: overview,
+    type: media_type,
+  };
+
+  useListStore().addToList(details);
+};
 </script>
 
 <style scoped></style>

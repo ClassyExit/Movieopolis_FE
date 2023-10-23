@@ -19,6 +19,8 @@ import SettingsLayout from "@/views/Settings/SettingLayout.vue";
 import DeleteAccount from "@/views/Settings/DeleteAccount.vue";
 import ChangePassword from "@/views/Settings/ChangePassword.vue";
 
+import List from "@/views/Features/List.vue";
+
 const routes = [
   {
     path: "/",
@@ -65,6 +67,13 @@ const routes = [
       { path: "/register", name: "Register", component: Register },
       { path: "/reset", name: "Reset", component: Reset },
     ],
+  },
+
+  {
+    path: "/saved",
+    name: "Saved",
+    component: DefaultLayout,
+    children: [{ path: "/my-list", name: "List", component: List }],
   },
 
   {
