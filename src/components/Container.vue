@@ -3,14 +3,24 @@
     class="relative w-full rounded"
     :class="listView ? 'w-full ' : 'max-w-[154px]'"
   >
-    <div
-      class="absolute right-2 top-1 z-40 hover:cursor-pointer text-white"
-      @click="
-        addToList(id, poster, title_movie, title_tv, overview, media_type)
-      "
-    >
-      <Icon icon="material-symbols:bookmark" width="25" height="25" />
-      <Icon icon="material-symbols:bookmark-outline" width="25" height="25" />
+    <div class="absolute right-2 top-1 z-40 hover:cursor-pointer text-white">
+      <Icon
+        v-if="checkListIfMarked(id) == true"
+        @click="removeFromList(id)"
+        icon="material-symbols:bookmark"
+        width="25"
+        height="25"
+      />
+
+      <Icon
+        v-else
+        @click="
+          addToList(id, poster, title_movie, title_tv, overview, media_type)
+        "
+        icon="material-symbols:bookmark-outline"
+        width="25"
+        height="25"
+      />
     </div>
 
     <router-link
@@ -200,6 +210,16 @@ const addToList = (id, poster, title_movie, title_tv, overview, media_type) => {
   };
 
   useListStore().addToList(details);
+};
+
+const removeFromList = (id) => {
+  useListStore().removeFromList(id);
+};
+
+const checkListIfMarked = (id) => {
+  if (useListStore().list.filter((item) => item.id == id).length > 0)
+    return true;
+  return false;
 };
 </script>
 

@@ -70,7 +70,7 @@
         class="flex flex-col py-2 space-y-2 md:space-y-0 md:flex-wrap md:flex-row gap-4 w-full"
       >
         <List
-          v-for="item in list"
+          v-for="item in filteredList"
           :key="item.id"
           :title="item.title"
           :overview="item.overview"
@@ -114,7 +114,7 @@ import { storeToRefs } from "pinia";
 import { ref } from "vue";
 import List from "@/components/MyList/List.vue";
 
-const { list } = storeToRefs(useListStore());
+const { list, filteredList } = storeToRefs(useListStore());
 
 const { user } = storeToRefs(useUserStore());
 
@@ -122,9 +122,20 @@ const listFilter = ref("all");
 
 const updateFilter = (newValue) => {
   listFilter.value = newValue;
+
+  useListStore().filterResults(newValue);
 };
 
 const remove = (id) => {
   useListStore().removeFromList(id);
+};
+
+if (useListStore().list.length > 0) {
+} else {
+  useListStore().getListFromDB();
+}
+
+const manualResync = () => {
+  useListStore().getListFromDB();
 };
 </script>
