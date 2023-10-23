@@ -31,6 +31,9 @@ export const useListStore = defineStore("List", {
             Type: Movie | TV 
         */
 
+      // No user logged in
+      if (!useUserStore().user) return;
+
       this.list.push(data);
       this.filteredList.push(data);
 
@@ -58,6 +61,9 @@ export const useListStore = defineStore("List", {
     },
 
     async removeFromList(id) {
+      // No user logged in
+      if (!useUserStore().user) return;
+
       // Remove a item from  MyList
       for (const item in this.list) {
         if (this.list[item].id === id) {
@@ -102,6 +108,9 @@ export const useListStore = defineStore("List", {
       // Retrieve user list data
       if (!useUserStore().user) return console.error("User Auth Error");
 
+      this.list = [];
+      this.filteredList = [];
+
       const q = query(
         collection(db, `${useUserStore().user.uid}`, "UserData", "MyList")
       );
@@ -110,6 +119,8 @@ export const useListStore = defineStore("List", {
 
       // Push data to state
       querySnapshot.forEach((doc) => this.list.push(doc.data()));
+
+      this.filteredList = this.list;
     },
 
     filterResults(option) {

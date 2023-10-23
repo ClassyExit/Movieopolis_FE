@@ -33,7 +33,22 @@
   </div>
 
   <div v-else class="w-full flex flex-col p-4 md:px-16 pt-4 space-y-4">
-    <span class="flex w-full text-3xl">My List</span>
+    <div class="flex flex-row items-center space-x-2 25w-full">
+      <span class="text-3xl">My List</span>
+
+      <span
+        class="tooltip tooltip-top"
+        data-tooltip="If list does not load, manually re-sync"
+      >
+        <Icon
+          @click="manualResync()"
+          class="text-primary hover:cursor-pointer"
+          icon="material-symbols:sync"
+          width="25"
+          height="25"
+        />
+      </span>
+    </div>
     <div
       v-if="!list.length"
       class="flex h-2/5 items-center justify-center text-content2"
