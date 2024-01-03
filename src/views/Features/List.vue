@@ -36,10 +36,7 @@
     <div class="flex flex-row items-center space-x-2 25w-full">
       <span class="text-3xl">My List</span>
 
-      <span
-        class="tooltip tooltip-top"
-        data-tooltip="If list does not load, manually re-sync"
-      >
+      <span class="tooltip tooltip-top" data-tooltip="Re-sync My List">
         <Icon
           @click="manualResync()"
           class="text-primary hover:cursor-pointer"
@@ -93,28 +90,48 @@
           :type="item.type"
         >
           <template #options>
-            <div class="text-primary uppercase">
-              <router-link
-                v-if="item.type == 'movie'"
-                :to="{ name: 'Movie-Details', params: { id: item.id } }"
-                class="hover:cursor-pointer"
-                >More
-              </router-link>
+            <div class="flex flex-row items-center space-x-4">
+              <div>
+                <router-link
+                  v-if="item.type == 'movie'"
+                  :to="{ name: 'Movie-Details', params: { id: item.id } }"
+                  class="hover:cursor-pointer"
+                  ><Icon
+                    icon="icon-park-outline:down-c"
+                    width="30"
+                    height="30"
+                  />
+                </router-link>
 
-              <router-link
-                v-else
-                :to="{ name: 'TV-Details', params: { id: item.id } }"
-                class="hover:cursor-pointer"
-                >More
-              </router-link>
+                <router-link
+                  v-else
+                  :to="{ name: 'TV-Details', params: { id: item.id } }"
+                  class="hover:cursor-pointer"
+                  ><Icon
+                    icon="icon-park-outline:down-c"
+                    width="30"
+                    height="30"
+                  />
+                </router-link>
+              </div>
+
+              <div class="">
+                <div class="popover popover-hover">
+                  <label class="popover-trigger my-2"
+                    ><Icon
+                      @click="remove(item.id)"
+                      class="text-error hover:cursor-pointer"
+                      icon="clarity:remove-line"
+                      width="30"
+                      height="30"
+                  /></label>
+                  <div class="popover-content popover-top-center">
+                    <div class="popover-arrow"></div>
+                    <div class="text-sm text-center">Remove from My List</div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <Icon
-              @click="remove(item.id)"
-              class="text-error"
-              icon="material-symbols:cancel"
-              width="20"
-              height="20"
-            />
           </template>
         </List>
       </div>

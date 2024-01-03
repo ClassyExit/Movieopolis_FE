@@ -20,7 +20,11 @@
       </div>
 
       <div class="w-full">
-        <button type="button" class="btn w-full gap-2 bg-gray-5">
+        <button
+          type="button"
+          class="btn w-full gap-2 bg-gray-5"
+          @click="googleSignIn()"
+        >
           <svg
             stroke="currentColor"
             fill="currentColor"
@@ -162,6 +166,8 @@ import { useUserStore } from "@/store/user";
 import * as yup from "yup";
 
 const userStore = useUserStore();
+
+const { googleSignIn } = userStore;
 
 const schema = yup.object({
   email: yup

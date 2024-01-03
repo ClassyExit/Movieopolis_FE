@@ -38,13 +38,18 @@
 
       <div class="space-y-4">
         <h1 class="text-3xl text-content1">Change Password</h1>
-        <p class="text-content2">
+        <div v-if="signedInWithGoogle" class="">
+          <div class="text-error text-xl">
+            Unable to change password when signing using Google
+          </div>
+        </div>
+        <p v-if="!signedInWithGoogle" class="text-content2">
           To change your password, please fill in the fields below. Your
           password must contain at least 8 characters.
         </p>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" v-if="!signedInWithGoogle">
         <div class="form-control relative w-full flex flex-col">
           <div class="flex flex-col w-full space-y-2">
             <h1 class="text-lg text-content2">Current Password</h1>
@@ -168,6 +173,13 @@ import { ref, reactive } from "vue";
 import { storeToRefs } from "pinia";
 
 const { updatePasswordResults } = storeToRefs(useUserStore());
+
+// Provider Id: password | google
+const signedInWithGoogle = ref(true);
+
+if (useUserStore().user.providerData[0].providerId == "google") {
+  signedInWithGoogle.value = true;
+}
 
 useUserStore().updatePasswordResults = { result: "", message: "" };
 

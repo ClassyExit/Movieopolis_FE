@@ -190,7 +190,10 @@
               </span>
               <div class="accordion-content text-content2">
                 <div class="min-h-0">
-                  <div class="w-full flex flex-wrap gap-2">
+                  <div
+                    v-if="movieRecommendations.results.length"
+                    class="w-full flex flex-wrap gap-2"
+                  >
                     <Container
                       v-for="item in movieRecommendations.results"
                       :key="item.id"
@@ -203,6 +206,10 @@
                       :type="item.media_type"
                     >
                     </Container>
+                  </div>
+
+                  <div v-else class="">
+                    Sorry, unable to get recommendations
                   </div>
                 </div>
               </div>

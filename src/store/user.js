@@ -12,6 +12,8 @@ import {
   EmailAuthProvider,
   updatePassword,
   deleteUser,
+  signInWithPopup,
+  GoogleAuthProvider,
 } from "firebase/auth";
 
 import { resetStore } from "./resetStore";
@@ -47,6 +49,21 @@ export const useUserStore = defineStore("user", {
 
       status.success = true;
       return status;
+    },
+
+    async googleSignIn() {
+      const provider = await new GoogleAuthProvider();
+
+      return signInWithPopup(auth, provider)
+        .then((res) => {
+          // User signed in
+          this.user = res.user;
+
+          router.push({ name: "Home" });
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
     },
 
     async register(user) {

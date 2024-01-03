@@ -139,7 +139,10 @@
           <div class="text-left text-2xl text-conent1 pb-2">
             Recommendations
           </div>
-          <div class="w-full flex flex-wrap gap-2">
+          <div
+            v-if="tvRecommendations.results.length"
+            class="w-full flex flex-wrap gap-2"
+          >
             <Container
               v-for="item in tvRecommendations.results"
               :key="item.id"
@@ -153,6 +156,8 @@
             >
             </Container>
           </div>
+
+          <div v-else class="">Sorry, unable to get recommendations</div>
         </div>
       </div>
 
@@ -185,7 +190,10 @@
               </span>
               <div class="accordion-content text-content2">
                 <div class="min-h-0">
-                  <div class="w-full flex flex-wrap gap-2">
+                  <div
+                    v-if="tvRecommendations.results.length"
+                    class="w-full flex flex-wrap gap-2"
+                  >
                     <Container
                       v-for="item in tvRecommendations.results"
                       :key="item.id"
@@ -198,6 +206,10 @@
                       :type="item.media_type"
                     >
                     </Container>
+                  </div>
+
+                  <div v-else class="">
+                    Sorry, unable to get recommendations
                   </div>
                 </div>
               </div>
@@ -379,6 +391,4 @@ tvStore.getTVDetails(id);
 const getSeasonDetails = (tv_id, season_number) => {
   tvStore.getTVSeasonDetails(tv_id, season_number);
 };
-
-console.log(id);
 </script>
