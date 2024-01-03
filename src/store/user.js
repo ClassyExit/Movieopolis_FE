@@ -17,6 +17,9 @@ import {
 } from "firebase/auth";
 
 import { resetStore } from "./resetStore";
+import { useMovieStore } from "./movies";
+import { useTVStore } from "./tv";
+import { useTrendingStore } from "./trending";
 
 export const useUserStore = defineStore("user", {
   state: () => ({
@@ -106,7 +109,7 @@ export const useUserStore = defineStore("user", {
 
       resetStore();
 
-      router.push({ name: "Home" });
+      router.push({ name: "Login" });
     },
 
     async resetPassword(user) {
@@ -273,6 +276,7 @@ export const useUserStore = defineStore("user", {
           });
       } catch (error) {
         //error
+
         this.deleteAccountResults.result = "error";
         this.deleteAccountResults.message =
           "Uh-oh, something went wrong. Please try again";

@@ -29,6 +29,7 @@
         </div>
       </div>
     </div>
+
     <div
       class="flex flex-col text-left p-8 space-y-8 justify-center rounded max-w-2xl w-full"
     >
@@ -175,7 +176,7 @@ import { storeToRefs } from "pinia";
 const { updatePasswordResults } = storeToRefs(useUserStore());
 
 // Provider Id: password | google
-const signedInWithGoogle = ref(true);
+const signedInWithGoogle = ref(false);
 
 if (useUserStore().user.providerData[0].providerId == "google") {
   signedInWithGoogle.value = true;

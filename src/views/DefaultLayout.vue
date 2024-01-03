@@ -162,71 +162,27 @@
 
                 <div v-if="user" class="divide-y divide-border">
                   <div class="px-4">
-                    <section class="menu-section py-4 px-0">
-                      <ul class="menu-items">
-                        <li>
-                          <input
-                            type="checkbox"
-                            id="menu-1"
-                            class="menu-toggle"
-                            v-model="openSettings"
-                          />
-
-                          <label
-                            class="w-full flex flex-row justify-between"
-                            for="menu-1"
-                          >
-                            <div class="flex flex-row space-x-4">
-                              <Icon
-                                icon="material-symbols:settings-outline"
-                                width="20"
-                                height="20"
-                              />
-                              <span> Settings</span>
-                            </div>
-                            <span class="menu-icon">
-                              <Icon
-                                v-if="!openSettings"
-                                icon="formkit:arrowright"
-                                width="20"
-                                height="20"
-                              />
-                              <Icon
-                                v-else
-                                icon="formkit:arrowdown"
-                                width="20"
-                                height="20"
-                              />
-                            </span>
-                          </label>
-
-                          <div class="menu-item-collapse">
-                            <div class="min-h-0 space-y-2">
-                              <router-link
-                                class="menu-item ml-6 pt-4"
-                                :to="{ name: 'ChangePassword' }"
-                                >Change Password</router-link
-                              >
-                              <router-link
-                                class="text-error menu-item ml-6"
-                                :to="{ name: 'Delete' }"
-                                >Delete Account</router-link
-                              >
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </section>
+                    <router-link
+                      :to="{ name: 'Settings' }"
+                      class="flex flex-row space-x-4 py-4"
+                    >
+                      <Icon
+                        icon="material-symbols:settings-outline"
+                        width="20"
+                        height="20"
+                      />
+                      <span> Settings</span>
+                    </router-link>
                   </div>
 
                   <div class="px-4">
-                    <router-link
-                      :to="{ name: 'TVLayout' }"
+                    <div
+                      @click="useUserStore().logout()"
                       class="flex flex-row space-x-4 py-4 text-error"
                     >
                       <Icon icon="circum:logout" width="20" height="20" />
                       <span> Logout</span>
-                    </router-link>
+                    </div>
                   </div>
                 </div>
 
