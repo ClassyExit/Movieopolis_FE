@@ -53,7 +53,7 @@
                 c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
             ></path>
           </svg>
-          <span>Sign up with google</span>
+          <span>Continue with Google</span>
         </button>
       </div>
       <div class="divider my-6 text-xs text-content2">or continue with</div>
@@ -115,24 +115,7 @@
             >
           </label>
         </div>
-        <div class="form-field">
-          <label class="form-label">Confirm Password</label>
-          <div class="form-control">
-            <input
-              placeholder="Password"
-              type="password"
-              class="input max-w-full"
-              v-model="formValue.confirmPassword"
-              @blur="validateField('confirmPassword')"
-              :class="formValueErrors.confirmPassword ? 'input-error' : ''"
-            />
-          </div>
-          <label class="form-label">
-            <span class="form-label-alt text-left text-error">
-              {{ formValueErrors.confirmPassword }}</span
-            >
-          </label>
-        </div>
+
         <div class="form-field">
           <div class="form-control justify-between">
             <div class="flex gap-2">
@@ -155,7 +138,7 @@
               type="button"
               class="btn btn-primary w-full"
             >
-              Sign in
+              Sign up
             </button>
           </div>
         </div>
@@ -193,22 +176,17 @@ const schema = yup.object({
     .string()
     .min(8, "Your password must be atleast 8 characters")
     .required("This field is required"),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref("password"), null], "Passwords must match")
-    .required("This field is required"),
 });
 
 const formValue = reactive({
   email: null,
   password: null,
-  confirmPassword: null,
 });
 
 const formValueErrors = reactive({
   email: null,
   password: null,
-  confirmPassword: null,
+
   failedRegister: null,
   failedRegisterMsg: null,
 });
@@ -227,23 +205,20 @@ const validateField = (field) => {
 const validateForm = () => {
   if (formValue.email && !formValueErrors.email) {
     if (formValue.password && !formValueErrors.password) {
-      if (formValue.confirmPassword && !formValueErrors.confirmPassword) {
-        // Register
-        userStore
-          .register(formValue)
-          .then((response) => {
-            if (response.success == false) {
-              formValueErrors.failedRegister = true;
-              formValueErrors.failedRegisterMsg = response.message;
-            } else {
-              formValueErrors.failedRegister = false;
-            }
-          })
-          .catch((err) => {});
-      }
+      // Register
+      userStore
+        .register(formValue)
+        .then((response) => {
+          if (response.success == false) {
+            formValueErrors.failedRegister = true;
+            formValueErrors.failedRegisterMsg = response.message;
+          } else {
+            formValueErrors.failedRegister = false;
+          }
+        })
+        .catch((err) => {});
     }
   }
-  // userStore.register(formRef);
 };
 </script>
 

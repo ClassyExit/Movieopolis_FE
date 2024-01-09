@@ -17,9 +17,6 @@ import {
 } from "firebase/auth";
 
 import { resetStore } from "./resetStore";
-import { useMovieStore } from "./movies";
-import { useTVStore } from "./tv";
-import { useTrendingStore } from "./trending";
 
 export const useUserStore = defineStore("user", {
   state: () => ({

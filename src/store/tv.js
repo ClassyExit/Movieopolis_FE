@@ -8,8 +8,7 @@ export const useTVStore = defineStore("TV", {
     tvRecommendations: [],
     tvSeasonDetails: [],
     tvVideos: [],
-
-    // TODO: Update these to only isLoadingTV
+    tvReviews: [],
 
     isLoadingPopularHome: false,
     isLoadingPopular: false,
@@ -37,6 +36,7 @@ export const useTVStore = defineStore("TV", {
         tv_id
       );
       const videos = await useAPIStore().getTVVideos(tv_id);
+      const reviews = await useAPIStore().getReviews("tv", tv_id);
 
       // Find only trailers from API call
       for (let item in videos.results) {
@@ -48,6 +48,7 @@ export const useTVStore = defineStore("TV", {
       this.tvCredits = credits;
       this.tvDetails = details;
       this.tvRecommendations = recommendations;
+      this.tvReviews = reviews;
 
       this.isLoadingTV = false;
     },
