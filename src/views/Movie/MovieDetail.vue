@@ -17,6 +17,8 @@
           :src="`https://image.tmdb.org/t/p/original/${movieDetails.backdrop_path}`"
           :alt="`${movieDetails.original_title} backdrop`"
         />
+
+        <div class="absolute top-2 left-2 z-40"><MobileReturn /></div>
       </div>
 
       <div
@@ -40,23 +42,23 @@
               <div class="flex flex-col space-y-4">
                 <div class="text-3xl">
                   <div class="flex flex-row text-content1 space-x-2">
-                    <span class="text-bold">
-                      {{ movieDetails.original_title }}
-                    </span>
-
-                    <span class="text-content2"
-                      >({{ movieDetails.release_date.slice(0, 4) }})</span
-                    >
-
-                    <div>
-                      <AddToList
-                        :id="movieDetails.id"
-                        :poster="movieDetails.poster"
-                        :title_movie="movieDetails.original_title"
-                        :media_type="movieDetails.media_type"
-                        :overview="movieDetails.overview"
-                      />
+                    <div class="space-x-2">
+                      <span class="text-bold">
+                        {{ movieDetails.original_title }}
+                      </span>
+                      <span class="text-content2"
+                        >({{ movieDetails.release_date.slice(0, 4) }})</span
+                      >
                     </div>
+
+                    <AddToList
+                      class="md:px-2"
+                      :id="movieDetails.id"
+                      :poster="movieDetails.poster"
+                      :title_movie="movieDetails.original_title"
+                      :media_type="movieDetails.media_type"
+                      :overview="movieDetails.overview"
+                    />
                   </div>
                 </div>
 
@@ -193,6 +195,7 @@ import { storeToRefs } from "pinia";
 import SmallContainer from "@/components/SmallContainer.vue";
 import AddToList from "@/components/Actions/AddToList.vue";
 import Reviews from "@/components/Reviews.vue";
+import MobileReturn from "@/components/Actions/MobileReturn.vue";
 
 const movieStore = useMovieStore();
 const {

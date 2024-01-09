@@ -17,6 +17,8 @@
           :src="`https://image.tmdb.org/t/p/original/${tvDetails.backdrop_path}`"
           :alt="`${tvDetails.original_name} backdrop`"
         />
+
+        <div class="absolute top-2 left-2 z-40"><MobileReturn /></div>
       </div>
 
       <div
@@ -40,23 +42,23 @@
               <div class="flex flex-col space-y-4">
                 <div class="text-3xl">
                   <div class="flex flex-row text-content1 space-x-2">
-                    <span class="text-bold">
-                      {{ tvDetails.original_name }}
-                    </span>
+                    <div class="space-x-2">
+                      <span class="text-bold">
+                        {{ tvDetails.original_name }}
+                      </span>
 
-                    <span class="text-content2"
-                      >({{ tvDetails.first_air_date.slice(0, 4) }})</span
-                    >
-
-                    <div>
-                      <AddToList
-                        :id="tvDetails.id"
-                        :poster="tvDetails.poster"
-                        :title_tv="tvDetails.original_name"
-                        :media_type="tvDetails.media_type"
-                        :overview="tvDetails.overview"
-                      />
+                      <span class="text-content2"
+                        >({{ tvDetails.first_air_date.slice(0, 4) }})</span
+                      >
                     </div>
+
+                    <AddToList
+                      :id="tvDetails.id"
+                      :poster="tvDetails.poster"
+                      :title_tv="tvDetails.original_name"
+                      :media_type="tvDetails.media_type"
+                      :overview="tvDetails.overview"
+                    />
                   </div>
                 </div>
 
@@ -232,6 +234,7 @@ import SeasonDetailModal from "./SeasonDetailModal.vue";
 import SmallContainer from "@/components/SmallContainer.vue";
 import AddToList from "@/components/Actions/AddToList.vue";
 import Reviews from "@/components/Reviews.vue";
+import MobileReturn from "@/components/Actions/MobileReturn.vue";
 
 const tvStore = useTVStore();
 const { isLoadingTV, tvDetails, tvRecommendations, tvReviews } =

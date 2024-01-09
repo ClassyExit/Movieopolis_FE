@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center">
+  <div class="flex items-center md:justify-between">
     <div v-if="checkListIfMarked(id) == true" @click="removeFromList(id)">
       <span class="tooltip tooltip-top" data-tooltip="Remove from list">
         <Icon icon="material-symbols:bookmark" width="25" height="25" />

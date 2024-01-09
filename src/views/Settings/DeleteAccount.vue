@@ -2,6 +2,7 @@
   <div
     class="w-full text-left px-4 space-y-4 pt-8 md:pt-20 container mx-auto md:max-w-3xl lg:max-w-4xl text-base-content"
   >
+    <div class="justify-start flex w-full"><MobileReturn /></div>
     <div class="text-2xl">Confirm Account Deletion</div>
     <div class="">
       Your personal data will be deleted immediately and you will no longer be
@@ -108,6 +109,7 @@ import { ref } from "vue";
 import { useUserStore } from "@/store/user";
 import router from "@/router";
 import { storeToRefs } from "pinia";
+import MobileReturn from "@/components/Actions/MobileReturn.vue";
 
 const { deleteAccountResults } = storeToRefs(useUserStore());
 

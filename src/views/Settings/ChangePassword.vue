@@ -1,11 +1,9 @@
 <template>
   <div
-    class="mx-auto py-4 pb-8 md:py-0 flex w-full items-center justify-center max-w-lg flex-col"
+    class="mx-auto py-4 px-4 pb-8 md:py-0 flex w-full items-center justify-center max-w-lg flex-col"
   >
-    <div
-      v-if="updatePasswordResults.result.length"
-      class="w-full max-w-2xl px-4"
-    >
+    <div class="justify-start flex w-full"><MobileReturn /></div>
+    <div v-if="updatePasswordResults.result.length" class="w-full max-w-2xl">
       <div
         class="alert"
         :class="
@@ -31,7 +29,7 @@
     </div>
 
     <div
-      class="flex flex-col text-left p-8 space-y-8 justify-center rounded max-w-2xl w-full"
+      class="flex flex-col text-left py-8 space-y-8 justify-center rounded max-w-2xl w-full"
     >
       <div class="text-primary">
         <Icon icon="mdi:password-outline" width="30" height="30" />
@@ -172,6 +170,7 @@ import { useUserStore } from "@/store/user";
 import * as yup from "yup";
 import { ref, reactive } from "vue";
 import { storeToRefs } from "pinia";
+import MobileReturn from "@/components/Actions/MobileReturn.vue";
 
 const { updatePasswordResults } = storeToRefs(useUserStore());
 
