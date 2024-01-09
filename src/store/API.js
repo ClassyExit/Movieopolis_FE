@@ -253,5 +253,18 @@ export const useAPIStore = defineStore("API", {
 
       return response.json();
     },
+
+    async getReviews(type, id) {
+      // Get reviews based on id
+      // Type can be either movie | tv
+
+      if (!id) return;
+
+      const response = await fetch(
+        `https://tmdb-backend.autoidleapp.com/api/${type}/review?tv_id=${id}&movie_id=${id}`
+      );
+
+      return response.json();
+    },
   },
 });

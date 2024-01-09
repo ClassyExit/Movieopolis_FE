@@ -24,12 +24,12 @@
         class="w-full flex flex-col space-y-4 md:space-y-0 mx-auto"
       >
         <div class="w-full flex flex-col md:flex-row justify-center">
-          <div aria-label="main channel" class="p-2">
+          <div aria-label="main channel" class="p-2 space-y-4">
             <div
               aria-label="main label"
               class="flex flex-row space-x-4 max-w-7xl w-full bg-backgroundSecondary p-2 rounded-xl mt-2 md:mt-0"
             >
-              <div class="hidden md:block w-2/5">
+              <div class="hidden md:block min-w-fit max-w-2/5">
                 <img
                   class="h-full object-contain z-10 rounded-lg"
                   :src="`https://image.tmdb.org/t/p/w300/${tvDetails.poster_path}`"
@@ -137,6 +137,25 @@
               </div>
             </div>
 
+            <div class="max-w-7xl w-full text-left">
+              <span class="w-full text-2xl">Reviews</span>
+              <div class="max-h-96 h-fit overflow-auto overflow-x-hidden">
+                <div
+                  v-if="tvReviews.results"
+                  v-for="review in tvReviews.results"
+                  class="py-2"
+                >
+                  <Reviews
+                    :id="review.id"
+                    :author="review.author"
+                    :content="review.content"
+                    :updated="review.created_at"
+                    :url="review.url"
+                  />
+                </div>
+              </div>
+            </div>
+
             <div aria-label="seasons" class="flex max-w-7xl p-2">
               <div class="flex flex-col rounded">
                 <div class="text-left text-2xl">Seasons</div>
@@ -212,9 +231,11 @@ import { storeToRefs } from "pinia";
 import SeasonDetailModal from "./SeasonDetailModal.vue";
 import SmallContainer from "@/components/SmallContainer.vue";
 import AddToList from "@/components/Actions/AddToList.vue";
+import Reviews from "@/components/Reviews.vue";
 
 const tvStore = useTVStore();
-const { isLoadingTV, tvDetails, tvRecommendations } = storeToRefs(tvStore);
+const { isLoadingTV, tvDetails, tvRecommendations, tvReviews } =
+  storeToRefs(tvStore);
 
 const route = useRoute();
 const id = route.params.id;

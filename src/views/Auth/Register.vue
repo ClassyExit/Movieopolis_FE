@@ -53,7 +53,7 @@
                 c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
             ></path>
           </svg>
-          <span>Sign up with google</span>
+          <span>Continue with Google</span>
         </button>
       </div>
       <div class="divider my-6 text-xs text-content2">or continue with</div>

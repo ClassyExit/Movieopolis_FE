@@ -7,6 +7,8 @@ export const useMovieStore = defineStore("Movie", {
     movieCredits: {},
     movieRecommendations: [],
     movieVideos: [],
+    movieReviews: [],
+
     isLoadingDetails: false,
 
     movieGenres: [],
@@ -35,6 +37,7 @@ export const useMovieStore = defineStore("Movie", {
         movie_id
       );
       const videos = await useAPIStore().getMovieVideos(movie_id);
+      const reviews = await useAPIStore().getReviews("movie", movie_id);
 
       // Find only trailers from API call
       for (let item in videos.results) {
@@ -46,6 +49,7 @@ export const useMovieStore = defineStore("Movie", {
       this.movieCredits = credits;
       this.movieDetails = details;
       this.movieRecommendations = recommendations;
+      this.movieReviews = reviews;
 
       this.isLoadingDetails = false;
     },
