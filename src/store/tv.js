@@ -9,8 +9,6 @@ export const useTVStore = defineStore("TV", {
     tvSeasonDetails: [],
     tvVideos: [],
 
-    // TODO: Update these to only isLoadingTV
-
     isLoadingPopularHome: false,
     isLoadingPopular: false,
 
