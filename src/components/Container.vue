@@ -4,22 +4,13 @@
     :class="listView ? 'w-full ' : 'max-w-[154px]'"
   >
     <div class="absolute right-2 top-1 z-40 hover:cursor-pointer text-white">
-      <Icon
-        v-if="checkListIfMarked(id) == true"
-        @click="removeFromList(id)"
-        icon="material-symbols:bookmark"
-        width="25"
-        height="25"
-      />
-
-      <Icon
-        v-else
-        @click="
-          addToList(id, poster, title_movie, title_tv, overview, media_type)
-        "
-        icon="material-symbols:bookmark-outline"
-        width="25"
-        height="25"
+      <AddToList
+        :id="id"
+        :poster="poster"
+        :title_tv="title_tv"
+        :title_movie="title_movie"
+        :media_type="media_type"
+        :overview="overview"
       />
     </div>
 
@@ -184,8 +175,7 @@
 </template>
 
 <script setup>
-import { useListStore } from "@/store/list";
-import { useUserStore } from "@/store/user";
+import AddToList from "@/components/Actions/AddToList.vue";
 
 const props = defineProps({
   id: Number,
@@ -200,30 +190,6 @@ const props = defineProps({
   overview: String | undefined,
   listView: Boolean,
 });
-
-const addToList = (id, poster, title_movie, title_tv, overview, media_type) => {
-  const details = {
-    id: id,
-    poster: poster,
-    title: title_movie || title_tv,
-    overview: overview,
-    type: media_type,
-  };
-
-  useListStore().addToList(details);
-};
-
-const removeFromList = (id) => {
-  useListStore().removeFromList(id);
-};
-
-const checkListIfMarked = (id) => {
-  if (!useUserStore().user) return;
-
-  if (useListStore().list.filter((item) => item.id == id).length > 0)
-    return true;
-  return false;
-};
 </script>
 
 <style scoped></style>

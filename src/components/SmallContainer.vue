@@ -7,7 +7,7 @@
     >
       <div
         id="listView"
-        class="hover:cursor-pointer flex flex-row bg-backgroundSecondary hover:bg-backgroundPrimary border border-border rounded-xl h-20"
+        class="hover:cursor-pointer flex flex-row bg-backgroundSecondary md:hover:bg-backgroundPrimary border border-border rounded-xl h-20"
       >
         <div class="flex flex-col w-full justify-between p-1 px-2">
           <div class="flex flex-wrap items-center text-left rounded truncate">
@@ -49,7 +49,7 @@
 
     <router-link
       :to="{ name: 'TV-Details', params: { id: id } }"
-      class="hover:cursor-pointer flex flex-row bg-backgroundSecondary hover:bg-backgroundPrimary border border-border rounded-xl h-20"
+      class="hover:cursor-pointer flex flex-row bg-backgroundSecondary md:hover:bg-backgroundPrimary border border-border rounded-xl h-20"
     >
       <div class="flex flex-col w-full justify-between p-1 px-2">
         <div
