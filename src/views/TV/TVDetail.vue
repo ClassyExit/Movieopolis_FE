@@ -53,6 +53,7 @@
                     </div>
 
                     <AddToList
+                      class="md:px-2"
                       :id="tvDetails.id"
                       :poster="tvDetails.poster"
                       :title_tv="tvDetails.original_name"
@@ -139,14 +140,14 @@
               </div>
             </div>
 
-            <div class="max-w-7xl w-full text-left">
+            <div
+              v-if="tvReviews.results.length"
+              aria-label="reviews"
+              class="max-w-7xl w-full text-left"
+            >
               <span class="w-full text-2xl">Reviews</span>
               <div class="max-h-96 h-fit overflow-auto overflow-x-hidden">
-                <div
-                  v-if="tvReviews.results"
-                  v-for="review in tvReviews.results"
-                  class="py-2"
-                >
+                <div v-for="review in tvReviews.results" class="py-2">
                   <Reviews
                     :id="review.id"
                     :author="review.author"
@@ -158,7 +159,11 @@
               </div>
             </div>
 
-            <div aria-label="seasons" class="flex max-w-7xl p-2">
+            <div
+              aria-label="seasons"
+              class="flex max-w-7xl p-2"
+              v-if="tvDetails.seasons.length"
+            >
               <div class="flex flex-col rounded">
                 <div class="text-left text-2xl">Seasons</div>
                 <div class="w-full flex flex-wrap gap-2">
