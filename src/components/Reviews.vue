@@ -6,7 +6,7 @@
 
         <a
           :href="`${url}`"
-          class="tooltip tooltip-top"
+          class="tooltip tooltip-bottom"
           data-tooltip="View full review"
         >
           <Icon icon="eva:external-link-outline" width="25" height="25" />

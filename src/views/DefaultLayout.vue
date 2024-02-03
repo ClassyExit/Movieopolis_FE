@@ -10,36 +10,25 @@
 
           <div class="flex flex-row">
             <router-link :to="{ name: 'Home' }" class="flex items-center">
-              <div class="btn btn-ghost my-2 text-lg">Home</div>
+              <div class="btn btn-ghost my-2 text-md">Home</div>
             </router-link>
 
-            <div class="dropdown">
-              <label class="btn btn-ghost my-2 text-lg" tabindex="0"
-                >Browse</label
-              >
-              <div
-                class="dropdown-menu dropdown-menu-bottom-right bg-backgroundSecondary"
-              >
-                <router-link
-                  :to="{ name: 'MoviesLayout' }"
-                  class="dropdown-item text-left justify-start btn btn-ghost flex flex-row items-center space-x-2 p-2 hover:bg-primary"
-                >
-                  <Icon icon="mdi:movie-open" width="20" height="20" />
-                  <span> Movies</span>
-                </router-link>
+            <router-link
+              :to="{ name: 'MoviesLayout' }"
+              class="btn btn-ghost my-2 text-md"
+            >
+              <span> Movies</span>
+            </router-link>
 
-                <router-link
-                  :to="{ name: 'TVLayout' }"
-                  class="dropdown-item text-left justify-start btn btn-ghost flex flex-row items-center space-x-2 p-2 hover:bg-primary"
-                >
-                  <Icon icon="lucide:tv" width="20" height="20" />
-                  <span> TV Shows</span>
-                </router-link>
-              </div>
-            </div>
+            <router-link
+              :to="{ name: 'TVLayout' }"
+              class="btn btn-ghost my-2 text-md"
+            >
+              <span> TV Shows</span>
+            </router-link>
 
             <router-link :to="{ name: 'List' }" class="flex items-center">
-              <div class="btn btn-ghost my-2 text-lg">My List</div>
+              <div class="btn btn-ghost my-2 text-md">My List</div>
             </router-link>
           </div>
         </div>
@@ -64,14 +53,17 @@
               >
             </div>
           </div>
-          <div v-else class="avatar avatar-ring-primary avatar-md">
+          <div
+            v-else
+            class="avatar avatar-ring hover:avatar-ring-primary avatar-sm"
+          >
             <div class="dropdown-container">
               <div class="dropdown">
                 <label
                   class="btn btn-ghost flex cursor-pointer px-0 hover:bg-inherit"
                   tabindex="0"
                 >
-                  <Icon icon="iconamoon:profile" width="30" height="30" />
+                  <Icon icon="iconamoon:profile" width="20" height="20" />
                 </label>
                 <div
                   class="dropdown-menu dropdown-menu-bottom-left bg-backgroundSecondary"

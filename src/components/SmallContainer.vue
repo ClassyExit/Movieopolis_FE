@@ -9,7 +9,7 @@
         id="listView"
         class="hover:cursor-pointer flex flex-row bg-backgroundSecondary md:hover:bg-backgroundPrimary border border-border rounded-xl h-20"
       >
-        <div class="flex flex-col w-full justify-between p-1 px-2 w-4/5">
+        <div class="flex flex-col w-3/4 justify-between p-1 px-2 w-4/5">
           <div
             class="flex line-clamp-1 items-center text-left rounded truncate"
           >
@@ -41,10 +41,18 @@
 
         <div class="w-1/5 flex items-center justify-end">
           <img
+            v-if="poster_base"
             class="h-full object-contain z-10 rounded-lg"
             :src="`https://image.tmdb.org/t/p/w92/${poster}`"
             :alt="`${title_movie || title_tv} poster`"
           />
+
+          <img
+            v-else
+            class="h-full object-contain z-10 rounded-lg"
+            src="../assets/images/no-image.jpg"
+          />
+          {{ poster_base }}
         </div>
       </div>
     </router-link>
@@ -52,9 +60,9 @@
     <router-link
       v-else
       :to="{ name: 'TV-Details', params: { id: id } }"
-      class="hover:cursor-pointer flex flex-row bg-backgroundSecondary md:hover:bg-backgroundPrimary border border-border rounded-xl h-20"
+      class="hover:cursor-pointer w-full flex flex-row bg-backgroundSecondary md:hover:bg-backgroundPrimary border border-border rounded-xl h-20"
     >
-      <div class="flex flex-col w-full justify-between p-1 px-2">
+      <div class="flex flex-col w-4/5 justify-between p-1 px-2">
         <div
           class="flex flex-wrap items-center text-left rounded truncate space-x-2"
         >
@@ -84,11 +92,18 @@
         </div>
       </div>
 
-      <div class="w-1/5 flex items-center justify-end">
+      <div class="flex w-1/5 items-end justify-end">
         <img
+          v-if="poster_base"
           class="h-full object-contain z-10 rounded-lg"
           :src="`https://image.tmdb.org/t/p/w92/${poster}`"
           :alt="`${title_movie || title_tv} poster`"
+        />
+
+        <img
+          v-else
+          class="h-full object-contain z-10 rounded-lg"
+          src="@/assets/images/no-image.jpg"
         />
       </div>
     </router-link>
@@ -96,12 +111,10 @@
 </template>
 
 <script setup>
-import { useListStore } from "@/store/list";
-import { useUserStore } from "@/store/user";
-
 const props = defineProps({
   id: Number,
   poster: String | undefined,
+  poster_base: String | undefined,
   title_movie: String | undefined,
   title_tv: String | undefined,
   year_tv: String | "0000",
@@ -111,30 +124,6 @@ const props = defineProps({
   type: String | undefined,
   overview: String | undefined,
 });
-
-const addToList = (id, poster, title_movie, title_tv, overview, media_type) => {
-  const details = {
-    id: id,
-    poster: poster,
-    title: title_movie || title_tv,
-    overview: overview,
-    type: media_type,
-  };
-
-  useListStore().addToList(details);
-};
-
-const removeFromList = (id) => {
-  useListStore().removeFromList(id);
-};
-
-const checkListIfMarked = (id) => {
-  if (!useUserStore().user) return;
-
-  if (useListStore().list.filter((item) => item.id == id).length > 0)
-    return true;
-  return false;
-};
 </script>
 
 <style scoped></style>

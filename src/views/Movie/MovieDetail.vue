@@ -166,6 +166,7 @@
                     :key="item.id"
                     :id="item.id"
                     :poster="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
+                    :poster_base="item.poster_path"
                     :title_movie="item.title"
                     :year_movie="item.release_date"
                     :rating="item.vote_average"
@@ -205,6 +206,7 @@ const {
   movieReviews,
   movieRecommendations,
   movieVideos,
+  movieCollections,
 } = storeToRefs(movieStore);
 
 const route = useRoute();

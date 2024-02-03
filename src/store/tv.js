@@ -29,6 +29,7 @@ export const useTVStore = defineStore("TV", {
         */
 
       this.isLoadingTV = true;
+      this.tvVideos = []; // reset the videos, seems to keep stacking
 
       const credits = await useAPIStore().getTVCredits(tv_id);
       const details = await useAPIStore().getTVDetailsAPI(tv_id);
@@ -49,7 +50,6 @@ export const useTVStore = defineStore("TV", {
       this.tvDetails = details;
       this.tvRecommendations = recommendations;
       this.tvReviews = reviews;
-
       this.isLoadingTV = false;
     },
 

@@ -51,7 +51,7 @@
         </div>
       </div>
 
-      <div id="cardView" v-else class="shadow rounded">
+      <div id="cardView" v-else class="shadow rounded-md">
         <img
           class="rounded-t-lg"
           :src="props.poster"
@@ -60,9 +60,9 @@
         />
 
         <div
-          class="flex flex-row text-sm p-1 bg-backgroundSecondary justify-between border-b border-slate-600"
+          class="flex flex-row text-sm p-1 bg-backgroundSecondary justify-between rounded-md"
         >
-          <div class="flex flex-row items-center">
+          <div class="flex flex-row items-center space-x-1">
             <div class="stat-figure text-primary">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -78,17 +78,12 @@
                 ></path>
               </svg>
             </div>
-            {{ rating.toFixed(2) }}
+            <span>{{ rating.toFixed(2) }}</span>
           </div>
 
           <div class="flex flex-row items-center">
             <span>{{ year_movie?.slice(0, 4) }}</span>
           </div>
-        </div>
-        <div
-          class="bg-backgroundSecondary rounded-b-lg p-1 flex items-center justify-center h-16"
-        >
-          <span class="line-clamp-2">{{ title_movie }} </span>
         </div>
       </div>
     </router-link>
@@ -130,7 +125,7 @@
         </div>
       </div>
 
-      <div v-else class="bg-backgroundSecondary shadow rounded">
+      <div v-else class="bg-backgroundSecondary shadow rounded-md">
         <img
           class="rounded-t-lg"
           :src="props.poster"
@@ -138,10 +133,8 @@
           style="width: 154px; height: 231px"
         />
 
-        <div
-          class="flex flex-row text-sm p-1 justify-between border-b border-slate-600"
-        >
-          <div class="flex flex-row items-center">
+        <div class="flex flex-row text-sm p-1 justify-between rounded-md">
+          <div class="flex flex-row items-center space-x-1">
             <div class="stat-figure text-primary">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -157,17 +150,12 @@
                 ></path>
               </svg>
             </div>
-            {{ rating.toFixed(2) }}
+            <span> {{ rating.toFixed(2) }}</span>
           </div>
 
           <div class="flex flex-row items-center">
             <span>{{ year_tv?.slice(0, 4) }}</span>
           </div>
-        </div>
-        <div
-          class="rounded-b-lg p-1 flex items-center justify-center overflow-hidden line-clamp-2 h-16"
-        >
-          <span class="line-clamp-2">{{ title_tv }}</span>
         </div>
       </div>
     </router-link>

@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { useAPIStore } from "./API";
+import { collection } from "firebase/firestore";
 
 export const useMovieStore = defineStore("Movie", {
   state: () => ({
@@ -8,6 +9,7 @@ export const useMovieStore = defineStore("Movie", {
     movieRecommendations: [],
     movieVideos: [],
     movieReviews: [],
+    movieCollections: [],
 
     isLoadingDetails: false,
 
@@ -50,8 +52,13 @@ export const useMovieStore = defineStore("Movie", {
       this.movieDetails = details;
       this.movieRecommendations = recommendations;
       this.movieReviews = reviews;
-
       this.isLoadingDetails = false;
+    },
+
+    async getCollections(collection_id) {
+      const collections = await useAPIStore().getCollections(collection_id);
+
+      this.movieCollections = collections;
     },
 
     async getPopularMoviesHome(page) {

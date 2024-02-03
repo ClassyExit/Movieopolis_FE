@@ -2,7 +2,7 @@
   <div class="flex items-center cursor-pointer">
     <div class="dropdown hover:bg-backgroundSecondary rounded-lg">
       <label class="cursor-pointer" tabindex="0"
-        ><Icon icon="mdi:theme-light-dark" width="25" height="25"
+        ><Icon icon="mdi:theme-light-dark" width="20" height="20"
       /></label>
       <div
         class="dropdown-menu dropdown-menu-bottom-left bg-backgroundSecondary w-fit"

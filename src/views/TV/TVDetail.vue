@@ -51,14 +51,6 @@
                         >({{ tvDetails.first_air_date.slice(0, 4) }})</span
                       >
                     </div>
-
-                    <AddToList
-                      :id="tvDetails.id"
-                      :poster="tvDetails.poster"
-                      :title_tv="tvDetails.original_name"
-                      :media_type="tvDetails.media_type"
-                      :overview="tvDetails.overview"
-                    />
                   </div>
                 </div>
 
@@ -69,7 +61,7 @@
                         tvDetails.status
                       }}</span>
                       <div
-                        class="flex flex-row items-center justify-center space-x-2 p-2 rounded-lg"
+                        class="flex flex-row items-center justify-center space-x-1 p-2 rounded-lg"
                       >
                         <Icon
                           icon="streamline:interface-favorite-heart-reward-social-rating-media-heart-it-like-favorite-love"
@@ -81,6 +73,14 @@
                           tvDetails.vote_average.toFixed(2)
                         }}</span>
                       </div>
+
+                      <AddToList
+                        :id="tvDetails.id"
+                        :poster="tvDetails.poster"
+                        :title_tv="tvDetails.original_name"
+                        :media_type="tvDetails.media_type"
+                        :overview="tvDetails.overview"
+                      />
                     </div>
                   </div>
                   <div class="text-left text-md text-content2">
@@ -139,48 +139,39 @@
               </div>
             </div>
 
-            <div class="max-w-7xl w-full text-left">
-              <span class="w-full text-2xl">Reviews</span>
-              <div class="max-h-96 h-fit overflow-auto overflow-x-hidden">
-                <div
-                  v-if="tvReviews.results"
-                  v-for="review in tvReviews.results"
-                  class="py-2"
-                >
-                  <Reviews
-                    :id="review.id"
-                    :author="review.author"
-                    :content="review.content"
-                    :updated="review.created_at"
-                    :url="review.url"
-                  />
-                </div>
+            <div class="flex flex-row overflow-auto space-x-2">
+              <div
+                @click="updateSelectedOption('seasons')"
+                class="btn"
+                :class="
+                  SelectedOption == 'seasons' ? 'btn-primary' : 'btn-ghost'
+                "
+              >
+                Seasons
+              </div>
+              <div
+                @click="updateSelectedOption('reviews')"
+                class="btn"
+                :class="
+                  SelectedOption == 'reviews' ? 'btn-primary' : 'btn-ghost'
+                "
+              >
+                Reviews
+              </div>
+              <div
+                @click="updateSelectedOption('videos')"
+                class="btn"
+                :class="
+                  SelectedOption == 'videos' ? 'btn-primary' : 'btn-ghost'
+                "
+              >
+                Videos
               </div>
             </div>
 
-            <div aria-label="seasons" class="flex max-w-7xl p-2">
-              <div class="flex flex-col rounded">
-                <div class="text-left text-2xl">Seasons</div>
-                <div class="w-full flex flex-wrap gap-2">
-                  <div
-                    class="flex flex-col"
-                    v-for="season in tvDetails.seasons"
-                    @click="
-                      getSeasonDetails(tvDetails.id, season.season_number)
-                    "
-                  >
-                    <label for="season-details" class="cursor-pointer">
-                      <img
-                        :src="`https://image.tmdb.org/t/p/w154/${season.poster_path}`"
-                        :title="season.seaon_number"
-                        style="width: 154px; height: 231px"
-                      />
-                      <span>{{ season.name }}</span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Reviews v-if="SelectedOption == 'reviews'" />
+            <Seasons v-if="SelectedOption == 'seasons'" />
+            <Videos v-if="SelectedOption == 'videos'" />
           </div>
 
           <div aria-label="side channel" class="p-2">
@@ -204,6 +195,7 @@
                     :key="item.id"
                     :id="item.id"
                     :poster="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
+                    :poster_base="item.poster_path"
                     :title_tv="item.original_name"
                     :year_tv="item.first_air_date"
                     :rating="item.vote_average"
@@ -221,32 +213,35 @@
       </div>
     </div>
   </div>
-  <SeasonDetailModal />
 </template>
 
 <script setup>
+import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { useTVStore } from "@/store/tv";
 import Loading from "@/components/Loading.vue";
 import { storeToRefs } from "pinia";
 
-import SeasonDetailModal from "./SeasonDetailModal.vue";
+import Reviews from "./Reviews.vue";
+import Seasons from "./Seasons.vue";
+import Videos from "./Videos.vue";
+
 import SmallContainer from "@/components/SmallContainer.vue";
 import AddToList from "@/components/Actions/AddToList.vue";
-import Reviews from "@/components/Reviews.vue";
 import MobileReturn from "@/components/Actions/MobileReturn.vue";
 
+const SelectedOption = ref("seasons");
+
+const updateSelectedOption = (newOption) => {
+  SelectedOption.value = newOption;
+};
+
 const tvStore = useTVStore();
-const { isLoadingTV, tvDetails, tvRecommendations, tvReviews } =
-  storeToRefs(tvStore);
+const { isLoadingTV, tvDetails, tvRecommendations } = storeToRefs(tvStore);
 
 const route = useRoute();
 const id = route.params.id;
 
 // Get TV show details
 tvStore.getTVDetails(id);
-
-const getSeasonDetails = (tv_id, season_number) => {
-  tvStore.getTVSeasonDetails(tv_id, season_number);
-};
 </script>

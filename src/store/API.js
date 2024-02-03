@@ -266,5 +266,15 @@ export const useAPIStore = defineStore("API", {
 
       return response.json();
     },
+
+    async getCollections(id) {
+      // Gather collections for a tv/movie show
+
+      if (!id) return;
+
+      const response = await fetch(
+        `https://tmdb-backend.autoidleapp.com/api/collections?id=${id}`
+      );
+    },
   },
 });
