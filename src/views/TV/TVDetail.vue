@@ -139,7 +139,7 @@
               </div>
             </div>
 
-            <div class="flex flex-row overflow-auto space-x-2">
+            <div class="flex flex-row overflow-auto space-x-2 scrollbar-hide">
               <div
                 @click="updateSelectedOption('seasons')"
                 class="btn"
@@ -167,47 +167,30 @@
               >
                 Videos
               </div>
+              <div
+                @click="updateSelectedOption('recommendations')"
+                class="btn md:hidden"
+                :class="
+                  SelectedOption == 'recommendations'
+                    ? 'btn-primary'
+                    : 'btn-ghost'
+                "
+              >
+                Videos
+              </div>
             </div>
 
             <Reviews v-if="SelectedOption == 'reviews'" />
             <Seasons v-if="SelectedOption == 'seasons'" />
             <Videos v-if="SelectedOption == 'videos'" />
+            <Recommendations
+              v-if="SelectedOption == 'recommendations'"
+              class="block md:hidden"
+            />
           </div>
 
-          <div aria-label="side channel" class="p-2">
-            <div
-              aria-label="recommendations"
-              class="flex flex-col bg-backgroundSecondary max-w-sm rounded-xl p-2"
-            >
-              <div
-                class="flex flex-row space-x-2 text-xl text-left p-1 text-content1"
-              >
-                <Icon icon="fluent-mdl2:show-time-as" />
-                <span>You many also like...</span>
-              </div>
-              <div class="overflow-auto h-96 md:h-full">
-                <div
-                  v-if="tvRecommendations.results.length"
-                  class="w-full flex flex-wrap gap-2"
-                >
-                  <SmallContainer
-                    v-for="item in tvRecommendations.results"
-                    :key="item.id"
-                    :id="item.id"
-                    :poster="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
-                    :poster_base="item.poster_path"
-                    :title_tv="item.original_name"
-                    :year_tv="item.first_air_date"
-                    :rating="item.vote_average"
-                    :media_type="`tv`"
-                    :type="item.media_type"
-                  >
-                  </SmallContainer>
-                </div>
-
-                <div v-else class="">Sorry, unable to get recommendations</div>
-              </div>
-            </div>
+          <div aria-label="side channel" class="hidden md:flex p-2">
+            <Recommendations />
           </div>
         </div>
       </div>
@@ -225,8 +208,8 @@ import { storeToRefs } from "pinia";
 import Reviews from "./Reviews.vue";
 import Seasons from "./Seasons.vue";
 import Videos from "./Videos.vue";
+import Recommendations from "./Recommendations.vue";
 
-import SmallContainer from "@/components/SmallContainer.vue";
 import AddToList from "@/components/Actions/AddToList.vue";
 import MobileReturn from "@/components/Actions/MobileReturn.vue";
 

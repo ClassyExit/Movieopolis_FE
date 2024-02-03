@@ -1,6 +1,5 @@
 <template>
   <div class="max-w-7xl w-full text-left">
-    <span class="w-full text-2xl">Reviews</span>
     <div class="max-h-[40rem] h-fit overflow-auto overflow-x-hidden">
       <div
         v-if="tvReviews.results.length"
@@ -17,7 +16,7 @@
       </div>
 
       <div v-else class="text-center text-content2 pt-8">
-        There are currently now reviews.
+        There are currently no reviews.
       </div>
     </div>
   </div>
