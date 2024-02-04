@@ -7,36 +7,37 @@
       <Icon icon="fluent-mdl2:show-time-as" />
       <span>You many also like...</span>
     </div>
-    <div class="overflow-auto max-h-[40rem]">
+    <div class="overflow-auto h-fit max-h-[40rem] md:h-full md:max-h-none">
       <div
-        v-if="tvRecommendations.results.length"
+        v-if="movieRecommendations.results.length"
         class="w-full flex flex-wrap gap-2"
       >
         <SmallContainer
-          v-for="item in tvRecommendations.results"
+          v-for="item in movieRecommendations.results"
           :key="item.id"
           :id="item.id"
           :poster="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
           :poster_base="item.poster_path"
-          :title_tv="item.original_name"
-          :year_tv="item.first_air_date"
+          :title_movie="item.title"
+          :year_movie="item.release_date"
           :rating="item.vote_average"
-          :media_type="`tv`"
+          :media_type="`movie`"
           :type="item.media_type"
         >
         </SmallContainer>
       </div>
 
-      <div v-else class="">Sorry, unable to get recommendations</div>
+      <div v-else>Sorry, unable to get recommendations</div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { useTVStore } from "@/store/tv";
-import SmallContainer from "@/components/SmallContainer.vue";
+import { useMovieStore } from "@/store/movies";
 import { storeToRefs } from "pinia";
+import SmallContainer from "@/components/SmallContainer.vue";
 
-const tvStore = useTVStore();
-const { tvRecommendations } = storeToRefs(tvStore);
+const movieStore = useMovieStore();
+
+const { movieRecommendations } = storeToRefs(movieStore);
 </script>

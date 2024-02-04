@@ -273,8 +273,10 @@ export const useAPIStore = defineStore("API", {
       if (!id) return;
 
       const response = await fetch(
-        `https://tmdb-backend.autoidleapp.com/api/collections?id=${id}`
+        `https://tmdb-backend.autoidleapp.com/api/search/collections?id=${id}`
       );
+
+      return response.json();
     },
   },
 });

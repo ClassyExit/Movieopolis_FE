@@ -52,7 +52,6 @@
             class="h-full object-contain z-10 rounded-lg"
             src="../assets/images/no-image.jpg"
           />
-          {{ poster_base }}
         </div>
       </div>
     </router-link>

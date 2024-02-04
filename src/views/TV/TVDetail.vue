@@ -26,7 +26,7 @@
         class="w-full flex flex-col space-y-4 md:space-y-0 mx-auto"
       >
         <div class="w-full flex flex-col md:flex-row justify-center">
-          <div aria-label="main channel" class="p-2 space-y-4">
+          <div aria-label="main channel" class="p-2 pb-24 space-y-4">
             <div
               aria-label="main label"
               class="flex flex-row space-x-4 max-w-7xl w-full bg-backgroundSecondary p-2 rounded-xl mt-2 md:mt-0"
@@ -144,7 +144,9 @@
                 @click="updateSelectedOption('seasons')"
                 class="btn"
                 :class="
-                  SelectedOption == 'seasons' ? 'btn-primary' : 'btn-ghost'
+                  SelectedOption == 'seasons'
+                    ? 'btn-primary'
+                    : 'btn-outline-primary'
                 "
               >
                 Seasons
@@ -153,7 +155,9 @@
                 @click="updateSelectedOption('reviews')"
                 class="btn"
                 :class="
-                  SelectedOption == 'reviews' ? 'btn-primary' : 'btn-ghost'
+                  SelectedOption == 'reviews'
+                    ? 'btn-primary'
+                    : 'btn-outline-primary'
                 "
               >
                 Reviews
@@ -162,7 +166,9 @@
                 @click="updateSelectedOption('videos')"
                 class="btn"
                 :class="
-                  SelectedOption == 'videos' ? 'btn-primary' : 'btn-ghost'
+                  SelectedOption == 'videos'
+                    ? 'btn-primary'
+                    : 'btn-outline-primary'
                 "
               >
                 Videos
@@ -173,10 +179,10 @@
                 :class="
                   SelectedOption == 'recommendations'
                     ? 'btn-primary'
-                    : 'btn-ghost'
+                    : 'btn-outline-primary'
                 "
               >
-                Videos
+                Recommendations
               </div>
             </div>
 
@@ -213,8 +219,8 @@ import Recommendations from "./Recommendations.vue";
 import AddToList from "@/components/Actions/AddToList.vue";
 import MobileReturn from "@/components/Actions/MobileReturn.vue";
 
+// Select different options to show
 const SelectedOption = ref("seasons");
-
 const updateSelectedOption = (newOption) => {
   SelectedOption.value = newOption;
 };

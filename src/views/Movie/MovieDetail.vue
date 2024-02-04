@@ -26,7 +26,7 @@
         class="w-full flex flex-col space-y-4 md:space-y-0 mx-auto"
       >
         <div class="w-full flex flex-col md:flex-row justify-center">
-          <div aria-label="main channel" class="p-2 space-y-4">
+          <div aria-label="main channel" class="p-2 pb-24 space-y-4">
             <div
               aria-label="main label"
               class="flex flex-row space-x-4 max-w-7xl w-full bg-backgroundSecondary p-2 rounded-xl mt-2 md:mt-0"
@@ -50,15 +50,6 @@
                         >({{ movieDetails.release_date.slice(0, 4) }})</span
                       >
                     </div>
-
-                    <AddToList
-                      class="md:px-2"
-                      :id="movieDetails.id"
-                      :poster="movieDetails.poster"
-                      :title_movie="movieDetails.original_title"
-                      :media_type="movieDetails.media_type"
-                      :overview="movieDetails.overview"
-                    />
                   </div>
                 </div>
 
@@ -81,6 +72,14 @@
                           movieDetails.vote_average.toFixed(2)
                         }}</span>
                       </div>
+
+                      <AddToList
+                        :id="movieDetails.id"
+                        :poster="movieDetails.poster"
+                        :title_movie="movieDetails.original_title"
+                        :media_type="movieDetails.media_type"
+                        :overview="movieDetails.overview"
+                      />
                     </div>
                   </div>
                   <div class="text-left text-md text-content2">
@@ -125,89 +124,113 @@
               </div>
             </div>
 
-            <div class="max-w-7xl w-full text-left">
-              <span class="w-full text-2xl">Reviews</span>
-              <div class="h-96 overflow-auto overflow-x-hidden">
-                <div
-                  v-if="movieReviews.results"
-                  v-for="review in movieReviews.results"
-                  class="py-2"
-                >
-                  <Reviews
-                    :id="review.id"
-                    :author="review.author"
-                    :content="review.content"
-                    :updated="review.created_at"
-                    :url="review.url"
-                  />
-                </div>
+            <div class="flex flex-row overflow-auto space-x-2 scrollbar-hide">
+              <div
+                @click="updateSelectedOption('reviews')"
+                class="btn"
+                :class="
+                  SelectedOption == 'reviews'
+                    ? 'btn-primary'
+                    : 'btn-outline-primary'
+                "
+              >
+                Reviews
+              </div>
+              <div
+                @click="updateSelectedOption('recommendations')"
+                class="btn md:hidden"
+                :class="
+                  SelectedOption == 'recommendations'
+                    ? 'btn-primary'
+                    : 'btn-outline-primary'
+                "
+              >
+                Recommendations
+              </div>
+              <div
+                @click="
+                  {
+                    updateSelectedOption('collections');
+                  }
+                "
+                v-if="movieDetails.belongs_to_collection"
+                class="btn"
+                :class="
+                  SelectedOption == 'collections'
+                    ? 'btn-primary'
+                    : 'btn-outline-primary'
+                "
+              >
+                Collection
+              </div>
+              <div
+                @click="updateSelectedOption('videos')"
+                class="btn"
+                :class="
+                  SelectedOption == 'videos'
+                    ? 'btn-primary'
+                    : 'btn-outline-primary'
+                "
+              >
+                Videos
+              </div>
+
+              <div
+                @click="updateSelectedOption('cast')"
+                class="btn"
+                :class="
+                  SelectedOption == 'cast'
+                    ? 'btn-primary'
+                    : 'btn-outline-primary'
+                "
+              >
+                Cast
               </div>
             </div>
+
+            <Reviews v-if="SelectedOption == 'reviews'" />
+            <Recommendations
+              v-if="SelectedOption == 'recommendations'"
+              class="block md:hidden"
+            />
+            <MovieVideos v-if="SelectedOption == 'videos'" />
+            <MovieCast v-if="SelectedOption == 'cast'" />
+            <MovieCollection v-if="SelectedOption == 'collections'" />
           </div>
 
-          <div aria-label="side channel" class="p-2">
-            <div
-              aria-label="recommendations"
-              class="flex flex-col bg-backgroundSecondary max-w-sm rounded-xl p-2"
-            >
-              <div
-                class="flex flex-row space-x-2 text-xl text-left p-1 text-content1"
-              >
-                <Icon icon="fluent-mdl2:show-time-as" />
-                <span>You many also like...</span>
-              </div>
-              <div class="overflow-auto h-fit max-h-96 md:h-full md:max-h-none">
-                <div
-                  v-if="movieRecommendations.results.length"
-                  class="w-full flex flex-wrap gap-2"
-                >
-                  <SmallContainer
-                    v-for="item in movieRecommendations.results"
-                    :key="item.id"
-                    :id="item.id"
-                    :poster="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
-                    :poster_base="item.poster_path"
-                    :title_movie="item.title"
-                    :year_movie="item.release_date"
-                    :rating="item.vote_average"
-                    :media_type="`movie`"
-                    :type="item.media_type"
-                  >
-                  </SmallContainer>
-                </div>
-
-                <div v-else class="">Sorry, unable to get recommendations</div>
-              </div>
-            </div>
+          <div aria-label="side channel" class="hidden md:flex p-2">
+            <Recommendations />
           </div>
         </div>
       </div>
     </div>
   </div>
-  <SeasonDetailModal />
 </template>
 
 <script setup>
 import { useRoute } from "vue-router";
+import { ref } from "vue";
 import { useMovieStore } from "@/store/movies";
 import Loading from "@/components/Loading.vue";
 import { storeToRefs } from "pinia";
 
-import SmallContainer from "@/components/SmallContainer.vue";
+import Recommendations from "./Recommendations.vue";
+import Reviews from "./Reviews.vue";
+import MovieCollection from "./MovieCollection.vue";
+import MovieVideos from "./MovieVideos.vue";
+import MovieCast from "./MovieCast.vue";
+
 import AddToList from "@/components/Actions/AddToList.vue";
-import Reviews from "@/components/Reviews.vue";
 import MobileReturn from "@/components/Actions/MobileReturn.vue";
 
 const movieStore = useMovieStore();
-const {
-  isLoadingDetails,
-  movieDetails,
-  movieCredits,
-  movieReviews,
-  movieRecommendations,
-  movieVideos,
-  movieCollections,
-} = storeToRefs(movieStore);
+const { isLoadingDetails, movieDetails } = storeToRefs(movieStore);
+
+// Select different options to show
+const SelectedOption = ref("reviews");
+const updateSelectedOption = (newOption) => {
+  SelectedOption.value = newOption;
+};
 
 const route = useRoute();
 const id = route.params.id; // read movie id from router

@@ -56,6 +56,8 @@ export const useMovieStore = defineStore("Movie", {
     },
 
     async getCollections(collection_id) {
+      if (!collection_id) return;
+
       const collections = await useAPIStore().getCollections(collection_id);
 
       this.movieCollections = collections;

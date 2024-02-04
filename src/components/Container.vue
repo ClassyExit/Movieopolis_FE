@@ -174,7 +174,7 @@ const props = defineProps({
   year_movie: String | "0000",
   rating: Number | undefined,
   media_type: String | " ",
-  type: String | undefined,
+  type: String | " ",
   overview: String | undefined,
   listView: Boolean,
 });
