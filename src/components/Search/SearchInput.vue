@@ -6,7 +6,7 @@
         type=""
         :placeholder="props.placeholder"
         v-model="searchQuery"
-        v-debounce:1500ms="getResults"
+        v-debounce:300ms="getResults"
         :searchType="props.searchType"
       />
 
@@ -27,7 +27,6 @@
 
 <script setup>
 import { ref } from "vue";
-import { storeToRefs } from "pinia";
 import { useSearchStore } from "@/store/search";
 
 const props = defineProps({

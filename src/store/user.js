@@ -70,7 +70,7 @@ export const useUserStore = defineStore("user", {
       /* REGISTER A NEW USER */
 
       const status = {
-        success: true | false,
+        success: false,
         message: null,
       };
 
@@ -87,8 +87,6 @@ export const useUserStore = defineStore("user", {
           default:
             status.message = `Uh-oh, something went wrong. Try again.`;
         }
-
-        status.success = false;
         return status;
       }
 
@@ -113,7 +111,7 @@ export const useUserStore = defineStore("user", {
       /* SEND USER A RESET PASSWORD LINK */
 
       const status = {
-        success: true | false,
+        success: false,
         message: null,
       };
 
@@ -136,9 +134,6 @@ export const useUserStore = defineStore("user", {
               status.message = `Uh-oh, something went wrong. Please try again`;
               break;
           }
-
-          status.success = false;
-
           return status;
         });
 

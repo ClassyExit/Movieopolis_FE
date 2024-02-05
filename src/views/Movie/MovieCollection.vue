@@ -9,7 +9,7 @@
         v-for="item in movieCollections.parts"
         :key="item.id"
         :id="item.id"
-        :poster="`https://image.tmdb.org/t/p/w154/${item.poster_path}`"
+        :poster="item.poster_path"
         :title_movie="item.original_title"
         :year_movie="item.release_date"
         :rating="item.vote_average"

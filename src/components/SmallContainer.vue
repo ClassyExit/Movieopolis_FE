@@ -13,7 +13,7 @@
           <div
             class="flex line-clamp-1 items-center text-left rounded truncate"
           >
-            <span class="">{{ title_movie }}</span>
+            <span>{{ title_movie }}</span>
             <span class="px-1">({{ year_movie?.slice(0, 4) }})</span>
           </div>
 
@@ -47,11 +47,12 @@
             :alt="`${title_movie || title_tv} poster`"
           />
 
-          <img
+          <div
             v-else
-            class="h-full object-contain z-10 rounded-lg"
-            src="../assets/images/no-image.jpg"
-          />
+            class="text-center items-center flex bg-border opacity-40 h-full rounded-lg w-[50px]"
+          >
+            No image
+          </div>
         </div>
       </div>
     </router-link>

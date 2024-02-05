@@ -14,7 +14,7 @@
           </div>
         </div>
         <div class="flex flex-col items-center">
-          <h1 class="text-3xl font-semibold">Welcome!</h1>
+          <h1 class="text-3xl font-semibold">Sign Up</h1>
           <p class="text-sm text-content3">Create your account</p>
         </div>
       </div>
@@ -56,7 +56,7 @@
           <span>Continue with Google</span>
         </button>
       </div>
-      <div class="divider my-6 text-xs text-content2">or continue with</div>
+      <div class="divider my-6 text-xs text-content2">or</div>
 
       <div v-if="formValueErrors.failedRegister" class="alert alert-error">
         <svg

@@ -30,8 +30,6 @@
   </nav>
 </template>
 
-<script setup>
-import Theme from "@/components/Theme/Theme.vue";
-</script>
+<script setup></script>
 
 <style scoped></style>

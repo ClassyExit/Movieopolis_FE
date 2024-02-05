@@ -23,7 +23,7 @@
 
 <script setup>
 const props = defineProps({
-  id: Number,
+  id: String | Number,
   author: String,
   content: String,
   updated: String,

@@ -14,7 +14,7 @@
           </div>
         </div>
         <div class="flex flex-col">
-          <h1 class="text-3xl font-semibold">Welcome Back!</h1>
+          <h1 class="text-3xl font-semibold">Welcome</h1>
           <p class="text-sm text-content3">Sign in to access your account</p>
         </div>
       </div>
@@ -56,7 +56,7 @@
           <span>Continue with Google</span>
         </button>
       </div>
-      <div class="divider my-6 text-xs text-content2">or continue with</div>
+      <div class="divider my-6 text-xs text-content2">or</div>
 
       <div v-if="formValueErrors.failedLogin" class="alert alert-error">
         <svg
@@ -147,11 +147,18 @@
         </div>
 
         <div class="form-field">
-          <div class="form-control justify-center">
+          <div
+            class="flex flex-row items-center justify-center text-sm py-4 space-x-2 cursor-pointer hover:bg-gray-6 rounded"
+          >
             <router-link
               :to="{ name: 'Register' }"
-              class="link link-underline-hover link-primary text-sm"
-              >Don't have an account yet? Sign up</router-link
+              class="flex flex-row items-center space-x-2 text-sm"
+            >
+              <Icon
+                icon="mdi:account-arrow-left-outline"
+                width="25"
+                height="25"
+              /><span>Don't have an account yet? Sign up</span></router-link
             >
           </div>
         </div>
