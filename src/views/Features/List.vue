@@ -81,7 +81,7 @@
       <div
         class="flex flex-col py-2 space-y-2 md:space-y-0 md:flex-wrap md:flex-row gap-4 w-full"
       >
-        <List
+        <ListCard
           v-for="item in filteredList"
           :key="item.id"
           :title="item.title"
@@ -133,7 +133,7 @@
               </div>
             </div>
           </template>
-        </List>
+        </ListCard>
       </div>
     </div>
   </div>
@@ -144,7 +144,7 @@ import { useListStore } from "@/store/list";
 import { useUserStore } from "@/store/user";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
-import List from "@/components/MyList/List.vue";
+import ListCard from "@/components/MyList/ListCard.vue";
 
 const { list, filteredList } = storeToRefs(useListStore());
 

@@ -11,7 +11,10 @@
           >Account & Security</span
         >
         <div class="flex flex-wrap gap-4">
-          <NavItemSlot title="Password" to="ChangePassword"
+          <NavItemSlot
+            title="Password"
+            to="ChangePassword"
+            class="bg-backgroundSecondary shadow"
             ><template #icon
               ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
                 <path
@@ -26,7 +29,10 @@
                 /></svg></template
           ></NavItemSlot>
 
-          <NavItemSlot title="Account" to="Delete"
+          <NavItemSlot
+            title="Account"
+            to="Delete"
+            class="bg-backgroundSecondary shadow"
             ><template #icon
               ><svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -3 24 24">
                 <path
