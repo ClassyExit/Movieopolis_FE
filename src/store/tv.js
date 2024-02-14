@@ -39,9 +39,9 @@ export const useTVStore = defineStore("TV", {
       const videos = await useAPIStore().getTVVideos(tv_id);
       const reviews = await useAPIStore().getReviews("tv", tv_id);
 
-      // Find only trailers from API call
+      // Find only Youtube videos
       for (let item in videos.results) {
-        if (videos.results[item].type.includes("Trailer")) {
+        if (videos.results[item].site.includes("YouTube")) {
           this.tvVideos.push(videos.results[item]);
         }
       }

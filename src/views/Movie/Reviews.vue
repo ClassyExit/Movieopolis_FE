@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-7xl w-full text-left">
     <span class="w-full text-2xl">Reviews</span>
-    <div class="max-h-[40rem] overflow-auto overflow-x-hidden">
+    <div class="h-fit overflow-auto overflow-x-hidden">
       <div
         v-if="movieReviews.results"
         v-for="review in movieReviews.results"

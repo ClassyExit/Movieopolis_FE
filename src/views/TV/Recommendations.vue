@@ -1,13 +1,13 @@
 <template>
   <div
     aria-label="recommendations"
-    class="flex flex-col bg-backgroundSecondary max-w-sm rounded-xl p-2"
+    class="flex flex-col bg-backgroundSecondary max-w-sm rounded-xl p-2 h-fit"
   >
     <div class="flex flex-row space-x-2 text-xl text-left p-1 text-content1">
       <Icon icon="fluent-mdl2:show-time-as" />
       <span>You many also like...</span>
     </div>
-    <div class="overflow-auto max-h-[40rem]">
+    <div class="overflow-auto h-fit md:h-full md:max-h-[60rem]">
       <div
         v-if="tvRecommendations.results.length"
         class="w-full flex flex-wrap gap-2"

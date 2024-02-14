@@ -2,9 +2,10 @@
   <div class="w-full max-w-7xl">
     <div
       v-if="tvVideos.length"
-      class="grid grid-cols-1 md:grid-cols-2 md:gap-3"
+      class="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-3"
     >
       <div v-for="video in tvVideos">
+        <div class="text-content1 text-lg text-left">{{ video.name }}</div>
         <LiteYouTubeEmbed :id="`${video.key}`" :title="video.name" />
       </div>
     </div>

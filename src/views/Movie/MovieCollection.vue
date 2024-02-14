@@ -4,7 +4,7 @@
       {{ movieCollections.name }}
     </div>
 
-    <div class="flex flex-row gap-2">
+    <div class="flex flex-wrap gap-2">
       <Container
         v-for="item in movieCollections.parts"
         :key="item.id"
