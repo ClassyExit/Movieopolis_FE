@@ -7,7 +7,7 @@
       <Icon icon="fluent-mdl2:show-time-as" />
       <span>You many also like...</span>
     </div>
-    <div class="overflow-auto h-fit max-h-[40rem] md:h-full md:max-h-none">
+    <div class="overflow-auto h-fit md:h-full md:max-h-[60rem]">
       <div
         v-if="movieRecommendations.results.length"
         class="w-full flex flex-wrap gap-2"

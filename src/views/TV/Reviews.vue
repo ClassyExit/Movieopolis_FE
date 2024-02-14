@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-7xl w-full text-left">
-    <div class="max-h-[40rem] h-fit overflow-auto overflow-x-hidden">
+    <div class="h-fit overflow-auto overflow-x-hidden">
       <div
         v-if="tvReviews.results.length"
         v-for="review in tvReviews.results"

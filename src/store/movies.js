@@ -32,6 +32,7 @@ export const useMovieStore = defineStore("Movie", {
         Retrieve the movie credits belonging to the movie_id
       */
       this.isLoadingDetails = true;
+      this.movieVideos = [];
 
       const credits = await useAPIStore().getMovieCreditsAPI(movie_id);
       const details = await useAPIStore().getMovieDetailsAPI(movie_id);
@@ -43,7 +44,7 @@ export const useMovieStore = defineStore("Movie", {
 
       // Find only trailers from API call
       for (let item in videos.results) {
-        if (videos.results[item].type.includes("Trailer")) {
+        if (videos.results[item].site.includes("YouTube")) {
           this.movieVideos.push(videos.results[item]);
         }
       }

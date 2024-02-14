@@ -1,10 +1,11 @@
 <template>
   <div class="w-full max-w-7xl">
     <div
-      v-if="movieStore.length"
-      class="grid grid-cols-1 md:grid-cols-2 md:gap-3"
+      v-if="movieVideos.length"
+      class="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-3"
     >
-      <div v-for="video in movieStore">
+      <div v-for="video in movieVideos">
+        <div class="text-content1 text-lg text-left">{{ video.name }}</div>
         <LiteYouTubeEmbed :id="`${video.key}`" :title="video.name" />
       </div>
     </div>
