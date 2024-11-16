@@ -91,7 +91,7 @@
             <input
               :type="revealNewPass ? 'text' : 'password'"
               class="input input-lg max-w-full pl-10 pr-10"
-              placeholder="Enter Current Password"
+              placeholder="Enter New Password"
               v-model="formValue.newPass"
               @blur="validateField('newPass')"
               :class="formValueErrors.newPass ? 'input-error' : ''"
@@ -127,7 +127,7 @@
             <input
               :type="revealConfirmPass ? 'text' : 'password'"
               class="input input-lg max-w-full pl-10 pr-10"
-              placeholder="Enter Current Password"
+              placeholder="Confirm New Password"
               v-model="formValue.confirmPass"
               @blur="validateField('confirmPass')"
               :class="formValueErrors.confirmPass ? 'input-error' : ''"

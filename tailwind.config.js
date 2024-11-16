@@ -57,7 +57,7 @@ const rippleUIconfig = {
         backgroundSecondary: "#282828",
         content2: "#BABABA",
         border: "#525252",
-        content3: "#767676",
+        content3: "#E8E8E8",
       },
     },
   ],
