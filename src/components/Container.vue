@@ -51,7 +51,7 @@
         </div>
       </div>
 
-      <div id="cardView" v-else class="shadow rounded-md">
+      <div id="cardView" v-else class="w-[154px] h-fit shadow rounded-md">
         <img
           v-if="props.poster"
           class="rounded-t-lg"
@@ -142,7 +142,7 @@
         </div>
       </div>
 
-      <div v-else class="bg-backgroundSecondary shadow rounded-md">
+      <div v-else class="w-[154px] h-fit shadow rounded-md">
         <img
           v-if="props.poster"
           class="rounded-t-lg"
@@ -167,7 +167,9 @@
           </svg>
         </div>
 
-        <div class="flex flex-row text-sm p-1 justify-between rounded-md">
+        <div
+          class="flex flex-row text-sm p-1 bg-backgroundSecondary justify-between rounded-md"
+        >
           <div class="flex flex-row items-center space-x-1">
             <div class="stat-figure text-primary">
               <svg

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full p-4 md:px-16 rounded text-content1">
+  <div class="w-full p-4 md:px-16 space-y-4 rounded text-content1">
     <div class="w-full rounded p-2 space-y-1">
       <div
         class="text-left text-3xl text-primary flex flex-row items-center space-x-4 pb-1"
@@ -17,7 +17,7 @@
 
       <div v-if="movieStore.isLoadingPopularHome" class=""><Loading /></div>
 
-      <div v-else class="flex flex-wrap gap-2">
+      <div v-else class="flex gap-2 overflow-auto lg:flex-wrap">
         <Container
           v-for="item in popularMoviesHome.results"
           :key="item.id"
@@ -52,7 +52,7 @@
 
       <div v-if="tvStore.isLoadingPopularHome" class=""><Loading /></div>
 
-      <div v-else class="flex flex-wrap gap-2">
+      <div v-else class="flex gap-2 overflow-auto lg:flex-wrap">
         <Container
           v-for="item in popularTVShowsHome?.results"
           :key="item.id"

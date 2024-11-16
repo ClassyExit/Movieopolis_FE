@@ -4,7 +4,7 @@
       <div
         class="flex flex-col lg:flex-row items-start lg:space-x-2 text-left text-3xl text-primary pb-1"
       >
-        <span>What's New?</span>
+        <span>New Releases</span>
       </div>
 
       <div v-if="movieStore.isLoadingUpcomingHome" class=""><Loading /></div>

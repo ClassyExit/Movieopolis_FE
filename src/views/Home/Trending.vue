@@ -53,7 +53,7 @@
       </div>
 
       <div v-if="trendingStore.isLoadingTrending"><Loading /></div>
-      <div v-else class="flex flex-wrap gap-2">
+      <div v-else class="flex gap-2 overflow-auto lg:flex-wrap">
         <Container
           v-for="item in trending.results"
           :key="(item.id, item.media_type)"
