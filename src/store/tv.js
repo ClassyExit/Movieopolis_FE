@@ -8,6 +8,7 @@ export const useTVStore = defineStore("TV", {
     tvRecommendations: [],
     tvSeasonDetails: [],
     tvVideos: [],
+    tvTrailer: {},
     tvReviews: [],
 
     isLoadingPopularHome: false,
@@ -30,6 +31,7 @@ export const useTVStore = defineStore("TV", {
 
       this.isLoadingTV = true;
       this.tvVideos = []; // reset the videos, seems to keep stacking
+      this.tvTrailer = {};
 
       const credits = await useAPIStore().getTVCredits(tv_id);
       const details = await useAPIStore().getTVDetailsAPI(tv_id);
@@ -43,6 +45,18 @@ export const useTVStore = defineStore("TV", {
       for (let item in videos.results) {
         if (videos.results[item].site.includes("YouTube")) {
           this.tvVideos.push(videos.results[item]);
+
+          // Find the trailer
+          // Parameters:
+          // type: Trailer
+          // isOfficial: true
+          // site: Youtube
+          if (
+            videos.results[item].type.includes("Trailer")
+            //&& videos.results[item].official == true
+          ) {
+            this.tvTrailer = videos.results[item];
+          }
         }
       }
 

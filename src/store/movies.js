@@ -8,6 +8,7 @@ export const useMovieStore = defineStore("Movie", {
     movieCredits: {},
     movieRecommendations: [],
     movieVideos: [],
+    movieTrailer: {},
     movieReviews: [],
     movieCollections: [],
 
@@ -33,6 +34,7 @@ export const useMovieStore = defineStore("Movie", {
       */
       this.isLoadingDetails = true;
       this.movieVideos = [];
+      this.movieTrailer = {};
 
       const credits = await useAPIStore().getMovieCreditsAPI(movie_id);
       const details = await useAPIStore().getMovieDetailsAPI(movie_id);
@@ -42,12 +44,33 @@ export const useMovieStore = defineStore("Movie", {
       const videos = await useAPIStore().getMovieVideos(movie_id);
       const reviews = await useAPIStore().getReviews("movie", movie_id);
 
-      // Find only trailers from API call
+      // Find only videos from Youtube
       for (let item in videos.results) {
         if (videos.results[item].site.includes("YouTube")) {
           this.movieVideos.push(videos.results[item]);
+
+          // Find the trailer
+          // Parameters:
+          // type: Trailer
+          // isOfficial: true
+          // site: Youtube
+          if (
+            videos.results[item].type.includes("Trailer")
+            //&& videos.results[item].official == true
+          ) {
+            this.movieTrailer = videos.results[item];
+          }
         }
       }
+
+      const findTrailer = () => {
+        // Exit if no videos
+        if (!movieStore.movieVideos) return;
+
+        for (const video in movieStore.movieVideos) {
+          console.log(movieStore.movieVideos[video]);
+        }
+      };
 
       this.movieCredits = credits;
       this.movieDetails = details;

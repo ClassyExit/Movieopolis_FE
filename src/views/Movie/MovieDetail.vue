@@ -28,6 +28,13 @@
         <div class="w-full flex flex-col md:flex-row justify-center">
           <div aria-label="main channel" class="p-2 pb-24 space-y-4">
             <div
+              v-if="Object.keys(MovieTrailer).length > 0"
+              class="max-w-7xl w-full bg-backgroundSecondary p-2 rounded-xl mt-2 md:mt-0"
+            >
+              <MovieTrailer />
+            </div>
+
+            <div
               aria-label="main label"
               class="flex flex-row space-x-4 max-w-7xl w-full bg-backgroundSecondary p-2 rounded-xl mt-2 md:mt-0"
             >
@@ -126,6 +133,7 @@
 
             <div class="flex flex-row overflow-auto space-x-2 scrollbar-hide">
               <div
+                v-if="useMovieStore().movieReviews.results > 0"
                 @click="updateSelectedOption('reviews')"
                 class="btn"
                 :class="
@@ -219,6 +227,7 @@ import Reviews from "./Reviews.vue";
 import MovieCollection from "./MovieCollection.vue";
 import MovieVideos from "./MovieVideos.vue";
 import MovieCast from "./MovieCast.vue";
+import MovieTrailer from "./MovieTrailer.vue";
 
 import AddToList from "@/components/Actions/AddToList.vue";
 import MobileReturn from "@/components/Actions/MobileReturn.vue";
@@ -227,7 +236,7 @@ const movieStore = useMovieStore();
 const { isLoadingDetails, movieDetails } = storeToRefs(movieStore);
 
 // Select different options to show
-const SelectedOption = ref("reviews");
+const SelectedOption = ref("cast");
 const updateSelectedOption = (newOption) => {
   SelectedOption.value = newOption;
 };
