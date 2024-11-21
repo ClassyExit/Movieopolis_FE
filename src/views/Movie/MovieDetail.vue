@@ -171,6 +171,23 @@
               >
                 Collection
               </div>
+
+              <div
+                @click="
+                  {
+                    updateSelectedOption('recommendations');
+                  }
+                "
+                v-if="movieStore.movieRecommendations.results"
+                class="btn"
+                :class="
+                  SelectedOption == 'recommendations'
+                    ? 'btn-primary'
+                    : 'btn-outline-primary'
+                "
+              >
+                Recommendations
+              </div>
               <div
                 @click="updateSelectedOption('videos')"
                 class="btn"
@@ -197,17 +214,10 @@
             </div>
 
             <Reviews v-if="SelectedOption == 'reviews'" />
-            <Recommendations
-              v-if="SelectedOption == 'recommendations'"
-              class="block md:hidden"
-            />
+            <Recommendations v-if="SelectedOption == 'recommendations'" />
             <MovieVideos v-if="SelectedOption == 'videos'" />
             <MovieCast v-if="SelectedOption == 'cast'" />
             <MovieCollection v-if="SelectedOption == 'collections'" />
-          </div>
-
-          <div aria-label="side channel" class="hidden md:flex p-2">
-            <Recommendations />
           </div>
         </div>
       </div>

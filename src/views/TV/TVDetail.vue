@@ -36,7 +36,7 @@
 
             <div
               aria-label="main label"
-              class="flex flex-row space-x-4 max-w-7xl w-full bg-backgroundSecondary p-2 rounded-xl mt-2 md:mt-0"
+              class="flex flex-row space-x-4 max-w-7xl w-full bg-backgroundSecondary p-2 rounded-xl max-w-7xl mt-2 md:mt-0"
             >
               <div class="hidden md:block min-w-fit max-w-2/5">
                 <img
@@ -182,7 +182,7 @@
               </div>
               <div
                 @click="updateSelectedOption('recommendations')"
-                class="btn md:hidden"
+                class="btn"
                 :class="
                   SelectedOption == 'recommendations'
                     ? 'btn-primary'
@@ -196,14 +196,7 @@
             <Reviews v-if="SelectedOption == 'reviews'" />
             <Seasons v-if="SelectedOption == 'seasons'" />
             <Videos v-if="SelectedOption == 'videos'" />
-            <Recommendations
-              v-if="SelectedOption == 'recommendations'"
-              class="block md:hidden"
-            />
-          </div>
-
-          <div aria-label="side channel" class="hidden md:flex p-2">
-            <Recommendations />
+            <Recommendations v-if="SelectedOption == 'recommendations'" />
           </div>
         </div>
       </div>

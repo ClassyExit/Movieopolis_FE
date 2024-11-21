@@ -9,36 +9,6 @@
         id="listView"
         class="hover:cursor-pointer flex flex-row bg-backgroundSecondary md:hover:bg-backgroundPrimary border border-border rounded-xl h-20"
       >
-        <div class="flex flex-col w-3/4 justify-between p-1 px-2 w-4/5">
-          <div
-            class="flex line-clamp-1 items-center text-left rounded truncate"
-          >
-            <span>{{ title_movie }}</span>
-            <span class="px-1">({{ year_movie?.slice(0, 4) }})</span>
-          </div>
-
-          <div class="flex items-center w-fit">
-            <div class="flex flex-row items-center">
-              <div class="stat-figure text-primary">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  class="w-4 h-4 fill-current"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                  ></path>
-                </svg>
-              </div>
-              {{ rating.toFixed(2) }}
-            </div>
-          </div>
-        </div>
-
         <div class="w-1/5 flex items-center justify-end">
           <img
             v-if="poster_base"
