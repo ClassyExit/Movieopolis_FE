@@ -173,22 +173,6 @@
               </div>
 
               <div
-                @click="
-                  {
-                    updateSelectedOption('recommendations');
-                  }
-                "
-                v-if="movieStore.movieRecommendations.results"
-                class="btn"
-                :class="
-                  SelectedOption == 'recommendations'
-                    ? 'btn-primary'
-                    : 'btn-outline-primary'
-                "
-              >
-                Recommendations
-              </div>
-              <div
                 @click="updateSelectedOption('videos')"
                 class="btn"
                 :class="
@@ -246,7 +230,7 @@ const movieStore = useMovieStore();
 const { isLoadingDetails, movieDetails } = storeToRefs(movieStore);
 
 // Select different options to show
-const SelectedOption = ref("cast");
+const SelectedOption = ref("recommendations");
 const updateSelectedOption = (newOption) => {
   SelectedOption.value = newOption;
 };

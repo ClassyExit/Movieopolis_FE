@@ -1,6 +1,6 @@
 <template>
   <div
-    class="mx-auto py-4 px-4 pb-8 md:py-0 flex w-full items-center justify-center max-w-lg flex-col"
+    class="w-full text-left px-4 space-y-4 pt-4 md:pt-20 container mx-auto md:max-w-3xl lg:max-w-4xl text-base-content"
   >
     <div class="justify-start flex w-full"><MobileReturn /></div>
     <div v-if="updatePasswordResults.result.length" class="w-full max-w-2xl">

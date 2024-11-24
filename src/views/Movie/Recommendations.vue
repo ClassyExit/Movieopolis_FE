@@ -6,7 +6,7 @@
     <div class="overflow-auto h-fit md:h-full md:max-h-[60rem]">
       <div
         v-if="movieRecommendations.results.length"
-        class="w-full flex flex-wrap gap-2"
+        class="w-full flex md:flex-wrap gap-2"
       >
         <Container
           v-for="item in movieRecommendations.results"

@@ -4,7 +4,7 @@
       <MobileReturn />
     </div>
     <div
-      class="flex flex-row max-w-xl w-full h-fit md:h-3/5 bg-backgroundSecondary rounded-lg md:shadow-xl p-4 overflow-auto"
+      class="flex flex-row max-w-xl w-full scrollbar-hide md:scrollbar-default bg-backgroundSecondary rounded-lg md:shadow-xl p-4 overflow-auto"
     >
       <div class="flex flex-col w-full">
         <SettingHeaders>
@@ -18,7 +18,7 @@
           </template>
         </SettingHeaders>
 
-        <div v-if="useUserStore().user">
+        <div v-if="useUserStore().user" class="">
           <SettingHeaders>
             <template #title>Account Settings</template>
 
