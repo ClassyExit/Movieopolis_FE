@@ -221,7 +221,7 @@ import MobileReturn from "@/components/Actions/MobileReturn.vue";
 import TVTrailer from "./TVTrailer.vue";
 
 // Select different options to show
-const SelectedOption = ref("seasons");
+const SelectedOption = ref("recommendations");
 const updateSelectedOption = (newOption) => {
   SelectedOption.value = newOption;
 };

@@ -18,7 +18,7 @@
           :rating="item.vote_average"
           :media_type="`movie`"
           :type="item.media_type"
-          :listView="isListView"
+          :listView="false"
           :overview="item.overview"
         >
         </Container>

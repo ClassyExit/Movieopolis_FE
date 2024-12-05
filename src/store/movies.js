@@ -66,10 +66,6 @@ export const useMovieStore = defineStore("Movie", {
       const findTrailer = () => {
         // Exit if no videos
         if (!movieStore.movieVideos) return;
-
-        for (const video in movieStore.movieVideos) {
-          console.log(movieStore.movieVideos[video]);
-        }
       };
 
       this.movieCredits = credits;

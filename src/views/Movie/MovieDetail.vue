@@ -82,7 +82,7 @@
 
                       <AddToList
                         :id="movieDetails.id"
-                        :poster="movieDetails.poster"
+                        :poster="movieDetails.poster_path"
                         :title_movie="movieDetails.original_title"
                         :media_type="movieDetails.media_type"
                         :overview="movieDetails.overview"
@@ -146,7 +146,7 @@
               </div>
               <div
                 @click="updateSelectedOption('recommendations')"
-                class="btn md:hidden"
+                class="btn"
                 :class="
                   SelectedOption == 'recommendations'
                     ? 'btn-primary'

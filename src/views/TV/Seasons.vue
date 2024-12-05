@@ -57,7 +57,6 @@ const tv_id = route.params.id;
 let season_select = reactive(1);
 
 const getSeasonDetails = (tv_id, season_select) => {
-  console.log(tv_id, season_select);
   tvStore.getTVSeasonDetails(tv_id, season_select);
 };
 

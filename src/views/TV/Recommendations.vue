@@ -18,6 +18,7 @@
           :rating="item.vote_average"
           :media_type="`tv`"
           :type="item.media_type"
+          :listView="false"
         >
         </Container>
       </div>

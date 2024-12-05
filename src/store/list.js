@@ -25,9 +25,9 @@ export const useListStore = defineStore("List", {
       /*
             De-contruct details: 
             ID: Number
-            Title: String
-            Description: String 
-            Poster: String
+            Title: String || null
+            Overview: String 
+            Poster: String || null
             Type: Movie | TV 
         */
 
@@ -51,9 +51,16 @@ export const useListStore = defineStore("List", {
         const itemSnap = await getDoc(itemRef);
 
         if (itemSnap.exists()) {
+          //pass
         } else {
           // Upload Data
-          await setDoc(itemRef, data);
+          await setDoc(itemRef, {
+            id: data.id,
+            title: data.title || null,
+            overview: data.overview || null,
+            poster: data.poster || null,
+            type: data.type || null,
+          });
         }
       } catch (err) {
         console.log(err);
