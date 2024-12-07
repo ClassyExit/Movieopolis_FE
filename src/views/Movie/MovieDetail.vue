@@ -10,7 +10,11 @@
     <div v-else class="flex flex-col h-screen items-center mx-auto">
       <div
         id="backdrop-tv"
-        class="relative inset-y-0 top-0 w-full h-2/5 z-0 md:pb-5"
+        :class="
+          movieDetails.backdrop_path
+            ? 'relative inset-y-0 top-0 w-full h-2/5 z-0 md:pb-5'
+            : 'hidden'
+        "
       >
         <img
           class="h-full w-full object-cover blur-xs z-0"
@@ -28,8 +32,11 @@
         <div class="w-full flex flex-col md:flex-row justify-center">
           <div aria-label="main channel" class="p-2 pb-24 space-y-4">
             <div
-              v-if="Object.keys(MovieTrailer).length > 0"
-              class="max-w-7xl w-full bg-backgroundSecondary p-2 rounded-xl mt-2 md:mt-0"
+              :class="
+                Object.keys(movieTrailer).length > 0
+                  ? 'max-w-7xl w-full bg-backgroundSecondary p-2 rounded-xl mt-2 md:mt-0'
+                  : 'hidden'
+              "
             >
               <MovieTrailer />
             </div>
@@ -227,7 +234,8 @@ import AddToList from "@/components/Actions/AddToList.vue";
 import MobileReturn from "@/components/Actions/MobileReturn.vue";
 
 const movieStore = useMovieStore();
-const { isLoadingDetails, movieDetails } = storeToRefs(movieStore);
+const { isLoadingDetails, movieDetails, movieTrailer } =
+  storeToRefs(movieStore);
 
 // Select different options to show
 const SelectedOption = ref("recommendations");

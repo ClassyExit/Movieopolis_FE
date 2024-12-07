@@ -10,7 +10,11 @@
     <div v-else class="flex flex-col h-screen items-center mx-auto">
       <div
         id="backdrop-tv"
-        class="relative inset-y-0 top-0 w-full h-2/5 z-0 md:pb-5"
+        :class="
+          tvDetails.backdrop_path
+            ? 'relative inset-y-0 top-0 w-full h-2/5 z-0 md:pb-5'
+            : 'hidden'
+        "
       >
         <img
           class="h-full w-full object-cover blur-xs z-0"
@@ -28,15 +32,18 @@
         <div class="w-full flex flex-col md:flex-row justify-center">
           <div aria-label="main channel" class="p-2 pb-24 space-y-4">
             <div
-              v-if="Object.keys(TVTrailer).length > 0"
-              class="max-w-7xl w-full bg-backgroundSecondary p-2 rounded-xl mt-2 md:mt-0"
+              :class="
+                Object.keys(tvTrailer).length > 0
+                  ? 'max-w-7xl w-full bg-backgroundSecondary p-2 rounded-xl mt-2 md:mt-0'
+                  : 'hidden'
+              "
             >
               <TVTrailer />
             </div>
 
             <div
               aria-label="main label"
-              class="flex flex-row space-x-4 max-w-7xl w-full bg-backgroundSecondary p-2 rounded-xl max-w-7xl mt-2 md:mt-0"
+              class="flex flex-row space-x-4 max-w-7xl w-full bg-backgroundSecondary p-2 rounded-xl mt-2 md:mt-0"
             >
               <div class="hidden md:block min-w-fit max-w-2/5">
                 <img
@@ -46,7 +53,7 @@
                 />
               </div>
 
-              <div class="flex flex-col space-y-4">
+              <div class="flex flex-col space-y-4 w-full">
                 <div class="text-3xl">
                   <div class="flex flex-row text-content1 space-x-2">
                     <div class="space-x-2">
@@ -227,7 +234,7 @@ const updateSelectedOption = (newOption) => {
 };
 
 const tvStore = useTVStore();
-const { isLoadingTV, tvDetails, tvRecommendations } = storeToRefs(tvStore);
+const { isLoadingTV, tvDetails, tvTrailer } = storeToRefs(tvStore);
 
 const route = useRoute();
 const id = route.params.id;

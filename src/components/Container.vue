@@ -29,7 +29,7 @@
           <span class="px-1">({{ year_movie?.slice(0, 4) }})</span>
         </div>
 
-        <div class="flex items-center w-fit px-4">
+        <div class="flex items-center w-fit px-4 pr-12">
           <div class="flex flex-row items-center">
             <div class="stat-figure text-primary">
               <svg
@@ -120,7 +120,7 @@
           <span class="px-1">({{ year_tv?.slice(0, 4) }})</span>
         </div>
 
-        <div class="flex items-center w-fit px-4">
+        <div class="flex items-center w-fit px-4 pr-12">
           <div class="flex flex-row items-center">
             <div class="stat-figure text-primary">
               <svg

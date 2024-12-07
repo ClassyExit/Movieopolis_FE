@@ -1,11 +1,11 @@
 <template>
   <div class="flex items-center md:justify-between">
     <div
-      class="btn btn-sm btn-outline-primary"
+      class="btn btn-xs md:btn-sm btn-outline-primary"
       v-if="checkListIfMarked(id) == true"
       @click="removeFromList(id)"
     >
-      <Icon icon="material-symbols:bookmark" width="25" height="25" />
+      <Icon class="h-5 w-5" icon="material-symbols:bookmark" />
     </div>
 
     <div
@@ -13,9 +13,9 @@
       @click="
         addToList(id, poster, title_movie, title_tv, overview, media_type)
       "
-      class="btn btn-sm btn-outline-primary"
+      class="btn btn-xs md:btn-sm btn-outline-primary"
     >
-      <Icon icon="ic:outline-bookmark-add" width="25" height="25" />
+      <Icon class="h-5 w-5" icon="ic:outline-bookmark-add" />
     </div>
   </div>
 </template>

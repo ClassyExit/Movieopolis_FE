@@ -52,7 +52,9 @@
         </div>
       </div>
 
-      <div v-if="trendingStore.isLoadingTrending"><Loading /></div>
+      <div v-if="trendingStore.isLoadingTrending" class="skeleton h-64">
+        <!-- <Loading /> -->
+      </div>
       <div v-else class="flex gap-2 overflow-auto lg:flex-wrap">
         <Container
           v-for="item in trending.results"

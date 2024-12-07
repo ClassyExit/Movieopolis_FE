@@ -15,7 +15,9 @@
         </router-link>
       </div>
 
-      <div v-if="movieStore.isLoadingPopularHome" class=""><Loading /></div>
+      <div v-if="movieStore.isLoadingPopularHome" class="skeleton h-64">
+        <!-- <Loading /> -->
+      </div>
 
       <div v-else class="flex gap-2 overflow-auto lg:flex-wrap">
         <Container
@@ -50,7 +52,9 @@
         </router-link>
       </div>
 
-      <div v-if="tvStore.isLoadingPopularHome" class=""><Loading /></div>
+      <div v-if="tvStore.isLoadingPopularHome" class="skeleton h-64">
+        <!-- <Loading /> -->
+      </div>
 
       <div v-else class="flex gap-2 overflow-auto lg:flex-wrap">
         <Container

@@ -7,7 +7,9 @@
         <span>New Releases</span>
       </div>
 
-      <div v-if="movieStore.isLoadingUpcomingHome" class=""><Loading /></div>
+      <div v-if="movieStore.isLoadingUpcomingHome" class="skeleton h-64">
+        <!-- <Loading /> -->
+      </div>
       <div v-else>
         <vue-horizontal responsive snap="start">
           <ExtendedContainer
