@@ -6,8 +6,16 @@ export const useSearchStore = defineStore("Search", {
     searchMovieResults: [],
     searchTVResults: [],
     isLoadingSearch: false,
+
+    search: {
+      query: "",
+      results: [],
+      recentSearches: [],
+      isLoading: false,
+    },
   }),
   getters: {},
+  persist: true,
   actions: {
     async getSearch(query, type, page = 1) {
       /*
@@ -19,29 +27,30 @@ export const useSearchStore = defineStore("Search", {
 
       if (!query.value) return;
 
-      this.searchMovieResults = [];
-      this.searchTVResults = [];
+      this.search.results = [];
 
       for (let i = 1; i < 3; i++) {
+        // Get the search results for the first 3 pages
         const results = await useAPIStore().getSearchResults(
           query.value,
           type,
           (page = i)
         );
 
-        for (let item in results.results) {
-          if (type == "movie") {
-            this.searchMovieResults.push(results.results[item]);
-          } else {
-            this.searchTVResults.push(results.results[item]);
-          }
-        }
+        // Add the results to the search results
+        this.search.results.push(results.results);
       }
+
+      //Append query to recent searches
+      if (this.search.recentSearches.length > 5) {
+        // Limit the recent searches to 5
+        this.search.recentSearches.shift();
+      }
+      this.search.recentSearches.push(query.value);
     },
 
     clearSearchResults() {
-      this.searchMovieResults = [];
-      this.searchTVResults = [];
+      this.search.results = [];
     },
   },
 });

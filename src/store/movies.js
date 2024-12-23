@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import { useAPIStore } from "./API";
-import { collection } from "firebase/firestore";
 
 export const useMovieStore = defineStore("Movie", {
   state: () => ({
