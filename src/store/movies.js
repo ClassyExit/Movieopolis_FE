@@ -16,14 +16,7 @@ export const useMovieStore = defineStore("Movie", {
 
     movieGenres: [],
 
-    isLoadingPopularHome: false,
-    isLoadingUpcomingHome: false,
-    isLoadingTopRatedHome: false,
-
-    popularMovies: [],
     isLoadingMovies: false,
-    popularMoviesHome: [],
-    upcomingMoviesHome: [],
     latestMovies: [],
   }),
   getters: {},
@@ -81,31 +74,6 @@ export const useMovieStore = defineStore("Movie", {
       const collections = await useAPIStore().getCollections(collection_id);
 
       this.movieCollections = collections;
-    },
-
-    async getPopularMoviesHome(page) {
-      /*
-        Get the popular movies to display
-
-        NOTE: Only for the homepage -> limit the amount to show 
-        and use movies page to show more
-      */
-      this.isLoadingPopularHome = true;
-      const movies = await useAPIStore().getPopularMoviesAPI((page = page));
-      this.popularMoviesHome = movies;
-
-      this.isLoadingPopularHome = false;
-    },
-
-    async getUpcomingMovies(page) {
-      /* Get the upcoming movies for the home screen */
-
-      this.isLoadingUpcomingHome = true;
-
-      const upcoming = await useAPIStore().getUpcomingMoviesAPI((page = page));
-      this.upcomingMoviesHome = upcoming;
-
-      this.isLoadingUpcomingHome = false;
     },
 
     async getLatestMovie() {

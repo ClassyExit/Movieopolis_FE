@@ -15,13 +15,13 @@
         </router-link>
       </div>
 
-      <div v-if="movieStore.isLoadingPopularHome" class="skeleton h-64">
+      <div v-if="homeStore.isLoading.popularMovies" class="skeleton h-64">
         <!-- <Loading /> -->
       </div>
 
       <div v-else class="flex gap-2 overflow-auto lg:flex-wrap">
         <Container
-          v-for="item in popularMoviesHome.results"
+          v-for="item in popularMovies.results"
           :key="item.id"
           :id="item.id"
           :poster="item.poster_path"
@@ -52,13 +52,13 @@
         </router-link>
       </div>
 
-      <div v-if="tvStore.isLoadingPopularHome" class="skeleton h-64">
+      <div v-if="homeStore.isLoading.popularTVShows" class="skeleton h-64">
         <!-- <Loading /> -->
       </div>
 
       <div v-else class="flex gap-2 overflow-auto lg:flex-wrap">
         <Container
-          v-for="item in popularTVShowsHome?.results"
+          v-for="item in popularTVShows?.results"
           :key="item.id"
           :id="item.id"
           :poster="item.poster_path"
@@ -78,27 +78,20 @@
 <script setup>
 import { storeToRefs } from "pinia";
 import Container from "@/components/Container.vue";
-import { useMovieStore } from "@/store/movies";
-import { useTVStore } from "@/store/tv";
+import { useHomeStore } from "@/store/homeStore";
 
-import Loading from "@/components/Loading.vue";
-
-const movieStore = useMovieStore();
-const tvStore = useTVStore();
+const homeStore = useHomeStore();
+const { popularMovies, popularTVShows } = storeToRefs(homeStore);
 
 /**** Popular Movies *****/
-const { popularMoviesHome } = storeToRefs(movieStore);
-
-if (movieStore.popularMoviesHome?.length == 0) {
+if (homeStore.popularMovies?.length == 0) {
   const page = 1;
-  movieStore.getPopularMoviesHome(page);
+  homeStore.getPopularMoviesHome(page);
 }
 
 /**** Popular TV Shows *****/
-const { popularTVShowsHome } = storeToRefs(tvStore);
-
-if (tvStore.popularTVShowsHome?.length == 0) {
+if (homeStore.popularTVShows?.length == 0) {
   const page = 1;
-  tvStore.getPopularTVHome(page);
+  homeStore.getPopularTVHome(page);
 }
 </script>

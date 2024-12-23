@@ -11,7 +11,6 @@ export const useTVStore = defineStore("TV", {
     tvTrailer: {},
     tvReviews: [],
 
-    isLoadingPopularHome: false,
     isLoadingPopular: false,
 
     isLoadingSeasonDetails: false,
@@ -20,7 +19,6 @@ export const useTVStore = defineStore("TV", {
     tvGenres: [],
 
     popularTVShows: [],
-    popularTVShowsHome: [],
   }),
   getters: {},
   actions: {
@@ -78,20 +76,6 @@ export const useTVStore = defineStore("TV", {
       this.tvSeasonDetails = seasonDetails;
 
       this.isLoadingSeasonDetails = false;
-    },
-
-    async getPopularTVHome(page) {
-      /* 
-          Retrieve the popular tv shows to display on home screen
-      */
-
-      this.isLoadingPopularHome = true;
-      const popularTVShows = await useAPIStore().getPopularTVShowsAPI(
-        (page = page)
-      );
-      this.popularTVShowsHome = popularTVShows;
-
-      this.isLoadingPopularHome = false;
     },
 
     async getPopularTVShows(page) {
