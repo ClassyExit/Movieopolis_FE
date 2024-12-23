@@ -1,6 +1,9 @@
 <template>
-  <div v-if="movieTrailer.key" class="w-full aspect-auto">
-    <LiteYouTubeEmbed :id="`${movieTrailer.key}`" :title="movieTrailer.name" />
+  <div v-if="movie.trailer.key" class="w-full aspect-auto">
+    <LiteYouTubeEmbed
+      :id="`${movie.trailer.key}`"
+      :title="movie.trailer.name"
+    />
   </div>
 </template>
 
@@ -12,7 +15,7 @@ import { storeToRefs } from "pinia";
 
 const movieStore = useMovieStore();
 
-const { movieTrailer } = storeToRefs(movieStore);
+const { movie } = storeToRefs(movieStore);
 </script>
 
 <style></style>
