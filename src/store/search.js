@@ -3,10 +3,6 @@ import { useAPIStore } from "./API";
 
 export const useSearchStore = defineStore("Search", {
   state: () => ({
-    searchMovieResults: [],
-    searchTVResults: [],
-    isLoadingSearch: false,
-
     search: {
       query: "",
       results: [],
@@ -42,8 +38,8 @@ export const useSearchStore = defineStore("Search", {
       }
 
       //Append query to recent searches
-      if (this.search.recentSearches.length > 5) {
-        // Limit the recent searches to 5
+      if (this.search.recentSearches.length > 3) {
+        // Limit the recent searches to 3
         this.search.recentSearches.shift();
       }
       this.search.recentSearches.push(query.value);

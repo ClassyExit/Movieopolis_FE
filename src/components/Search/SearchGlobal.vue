@@ -20,23 +20,25 @@
       <div
         class="absolute top-2 modal-content flex flex-col gap-5 max-w-4xl w-full"
       >
-        <div class="flex flex-row items-center justify-between">
-          <div>
+        <div class="flex flex-row items-center w-full space-x-2">
+          <div class="w-full">
             <input
-              class="input focus:input-primary pl-8 pr-8"
+              class="focus:input-primary w-full p-2 rounded-md border border-primary"
               type=""
               placeholder="Search for movies, shows..."
               v-model="searchQuery"
               v-debounce:300ms="getResults"
             />
           </div>
-          <div @click="openModal = !openModal" class="btn btn-sm btn-ghost">
-            Cancel
+          <div @click="openModal = !openModal" class="btn btn-sm">X</div>
+        </div>
+        <div>
+          <div class="space-y-2" v-for="search in search.recentSearches">
+            <span> {{ search }}</span>
           </div>
         </div>
-        <span>Recent searches</span>
-
-        <div>results here</div>
+        <div class="h-1 w-full text-primary"></div>
+        <div v-for="result in search.results">{{ result }}</div>
       </div>
     </div>
   </div>
@@ -45,7 +47,6 @@
 <script setup>
 import MagnifyingGlass from "@/assets/Icons/MagnifyingGlass.vue";
 import { useSearchStore } from "@/store/search";
-import { get } from "core-js/core/dict";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
 
@@ -56,7 +57,7 @@ const openModal = ref(false);
 const searchQuery = ref("");
 
 const getResults = () => {
-  //   searchStore.getSearch(searchQuery, props.searchType);
+  searchStore.getSearch(searchQuery, "multi");
 
   console.log("Results..");
 };

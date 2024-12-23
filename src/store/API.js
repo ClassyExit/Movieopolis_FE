@@ -188,14 +188,14 @@ export const useAPIStore = defineStore("API", {
 
     async getMovieGenres() {
       const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/genre/movies`
+        `https://tmdb-backend.herokuapp.com/api/movies/genre`
       );
       return response.json();
     },
 
     async getTVGenres() {
       const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/genre/tv`
+        `https://tmdb-backend.herokuapp.com/api/tv/genre`
       );
       return response.json();
     },
