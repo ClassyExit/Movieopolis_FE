@@ -1,6 +1,6 @@
 <template>
-  <div v-if="tvTrailer.key" class="w-full aspect-auto">
-    <LiteYouTubeEmbed :id="`${tvTrailer.key}`" :title="tvTrailer.name" />
+  <div v-if="show.trailer.key" class="w-full aspect-auto">
+    <LiteYouTubeEmbed :id="`${show.trailer.key}`" :title="show.trailer.name" />
   </div>
 </template>
 
@@ -12,7 +12,7 @@ import { storeToRefs } from "pinia";
 
 const tvStore = useTVStore();
 
-const { tvTrailer } = storeToRefs(tvStore);
+const { show } = storeToRefs(tvStore);
 </script>
 
 <style></style>

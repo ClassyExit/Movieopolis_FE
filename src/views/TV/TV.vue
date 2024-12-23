@@ -92,7 +92,7 @@
             </div>
           </div>
           <div class="p-2">
-            <div v-if="isLoadingTV || isLoadingDiscover | isLoadingSearch">
+            <div v-if="shows.isLoading || isLoadingDiscover | isLoadingSearch">
               <Loading />
             </div>
 
@@ -156,7 +156,7 @@
               "
             >
               <Container
-                v-for="item in popularTVShows"
+                v-for="item in shows.popular"
                 :key="(item.id, item.media_type)"
                 :id="item.id"
                 :poster="item.poster_path"
@@ -234,14 +234,14 @@ const searchStore = useSearchStore();
 const { searchTVResults, isLoadingSearch } = storeToRefs(searchStore);
 
 const tvStore = useTVStore();
-const { popularTVShows, isLoadingTV } = storeToRefs(tvStore);
+const { shows } = storeToRefs(tvStore);
 
-tvStore.popularTVShows = [];
+tvStore.shows.popular = [];
 let currentPage = ref(1);
 let nextPage = ref(currentPage.value + 1);
 let prevPage = ref(currentPage.value - 1);
 
-// Load initial movie
+// Load initial shows
 tvStore.getPopularTVShows(currentPage.value);
 
 const loadTVShows = (page) => {
@@ -251,6 +251,11 @@ const loadTVShows = (page) => {
   currentPage.value = page;
   nextPage.value = currentPage.value + 1;
   prevPage.value = currentPage.value - 1;
+
+  if (currentPage.value == 1) {
+    // If current page is 1, disable previous button
+    prevPage.value = 1;
+  }
 };
 
 // ****** DICOVER ****** //

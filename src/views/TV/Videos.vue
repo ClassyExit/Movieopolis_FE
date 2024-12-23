@@ -1,10 +1,10 @@
 <template>
   <div class="w-full max-w-7xl">
     <div
-      v-if="tvVideos.length"
+      v-if="show.videos.length"
       class="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-3"
     >
-      <div v-for="video in tvVideos">
+      <div v-for="video in show.videos">
         <div class="text-content1 text-lg text-left">{{ video.name }}</div>
         <LiteYouTubeEmbed :id="`${video.key}`" :title="video.name" />
       </div>
@@ -23,5 +23,5 @@ import { storeToRefs } from "pinia";
 
 const tvStore = useTVStore();
 
-const { tvVideos } = storeToRefs(tvStore);
+const { show } = storeToRefs(tvStore);
 </script>

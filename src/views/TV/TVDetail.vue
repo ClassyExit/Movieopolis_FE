@@ -2,7 +2,7 @@
   <div class="w-full">
     <div
       class="flex flex-col items-center justify-center w-full h-full"
-      v-if="isLoadingTV"
+      v-if="show.isLoading"
     >
       <Loading />
     </div>
@@ -11,15 +11,15 @@
       <div
         id="backdrop-tv"
         :class="
-          tvDetails.backdrop_path
+          show.details.backdrop_path
             ? 'relative inset-y-0 top-0 w-full h-2/5 z-0 md:pb-5'
             : 'hidden'
         "
       >
         <img
           class="h-full w-full object-cover blur-xs z-0"
-          :src="`https://image.tmdb.org/t/p/original/${tvDetails.backdrop_path}`"
-          :alt="`${tvDetails.original_name} backdrop`"
+          :src="`https://image.tmdb.org/t/p/original/${show.details.backdrop_path}`"
+          :alt="`${show.details.original_name} backdrop`"
         />
 
         <div class="absolute top-2 left-2 z-40"><MobileReturn /></div>
@@ -33,7 +33,7 @@
           <div aria-label="main channel" class="p-2 pb-24 space-y-4">
             <div
               :class="
-                Object.keys(tvTrailer).length > 0
+                Object.keys(show.trailer).length > 0
                   ? 'max-w-7xl w-full bg-backgroundSecondary p-2 rounded-xl mt-2 md:mt-0'
                   : 'hidden'
               "
@@ -48,8 +48,8 @@
               <div class="hidden md:block min-w-fit max-w-2/5">
                 <img
                   class="h-full object-contain z-10 rounded-lg"
-                  :src="`https://image.tmdb.org/t/p/w300/${tvDetails.poster_path}`"
-                  :alt="`${tvDetails.original_name} poster`"
+                  :src="`https://image.tmdb.org/t/p/w300/${show.details.poster_path}`"
+                  :alt="`${show.details.original_name} poster`"
                 />
               </div>
 
@@ -58,11 +58,11 @@
                   <div class="flex flex-row text-content1 space-x-2">
                     <div class="space-x-2">
                       <span class="text-bold">
-                        {{ tvDetails.original_name }}
+                        {{ show.details.original_name }}
                       </span>
 
                       <span class="text-content2"
-                        >({{ tvDetails.first_air_date.slice(0, 4) }})</span
+                        >({{ show.details.first_air_date.slice(0, 4) }})</span
                       >
                     </div>
                   </div>
@@ -72,7 +72,7 @@
                   <div class="text-left space-y-4 flex flex-row items-center">
                     <div class="flex flex-row space-x-3">
                       <span class="badge badge-sm badge-primary">{{
-                        tvDetails.status
+                        show.details.status
                       }}</span>
                       <div
                         class="flex flex-row items-center justify-center space-x-1 p-2 rounded-lg"
@@ -84,21 +84,21 @@
                         />
 
                         <span class="text-content1">{{
-                          tvDetails.vote_average.toFixed(2)
+                          show.details.vote_average.toFixed(2)
                         }}</span>
                       </div>
 
                       <AddToList
-                        :id="tvDetails.id"
-                        :poster="tvDetails.poster"
-                        :title_tv="tvDetails.original_name"
-                        :media_type="tvDetails.media_type"
-                        :overview="tvDetails.overview"
+                        :id="show.details.id"
+                        :poster="show.details.poster"
+                        :title_tv="show.details.original_name"
+                        :media_type="show.details.media_type"
+                        :overview="show.details.overview"
                       />
                     </div>
                   </div>
                   <div class="text-left text-md text-content2">
-                    {{ tvDetails?.overview }}
+                    {{ show.details?.overview }}
                   </div>
                 </div>
 
@@ -119,29 +119,31 @@
                     <div
                       class="flex flex-col text-left space-y-2 text-content2"
                     >
-                      <div class="">{{ tvDetails.first_air_date }}</div>
+                      <div class="">{{ show.details.first_air_date }}</div>
                       <div class="flex flex-wrap gap-1">
                         <div
-                          v-for="item in tvDetails.languages"
+                          v-for="item in show.details.languages"
                           class="flex flex-wrap badge w-fit uppercase"
                         >
                           {{ item }}
                         </div>
                       </div>
-                      <div class="text-bold">{{ tvDetails.last_air_date }}</div>
+                      <div class="text-bold">
+                        {{ show.details.last_air_date }}
+                      </div>
                       <div class="flex flex-wrap gap-1">
                         <div
-                          v-for="item in tvDetails.networks"
+                          v-for="item in show.details.networks"
                           class="flex flex-wrap badge badge-secondary w-fit uppercase"
                         >
                           {{ item.name }}
                         </div>
                       </div>
-                      <div class="">{{ tvDetails.number_of_seasons }}</div>
-                      <div class="">{{ tvDetails.number_of_episodes }}</div>
+                      <div class="">{{ show.details.number_of_seasons }}</div>
+                      <div class="">{{ show.details.number_of_episodes }}</div>
                       <div class="flex flex-wrap gap-1">
                         <div
-                          v-for="item in tvDetails.genres"
+                          v-for="item in show.details.genres"
                           class="flex flex-wrap badge badge-primary w-fit"
                         >
                           {{ item.name }}
@@ -154,6 +156,18 @@
             </div>
 
             <div class="flex flex-row overflow-auto space-x-2 scrollbar-hide">
+              <div
+                @click="updateSelectedOption('recommendations')"
+                class="btn"
+                :class="
+                  SelectedOption == 'recommendations'
+                    ? 'btn-primary'
+                    : 'btn-outline-primary'
+                "
+              >
+                Recommendations
+              </div>
+
               <div
                 @click="updateSelectedOption('seasons')"
                 class="btn"
@@ -187,23 +201,12 @@
               >
                 Videos
               </div>
-              <div
-                @click="updateSelectedOption('recommendations')"
-                class="btn"
-                :class="
-                  SelectedOption == 'recommendations'
-                    ? 'btn-primary'
-                    : 'btn-outline-primary'
-                "
-              >
-                Recommendations
-              </div>
             </div>
 
+            <Recommendations v-if="SelectedOption == 'recommendations'" />
             <Reviews v-if="SelectedOption == 'reviews'" />
             <Seasons v-if="SelectedOption == 'seasons'" />
             <Videos v-if="SelectedOption == 'videos'" />
-            <Recommendations v-if="SelectedOption == 'recommendations'" />
           </div>
         </div>
       </div>
@@ -234,7 +237,7 @@ const updateSelectedOption = (newOption) => {
 };
 
 const tvStore = useTVStore();
-const { isLoadingTV, tvDetails, tvTrailer } = storeToRefs(tvStore);
+const { show } = storeToRefs(tvStore);
 
 const route = useRoute();
 const id = route.params.id;

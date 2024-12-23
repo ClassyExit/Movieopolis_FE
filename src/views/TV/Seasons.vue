@@ -10,17 +10,17 @@
       >
         <option
           :key="season.id"
-          v-for="season in tvDetails.seasons"
+          v-for="season in show.details.seasons"
           :value="season.season_number"
         >
           {{ season.name }} ({{ season.episode_count }})
         </option>
       </select>
     </div>
-    <div v-if="isLoadingSeasonDetails" class=""><Loading /></div>
+    <div v-if="show.isLoading.isLoadingSeason" class=""><Loading /></div>
     <div v-else class="w-full max-h-[40rem] overflow-auto">
       <div
-        v-for="episode in tvSeasonDetails.episodes"
+        v-for="episode in show.seasonDetails.episodes"
         class="flex flex-row p-4 items-center w-full hover:bg-backgroundSecondary border-b border-border"
       >
         <div class="px-4 text-xl text-content2">
@@ -41,20 +41,19 @@
 </template>
 
 <script setup>
-import { reactive } from "vue";
+import { ref } from "vue";
 import { useTVStore } from "@/store/tv";
 import { useRoute } from "vue-router";
 import Loading from "@/components/Loading.vue";
 import { storeToRefs } from "pinia";
 
 const tvStore = useTVStore();
-const { tvDetails, isLoadingSeasonDetails, tvSeasonDetails } =
-  storeToRefs(tvStore);
+const { show } = storeToRefs(tvStore);
 
 const route = useRoute();
 const tv_id = route.params.id;
 
-let season_select = reactive(1);
+let season_select = ref(1);
 
 const getSeasonDetails = (tv_id, season_select) => {
   tvStore.getTVSeasonDetails(tv_id, season_select);
