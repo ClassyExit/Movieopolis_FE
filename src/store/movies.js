@@ -16,7 +16,9 @@ export const useMovieStore = defineStore("Movie", {
 
     movieGenres: [],
 
+    popularMovies: [],
     isLoadingMovies: false,
+
     latestMovies: [],
   }),
   getters: {},
