@@ -7,6 +7,12 @@ export const useDiscoverStore = defineStore("Discover", {
     discoverMovies: [],
 
     isLoadingDiscover: false,
+
+    discover: {
+      TV: [],
+      Movies: [],
+      isLoading: false,
+    },
   }),
 
   getters: {},

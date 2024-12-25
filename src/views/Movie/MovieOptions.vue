@@ -9,21 +9,11 @@
         <Icon icon="fluent-mdl2:clear-filter" width="15" height="15" />
         <span>Clear</span>
       </div>
-      <div
-        v-if="searchStore?.searchMovieResults.length > 0"
-        @click="searchStore.clearSearchResults"
-        class="flex flex-row items-center space-x-1 w-fit text-error font-semibold p-2 border border-error rounded-lg cursor-pointer"
-      >
-        <Icon icon="pajamas:cancel" width="15" height="15" />
-        <span>Search</span>
-      </div>
     </div>
 
     <div class="space-y-6">
       <div class="max-w-xs w-full space-y-1">
         <div class="text-left text-primary text-xl">Search</div>
-
-        <SearchInput :placeholder="`Search for movie...`" searchType="movie" />
       </div>
 
       <div class="max-w-xs w-full space-y-1">
@@ -102,7 +92,7 @@ import { useDiscoverStore } from "@/store/discover";
 import { useMovieStore } from "@/store/movies";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
-import SearchInput from "@/components/Search/SearchInput.vue";
+
 import { useSearchStore } from "@/store/search";
 
 const movieStore = useMovieStore();

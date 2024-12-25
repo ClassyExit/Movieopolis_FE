@@ -9,22 +9,11 @@
         <Icon icon="fluent-mdl2:clear-filter" width="20" height="20" />
         <span>Clear</span>
       </div>
-
-      <div
-        v-if="searchStore?.searchTVResults.length > 0"
-        @click="searchStore.clearSearchResults"
-        class="flex flex-row items-center space-x-1 w-fit text-error font-semibold p-2 border border-error rounded-lg cursor-pointer"
-      >
-        <Icon icon="pajamas:cancel" width="15" height="15" />
-        <span>Search</span>
-      </div>
     </div>
 
     <div class="space-y-6">
       <div class="max-w-xs w-full space-y-1">
         <div class="text-left text-primary text-xl">Search</div>
-
-        <SearchInput placeholder="Search for shows..." searchType="tv" />
       </div>
 
       <div class="max-w-xs w-full space-y-1">
@@ -104,7 +93,6 @@ import { useTVStore } from "@/store/tv";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
 import { useSearchStore } from "@/store/search";
-import SearchInput from "@/components/Search/SearchInput.vue";
 
 const discoverStore = useDiscoverStore();
 const tvStore = useTVStore();

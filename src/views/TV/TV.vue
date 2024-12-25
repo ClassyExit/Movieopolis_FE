@@ -43,16 +43,6 @@
               <Icon icon="fluent-mdl2:clear-filter" width="20" height="20" />
               <span>Clear</span>
             </div>
-
-            <div
-              v-if="searchStore?.searchTVResults.length > 0"
-              @click="searchStore.clearSearchResults()"
-              class="flex flex-row items-center space-x-1 w-fit text-error font-semibold p-2 border border-error rounded-lg cursor-pointer"
-            >
-              <Icon icon="pajamas:cancel" width="15" height="15" />
-
-              <span>Search</span>
-            </div>
           </div>
 
           <div
@@ -92,33 +82,8 @@
             </div>
           </div>
           <div class="p-2">
-            <div v-if="shows.isLoading || isLoadingDiscover | isLoadingSearch">
+            <div v-if="shows.isLoading || isLoadingDiscover">
               <Loading />
-            </div>
-
-            <div
-              v-else-if="searchStore.searchTVResults.length > 0"
-              class="flex gap-2"
-              :class="
-                isListView
-                  ? 'w-full flex flex-col gap-2'
-                  : 'justify-center gap-4 md:gap-2 md:justify-start flex-wrap'
-              "
-            >
-              <Container
-                v-for="item in searchTVResults"
-                :key="item.id"
-                :id="item.id"
-                :poster="item.poster_path"
-                :title_tv="item.name"
-                :year_tv="item.first_air_date"
-                :rating="item.vote_average"
-                :media_type="`tv`"
-                :type="item.media_type"
-                :listView="isListView"
-                :overview="item.overview"
-              >
-              </Container>
             </div>
 
             <div
@@ -228,10 +193,6 @@ import Container from "@/components/Container.vue";
 import Loading from "@/components/Loading.vue";
 
 let isListView = ref(false);
-
-const searchStore = useSearchStore();
-
-const { searchTVResults, isLoadingSearch } = storeToRefs(searchStore);
 
 const tvStore = useTVStore();
 const { shows } = storeToRefs(tvStore);

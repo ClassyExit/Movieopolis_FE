@@ -41,7 +41,7 @@
 
         <div class="max-w-4xl">
           <div
-            v-if="search.results[0]?.movies.results.length > 0"
+            v-if="search.results[0].movies"
             class="flex gap-2 justify-center gap-4 md:gap-2 md:justify-start flex-wrap"
           >
             <Container
@@ -59,7 +59,7 @@
           </div>
 
           <div
-            v-if="search.results[0]?.tv.results.length > 0"
+            v-if="search.results[0].tv"
             class="flex gap-2 justify-center gap-4 md:gap-2 md:justify-start flex-wrap"
           >
             <Container

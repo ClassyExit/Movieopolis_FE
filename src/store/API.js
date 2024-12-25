@@ -188,7 +188,7 @@ export const useAPIStore = defineStore("API", {
 
     async getMovieGenres() {
       const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/movies/genre`
+        `https://tmdb-backend.herokuapp.com/api/movie/genre`
       );
       return response.json();
     },

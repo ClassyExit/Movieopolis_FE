@@ -18,23 +18,19 @@
       </select>
     </div>
     <div v-if="show.isLoading.isLoadingSeason" class=""><Loading /></div>
-    <div v-else class="w-full max-h-[40rem] overflow-auto">
-      <div
-        v-for="episode in show.seasonDetails.episodes"
-        class="flex flex-row p-4 items-center w-full hover:bg-backgroundSecondary border-b border-border"
-      >
-        <div class="px-4 text-xl text-content2">
-          {{ episode.episode_number }}
-        </div>
-
-        <div class="w-full flex flex-col text-left">
-          <div class="flex flex-row justify-between text-lg pb-2">
-            <div class="">{{ episode.name }}</div>
-            <div class="text-lg">{{ episode.runtime }}m</div>
-          </div>
-
-          <div class="text-sm text-content2">{{ episode.overview }}</div>
-        </div>
+    <div
+      v-else
+      class="grid grid-cols-8 gap-4 h-96 md:pb-10 overflow-auto gap-2 md:gap-4"
+    >
+      <div v-for="episode in show.seasonDetails.episodes">
+        <SeasonExtended
+          :id="episode.name + episode.episode_number"
+          :episode_number="episode.episode_number"
+          :overview="episode.overview"
+          :runtime="episode.runtime"
+          :name="episode.name"
+        >
+        </SeasonExtended>
       </div>
     </div>
   </div>
@@ -46,12 +42,14 @@ import { useTVStore } from "@/store/tv";
 import { useRoute } from "vue-router";
 import Loading from "@/components/Loading.vue";
 import { storeToRefs } from "pinia";
+import SeasonExtended from "@/components/SeasonExtended.vue";
 
 const tvStore = useTVStore();
 const { show } = storeToRefs(tvStore);
 
 const route = useRoute();
 const tv_id = route.params.id;
+const showExtended = ref(false);
 
 let season_select = ref(1);
 
