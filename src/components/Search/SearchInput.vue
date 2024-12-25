@@ -39,7 +39,7 @@ const searchStore = useSearchStore();
 const searchQuery = ref("");
 
 const getResults = () => {
-  console.log("Results..");
+  searchStore.getSearch(searchQuery, props.searchType);
 };
 </script>
 

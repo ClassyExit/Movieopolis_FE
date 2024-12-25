@@ -25,17 +25,27 @@ export const useSearchStore = defineStore("Search", {
 
       this.search.results = [];
 
-      for (let i = 1; i < 3; i++) {
-        // Get the search results for the first 3 pages
-        const results = await useAPIStore().getSearchResults(
-          query.value,
-          type,
-          (page = i)
-        );
+      // Get the search results for the first 3 pages
+      const results = await useAPIStore().getSearchResults(
+        query.value,
+        type,
+        (page = 1)
+      );
 
-        // Add the results to the search results
-        this.search.results.push(results.results);
-      }
+      // Add the results to the search results
+      this.search.results.push(results);
+
+      // for (let i = 1; i < 3; i++) {
+      //   // Get the search results for the first 3 pages
+      //   const results = await useAPIStore().getSearchResults(
+      //     query.value,
+      //     type,
+      //     (page = i)
+      //   );
+
+      //   // Add the results to the search results
+      //   this.search.results.push(results.results);
+      // }
 
       //Append query to recent searches
       if (this.search.recentSearches.length > 3) {

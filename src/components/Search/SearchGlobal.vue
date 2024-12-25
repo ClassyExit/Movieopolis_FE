@@ -27,18 +27,55 @@
               type=""
               placeholder="Search for movies, shows..."
               v-model="searchQuery"
-              v-debounce:300ms="getResults"
+              v-debounce:500ms="getResults"
             />
           </div>
           <div @click="openModal = !openModal" class="btn btn-sm">X</div>
         </div>
-        <div>
+        <div class="border-b-2 border-border">
+          <span class="text-primary">Recent searches</span>
           <div class="space-y-2" v-for="search in search.recentSearches">
             <span> {{ search }}</span>
           </div>
         </div>
-        <div class="h-1 w-full text-primary"></div>
-        <div v-for="result in search.results">{{ result }}</div>
+
+        <div class="max-w-4xl">
+          <div
+            v-if="search.results[0]?.movies.results.length > 0"
+            class="flex gap-2 justify-center gap-4 md:gap-2 md:justify-start flex-wrap"
+          >
+            <Container
+              v-for="item in search.results[0].movies.results"
+              :key="item.id"
+              :id="item.id"
+              :poster="item.poster_path"
+              :title_movie="item.title"
+              :year_movie="item.release_date"
+              :rating="item.vote_average"
+              :media_type="`movie`"
+              :overview="item.overview"
+            >
+            </Container>
+          </div>
+
+          <div
+            v-if="search.results[0]?.tv.results.length > 0"
+            class="flex gap-2 justify-center gap-4 md:gap-2 md:justify-start flex-wrap"
+          >
+            <Container
+              v-for="item in search.results[0].tv.results"
+              :key="item.id"
+              :id="item.id"
+              :poster="item.poster_path"
+              :title_tv="item.name"
+              :year_tv="item.first_air_date"
+              :rating="item.vote_average"
+              :media_type="`tv`"
+              :overview="item.overview"
+            >
+            </Container>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -49,6 +86,7 @@ import MagnifyingGlass from "@/assets/Icons/MagnifyingGlass.vue";
 import { useSearchStore } from "@/store/search";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
+import Container from "../Container.vue";
 
 const searchStore = useSearchStore();
 const { search } = storeToRefs(searchStore);
@@ -58,8 +96,6 @@ const searchQuery = ref("");
 
 const getResults = () => {
   searchStore.getSearch(searchQuery, "multi");
-
-  console.log("Results..");
 };
 </script>
 
