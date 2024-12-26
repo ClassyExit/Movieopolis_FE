@@ -75,8 +75,8 @@
       </div>
     </div>
 
-    <div class="w-full py-4">
-      <button class="w-1/2 btn btn-secondary" @click="getTVResults()">
+    <div class="w-full py-2">
+      <button class="w-full btn btn-outline-primary" @click="getTVResults()">
         Discover!
       </button>
     </div>

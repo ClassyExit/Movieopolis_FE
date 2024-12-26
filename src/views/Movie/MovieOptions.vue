@@ -75,8 +75,8 @@
       </div>
     </div>
 
-    <div class="w-full">
-      <button class="w-1/2 btn btn-secondary" @click="getMovieResults()">
+    <div class="w-full py-2">
+      <button class="w-full btn btn-outline-primary" @click="getMovieResults()">
         Discover!
       </button>
     </div>

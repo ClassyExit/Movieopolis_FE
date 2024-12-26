@@ -20,10 +20,6 @@
       <div class="md:hidden flex flex-row justify-between items-center w-full">
         <slot name="mobile-drop"></slot>
 
-        <div class="flex flex-row items-center">
-          <img src="@/assets/logo.png" class="h-8 w-8" />
-        </div>
-
         <slot name="mobile-right" class="flex flex-row items-center"> </slot>
       </div>
     </div>

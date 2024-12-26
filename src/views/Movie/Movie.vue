@@ -134,7 +134,7 @@
 
           <div
             class="pagination flex justify-center w-full pb-8 pt-4"
-            :class="discover.movies.length > 0 ? 'hidden' : ''"
+            :class="discover.movies?.length > 0 ? 'hidden' : ''"
           >
             <div
               class="flex items-center rounded-lg p-2 bg-backgroundSecondary hover:bg-primary cursor-pointer"

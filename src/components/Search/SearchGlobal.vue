@@ -1,11 +1,10 @@
 <template>
   <div>
     <div
-      class="flex flex-row items-center border border-border rounded-md cursor-pointer p-2 space-x-2 w-fit md:w-80"
+      class="btn btn-sm md:btn-md btn-outline-primary"
       @click="openModal = !openModal"
     >
       <span> <MagnifyingGlass /> </span>
-      <span class="hidden md:block">Search movies, shows...</span>
     </div>
 
     <input
@@ -35,9 +34,9 @@
         <div class="pb-2 border-b-2 border-border">
           <div
             v-if="search.recentSearches.length"
-            class="flex flex-row space-x-4"
+            class="flex flex-row space-x-4 justify-between pb-1"
           >
-            <span class="text-primary">Recent searches</span>
+            <span class="text-primary">Recent</span>
             <div
               @click="searchStore.clearRecentSearches"
               class="btn btn-xs btn-outline-error"
@@ -53,9 +52,9 @@
         <div class="max-w-4xl">
           <div
             v-if="search.results.length"
-            class="flex flex-row space-x-4 pb-4"
+            class="flex flex-row space-x-4 pb-4 justify-between"
           >
-            <span class="text-primary">Search results</span>
+            <span class="text-primary">Results</span>
             <div
               @click="searchStore.clearSearchResults"
               class="btn btn-xs btn-outline-error"

@@ -53,10 +53,7 @@
           <div v-else class="flex flex-row items-center space-x-4">
             <SearchGlobal />
 
-            <router-link
-              :to="{ name: 'Settings' }"
-              class="flex flex-row btn btn-ghost"
-            >
+            <router-link :to="{ name: 'Settings' }" class="btn btn-ghost">
               <Icon
                 icon="material-symbols:settings-outline"
                 width="24"
