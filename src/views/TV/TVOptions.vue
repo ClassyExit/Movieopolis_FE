@@ -2,7 +2,7 @@
   <div class="px-2">
     <div class="min-h-0 max-h-20 pb-2 flex flex-wrap space-x-2">
       <div
-        v-if="discoverStore?.discoverTV.length > 0"
+        v-if="discoverStore?.discover.tv.length > 0"
         @click="discoverStore.clearDiscoverTV()"
         class="flex flex-row items-center space-x-1 w-fit text-error font-semibold p-2 border border-error rounded-lg cursor-pointer"
       >
@@ -12,10 +12,6 @@
     </div>
 
     <div class="space-y-6">
-      <div class="max-w-xs w-full space-y-1">
-        <div class="text-left text-primary text-xl">Search</div>
-      </div>
-
       <div class="max-w-xs w-full space-y-1">
         <div class="text-left text-primary text-xl">Genre</div>
 
@@ -92,11 +88,9 @@ import { useDiscoverStore } from "@/store/discover";
 import { useTVStore } from "@/store/tv";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
-import { useSearchStore } from "@/store/search";
 
 const discoverStore = useDiscoverStore();
 const tvStore = useTVStore();
-const searchStore = useSearchStore();
 
 const { tvGenres } = storeToRefs(tvStore);
 

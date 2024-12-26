@@ -21,7 +21,7 @@
 
       <div v-else class="flex gap-2 overflow-auto lg:flex-wrap">
         <Container
-          v-for="item in popularMovies.results"
+          v-for="item in movies.popularMovies?.results"
           :key="item.id"
           :id="item.id"
           :poster="item.poster_path"
@@ -58,7 +58,7 @@
 
       <div v-else class="flex gap-2 overflow-auto lg:flex-wrap">
         <Container
-          v-for="item in popularTVShows?.results"
+          v-for="item in movies.popularTVShows?.results"
           :key="item.id"
           :id="item.id"
           :poster="item.poster_path"
@@ -81,16 +81,16 @@ import Container from "@/components/Container.vue";
 import { useHomeStore } from "@/store/homeStore";
 
 const homeStore = useHomeStore();
-const { popularMovies, popularTVShows } = storeToRefs(homeStore);
+const { movies } = storeToRefs(homeStore);
 
 /**** Popular Movies *****/
-if (homeStore.popularMovies?.length == 0) {
+if (homeStore.movies.popularMovies?.length == 0) {
   const page = 1;
   homeStore.getPopularMoviesHome(page);
 }
 
 /**** Popular TV Shows *****/
-if (homeStore.popularTVShows?.length == 0) {
+if (homeStore.movies.popularTVShows?.length == 0) {
   const page = 1;
   homeStore.getPopularTVHome(page);
 }

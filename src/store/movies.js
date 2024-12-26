@@ -19,9 +19,8 @@ export const useMovieStore = defineStore("Movie", {
     movies: {
       popular: [],
       isLoadingMovies: false,
+      latest: [],
     },
-
-    latestMovies: [],
   }),
   getters: {},
   actions: {
@@ -83,7 +82,7 @@ export const useMovieStore = defineStore("Movie", {
     async getLatestMovie() {
       /* Get the latest movies */
       const latest = await useAPIStore().getLatestMoviesAPI();
-      this.latestMovies = latest;
+      this.movies.latest = latest;
     },
 
     async getTopRatedMovies(page) {

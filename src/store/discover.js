@@ -3,14 +3,9 @@ import { useAPIStore } from "./API";
 
 export const useDiscoverStore = defineStore("Discover", {
   state: () => ({
-    discoverTV: [],
-    discoverMovies: [],
-
-    isLoadingDiscover: false,
-
     discover: {
-      TV: [],
-      Movies: [],
+      tv: [],
+      movies: [],
       isLoading: false,
     },
   }),
@@ -36,10 +31,10 @@ export const useDiscoverStore = defineStore("Discover", {
          page:          number
         ******/
 
-      this.isLoadingDiscover = true;
+      this.discover.isLoading = true;
 
       // Unload old results
-      this.discoverMovies = [];
+      this.discover.movies = [];
 
       const sort_by = `${movieSortBy}.${sort_order}`;
 
@@ -53,11 +48,11 @@ export const useDiscoverStore = defineStore("Discover", {
         );
 
         for (const movie in movies.results) {
-          this.discoverMovies.push(movies.results[movie]);
+          this.discover.movies.push(movies.results[movie]);
         }
       }
 
-      this.isLoadingDiscover = false;
+      this.discover.isLoading = false;
     },
 
     async getTVDiscover(
@@ -79,10 +74,10 @@ export const useDiscoverStore = defineStore("Discover", {
          page:              number
         ******/
 
-      this.isLoadingDiscover = true;
+      this.discover.isLoading = true;
 
       // Unload old shows
-      this.discoverTV = [];
+      this.discover.tv = [];
 
       const sort_by = `${tvSortBy}.${tv_sort_order}`;
 
@@ -96,18 +91,18 @@ export const useDiscoverStore = defineStore("Discover", {
         );
 
         for (const show in shows.results) {
-          this.discoverTV.push(shows.results[show]);
+          this.discover.tv.push(shows.results[show]);
         }
       }
 
-      this.isLoadingDiscover = false;
+      this.discover.isLoading = false;
     },
 
     clearDiscoverMovies() {
-      this.discoverMovies = [];
+      this.discover.movies = [];
     },
     clearDiscoverTV() {
-      this.discoverTV = [];
+      this.discover.tv = [];
     },
   },
 });

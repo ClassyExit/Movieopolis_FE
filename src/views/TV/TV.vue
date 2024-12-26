@@ -36,8 +36,8 @@
               <span>Filter</span></label
             >
             <div
-              v-if="discoverStore.discoverTV.length > 0"
-              @click="discoverStore.clearDiscoverTV()"
+              v-if="discover.tv.length > 0"
+              @click="discoverStore.clearDiscoverTV"
               class="flex flex-row items-center space-x-1 w-fit text-error font-semibold p-2 border border-error rounded-lg cursor-pointer"
             >
               <Icon icon="fluent-mdl2:clear-filter" width="20" height="20" />
@@ -82,12 +82,12 @@
             </div>
           </div>
           <div class="p-2">
-            <div v-if="shows.isLoading || isLoadingDiscover">
+            <div v-if="shows.isLoading || discover.isLoading">
               <Loading />
             </div>
 
             <div
-              v-else-if="discoverTV.length > 0"
+              v-else-if="discover.tv.length > 0"
               class="flex gap-2"
               :class="
                 isListView
@@ -96,7 +96,7 @@
               "
             >
               <Container
-                v-for="item in discoverTV"
+                v-for="item in discover.tv"
                 :key="item.id"
                 :id="item.id"
                 :poster="item.poster_path"
@@ -138,7 +138,7 @@
 
           <div
             class="pagination flex justify-center w-full pb-8 pt-4"
-            :class="discoverTV.length > 0 ? 'hidden' : ''"
+            :class="discover.tv.length > 0 ? 'hidden' : ''"
           >
             <div
               class="flex items-center rounded-lg p-2 bg-backgroundSecondary hover:bg-primary cursor-pointer"
@@ -186,7 +186,6 @@
 import TVOptions from "./TVOptions.vue";
 import { useDiscoverStore } from "@/store/discover";
 import { useTVStore } from "@/store/tv";
-import { useSearchStore } from "@/store/search";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
 import Container from "@/components/Container.vue";
@@ -222,7 +221,7 @@ const loadTVShows = (page) => {
 // ****** DICOVER ****** //
 const discoverStore = useDiscoverStore();
 
-const { discoverTV, isLoadingDiscover } = storeToRefs(discoverStore);
+const { discover } = storeToRefs(discoverStore);
 </script>
 
 <style scoped></style>

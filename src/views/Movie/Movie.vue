@@ -78,12 +78,12 @@
             </div>
           </div>
           <div class="p-2">
-            <div v-if="movies.isLoadingMovies || isLoadingDiscover">
+            <div v-if="movies.isLoadingMovies || discover.isLoading">
               <Loading />
             </div>
 
             <div
-              v-else-if="discoverMovies.length > 0"
+              v-else-if="discover.movies.length > 0"
               class="flex gap-2"
               :class="
                 isListView
@@ -92,7 +92,7 @@
               "
             >
               <Container
-                v-for="item in discoverMovies"
+                v-for="item in discover.movies"
                 :key="item.id"
                 :id="item.id"
                 :poster="item.poster_path"
@@ -134,7 +134,7 @@
 
           <div
             class="pagination flex justify-center w-full pb-8 pt-4"
-            :class="discoverMovies.length > 0 ? 'hidden' : ''"
+            :class="discover.movies.length > 0 ? 'hidden' : ''"
           >
             <div
               class="flex items-center rounded-lg p-2 bg-backgroundSecondary hover:bg-primary cursor-pointer"
@@ -220,5 +220,5 @@ const loadMovies = (page) => {
 // ****** DICOVER ****** //
 const discoverStore = useDiscoverStore();
 
-const { discoverMovies, isLoadingDiscover } = storeToRefs(discoverStore);
+const { discover } = storeToRefs(discoverStore);
 </script>

@@ -52,7 +52,7 @@ const removeFromList = (id) => {
 const checkListIfMarked = (id) => {
   if (!useUserStore().user) return;
 
-  if (useListStore().list.filter((item) => item.id == id).length > 0)
+  if (useListStore().data.list.filter((item) => item.id == id).length > 0)
     return true;
   return false;
 };

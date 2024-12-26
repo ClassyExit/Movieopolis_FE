@@ -58,5 +58,9 @@ export const useSearchStore = defineStore("Search", {
     clearSearchResults() {
       this.search.results = [];
     },
+
+    clearRecentSearches() {
+      this.search.recentSearches = [];
+    },
   },
 });

@@ -32,8 +32,19 @@
           </div>
           <div @click="openModal = !openModal" class="btn btn-sm">X</div>
         </div>
-        <div class="border-b-2 border-border">
-          <span class="text-primary">Recent searches</span>
+        <div class="pb-2 border-b-2 border-border">
+          <div
+            v-if="search.recentSearches.length"
+            class="flex flex-row space-x-4"
+          >
+            <span class="text-primary">Recent searches</span>
+            <div
+              @click="searchStore.clearRecentSearches"
+              class="btn btn-xs btn-outline-error"
+            >
+              Clear
+            </div>
+          </div>
           <div class="space-y-2" v-for="search in search.recentSearches">
             <span> {{ search }}</span>
           </div>
@@ -41,7 +52,19 @@
 
         <div class="max-w-4xl">
           <div
-            v-if="search.results[0].movies"
+            v-if="search.results.length"
+            class="flex flex-row space-x-4 pb-4"
+          >
+            <span class="text-primary">Search results</span>
+            <div
+              @click="searchStore.clearSearchResults"
+              class="btn btn-xs btn-outline-error"
+            >
+              Clear
+            </div>
+          </div>
+          <div
+            v-if="search.results[0]?.movies"
             class="flex gap-2 justify-center gap-4 md:gap-2 md:justify-start flex-wrap"
           >
             <Container
@@ -59,7 +82,7 @@
           </div>
 
           <div
-            v-if="search.results[0].tv"
+            v-if="search.results[0]?.tv"
             class="flex gap-2 justify-center gap-4 md:gap-2 md:justify-start flex-wrap"
           >
             <Container

@@ -57,7 +57,7 @@
       </div>
       <div v-else class="flex gap-2 overflow-auto lg:flex-wrap">
         <Container
-          v-for="item in trending.results"
+          v-for="item in movies.trending.results"
           :key="(item.id, item.media_type)"
           :id="item.id"
           :poster="item.poster_path"
@@ -84,9 +84,9 @@ import { useHomeStore } from "@/store/homeStore";
 
 const homeStore = useHomeStore();
 
-const { trending } = storeToRefs(homeStore);
+const { movies } = storeToRefs(homeStore);
 
-if (homeStore.trending?.length == 0) {
+if (homeStore.movies.trending?.length == 0) {
   // If trending content is empty, fetch new results
   homeStore.getTrendingContent();
 }

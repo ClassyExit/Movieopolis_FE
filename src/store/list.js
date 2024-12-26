@@ -14,8 +14,10 @@ import { db } from "@/firebase/index";
 
 export const useListStore = defineStore("List", {
   state: () => ({
-    list: [],
-    filteredList: [],
+    data: {
+      list: [],
+      filteredList: [],
+    },
   }),
   persist: true,
   getters: {},
@@ -34,8 +36,8 @@ export const useListStore = defineStore("List", {
       // No user logged in
       if (!useUserStore().user) return;
 
-      this.list.push(data);
-      this.filteredList = this.list;
+      this.data.list.push(data);
+      this.data.filteredList = this.data.list;
 
       try {
         // Set Ref point
@@ -72,17 +74,17 @@ export const useListStore = defineStore("List", {
       if (!useUserStore().user) return;
 
       // Remove a item from  MyList
-      for (const item in this.list) {
-        if (this.list[item].id === id) {
-          this.list.splice(item, 1);
+      for (const item in this.data.list) {
+        if (this.data.list[item].id === id) {
+          this.data.list.splice(item, 1);
         }
       }
 
       // Remove from filteredList if active
-      if (this.filteredList.length > 0) {
-        for (const item in this.filteredList) {
-          if (this.filteredList[item].id === id) {
-            this.filteredList.splice(item, 1);
+      if (this.data.filteredList.length > 0) {
+        for (const item in this.data.filteredList) {
+          if (this.data.filteredList[item].id === id) {
+            this.data.filteredList.splice(item, 1);
           }
         }
       }
@@ -115,8 +117,8 @@ export const useListStore = defineStore("List", {
       // Retrieve user list data
       if (!useUserStore().user) return console.error("User Auth Error");
 
-      this.list = [];
-      this.filteredList = [];
+      this.data.list = [];
+      this.data.filteredList = [];
 
       const q = query(
         collection(db, `${useUserStore().user.uid}`, "UserData", "MyList")
@@ -125,9 +127,9 @@ export const useListStore = defineStore("List", {
       const querySnapshot = await getDocs(q);
 
       // Push data to state
-      querySnapshot.forEach((doc) => this.list.push(doc.data()));
+      querySnapshot.forEach((doc) => this.data.list.push(doc.data()));
 
-      this.filteredList = this.list;
+      this.data.filteredList = this.data.list;
     },
 
     filterResults(option) {
@@ -136,9 +138,11 @@ export const useListStore = defineStore("List", {
       if (!option in supportedOptions) return;
 
       if (option == "all") {
-        this.filteredList = this.list;
+        this.data.filteredList = this.data.list;
       } else {
-        this.filteredList = this.list.filter((item) => item.type == option);
+        this.data.filteredList = this.data.list.filter(
+          (item) => item.type == option
+        );
       }
     },
   },

@@ -20,11 +20,11 @@
     <div v-if="show.isLoading.isLoadingSeason" class=""><Loading /></div>
     <div
       v-else
-      class="grid grid-cols-8 gap-4 h-96 md:pb-10 overflow-auto gap-2 md:gap-4"
+      class="flex flex-row flex-wrap justify-center gap-2 md:gap-2 md:justify-start w-full h-96"
     >
       <div v-for="episode in show.seasonDetails.episodes">
         <SeasonExtended
-          :id="episode.name + episode.episode_number"
+          :id="episode.season_number + episode.runtime"
           :episode_number="episode.episode_number"
           :overview="episode.overview"
           :runtime="episode.runtime"
@@ -58,5 +58,5 @@ const getSeasonDetails = (tv_id, season_select) => {
 };
 
 // Get intial season data
-getSeasonDetails(tv_id, season_select);
+getSeasonDetails(tv_id, season_select.value);
 </script>

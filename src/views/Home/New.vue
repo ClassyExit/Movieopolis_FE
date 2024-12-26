@@ -14,7 +14,7 @@
         <vue-horizontal responsive snap="start">
           <ExtendedContainer
             class="mx-5 text-content1"
-            v-for="item in upcomingMovies.results"
+            v-for="item in movies.upcoming.results"
             :key="item.id"
             :id="item.id"
             :poster="`https://image.tmdb.org/t/p/w185/${item.poster_path}`"
@@ -38,9 +38,9 @@ import { useHomeStore } from "@/store/homeStore";
 
 const homeStore = useHomeStore();
 
-const { upcomingMovies } = storeToRefs(homeStore);
+const { movies } = storeToRefs(homeStore);
 
-if (homeStore.upcomingMovies?.length == 0) {
+if (homeStore.movies.upcoming?.length == 0) {
   const page = 1;
   homeStore.getUpcomingMovies(page);
 }

@@ -47,7 +47,7 @@
       </span>
     </div>
     <div
-      v-if="!list.length"
+      v-if="!data.list.length"
       class="flex h-2/5 items-center justify-center text-content2"
     >
       You haven't added any titles to your list yet.
@@ -82,7 +82,7 @@
         class="flex overflow-auto md:space-y-0 md:flex-wrap md:flex-row gap-2"
       >
         <ListCard
-          v-for="item in filteredList"
+          v-for="item in data.filteredList"
           :key="item.id"
           :id="item.id"
           :title="item.title"
@@ -103,7 +103,7 @@ import { storeToRefs } from "pinia";
 import { ref } from "vue";
 import ListCard from "@/components/MyList/ListCard.vue";
 
-const { list, filteredList } = storeToRefs(useListStore());
+const { data } = storeToRefs(useListStore());
 
 const { user } = storeToRefs(useUserStore());
 
@@ -119,7 +119,7 @@ const remove = (id) => {
   useListStore().removeFromList(id);
 };
 
-if (useListStore().list.length > 0) {
+if (useListStore().data.list.length > 0) {
 } else {
   useListStore().getListFromDB();
 }

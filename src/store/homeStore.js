@@ -3,15 +3,18 @@ import { useAPIStore } from "./API";
 
 export const useHomeStore = defineStore("Home", {
   state: () => ({
-    popularMovies: [],
-    popularTVShows: [],
-    upcomingMovies: [],
-    trending: [],
     isLoading: {
       popularMovies: false,
       popularTVShows: false,
       upcomingMovies: false,
       trending: false,
+    },
+
+    movies: {
+      popularMovies: [],
+      popularTVShows: [],
+      upcoming: [],
+      trending: [],
     },
   }),
   actions: {
@@ -24,7 +27,7 @@ export const useHomeStore = defineStore("Home", {
             */
       this.isLoading.popularMovies = true;
       const movies = await useAPIStore().getPopularMoviesAPI((page = page));
-      this.popularMovies = movies;
+      this.movies.popularMovies = movies;
 
       this.isLoading.popularMovies = false;
     },
@@ -35,7 +38,7 @@ export const useHomeStore = defineStore("Home", {
       this.isLoading.upcomingMovies = true;
 
       const upcoming = await useAPIStore().getUpcomingMoviesAPI((page = page));
-      this.upcomingMovies = upcoming;
+      this.movies.upcoming = upcoming;
 
       this.isLoading.upcomingMovies = false;
     },
@@ -49,7 +52,7 @@ export const useHomeStore = defineStore("Home", {
       const popularTVShows = await useAPIStore().getPopularTVShowsAPI(
         (page = page)
       );
-      this.popularTVShows = popularTVShows;
+      this.movies.popularTVShows = popularTVShows;
 
       this.isLoading.popularTVShows = false;
     },
@@ -61,7 +64,7 @@ export const useHomeStore = defineStore("Home", {
 
       // Update the trending state. If there is already content, write over that, otherwise
       // add the new content
-      this.trending = data;
+      this.movies.trending = data;
 
       this.isLoading.trending = false;
     },
