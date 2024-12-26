@@ -4,7 +4,7 @@
       <div
         v-if="discoverStore?.discover.movies.length > 0"
         @click="discoverStore.clearDiscoverMovies()"
-        class="flex flex-row items-center space-x-1 w-fit text-error font-semibold p-2 border border-error rounded-lg cursor-pointer"
+        class="flex flex-row btn btn btn-outline-error space-x-2"
       >
         <Icon icon="fluent-mdl2:clear-filter" width="15" height="15" />
         <span>Clear</span>

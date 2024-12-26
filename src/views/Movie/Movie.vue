@@ -27,14 +27,23 @@
           class="flex flex-row items-center justify-between p-2 md:justify-end"
         >
           <div
-            class="md:hidden flex flex-row space-x-2 overflow-auto scrollbar-hide"
+            class="md:hidden w-3/4 flex flex-row space-x-2 overflow-auto scrollbar-hide"
           >
             <label
               for="sidebar-mobile-fixed"
-              class="flex flex-row items-center space-x-1 w-fit text-secondary font-semibold p-2 border border-secondary rounded-lg cursor-pointer sm:hidden"
+              class="flex flex-row btn btn btn-outline-primary space-x-2 sm:hidden"
               ><Icon icon="carbon:filter" width="20" height="20" />
-              <span>Filter</span></label
+              <span>Discover</span></label
             >
+
+            <div
+              v-if="discover.movies.length > 0"
+              @click="discoverStore.clearDiscoverMovies"
+              class="flex flex-row btn btn btn-outline-error space-x-2"
+            >
+              <Icon icon="fluent-mdl2:clear-filter" width="20" height="20" />
+              <span>Clear</span>
+            </div>
           </div>
           <div
             @click="isListView = !isListView"
