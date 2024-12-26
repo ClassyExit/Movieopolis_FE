@@ -1,8 +1,14 @@
 import { defineStore } from "pinia";
 
 export const useAPIStore = defineStore("API", {
-  state: () => ({}),
+  state: () => ({
+    APIStatus: {
+      results: [],
+      lastUpdated: "",
+    },
+  }),
   getters: {},
+  persist: true,
   actions: {
     async getTrendingAPI(media_type = "all", time_window = "day") {
       /*
@@ -277,6 +283,17 @@ export const useAPIStore = defineStore("API", {
       );
 
       return response.json();
+    },
+
+    async getAPIStatus() {
+      const response = await fetch(
+        "https://tmdb-backend.autoidleapp.com/api/health"
+      );
+
+      this.APIStatus = {
+        results: response.json(),
+        lastUpdated: new Date().toLocaleString(),
+      };
     },
   },
 });

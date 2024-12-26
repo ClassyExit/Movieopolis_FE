@@ -20,6 +20,7 @@ import DeleteAccount from "@/views/Settings/DeleteAccount.vue";
 import ChangePassword from "@/views/Settings/ChangePassword.vue";
 
 import List from "@/views/Features/List.vue";
+import Status from "../views/Status.vue";
 
 const routes = [
   {
@@ -92,6 +93,11 @@ const routes = [
     ],
   },
 
+  {
+    path: "/status",
+    name: "Status",
+    component: Status,
+  },
   // Path not found
   { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
 ];
