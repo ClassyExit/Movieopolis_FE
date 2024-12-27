@@ -19,7 +19,7 @@
         <div class="flex flex-col text-left">
           <span class="md:text-lg">Login Required</span>
           <span class="text-content2"
-            >You must be logged in to view your list!</span
+            >You must be logged in to view your library!</span
           >
         </div>
       </div>
@@ -32,9 +32,9 @@
     </div>
   </div>
 
-  <div v-else class="w-full flex flex-col p-4 md:px-16 pt-4 space-y-4">
-    <div class="flex flex-row items-center space-x-2 25w-full">
-      <span class="text-3xl">My List</span>
+  <div v-else class="w-full flex flex-col md:px-16 pt-4 space-y-4">
+    <div class="flex flex-row items-center space-x-4 25w-full">
+      <span class="text-3xl">My Library</span>
 
       <span class="tooltip tooltip-top" data-tooltip="Re-sync My List">
         <Icon
@@ -45,7 +45,10 @@
           height="25"
         />
       </span>
+
+      <CreateList />
     </div>
+
     <div
       v-if="!data.list.length"
       class="flex h-2/5 items-center justify-center text-content2"
@@ -97,13 +100,14 @@
 </template>
 
 <script setup>
-import { useListStore } from "@/store/list";
+import { useLibraryStore } from "@/store/library";
 import { useUserStore } from "@/store/user";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
-import ListCard from "@/components/MyList/ListCard.vue";
+import ListCard from "./ListCard.vue";
+import CreateList from "./CreateList.vue";
 
-const { data } = storeToRefs(useListStore());
+const { data } = storeToRefs(useLibraryStore());
 
 const { user } = storeToRefs(useUserStore());
 
@@ -112,19 +116,19 @@ const listFilter = ref("all");
 const updateFilter = (newValue) => {
   listFilter.value = newValue;
 
-  useListStore().filterResults(newValue);
+  useLibraryStore().filterResults(newValue);
 };
 
 const remove = (id) => {
-  useListStore().removeFromList(id);
+  useLibraryStore().removeFromList(id);
 };
 
-if (useListStore().data.list.length > 0) {
+if (useLibraryStore().data.list.length > 0) {
 } else {
-  useListStore().getListFromDB();
+  useLibraryStore().getListFromDB();
 }
 
 const manualResync = () => {
-  useListStore().getListFromDB();
+  useLibraryStore().getListFromDB();
 };
 </script>

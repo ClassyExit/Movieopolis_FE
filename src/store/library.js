@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import { db } from "@/firebase/index";
 
-export const useListStore = defineStore("List", {
+export const useLibraryStore = defineStore("Library", {
   state: () => ({
     data: {
       list: [],

@@ -27,8 +27,8 @@
               <span> TV Shows</span>
             </router-link>
 
-            <router-link :to="{ name: 'List' }" class="flex items-center">
-              <div class="btn btn-ghost my-2 text-md">My List</div>
+            <router-link :to="{ name: 'Library' }" class="flex items-center">
+              <div class="btn btn-ghost my-2 text-md">Library</div>
             </router-link>
           </div>
         </div>
@@ -121,11 +121,11 @@
 
                 <div class="px-4">
                   <router-link
-                    :to="{ name: 'List' }"
+                    :to="{ name: 'Library' }"
                     class="flex flex-row space-x-4 py-4"
                   >
                     <Icon icon="pixelarticons:list" width="20" height="20" />
-                    <span> My List</span>
+                    <span> My Library</span>
                   </router-link>
                 </div>
 
