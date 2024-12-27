@@ -3,24 +3,24 @@ import { useAPIStore } from "./API";
 
 export const useTVStore = defineStore("TV", {
   state: () => ({
-    tvDetails: {},
-    tvCredits: {},
-    tvRecommendations: [],
-    tvSeasonDetails: [],
-    tvVideos: [],
-    tvTrailer: {},
-    tvReviews: [],
+    show: {
+      details: {},
+      credits: {},
+      recommendations: [],
+      seasonDetails: [],
+      videos: [],
+      trailer: {},
+      reviews: [],
+      isLoading: false,
+      isLoadingSeason: false,
+    },
 
-    isLoadingPopularHome: false,
-    isLoadingPopular: false,
-
-    isLoadingSeasonDetails: false,
-    isLoadingTV: false,
+    shows: {
+      popular: [],
+      isLoading: false,
+    },
 
     tvGenres: [],
-
-    popularTVShows: [],
-    popularTVShowsHome: [],
   }),
   getters: {},
   actions: {
@@ -29,9 +29,9 @@ export const useTVStore = defineStore("TV", {
         Retrieve the details related to the tv show
         */
 
-      this.isLoadingTV = true;
-      this.tvVideos = []; // reset the videos, seems to keep stacking
-      this.tvTrailer = {};
+      this.show.isLoading = true;
+      this.show.videos = []; // reset the videos, seems to keep stacking
+      this.show.trailer = {};
 
       const credits = await useAPIStore().getTVCredits(tv_id);
       const details = await useAPIStore().getTVDetailsAPI(tv_id);
@@ -44,7 +44,7 @@ export const useTVStore = defineStore("TV", {
       // Find only Youtube videos
       for (let item in videos.results) {
         if (videos.results[item].site.includes("YouTube")) {
-          this.tvVideos.push(videos.results[item]);
+          this.show.videos.push(videos.results[item]);
 
           // Find the trailer
           // Parameters:
@@ -55,77 +55,62 @@ export const useTVStore = defineStore("TV", {
             videos.results[item].type.includes("Trailer")
             //&& videos.results[item].official == true
           ) {
-            this.tvTrailer = videos.results[item];
+            this.show.trailer = videos.results[item];
           }
         }
       }
 
-      this.tvCredits = credits;
-      this.tvDetails = details;
-      this.tvRecommendations = recommendations;
-      this.tvReviews = reviews;
-      this.isLoadingTV = false;
+      this.show.credits = credits;
+      this.show.details = details;
+      this.show.recommendations = recommendations;
+      this.show.reviews = reviews;
+      this.show.isLoading = false;
     },
 
     async getTVSeasonDetails(tv_id, season_number) {
-      this.isLoadingSeasonDetails = true;
+      this.show.isLoadingSeason = true;
 
-      const seasonDetails = await useAPIStore().getTVSeasonDetails(
+      const details = await useAPIStore().getTVSeasonDetails(
         tv_id,
         season_number
       );
+      this.show.seasonDetails = details;
 
-      this.tvSeasonDetails = seasonDetails;
-
-      this.isLoadingSeasonDetails = false;
-    },
-
-    async getPopularTVHome(page) {
-      /* 
-          Retrieve the popular tv shows to display on home screen
-      */
-
-      this.isLoadingPopularHome = true;
-      const popularTVShows = await useAPIStore().getPopularTVShowsAPI(
-        (page = page)
-      );
-      this.popularTVShowsHome = popularTVShows;
-
-      this.isLoadingPopularHome = false;
+      this.show.isLoadingSeason = false;
     },
 
     async getPopularTVShows(page) {
-      this.isLoadingTV = true;
+      this.shows.isLoading = true;
 
       // Unload the old tv shows
-      this.popularTVShows = [];
+      this.shows.popular = [];
 
       for (let i = page; i < 2 + page; i++) {
         const tvshows = await useAPIStore().getPopularTVShowsAPI(i);
 
         for (const show in tvshows.results) {
-          this.popularTVShows.push(tvshows.results[show]);
+          this.shows.popular.push(tvshows.results[show]);
         }
       }
 
-      this.isLoadingTV = false;
+      this.shows.isLoading = false;
     },
 
     async getTopRatedTVShows(page) {
-      this.isLoadingTV = true;
+      this.shows.isLoading = true;
 
       // Unload the old tv shows
-      this.popularTVShows = [];
+      this.shows.popular = [];
 
       for (let i = page; i < 2 + page; i++) {
         const tvshows = await useAPIStore().getTopRatedTVAPI(i);
 
         for (const show in tvshows.results) {
-          this.popularTVShows.push(tvshows.results[show]);
+          this.shows.popular.push(tvshows.results[show]);
         }
       }
 
-      this.isLoadingTV = false;
+      this.shows.isLoading = false;
     },
 
     async getTVGenres() {

@@ -2,8 +2,8 @@
   <div class="max-w-7xl w-full text-left">
     <div class="h-fit overflow-auto overflow-x-hidden">
       <div
-        v-if="tvReviews.results.length"
-        v-for="review in tvReviews.results"
+        v-if="show.reviews.results.length"
+        v-for="review in show.reviews.results"
         class="py-2"
       >
         <Reviews
@@ -27,5 +27,5 @@ import Reviews from "@/components/Reviews.vue";
 import { useTVStore } from "@/store/tv";
 import { storeToRefs } from "pinia";
 
-const { tvReviews } = storeToRefs(useTVStore());
+const { show } = storeToRefs(useTVStore());
 </script>

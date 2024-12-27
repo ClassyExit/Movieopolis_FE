@@ -5,11 +5,11 @@
   >
     <div class="overflow-auto">
       <div
-        v-if="tvRecommendations.results.length"
+        v-if="show.recommendations.results.length"
         class="w-full flex md:flex-wrap gap-2"
       >
         <Container
-          v-for="item in tvRecommendations.results"
+          v-for="item in show.recommendations.results"
           :key="item.id"
           :id="item.id"
           :poster="item.poster_path"
@@ -35,5 +35,5 @@ import { storeToRefs } from "pinia";
 import Container from "@/components/Container.vue";
 
 const tvStore = useTVStore();
-const { tvRecommendations } = storeToRefs(tvStore);
+const { show } = storeToRefs(tvStore);
 </script>

@@ -52,12 +52,12 @@
         </div>
       </div>
 
-      <div v-if="trendingStore.isLoadingTrending" class="skeleton h-64">
+      <div v-if="homeStore.isLoading.trending" class="skeleton h-64">
         <!-- <Loading /> -->
       </div>
       <div v-else class="flex gap-2 overflow-auto lg:flex-wrap">
         <Container
-          v-for="item in trending.results"
+          v-for="item in movies.trending.results"
           :key="(item.id, item.media_type)"
           :id="item.id"
           :poster="item.poster_path"
@@ -77,18 +77,18 @@
 </template>
 
 <script setup>
-import Loading from "@/components/Loading.vue";
 import Container from "@/components/Container.vue";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
-import { useTrendingStore } from "@/store/trending";
+import { useHomeStore } from "@/store/homeStore";
 
-const trendingStore = useTrendingStore();
+const homeStore = useHomeStore();
 
-const { trending } = storeToRefs(trendingStore);
+const { movies } = storeToRefs(homeStore);
 
-if (trendingStore.trending?.length == 0) {
-  useTrendingStore().getTrendingContent();
+if (homeStore.movies.trending?.length == 0) {
+  // If trending content is empty, fetch new results
+  homeStore.getTrendingContent();
 }
 
 let trendingOption = ref("all");
@@ -98,7 +98,7 @@ const selectedTrendingOption = (media_type, time_window) => {
   // Update ref value and fetch new results
   trendingOption = media_type;
   trendingTime = time_window;
-  useTrendingStore().getTrendingContent(media_type, time_window);
+  homeStore.getTrendingContent(media_type, time_window);
 };
 </script>
 

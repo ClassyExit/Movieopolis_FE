@@ -2,30 +2,16 @@
   <div class="p-2">
     <div class="min-h-0 max-h-20 pb-2 flex flex-wrap space-x-2">
       <div
-        v-if="discoverStore?.discoverMovies.length > 0"
+        v-if="discoverStore?.discover.movies.length > 0"
         @click="discoverStore.clearDiscoverMovies()"
-        class="flex flex-row items-center space-x-1 w-fit text-error font-semibold p-2 border border-error rounded-lg cursor-pointer"
+        class="flex flex-row btn btn btn-outline-error space-x-2"
       >
         <Icon icon="fluent-mdl2:clear-filter" width="15" height="15" />
         <span>Clear</span>
       </div>
-      <div
-        v-if="searchStore?.searchMovieResults.length > 0"
-        @click="searchStore.clearSearchResults"
-        class="flex flex-row items-center space-x-1 w-fit text-error font-semibold p-2 border border-error rounded-lg cursor-pointer"
-      >
-        <Icon icon="pajamas:cancel" width="15" height="15" />
-        <span>Search</span>
-      </div>
     </div>
 
     <div class="space-y-6">
-      <div class="max-w-xs w-full space-y-1">
-        <div class="text-left text-primary text-xl">Search</div>
-
-        <SearchInput :placeholder="`Search for movie...`" searchType="movie" />
-      </div>
-
       <div class="max-w-xs w-full space-y-1">
         <div class="text-left text-primary text-xl">Genre</div>
 
@@ -89,8 +75,8 @@
       </div>
     </div>
 
-    <div class="w-full">
-      <button class="w-1/2 btn btn-secondary" @click="getMovieResults()">
+    <div class="w-full py-2">
+      <button class="w-full btn btn-outline-primary" @click="getMovieResults()">
         Discover!
       </button>
     </div>
@@ -102,12 +88,9 @@ import { useDiscoverStore } from "@/store/discover";
 import { useMovieStore } from "@/store/movies";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
-import SearchInput from "@/components/Search/SearchInput.vue";
-import { useSearchStore } from "@/store/search";
 
 const movieStore = useMovieStore();
 const discoverStore = useDiscoverStore();
-const searchStore = useSearchStore();
 
 const { movieGenres } = storeToRefs(movieStore);
 

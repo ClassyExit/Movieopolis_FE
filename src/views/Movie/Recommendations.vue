@@ -5,11 +5,11 @@
   >
     <div class="overflow-auto h-fit md:h-full md:max-h-[60rem]">
       <div
-        v-if="movieRecommendations.results.length"
+        v-if="movie.recommendations.results.length"
         class="w-full flex md:flex-wrap gap-2"
       >
         <Container
-          v-for="item in movieRecommendations.results"
+          v-for="item in movie.recommendations.results"
           :key="item.id"
           :id="item.id"
           :poster="item.poster_path"
@@ -36,5 +36,5 @@ import Container from "@/components/Container.vue";
 
 const movieStore = useMovieStore();
 
-const { movieRecommendations } = storeToRefs(movieStore);
+const { movie } = storeToRefs(movieStore);
 </script>

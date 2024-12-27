@@ -1,8 +1,15 @@
 import { defineStore } from "pinia";
 
 export const useAPIStore = defineStore("API", {
-  state: () => ({}),
+  state: () => ({
+    APIStatus: {
+      results: [],
+      lastUpdated: "",
+      isLoading: false,
+    },
+  }),
   getters: {},
+  persist: true,
   actions: {
     async getTrendingAPI(media_type = "all", time_window = "day") {
       /*
@@ -188,14 +195,14 @@ export const useAPIStore = defineStore("API", {
 
     async getMovieGenres() {
       const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/genre/movies`
+        `https://tmdb-backend.herokuapp.com/api/movie/genre`
       );
       return response.json();
     },
 
     async getTVGenres() {
       const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/genre/tv`
+        `https://tmdb-backend.herokuapp.com/api/tv/genre`
       );
       return response.json();
     },
@@ -277,6 +284,24 @@ export const useAPIStore = defineStore("API", {
       );
 
       return response.json();
+    },
+
+    async getAPIStatus() {
+      this.APIStatus.isLoading = true;
+
+      try {
+        const response = await fetch(
+          `https://tmdb-backend.autoidleapp.com/api/health`
+        );
+
+        this.APIStatus.results = await response
+          .json()
+          .then((this.APIStatus.lastUpdated = new Date().toLocaleString()));
+      } catch (error) {
+        this.APIStatus.results = { name: "API is down", status_code: "error" };
+      }
+
+      this.APIStatus.isLoading = false;
     },
   },
 });

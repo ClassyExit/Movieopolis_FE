@@ -1,13 +1,13 @@
 <template>
   <div
-    v-if="movieCredits.cast.length"
+    v-if="movie.credits.cast.length"
     class="flex flex-col max-w-7xl w-full items-center justify-center"
   >
     <div
       class="flex flex-wrap justify-center md:justify-start gap-3 w-full"
       :class="showFullCast ? 'h-auto transition' : 'h-[20rem] overflow-hidden '"
     >
-      <div v-for="person in movieCredits.cast">
+      <div v-for="person in movie.credits.cast">
         <div class="flex flex-col">
           <img
             v-if="person.profile_path"
@@ -103,7 +103,7 @@ import { storeToRefs } from "pinia";
 
 const movieStore = useMovieStore();
 
-const { movieCredits } = storeToRefs(movieStore);
+const { movie } = storeToRefs(movieStore);
 
 const showFullCast = ref(false);
 </script>

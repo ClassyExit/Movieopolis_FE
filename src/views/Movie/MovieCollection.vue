@@ -1,12 +1,12 @@
 <template>
   <div class="flex flex-col">
     <div class="text-left text-xl text-content2">
-      {{ movieCollections.name }}
+      {{ movie.collections.name }}
     </div>
 
     <div class="flex overflow-auto md:flex-wrap gap-2">
       <Container
-        v-for="item in movieCollections.parts"
+        v-for="item in movie.collections"
         :key="item.id"
         :id="item.id"
         :poster="item.poster_path"
@@ -31,13 +31,13 @@ import Container from "@/components/Container.vue";
 
 const movieStore = useMovieStore();
 
-const { movieCollections } = storeToRefs(movieStore);
+const { movie } = storeToRefs(movieStore);
 
 const route = useRoute();
 const id = route.params.id; // read movie id from router
 
 // Get the collection
 movieStore.getCollections(
-  useMovieStore().movieDetails.belongs_to_collection.id
+  useMovieStore().movie.details.belongs_to_collection.id
 );
 </script>

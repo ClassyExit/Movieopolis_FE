@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center cursor-pointer">
     <div
-      class="tabs tabs-boxed gap-4 bg-backgroundPrimary"
+      class="tabs tabs-boxed gap-2 bg-backgroundPrimary"
       @click="onThemeChange"
     >
       <div

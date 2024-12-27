@@ -27,31 +27,29 @@
           class="flex flex-row items-center justify-between p-2 md:justify-end"
         >
           <div
-            class="md:hidden flex flex-row space-x-2 overflow-auto scrollbar-hide"
+            class="md:hidden w-3/4 flex flex-row space-x-2 overflow-auto scrollbar-hide"
           >
             <label
               for="sidebar-mobile-fixed"
-              class="flex flex-row items-center space-x-1 w-fit text-secondary font-semibold p-2 border border-secondary rounded-lg cursor-pointer sm:hidden"
+              class="flex flex-row btn btn btn-outline-primary space-x-2 sm:hidden"
               ><Icon icon="carbon:filter" width="20" height="20" />
-              <span>Filter</span></label
+              <span>Discover</span></label
             >
             <div
-              v-if="discoverStore.discoverTV.length > 0"
-              @click="discoverStore.clearDiscoverTV()"
-              class="flex flex-row items-center space-x-1 w-fit text-error font-semibold p-2 border border-error rounded-lg cursor-pointer"
+              v-if="discover.tv.length > 0"
+              @click="discoverStore.clearDiscoverTV"
+              class="flex flex-row btn btn btn-outline-error space-x-2"
             >
               <Icon icon="fluent-mdl2:clear-filter" width="20" height="20" />
               <span>Clear</span>
             </div>
-
             <div
-              v-if="searchStore?.searchTVResults.length > 0"
-              @click="searchStore.clearSearchResults()"
-              class="flex flex-row items-center space-x-1 w-fit text-error font-semibold p-2 border border-error rounded-lg cursor-pointer"
+              v-if="discover.tv.length > 0"
+              @click="discoverStore.clearDiscoverTV"
+              class="flex flex-row btn btn btn-outline-error space-x-2"
             >
-              <Icon icon="pajamas:cancel" width="15" height="15" />
-
-              <span>Search</span>
+              <Icon icon="fluent-mdl2:clear-filter" width="20" height="20" />
+              <span>Clear</span>
             </div>
           </div>
 
@@ -92,12 +90,12 @@
             </div>
           </div>
           <div class="p-2">
-            <div v-if="isLoadingTV || isLoadingDiscover | isLoadingSearch">
+            <div v-if="shows.isLoading || discover.isLoading">
               <Loading />
             </div>
 
             <div
-              v-else-if="searchStore.searchTVResults.length > 0"
+              v-else-if="discover.tv.length > 0"
               class="flex gap-2"
               :class="
                 isListView
@@ -106,32 +104,7 @@
               "
             >
               <Container
-                v-for="item in searchTVResults"
-                :key="item.id"
-                :id="item.id"
-                :poster="item.poster_path"
-                :title_tv="item.name"
-                :year_tv="item.first_air_date"
-                :rating="item.vote_average"
-                :media_type="`tv`"
-                :type="item.media_type"
-                :listView="isListView"
-                :overview="item.overview"
-              >
-              </Container>
-            </div>
-
-            <div
-              v-else-if="discoverTV.length > 0"
-              class="flex gap-2"
-              :class="
-                isListView
-                  ? 'w-full flex flex-col gap-2'
-                  : 'justify-center gap-4 md:gap-2 md:justify-start flex-wrap'
-              "
-            >
-              <Container
-                v-for="item in discoverTV"
+                v-for="item in discover.tv"
                 :key="item.id"
                 :id="item.id"
                 :poster="item.poster_path"
@@ -156,7 +129,7 @@
               "
             >
               <Container
-                v-for="item in popularTVShows"
+                v-for="item in shows.popular"
                 :key="(item.id, item.media_type)"
                 :id="item.id"
                 :poster="item.poster_path"
@@ -173,7 +146,7 @@
 
           <div
             class="pagination flex justify-center w-full pb-8 pt-4"
-            :class="discoverTV.length > 0 ? 'hidden' : ''"
+            :class="discover.tv.length > 0 ? 'hidden' : ''"
           >
             <div
               class="flex items-center rounded-lg p-2 bg-backgroundSecondary hover:bg-primary cursor-pointer"
@@ -221,7 +194,6 @@
 import TVOptions from "./TVOptions.vue";
 import { useDiscoverStore } from "@/store/discover";
 import { useTVStore } from "@/store/tv";
-import { useSearchStore } from "@/store/search";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
 import Container from "@/components/Container.vue";
@@ -229,19 +201,15 @@ import Loading from "@/components/Loading.vue";
 
 let isListView = ref(false);
 
-const searchStore = useSearchStore();
-
-const { searchTVResults, isLoadingSearch } = storeToRefs(searchStore);
-
 const tvStore = useTVStore();
-const { popularTVShows, isLoadingTV } = storeToRefs(tvStore);
+const { shows } = storeToRefs(tvStore);
 
-tvStore.popularTVShows = [];
+tvStore.shows.popular = [];
 let currentPage = ref(1);
 let nextPage = ref(currentPage.value + 1);
 let prevPage = ref(currentPage.value - 1);
 
-// Load initial movie
+// Load initial shows
 tvStore.getPopularTVShows(currentPage.value);
 
 const loadTVShows = (page) => {
@@ -251,12 +219,17 @@ const loadTVShows = (page) => {
   currentPage.value = page;
   nextPage.value = currentPage.value + 1;
   prevPage.value = currentPage.value - 1;
+
+  if (currentPage.value == 1) {
+    // If current page is 1, disable previous button
+    prevPage.value = 1;
+  }
 };
 
 // ****** DICOVER ****** //
 const discoverStore = useDiscoverStore();
 
-const { discoverTV, isLoadingDiscover } = storeToRefs(discoverStore);
+const { discover } = storeToRefs(discoverStore);
 </script>
 
 <style scoped></style>

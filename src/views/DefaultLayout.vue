@@ -27,8 +27,8 @@
               <span> TV Shows</span>
             </router-link>
 
-            <router-link :to="{ name: 'List' }" class="flex items-center">
-              <div class="btn btn-ghost my-2 text-md">My List</div>
+            <router-link :to="{ name: 'Library' }" class="flex items-center">
+              <div class="btn btn-ghost my-2 text-md">My Library</div>
             </router-link>
           </div>
         </div>
@@ -50,13 +50,11 @@
               >
             </div>
           </div>
-          <div v-else class="btn btn-ghost my-2">
-            <router-link :to="{ name: 'Settings' }" class="flex flex-row">
-              <Icon
-                icon="material-symbols:settings-outline"
-                width="24"
-                height="24"
-              />
+          <div v-else class="flex flex-row items-center space-x-2">
+            <SearchGlobal />
+
+            <router-link :to="{ name: 'Settings' }" class="btn btn-ghost">
+              <settingIcon />
             </router-link>
           </div>
         </div>
@@ -119,11 +117,11 @@
 
                 <div class="px-4">
                   <router-link
-                    :to="{ name: 'List' }"
+                    :to="{ name: 'Library' }"
                     class="flex flex-row space-x-4 py-4"
                   >
                     <Icon icon="pixelarticons:list" width="20" height="20" />
-                    <span> My List</span>
+                    <span> My Library</span>
                   </router-link>
                 </div>
 
@@ -133,11 +131,7 @@
                       :to="{ name: 'Settings' }"
                       class="flex flex-row space-x-4 py-4"
                     >
-                      <Icon
-                        icon="material-symbols:settings-outline"
-                        width="20"
-                        height="20"
-                      />
+                      <settingIcon />
                       <span> Settings</span>
                     </router-link>
                   </div>
@@ -172,13 +166,13 @@
       </template>
 
       <template #mobile-right>
-        <router-link :to="{ name: 'Settings' }" class="flex flex-row space-x-4">
-          <Icon
-            icon="material-symbols:settings-outline"
-            width="24"
-            height="24"
-          />
-        </router-link>
+        <div class="flex flex-row items-center space-x-2">
+          <SearchGlobal />
+
+          <router-link :to="{ name: 'Settings' }">
+            <settingIcon />
+          </router-link>
+        </div>
       </template>
     </Navbar>
 
@@ -189,12 +183,12 @@
 </template>
 
 <script setup>
-import Theme from "@/components/Theme/Theme.vue";
 import Navbar from "@/components/Navigation/Navbar.vue";
+import SearchGlobal from "@/components/Search/SearchGlobal.vue";
 
 import { useUserStore } from "@/store/user";
 import { storeToRefs } from "pinia";
-import router from "@/router";
+import settingIcon from "@/assets/Icons/SettingIcon.vue";
 
 const { user } = storeToRefs(useUserStore());
 </script>

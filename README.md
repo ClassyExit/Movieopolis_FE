@@ -1,17 +1,28 @@
-# MOVIEOPOLIS PROJECT
+# Movieopolis Project
 
-A project I worked on that utilizes the [TMDB API](https://www.themoviedb.org/documentation/api?language=en-US) to create a Netflix-like movie catalog of different movies and tv shows.
+Movieopolis is a web application that provides users with a dynamic streaming service experience, offering a comprehensive catalog of movies and TV shows. Leveraging the TMDB API, it delivers detailed information such as synopses, ratings, and genres, allowing users to explore and discover content seamlessly.
 
-- Link to project: [https://movieopolis.web.app/home](https://movieopolis-714f2.web.app/home).
+## Features
+
+- **Extensive Catalog**: Access a wide range of movies and TV shows with up-to-date information.
+- **Search Functionality**: Easily find specific titles or browse by genre and category.
+- **Discovery Option**: Discover movies or tv shows using user defined filters.
+- **Responsive Design**: Enjoy a user-friendly experience across various devices.
+
+## Live Demo
+
+Check out the live application: [Movieopolis](https://movieopolis-714f2.web.app/home)
+
+## Technology Stack
+
+- **Frontend**: Vue.js
+- **Backend**: Django
+- **API**: TMDB (The Movie Database API)
+
+## Repositories
+
 - Frontend repository: [https://github.com/ClassyExit/TMDB_Frontend](https://github.com/ClassyExit/TMDB_Frontend)
 - Backend repository: [https://github.com/ClassyExit/TMDB_Backend](https://github.com/ClassyExit/TMDB_Backend)
-
-## Project Stack
-
-- Frontend: HTML, CSS, JavaScript, Vuejs
-- Backend: Python (Django)
-
-The backbone of the project was to build a similar platform to a streaming service (e.g. Netflix, Disney+, etc) that would show information about a movie/tv show.
 
 #### Backend:
 
@@ -21,24 +32,7 @@ The backend was written in Python using the Django framework. Python was chosen 
 
 The selected choice to build the frontend was Vuejs due to my experience with it. The data stored on the frontend was handled using Pinia, a state management library.
 
-## Features
-
-- Display Trending, Popular Movies/Shows, Upcoming Movies, Highly Rated Movies
-- Display Movies
-- Display TV Shows
-- Discover option - discover new movies/tv based on filter settings!
-
-## Take Away
-
-#### UI/UX:
-
-The UI/UX was done mostly using a CSS component library as to mostly not embarrass myself with my UI/UX design work. A possible future improvement would be to add more custom UI/UX components.
-
-#### Optimization:
-
-An improvement in the project optimization lies in the data handling. An example of this is using the infinite scroll. ~~It's great in terms of UI/UX, but you load a bunch of data when it's not needed anymore. A solution for this would be to unload old/far results after a user reached a certain point.~~ Updated now to use pagination.
-
-#### What I learned
+## What I learned
 
 - Breaking down problems into smaller problems
 - Working with lots of data and displaying it
@@ -46,9 +40,20 @@ An improvement in the project optimization lies in the data handling. An example
 - - Making it accessible/responsive on all screens
 - Getting more comfortable using JavaScript (Asynchronous functions, API calls) and Python
 
-#### Future Improvements
+## Future Improvements
 
+- Optimization
+- - Duplicate code
+- - Hosting is setup to incur the lowest cost
 - Make searchbar more usable in terms if UI (displaying results) and functionality
 - Make the discover better (add in keywords, multiple genres options)
-- More responsive on different screens (mostly layout and double blocks of code that do the samething on mobile vs web)
+- UI/UX Improvements
+- - More responsive on different screens (mostly layout and double blocks of code that do the samething on mobile vs web)
 - Use more reusable components (will help clean up code)
+
+## Screenshots
+
+- Can view more photos of project located in the ProjectImages folder
+
+![Homepage Screenshot](ProjectImages/Homepage.png)
+![Search Feature Screenshot](ProjectImages/Search_function.png)

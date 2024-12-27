@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import { useListStore } from "@/store/list";
+import { useLibraryStore } from "@/store/library";
 import { useUserStore } from "@/store/user";
 
 const props = defineProps({
@@ -42,17 +42,17 @@ const addToList = (id, poster, title_movie, title_tv, overview, media_type) => {
     type: media_type,
   };
 
-  useListStore().addToList(details);
+  useLibraryStore().addToList(details);
 };
 
 const removeFromList = (id) => {
-  useListStore().removeFromList(id);
+  useLibraryStore().removeFromList(id);
 };
 
 const checkListIfMarked = (id) => {
   if (!useUserStore().user) return;
 
-  if (useListStore().list.filter((item) => item.id == id).length > 0)
+  if (useLibraryStore().data.list.filter((item) => item.id == id).length > 0)
     return true;
   return false;
 };

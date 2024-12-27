@@ -3,8 +3,8 @@
     <span class="w-full text-2xl">Reviews</span>
     <div class="h-fit overflow-auto overflow-x-hidden">
       <div
-        v-if="movieReviews.results"
-        v-for="review in movieReviews.results"
+        v-if="movie.reviews.results"
+        v-for="review in movie.reviews.results"
         class="py-2"
       >
         <Reviews
@@ -26,5 +26,5 @@ import Reviews from "@/components/Reviews.vue";
 
 const movieStore = useMovieStore();
 
-const { movieReviews } = storeToRefs(movieStore);
+const { movie } = storeToRefs(movieStore);
 </script>

@@ -2,7 +2,7 @@
   <div class="w-full">
     <div
       class="flex flex-col items-center justify-center w-full h-full"
-      v-if="isLoadingDetails"
+      v-if="movie.isLoading"
     >
       <Loading />
     </div>
@@ -11,15 +11,15 @@
       <div
         id="backdrop-tv"
         :class="
-          movieDetails.backdrop_path
+          movie.details.backdrop_path
             ? 'relative inset-y-0 top-0 w-full h-2/5 z-0 md:pb-5'
             : 'hidden'
         "
       >
         <img
           class="h-full w-full object-cover blur-xs z-0"
-          :src="`https://image.tmdb.org/t/p/original/${movieDetails.backdrop_path}`"
-          :alt="`${movieDetails.original_title} backdrop`"
+          :src="`https://image.tmdb.org/t/p/original/${movie.details.backdrop_path}`"
+          :alt="`${movie.details.original_title} backdrop`"
         />
 
         <div class="absolute top-2 left-2 z-40"><MobileReturn /></div>
@@ -33,7 +33,7 @@
           <div aria-label="main channel" class="p-2 pb-24 space-y-4">
             <div
               :class="
-                Object.keys(movieTrailer).length > 0
+                Object.keys(movie.trailer).length > 0
                   ? 'max-w-7xl w-full bg-backgroundSecondary p-2 rounded-xl mt-2 md:mt-0'
                   : 'hidden'
               "
@@ -48,8 +48,8 @@
               <div class="hidden md:block min-w-fit max-w-2/5">
                 <img
                   class="h-full object-contain z-10 rounded-lg"
-                  :src="`https://image.tmdb.org/t/p/w300/${movieDetails.poster_path}`"
-                  :alt="`${movieDetails.original_title} poster`"
+                  :src="`https://image.tmdb.org/t/p/w300/${movie.details.poster_path}`"
+                  :alt="`${movie.details.original_title} poster`"
                 />
               </div>
 
@@ -58,10 +58,10 @@
                   <div class="flex flex-row text-content1 space-x-2">
                     <div class="space-x-2">
                       <span class="text-bold">
-                        {{ movieDetails.original_title }}
+                        {{ movie.details.original_title }}
                       </span>
                       <span class="text-content2"
-                        >({{ movieDetails.release_date.slice(0, 4) }})</span
+                        >({{ movie.details.release_date.slice(0, 4) }})</span
                       >
                     </div>
                   </div>
@@ -71,7 +71,7 @@
                   <div class="text-left space-y-4 flex flex-row items-center">
                     <div class="flex flex-row space-x-3">
                       <span class="badge badge-sm badge-primary">{{
-                        movieDetails.status
+                        movie.details.status
                       }}</span>
                       <div
                         class="flex flex-row items-center justify-center space-x-2 p-2 rounded-lg"
@@ -83,21 +83,21 @@
                         />
 
                         <span class="text-content1">{{
-                          movieDetails.vote_average.toFixed(2)
+                          movie.details.vote_average.toFixed(2)
                         }}</span>
                       </div>
 
                       <AddToList
-                        :id="movieDetails.id"
-                        :poster="movieDetails.poster_path"
-                        :title_movie="movieDetails.original_title"
-                        :media_type="movieDetails.media_type"
-                        :overview="movieDetails.overview"
+                        :id="movie.details.id"
+                        :poster="movie.details.poster_path"
+                        :title_movie="movie.details.original_title"
+                        :media_type="movie.details.media_type"
+                        :overview="movie.details.overview"
                       />
                     </div>
                   </div>
                   <div class="text-left text-md text-content2">
-                    {{ movieDetails.overview }}
+                    {{ movie.details.overview }}
                   </div>
                 </div>
 
@@ -116,17 +116,17 @@
                     <div
                       class="flex flex-col text-left space-y-2 text-content2"
                     >
-                      <div class="">{{ movieDetails.release_date }}</div>
-                      <div class="">{{ movieDetails.runtime }} minutes</div>
+                      <div class="">{{ movie.details.release_date }}</div>
+                      <div class="">{{ movie.details.runtime }} minutes</div>
                       <div class="">
-                        {{ USDollar.format(movieDetails.budget) }}
+                        {{ USDollar.format(movie.details.budget) }}
                       </div>
                       <div class="">
-                        {{ USDollar.format(movieDetails.revenue) }}
+                        {{ USDollar.format(movie.details.revenue) }}
                       </div>
                       <div class="flex flex-wrap gap-1">
                         <div
-                          v-for="item in movieDetails.genres"
+                          v-for="item in movie.details.genres"
                           class="flex flex-wrap badge badge-primary w-fit"
                         >
                           {{ item.name }}
@@ -140,7 +140,7 @@
 
             <div class="flex flex-row overflow-auto space-x-2 scrollbar-hide">
               <div
-                v-if="useMovieStore().movieReviews.results > 0"
+                v-if="useMovieStore().movie.reviews.results > 0"
                 @click="updateSelectedOption('reviews')"
                 class="btn"
                 :class="
@@ -168,7 +168,7 @@
                     updateSelectedOption('collections');
                   }
                 "
-                v-if="movieDetails.belongs_to_collection"
+                v-if="movie.details.belongs_to_collection"
                 class="btn"
                 :class="
                   SelectedOption == 'collections'
@@ -234,8 +234,7 @@ import AddToList from "@/components/Actions/AddToList.vue";
 import MobileReturn from "@/components/Actions/MobileReturn.vue";
 
 const movieStore = useMovieStore();
-const { isLoadingDetails, movieDetails, movieTrailer } =
-  storeToRefs(movieStore);
+const { movie } = storeToRefs(movieStore);
 
 // Select different options to show
 const SelectedOption = ref("recommendations");
