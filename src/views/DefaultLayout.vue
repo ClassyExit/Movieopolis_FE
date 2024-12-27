@@ -50,15 +50,11 @@
               >
             </div>
           </div>
-          <div v-else class="flex flex-row items-center space-x-4">
+          <div v-else class="flex flex-row items-center space-x-2">
             <SearchGlobal />
 
             <router-link :to="{ name: 'Settings' }" class="btn btn-ghost">
-              <Icon
-                icon="material-symbols:settings-outline"
-                width="24"
-                height="24"
-              />
+              <settingIcon />
             </router-link>
           </div>
         </div>
@@ -135,11 +131,7 @@
                       :to="{ name: 'Settings' }"
                       class="flex flex-row space-x-4 py-4"
                     >
-                      <Icon
-                        icon="material-symbols:settings-outline"
-                        width="20"
-                        height="20"
-                      />
+                      <settingIcon />
                       <span> Settings</span>
                     </router-link>
                   </div>
@@ -174,18 +166,11 @@
       </template>
 
       <template #mobile-right>
-        <div class="flex flex-row items-center space-x-4">
+        <div class="flex flex-row items-center space-x-2">
           <SearchGlobal />
 
-          <router-link
-            :to="{ name: 'Settings' }"
-            class="flex flex-row space-x-4"
-          >
-            <Icon
-              icon="material-symbols:settings-outline"
-              width="24"
-              height="24"
-            />
+          <router-link :to="{ name: 'Settings' }">
+            <settingIcon />
           </router-link>
         </div>
       </template>
@@ -203,7 +188,7 @@ import SearchGlobal from "@/components/Search/SearchGlobal.vue";
 
 import { useUserStore } from "@/store/user";
 import { storeToRefs } from "pinia";
-import router from "@/router";
+import settingIcon from "@/assets/Icons/SettingIcon.vue";
 
 const { user } = storeToRefs(useUserStore());
 </script>

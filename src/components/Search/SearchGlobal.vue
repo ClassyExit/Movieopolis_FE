@@ -1,9 +1,6 @@
 <template>
   <div>
-    <div
-      class="btn btn-sm md:btn-md btn-outline-primary"
-      @click="openModal = !openModal"
-    >
+    <div class="btn btn-sm md:btn-md btn-ghost" @click="openModal = !openModal">
       <span> <MagnifyingGlass /> </span>
     </div>
 

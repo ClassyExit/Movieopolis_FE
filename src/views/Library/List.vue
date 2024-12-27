@@ -32,21 +32,18 @@
     </div>
   </div>
 
-  <div v-else class="w-full flex flex-col md:px-16 pt-4 space-y-4">
+  <div v-else class="w-full flex flex-col md:px-16 pt-4 space-y-4 p-4">
     <div class="flex flex-row items-center space-x-4 25w-full">
       <span class="text-3xl">My Library</span>
 
-      <span class="tooltip tooltip-top" data-tooltip="Re-sync My List">
+      <span class="btn btn-outline-primary btn-xs">
         <Icon
           @click="manualResync()"
-          class="text-primary hover:cursor-pointer"
           icon="material-symbols:sync"
-          width="25"
-          height="25"
+          width="20"
+          height="20"
         />
       </span>
-
-      <CreateList />
     </div>
 
     <div
@@ -105,7 +102,6 @@ import { useUserStore } from "@/store/user";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
 import ListCard from "./ListCard.vue";
-import CreateList from "./CreateList.vue";
 
 const { data } = storeToRefs(useLibraryStore());
 
