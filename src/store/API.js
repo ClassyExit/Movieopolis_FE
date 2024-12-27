@@ -5,6 +5,7 @@ export const useAPIStore = defineStore("API", {
     APIStatus: {
       results: [],
       lastUpdated: "",
+      isLoading: false,
     },
   }),
   getters: {},
@@ -286,14 +287,21 @@ export const useAPIStore = defineStore("API", {
     },
 
     async getAPIStatus() {
-      const response = await fetch(
-        "https://tmdb-backend.autoidleapp.com/api/health"
-      );
+      this.APIStatus.isLoading = true;
 
-      this.APIStatus = {
-        results: response.json(),
-        lastUpdated: new Date().toLocaleString(),
-      };
+      try {
+        const response = await fetch(
+          `https://tmdb-backend.autoidleapp.com/api/health`
+        );
+
+        this.APIStatus.results = await response
+          .json()
+          .then((this.APIStatus.lastUpdated = new Date().toLocaleString()));
+      } catch (error) {
+        this.APIStatus.results = { name: "API is down", status_code: "error" };
+      }
+
+      this.APIStatus.isLoading = false;
     },
   },
 });
