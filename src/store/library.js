@@ -18,6 +18,24 @@ export const useLibraryStore = defineStore("Library", {
       list: [],
       filteredList: [],
     },
+
+    lists: {
+      list1: {
+        name: "",
+        items: [],
+        filtered: [],
+      },
+      list2: {
+        name: "",
+        items: [],
+        filtered: [],
+      },
+      list3: {
+        name: "",
+        items: [],
+        filtered: [],
+      },
+    },
   }),
   persist: true,
   getters: {},

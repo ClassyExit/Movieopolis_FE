@@ -28,7 +28,7 @@
             </router-link>
 
             <router-link :to="{ name: 'Library' }" class="flex items-center">
-              <div class="btn btn-ghost my-2 text-md">Library</div>
+              <div class="btn btn-ghost my-2 text-md">My Library</div>
             </router-link>
           </div>
         </div>
