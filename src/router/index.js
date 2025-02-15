@@ -1,27 +1,16 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../views/Home/Home.vue";
 import NotFound from "@/views/NotFound.vue";
 
 // Layouts
-import DefaultLayout from "@/views/DefaultLayout.vue";
-import Movie from "@/views/Movie/Movie.vue";
-import TV from "@/views/TV/TV.vue";
-import TVDetail from "@/views/TV/TVDetail.vue";
-import MovieDetail from "@/views/Movie/MovieDetail.vue";
+import DefaultLayout from "@/views/Layout/DefaultLayout.vue";
 
-// Auth
-import Login from "@/views/Auth/Login.vue";
-import Register from "@/views/Auth/Register.vue";
-import Reset from "@/views/Auth/Reset.vue";
+// Landing Pages
+import Home from "@/views/Landing/Home.vue";
 
-// Settings
-import SettingsLayout from "@/views/Settings/SettingLayout.vue";
-import DeleteAccount from "@/views/Settings/DeleteAccount.vue";
-import ChangePassword from "@/views/Settings/ChangePassword.vue";
-
-// Library
-import List from "@/views/Library/List.vue";
-import Status from "@/views/Status.vue";
+// Auth Pages
+import Login from "@/views/Authentication/Login.vue";
+import Register from "@/views/Authentication/Register.vue";
+import Reset from "@/views/Authentication/Reset.vue";
 
 const routes = [
   {
@@ -37,27 +26,27 @@ const routes = [
       },
     ],
   },
-  {
-    path: "/movies",
-    name: "MoviesLayout",
-    redirect: { name: "Movie" },
-    component: DefaultLayout,
-    children: [
-      { path: "/movie", name: "Movie", component: Movie },
-      { path: "/movie/:id", name: "Movie-Details", component: MovieDetail },
-    ],
-  },
+  // {
+  //   path: "/movies",
+  //   name: "MoviesLayout",
+  //   redirect: { name: "Movie" },
+  //   component: DefaultLayout,
+  //   children: [
+  //     { path: "/movie", name: "Movie", component: Movie },
+  //     { path: "/movie/:id", name: "Movie-Details", component: MovieDetail },
+  //   ],
+  // },
 
-  {
-    path: "/tv",
-    name: "TVLayout",
-    redirect: { name: "TV" },
-    component: DefaultLayout,
-    children: [
-      { path: "/tv-show", name: "TV", component: TV },
-      { path: "/tv-show/:id", name: "TV-Details", component: TVDetail },
-    ],
-  },
+  // {
+  //   path: "/tv",
+  //   name: "TVLayout",
+  //   redirect: { name: "TV" },
+  //   component: DefaultLayout,
+  //   children: [
+  //     { path: "/tv-show", name: "TV", component: TV },
+  //     { path: "/tv-show/:id", name: "TV-Details", component: TVDetail },
+  //   ],
+  // },
 
   {
     path: "/auth",
@@ -71,34 +60,34 @@ const routes = [
     ],
   },
 
-  {
-    path: "/saved",
-    name: "Saved",
-    component: DefaultLayout,
-    children: [{ path: "/library", name: "Library", component: List }],
-  },
+  // {
+  //   path: "/saved",
+  //   name: "Saved",
+  //   component: DefaultLayout,
+  //   children: [{ path: "/library", name: "Library", component: List }],
+  // },
 
-  {
-    path: "/settingslayout",
-    name: "SettingLayout",
-    redirect: { name: "Settings" },
-    component: DefaultLayout,
-    children: [
-      { path: "/settings", name: "Settings", component: SettingsLayout },
-      {
-        path: "/change-password",
-        name: "ChangePassword",
-        component: ChangePassword,
-      },
-      { path: "/delete", name: "Delete", component: DeleteAccount },
-    ],
-  },
+  // {
+  //   path: "/settingslayout",
+  //   name: "SettingLayout",
+  //   redirect: { name: "Settings" },
+  //   component: DefaultLayout,
+  //   children: [
+  //     { path: "/settings", name: "Settings", component: SettingsLayout },
+  //     {
+  //       path: "/change-password",
+  //       name: "ChangePassword",
+  //       component: ChangePassword,
+  //     },
+  //     { path: "/delete", name: "Delete", component: DeleteAccount },
+  //   ],
+  // },
 
-  {
-    path: "/status",
-    name: "Status",
-    component: Status,
-  },
+  // {
+  //   path: "/status",
+  //   name: "Status",
+  //   component: Status,
+  // },
   // Path not found
   { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
 ];

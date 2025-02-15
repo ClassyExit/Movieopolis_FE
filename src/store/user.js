@@ -40,7 +40,9 @@ export const useUserStore = defineStore("user", {
       try {
         await signInWithEmailAndPassword(auth, user.email, user.password);
       } catch (err) {
+        console.log(err);
         status.success = false;
+        status.message = "Invalid email or password";
         return status;
       }
 
@@ -120,7 +122,7 @@ export const useUserStore = defineStore("user", {
           // Password reset email sent!
           status.success = true;
           status.message =
-            "Success! We have sent an email with instructions on resetting your password to your email.";
+            "We have sent an email with instructions on resetting your password";
         })
         .catch((error) => {
           switch (error.code) {

@@ -3,10 +3,7 @@
     wire:loading
     class="overflow-hidden flex flex-col items-center justify-center"
   >
-    <div
-      class="loader ease-linear rounded-full border-4 border-t-4 h-12 w-12 mb-4 border-border"
-    ></div>
-    <h2 class="text-center text-content1 text-xl font-semibold">Loading...</h2>
+    <span class="loading loading-infinity loading-lg"></span>
   </div>
 </template>
 
