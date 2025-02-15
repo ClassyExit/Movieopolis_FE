@@ -4,10 +4,6 @@
       <router-link :to="{ name: 'Home' }" class="btn btn-ghost"
         >Home</router-link
       >
-
-      <router-link :to="{ name: 'Reset' }" class="btn btn-ghost"
-        >Reset</router-link
-      >
     </div>
 
     <div class="flex flex-row items-center space-x-2">

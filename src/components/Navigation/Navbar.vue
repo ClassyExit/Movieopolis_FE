@@ -27,10 +27,10 @@
             </svg>
           </label>
         </div>
-        <div class="flex space-x-2">
+        <router-link :to="{ name: 'Home' }" class="flex space-x-2">
           <img class="h-8 w-8" src="../../assets/logo.png" />
           <span class="hidden md:block">Movieopolis</span>
-        </div>
+        </router-link>
         <div class="hidden md:flex divider text-neutral">|</div>
         <div class="hidden flex-grow lg:block">
           <WebNav />

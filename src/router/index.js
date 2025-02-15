@@ -54,9 +54,9 @@ const routes = [
     redirect: { name: "Login" },
     component: DefaultLayout,
     children: [
-      { path: "/login", name: "Login", component: Login },
-      { path: "/register", name: "Register", component: Register },
-      { path: "/reset", name: "Reset", component: Reset },
+      { path: "login", name: "Login", component: Login },
+      { path: "register", name: "Register", component: Register },
+      { path: "reset", name: "Reset", component: Reset },
     ],
   },
 
