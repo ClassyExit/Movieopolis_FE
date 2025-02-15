@@ -31,14 +31,14 @@ module.exports = {
           "accent-focus": "#D97706", // Amber-600
           "accent-content": "#ffffff",
 
-          neutral: "#64748B", // Slate-500
-          "neutral-focus": "#475569", // Slate-600
+          neutral: "#6B7280", // Gray-500
+          "neutral-focus": "#4B5563", // Gray-600
           "neutral-content": "#ffffff",
 
-          "base-100": "#F8FAFC", // Slate-50
-          "base-200": "#E2E8F0", // Slate-200
-          "base-300": "#CBD5E1", // Slate-300
-          "base-content": "#1E293B", // Slate-800
+          "base-100": "#F9FAFB", // Gray-50
+          "base-200": "#E5E7EB", // Gray-200
+          "base-300": "#D1D5DB", // Gray-300
+          "base-content": "#111827", // Gray-900
 
           info: "#3B82F6", // Blue-500
           success: "#10B981", // Emerald-500
@@ -60,14 +60,14 @@ module.exports = {
           "accent-focus": "#F59E0B", // Amber-500
           "accent-content": "#0F172A",
 
-          neutral: "#334155", // Slate-700
-          "neutral-focus": "#1E293B", // Slate-800
-          "neutral-content": "#F1F5F9",
+          neutral: "#4B5563", // Gray-600
+          "neutral-focus": "#374151", // Gray-700
+          "neutral-content": "#F3F4F6", // Gray-100
 
-          "base-100": "#000000", // Pure Black Base
-          "base-200": "#0B0F1A", // Darker Shade
-          "base-300": "#111827", // Slate-900
-          "base-content": "#F8FAFC", // Slate-50
+          "base-100": "#000000", // Pure Black
+          "base-200": "#0F0F0F", // Darker Shade
+          "base-300": "#1F1F1F", // Very Dark Gray
+          "base-content": "#E5E7EB", // Gray-200
 
           info: "#60A5FA", // Blue-400
           success: "#34D399", // Emerald-400

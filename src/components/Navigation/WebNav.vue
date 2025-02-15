@@ -5,12 +5,6 @@
         >Home</router-link
       >
 
-      <router-link :to="{ name: 'Login' }" class="btn btn-ghost"
-        >Login</router-link
-      >
-      <router-link :to="{ name: 'Register' }" class="btn btn-ghost"
-        >Register</router-link
-      >
       <router-link :to="{ name: 'Reset' }" class="btn btn-ghost"
         >Reset</router-link
       >
@@ -23,11 +17,25 @@
         </li>
       </ul>
       <div class="divider text-neutral">|</div>
-      <div class="">Auth here</div>
+      <div>
+        <div v-if="!userStore.user" class="flex flex-row space-x-2">
+          <router-link :to="{ name: 'Login' }" class="btn btn-ghost btn-sm"
+            >Login</router-link
+          >
+          <router-link :to="{ name: 'Register' }" class="btn btn-primary btn-sm"
+            >Register</router-link
+          >
+        </div>
+        <div v-else><Profile /></div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
 import Theme from "@/components/Theme/Theme.vue";
+import Profile from "@/components/Navigation/Profile.vue";
+import { useUserStore } from "@/store/user";
+
+const userStore = useUserStore();
 </script>

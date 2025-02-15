@@ -106,7 +106,7 @@ export const useUserStore = defineStore("user", {
 
       resetStore();
 
-      router.push({ name: "Login" });
+      router.push({ name: "Home" });
     },
 
     async resetPassword(user) {
