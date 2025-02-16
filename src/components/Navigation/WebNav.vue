@@ -6,13 +6,13 @@
       >
     </div>
 
-    <div class="flex flex-row items-center space-x-2">
+    <div class="flex flex-row items-center">
       <ul class="menu menu-horizontal rounded-box">
         <li>
           <Theme />
         </li>
       </ul>
-      <div class="divider text-neutral">|</div>
+
       <div>
         <div v-if="!userStore.user" class="flex flex-row space-x-2">
           <router-link :to="{ name: 'Login' }" class="btn btn-ghost btn-sm"

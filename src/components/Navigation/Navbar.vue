@@ -31,7 +31,7 @@
           <img class="h-8 w-8" src="../../assets/logo.png" />
           <span class="hidden md:block">Movieopolis</span>
         </router-link>
-        <div class="hidden md:flex divider text-neutral">|</div>
+        <div class="divider text-neutral">|</div>
         <div class="hidden flex-grow lg:block">
           <WebNav />
         </div>

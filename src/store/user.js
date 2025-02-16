@@ -40,7 +40,6 @@ export const useUserStore = defineStore("user", {
       try {
         await signInWithEmailAndPassword(auth, user.email, user.password);
       } catch (err) {
-        console.log(err);
         status.success = false;
         status.message = "Invalid email or password";
         return status;
@@ -48,9 +47,39 @@ export const useUserStore = defineStore("user", {
 
       this.user = auth.currentUser;
       router.push({ name: "Home" });
+    },
 
-      status.success = true;
-      return status;
+    async registerNewUserWithDB(uid) {
+      /*
+      Register a new user with the database passing in their UID from firebase
+      */
+
+      try {
+        const response = await fetch(
+          `https://tmdb-backend.herokuapp.com/api/user`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              uid: uid,
+            },
+          }
+        );
+        return response.json();
+      } catch {
+        // Server is idling, fallback to second URL
+        const response = await fetch(
+          `https://tmdb-backend.autoidleapp.com/api/user`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              uid: uid,
+            },
+          }
+        );
+        return response.json();
+      }
     },
 
     async googleSignIn() {
@@ -58,6 +87,10 @@ export const useUserStore = defineStore("user", {
 
       return signInWithPopup(auth, provider)
         .then((res) => {
+          // Check if the user is signing up for the first time
+          if (res.additionalUserInfo.isNewUser) {
+          }
+
           // User signed in
           this.user = res.user;
 
@@ -93,17 +126,14 @@ export const useUserStore = defineStore("user", {
       }
 
       this.user = auth.currentUser;
-      status.success = true;
-
       router.push({ name: "Home" });
-
-      return status;
     },
 
     async logout() {
       /* Sign a user out and reset all stores */
       await signOut(auth);
 
+      // Wipe all store data
       resetStore();
 
       router.push({ name: "Home" });
@@ -138,8 +168,6 @@ export const useUserStore = defineStore("user", {
           }
           return status;
         });
-
-      return status;
     },
 
     async initializeAuth() {
@@ -150,7 +178,6 @@ export const useUserStore = defineStore("user", {
       onAuthStateChanged(auth, (user) => {
         if (user) {
           this.user = auth.currentUser;
-
           // Check to see if user is on auth pages
           if (
             router.currentRoute.value.fullPath === ("/login" || "/register")
@@ -160,7 +187,6 @@ export const useUserStore = defineStore("user", {
         } else {
           resetStore();
         }
-
         this.isLoading = false;
       });
     },
@@ -191,7 +217,7 @@ export const useUserStore = defineStore("user", {
               .catch((error) => {
                 this.updatePasswordResults.result = "error";
                 this.updatePasswordResults.message =
-                  "Uh-oh, something went wrong here. Please try again";
+                  "Something went wrong. Please try again";
               });
           })
           .catch((error) => {
@@ -204,15 +230,14 @@ export const useUserStore = defineStore("user", {
               default:
                 this.updatePasswordResults.result = "error";
                 this.updatePasswordResults.message =
-                  "Uh-oh, something went wrong. Please try again";
-
+                  "Something went wrong. Please try again";
                 break;
             }
           });
       } catch (error) {
         this.updatePasswordResults.result = "error";
         this.updatePasswordResults.message =
-          "Uh-oh, something went wrong here. Please try again";
+          "Something went wrong. Please try again";
       }
     },
 
@@ -244,7 +269,7 @@ export const useUserStore = defineStore("user", {
                 //Error
                 this.deleteAccountResults.result = "error";
                 this.deleteAccountResults.message =
-                  "Uh-oh, something went wrong. Please try again";
+                  "Something went wrong. Please try again";
               });
           })
           .catch((error) => {
@@ -264,16 +289,15 @@ export const useUserStore = defineStore("user", {
               default:
                 this.deleteAccountResults.result = "error";
                 this.deleteAccountResults.message =
-                  "Uh-oh, something went wrong. Please try again";
+                  "Something went wrong. Please try again";
                 break;
             }
           });
       } catch (error) {
         //error
-
         this.deleteAccountResults.result = "error";
         this.deleteAccountResults.message =
-          "Uh-oh, something went wrong. Please try again";
+          "Something went wrong. Please try again";
       }
     },
   },
