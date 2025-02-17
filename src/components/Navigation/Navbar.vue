@@ -49,7 +49,7 @@
       </div>
     </div>
 
-    <div class="drawer-side">
+    <div class="drawer-side z-50">
       <label
         for="my-drawer-3"
         aria-label="close sidebar"

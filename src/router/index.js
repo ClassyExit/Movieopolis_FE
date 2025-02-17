@@ -3,22 +3,24 @@ import NotFound from "@/views/NotFound.vue";
 
 // Layouts
 import DefaultLayout from "@/views/Layout/DefaultLayout.vue";
-
 // Landing Pages
 import Home from "@/views/Landing/Home.vue";
-
 // Auth Pages
 import Login from "@/views/Authentication/Login.vue";
 import Register from "@/views/Authentication/Register.vue";
 import Reset from "@/views/Authentication/Reset.vue";
-
 // Movies Pages
 import Movie from "@/views/Movie/Movie.vue";
 import MovieDetail from "@/views/Movie/MovieDetail.vue";
-
 // TV Pages
 import TV from "@/views/TV/TV.vue";
 import TVDetail from "@/views/TV/TVDetail.vue";
+// Library
+import Library from "@/views/Library/Library.vue";
+// Setting
+import Setting from "@/views/Setting/Setting.vue";
+// Discover
+import Discover from "@/views/Discover/Discover.vue";
 
 const routes = [
   {
@@ -68,28 +70,35 @@ const routes = [
     ],
   },
 
-  // {
-  //   path: "/saved",
-  //   name: "Saved",
-  //   component: DefaultLayout,
-  //   children: [{ path: "/library", name: "Library", component: List }],
-  // },
+  {
+    path: "/saved",
+    name: "Saved",
+    component: DefaultLayout,
+    children: [{ path: "/library", name: "Library", component: Library }],
+  },
 
-  // {
-  //   path: "/settingslayout",
-  //   name: "SettingLayout",
-  //   redirect: { name: "Settings" },
-  //   component: DefaultLayout,
-  //   children: [
-  //     { path: "/settings", name: "Settings", component: SettingsLayout },
-  //     {
-  //       path: "/change-password",
-  //       name: "ChangePassword",
-  //       component: ChangePassword,
-  //     },
-  //     { path: "/delete", name: "Delete", component: DeleteAccount },
-  //   ],
-  // },
+  {
+    path: "/discover",
+    name: "DiscoverLayout",
+    component: DefaultLayout,
+    children: [{ path: "/discover", name: "Discover", component: Discover }],
+  },
+
+  {
+    path: "/setting",
+    name: "SettingLayout",
+    redirect: { name: "Settings" },
+    component: DefaultLayout,
+    children: [
+      { path: "overview", name: "Settings", component: Setting },
+      // {
+      //   path: "change-password",
+      //   name: "ChangePassword",
+      //   component: ChangePassword,
+      // },
+      // { path: "delete-acc", name: "Delete", component: DeleteAccount },
+    ],
+  },
 
   // {
   //   path: "/status",

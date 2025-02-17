@@ -12,7 +12,7 @@
     <div v-else>
       <vue-horizontal responsive snap="start">
         <ExtendedContainer
-          class="mx-5"
+          class="mx-5 z-10"
           v-for="item in movies.upcoming.results"
           :key="item.id"
           :id="item.id"

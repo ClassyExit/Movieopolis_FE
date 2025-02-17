@@ -5,7 +5,7 @@
     <div class="flex flex-row items-center space-x-4">
       <!-- Auth status -->
       <div class="flex items-center justify-center">
-        <div v-if="!userStore.user" class="flex flex-row space-x-2">
+        <div v-if="!userStore.user" class="hidden md:flex flex-row space-x-2">
           <router-link :to="{ name: 'Login' }" class="btn btn-ghost btn-sm"
             >Login</router-link
           >
