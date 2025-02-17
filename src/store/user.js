@@ -14,6 +14,7 @@ import {
   deleteUser,
   signInWithPopup,
   GoogleAuthProvider,
+  getAdditionalUserInfo,
 } from "firebase/auth";
 
 import { resetStore } from "./resetStore";
@@ -49,36 +50,41 @@ export const useUserStore = defineStore("user", {
       router.push({ name: "Home" });
     },
 
-    async registerNewUserWithDB(uid) {
+    async manageUserWithDB(request_options) {
       /*
-      Register a new user with the database passing in their UID from firebase
+      manage a new user with the database passing in their UID from firebase
+      method:
+      POST: Create a new user
+      DELETE: Delete a user
+      headers: { "Content-Type": "application/json", uid: uid }
       */
 
       try {
         const response = await fetch(
           `https://tmdb-backend.herokuapp.com/api/user`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              uid: uid,
-            },
-          }
+          request_options
         );
-        return response.json();
-      } catch {
+        if (!response.ok) {
+          throw new Error("Failed to fetch from primary URL");
+        }
+        return await response.json();
+      } catch (error) {
+        console.error("Primary request failed:", error);
+
         // Server is idling, fallback to second URL
-        const response = await fetch(
-          `https://tmdb-backend.autoidleapp.com/api/user`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              uid: uid,
-            },
+        try {
+          const response = await fetch(
+            `https://tmdb-backend.autoidleapp.com/api/user`,
+            request_options
+          );
+          if (!response.ok) {
+            throw new Error("Failed to fetch from fallback URL");
           }
-        );
-        return response.json();
+          return await response.json();
+        } catch (error) {
+          console.error("Fallback request failed:", error);
+          throw error;
+        }
       }
     },
 
@@ -88,12 +94,21 @@ export const useUserStore = defineStore("user", {
       return signInWithPopup(auth, provider)
         .then((res) => {
           // Check if the user is signing up for the first time
-          if (res.additionalUserInfo.isNewUser) {
-          }
+          const { isNewUser } = getAdditionalUserInfo(res);
 
+          if (isNewUser) {
+            // Register user with database
+            const request_options = {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                uid: res.user.uid,
+              },
+            };
+            this.manageUserWithDB(request_options);
+          }
           // User signed in
           this.user = res.user;
-
           router.push({ name: "Home" });
         })
         .catch((err) => {
@@ -110,7 +125,21 @@ export const useUserStore = defineStore("user", {
       };
 
       try {
-        await createUserWithEmailAndPassword(auth, user.email, user.password);
+        await createUserWithEmailAndPassword(
+          auth,
+          user.email,
+          user.password
+        ).then((res) => {
+          // Register user with database
+          const request_options = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              uid: res.user.uid,
+            },
+          };
+          this.manageUserWithDB(request_options);
+        });
       } catch (error) {
         switch (error.code) {
           case "auth/email-already-in-use":
@@ -258,10 +287,21 @@ export const useUserStore = defineStore("user", {
         reauthenticateWithCredential(user, credential)
           .then(() => {
             deleteUser(user)
-              .then(() => {
-                //User Deleted
+              .then((res) => {
+                // Delete user from database
+                const request_options = {
+                  method: "DELETE",
+                  headers: {
+                    "Content-Type": "application/json",
+                    uid: res.user.uid,
+                  },
+                };
+                this.manageUserWithDB(request_options);
+
+                // Reset store data
                 resetStore();
                 alert("Account Deleted Successfully");
+
                 // Push to homepage
                 router.push({ name: "Home" });
               })

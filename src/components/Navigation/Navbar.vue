@@ -4,9 +4,10 @@
     <div class="drawer-content flex flex-col">
       <!-- Navbar -->
       <div
-        class="navbar w-full flex items-center bg-base-300 rounded-b-xl px-2 md:px-8"
+        class="navbar w-full flex items-center bg-base-300 rounded-b-xl px-2 md:px-4"
       >
-        <div class="flex lg:hidden">
+        <!-- Mobile sidebar -->
+        <div class="flex md:hidden">
           <label
             for="my-drawer-3"
             aria-label="open sidebar"
@@ -27,16 +28,27 @@
             </svg>
           </label>
         </div>
-        <router-link :to="{ name: 'Home' }" class="flex space-x-2">
+
+        <!-- Logo -->
+        <router-link
+          :to="{ name: 'Home' }"
+          class="hidden md:flex flex-row space-x-2"
+        >
           <img class="h-8 w-8" src="../../assets/logo.png" />
-          <span class="hidden md:block">Movieopolis</span>
+          <div class="">Movieopolis</div>
         </router-link>
-        <div class="divider text-neutral">|</div>
-        <div class="hidden flex-grow lg:block">
+
+        <!-- Navigation -->
+        <div
+          class="flex-1 flex-row items-center justify-end md:justify-between space-x-4"
+        >
+          <div class="hidden md:flex pl-8"><Links /></div>
+
           <WebNav />
         </div>
       </div>
     </div>
+
     <div class="drawer-side">
       <label
         for="my-drawer-3"
@@ -52,8 +64,10 @@
 </template>
 
 <script setup>
+import Theme from "../Theme/Theme.vue";
 import MobileNav from "./MobileNav.vue";
 import WebNav from "./WebNav.vue";
+import Links from "./Links.vue";
 </script>
 
 <style scoped></style>

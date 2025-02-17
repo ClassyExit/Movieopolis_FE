@@ -1,5 +1,5 @@
 <template>
-  <label class="swap swap-rotate">
+  <label class="btn btn-ghost btn-sm swap swap-rotate">
     <input
       type="checkbox"
       @change="toggleTheme"

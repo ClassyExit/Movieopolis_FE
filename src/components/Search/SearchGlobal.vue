@@ -101,7 +101,7 @@
 </template>
 
 <script setup>
-import MagnifyingGlass from "@/assets/Icons/MagnifyingGlass.vue";
+import MagnifyingGlass from "@/assets/icons/MagnifyingGlass.vue";
 import { useSearchStore } from "@/store/search";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
