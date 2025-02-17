@@ -314,7 +314,6 @@ export const useUserStore = defineStore("user", {
           })
           .catch((error) => {
             //Error
-
             switch (error.code) {
               case "auth/wrong-password":
                 this.deleteAccountResults.result = "error";

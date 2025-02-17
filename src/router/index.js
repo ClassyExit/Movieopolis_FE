@@ -12,6 +12,14 @@ import Login from "@/views/Authentication/Login.vue";
 import Register from "@/views/Authentication/Register.vue";
 import Reset from "@/views/Authentication/Reset.vue";
 
+// Movies Pages
+import Movie from "@/views/Movie/Movie.vue";
+import MovieDetail from "@/views/Movie/MovieDetail.vue";
+
+// TV Pages
+import TV from "@/views/TV/TV.vue";
+import TVDetail from "@/views/TV/TVDetail.vue";
+
 const routes = [
   {
     path: "/",
@@ -26,27 +34,27 @@ const routes = [
       },
     ],
   },
-  // {
-  //   path: "/movies",
-  //   name: "MoviesLayout",
-  //   redirect: { name: "Movie" },
-  //   component: DefaultLayout,
-  //   children: [
-  //     { path: "/movie", name: "Movie", component: Movie },
-  //     { path: "/movie/:id", name: "Movie-Details", component: MovieDetail },
-  //   ],
-  // },
+  {
+    path: "/movies",
+    name: "MoviesLayout",
+    redirect: { name: "Movie" },
+    component: DefaultLayout,
+    children: [
+      { path: "/movies", name: "Movie", component: Movie },
+      { path: "/movies/:id", name: "Movie-Details", component: MovieDetail },
+    ],
+  },
 
-  // {
-  //   path: "/tv",
-  //   name: "TVLayout",
-  //   redirect: { name: "TV" },
-  //   component: DefaultLayout,
-  //   children: [
-  //     { path: "/tv-show", name: "TV", component: TV },
-  //     { path: "/tv-show/:id", name: "TV-Details", component: TVDetail },
-  //   ],
-  // },
+  {
+    path: "/tv",
+    name: "TVLayout",
+    redirect: { name: "TV" },
+    component: DefaultLayout,
+    children: [
+      { path: "/tv-shows", name: "TV", component: TV },
+      { path: "/tv-shows/:id", name: "TV-Details", component: TVDetail },
+    ],
+  },
 
   {
     path: "/auth",
