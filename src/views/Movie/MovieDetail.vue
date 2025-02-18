@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full bg-base-300">
+  <div class="w-full pb-8">
     <div
       class="flex flex-col items-center justify-center w-full h-full"
       v-if="movie.isLoading"
@@ -7,12 +7,12 @@
       <Loading />
     </div>
 
-    <div v-else class="flex flex-col h-screen items-center mx-auto rounded">
+    <div v-else class="flex flex-col items-center mx-auto rounded">
       <div
         id="backdrop-movie"
         :class="
           movie.results.details.backdrop_path
-            ? 'relative w-full h-[60vh] bg-cover bg-center flex items-end rounded '
+            ? 'relative w-full h-[60vh]  bg-cover bg-center flex  items-end rounded '
             : 'hidden'
         "
       >
@@ -86,6 +86,57 @@
         </div>
       </div>
     </div>
+
+    <div
+      class="flex flex-row cursor-pointer overflow-auto scrollbar-hide pt-48 py-4 md:pt-4"
+    >
+      <div
+        class="border-b-2 px-4"
+        :class="
+          SelectedOption == 'recommendations'
+            ? ' border-primary text-primary  '
+            : 'text-base-content'
+        "
+        @click="updateSelectedOption('recommendations')"
+      >
+        Recommendations
+      </div>
+      <div
+        class="border-b-2 px-4"
+        :class="
+          SelectedOption == 'reviews'
+            ? ' border-primary text-primary  '
+            : 'text-base-content'
+        "
+        @click="updateSelectedOption('reviews')"
+      >
+        Reviews
+      </div>
+      <div
+        class="border-b-2 px-4"
+        :class="
+          SelectedOption == 'credits'
+            ? ' border-primary text-primary  '
+            : 'text-base-content'
+        "
+        @click="updateSelectedOption('credits')"
+      >
+        Credits
+      </div>
+      <div
+        class="border-b-2 px-4"
+        :class="
+          SelectedOption == 'collections'
+            ? ' border-primary text-primary  '
+            : 'text-base-content'
+        "
+        @click="updateSelectedOption('collections')"
+      >
+        Collections
+      </div>
+    </div>
+
+    <Recommendations class="" v-if="SelectedOption == 'recommendations'" />
   </div>
 </template>
 
@@ -96,6 +147,8 @@ import { useMovieStore } from "@/store/movies";
 import Loading from "@/components/Loading.vue";
 import { storeToRefs } from "pinia";
 import HeartIcon from "@/assets/icons/HeartIcon.vue";
+import TrailerTemplate from "@/components/TrailerTemplate.vue";
+import Recommendations from "./Recommendations.vue";
 
 import AddToList from "@/components/Actions/AddToList.vue";
 import MobileReturn from "@/components/Actions/MobileReturn.vue";

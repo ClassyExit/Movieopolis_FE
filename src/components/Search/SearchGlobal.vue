@@ -105,7 +105,7 @@ import MagnifyingGlass from "@/assets/icons/MagnifyingGlass.vue";
 import { useSearchStore } from "@/store/search";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
-import Container from "../Container.vue";
+import Container from "../Containers/Container.vue";
 
 const searchStore = useSearchStore();
 const { search } = storeToRefs(searchStore);

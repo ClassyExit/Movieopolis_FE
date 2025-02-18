@@ -1,5 +1,8 @@
 <template></template>
 
 <script setup>
-import LiteYouTubeEmbed from "vue-lite-youtube-embed";
+const props = defineProps({
+  id: String | Number,
+  title: String,
+});
 </script>
