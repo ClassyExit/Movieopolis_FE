@@ -1,5 +1,8 @@
 <template>
-  <div @click="$router.go(-1)" class="md:hidden border rounded border-border">
+  <div
+    @click="$router.go(-1)"
+    class="flex items-center md:hidden rounded text-primary"
+  >
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="30"

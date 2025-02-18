@@ -18,10 +18,10 @@ export const useMovieStore = defineStore("Movie", {
 
     movies: {
       popular: [],
-      isLoadingMovies: false,
-      latest: [],
+      isLoading: false,
     },
   }),
+  persist: true,
   getters: {},
   actions: {
     async getMovieDetails(movie_id) {
@@ -79,32 +79,9 @@ export const useMovieStore = defineStore("Movie", {
       this.movieCollections = collections;
     },
 
-    async getLatestMovie() {
-      /* Get the latest movies */
-      const latest = await useAPIStore().getLatestMoviesAPI();
-      this.movies.latest = latest;
-    },
-
-    async getTopRatedMovies(page) {
-      /* Get the top rated movies */
-
-      this.movies.isLoadingMovies = true;
-      // Unload the old movies
-      this.movies.popular = [];
-
-      for (let i = page; i < 2 + page; i++) {
-        const movies = await useAPIStore().getTopRatedMoviesAPI(i);
-
-        for (const movie in movies.results) {
-          this.movies.popular.push(movies.results[movie]);
-        }
-      }
-
-      this.movies.isLoadingMovies = false;
-    },
-
+    // DONE
     async getPopularMovies(page) {
-      this.isLoadingMovies = true;
+      this.movies.isLoading = true;
 
       // Unload the old movies
       this.movies.popular = [];
@@ -116,8 +93,7 @@ export const useMovieStore = defineStore("Movie", {
           this.movies.popular.push(movies.results[movie]);
         }
       }
-
-      this.isLoadingMovies = false;
+      this.movies.isLoading = false;
     },
 
     async getNowPlayingMovies(page) {
