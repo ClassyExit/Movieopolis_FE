@@ -30,7 +30,7 @@
 
 <script setup>
 import { useHomeStore } from "@/store/homeStore";
-import ExtendedContainer from "@/components/ExtendedContainer.vue";
+import ExtendedContainer from "@/components/Containers/ExtendedContainer.vue";
 import VueHorizontal from "vue-horizontal";
 import { storeToRefs } from "pinia";
 

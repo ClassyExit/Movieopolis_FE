@@ -41,7 +41,7 @@
 import { useTVStore } from "@/store/tv";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
-import Container from "@/components/Container.vue";
+import Container from "@/components/Containers/Container.vue";
 import MobileReturn from "@/components/Actions/MobileReturn.vue";
 
 const tvStore = useTVStore();

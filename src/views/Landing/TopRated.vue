@@ -61,7 +61,7 @@
 
 <script setup>
 import { useHomeStore } from "@/store/homeStore";
-import Container from "@/components/Container.vue";
+import Container from "@/components/Containers/Container.vue";
 import { storeToRefs } from "pinia";
 
 const { movies, isLoading } = storeToRefs(useHomeStore());

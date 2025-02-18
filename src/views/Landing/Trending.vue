@@ -78,7 +78,7 @@
 
 <script setup>
 import { ref } from "vue";
-import Container from "@/components/Container.vue";
+import Container from "@/components/Containers/Container.vue";
 import { useHomeStore } from "@/store/homeStore";
 import { storeToRefs } from "pinia";
 import FilterIcon from "@/assets/icons/FilterIcon";
