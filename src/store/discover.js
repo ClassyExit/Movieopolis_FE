@@ -4,105 +4,66 @@ import { useAPIStore } from "./API";
 export const useDiscoverStore = defineStore("Discover", {
   state: () => ({
     discover: {
-      tv: [],
-      movies: [],
+      results: [],
       isLoading: false,
     },
   }),
 
   getters: {},
   actions: {
-    async getMovieDiscover(
-      movieSortBy,
-      sort_order,
-      vote_average,
-      vote_sort,
-      movie_genre,
-      page = 1
+    async getDiscover(
+      type = "movie",
+      include_adult = false,
+      language = "en-US",
+      sort_by = "popularity",
+      sort_order = "desc", // Added sort_order
+      page = 1,
+      vote_average = 5,
+      vote_sort = "gte",
+      with_genres
     ) {
       /*****
          Get a list of movie pending on the given parameters:
-
-         movieSortBy:   popularity, release_date, vote_average
+         type: movie || tv
+         include_adult: boolean
+         language:      string
+         sort_by:       popularity, release_date, vote_average
          sort_order:    desc | asc 
          vote_average:  int
          vote_sort:     gte ( >vote_average | lte (<vote_average))
-         movie_genre:   selected genre
+         with_genres:   selected genre
          page:          number
-        ******/
+      ******/
 
       this.discover.isLoading = true;
 
       // Unload old results
-      this.discover.movies = [];
+      this.discover.results = [];
 
-      const sort_by = `${movieSortBy}.${sort_order}`;
+      const sorted_by = `${sort_by}.${sort_order}`;
 
       for (let i = 1; i <= 2; i++) {
-        const movies = await useAPIStore().getMovieDiscover(
-          sort_by,
-          (page = i),
+        const movies = await useAPIStore().getDiscover(
+          type,
+          include_adult,
+          language,
+          sorted_by,
+          i, // Pass i directly as the page number
           vote_average,
           vote_sort,
-          movie_genre
+          with_genres
         );
 
-        for (const movie in movies.results) {
-          this.discover.movies.push(movies.results[movie]);
-        }
+        movies.results.forEach((movie) => {
+          this.discover.results.push(movie);
+        });
       }
 
       this.discover.isLoading = false;
     },
 
-    async getTVDiscover(
-      tvSortBy,
-      tv_sort_order,
-      tv_vote_average,
-      tv_vote_sort,
-      tvGenre,
-      page = 1
-    ) {
-      /*****
-         Get a list of shows pending on the given parameters:
-
-         tvSortBy:          release_date, vote_average
-         tv_sort_order:     desc | asc 
-         tv_vote_average:   int
-         tv_vote_sort:      gte ( >vote_average)
-         tvGenre:           selected genre
-         page:              number
-        ******/
-
-      this.discover.isLoading = true;
-
-      // Unload old shows
-      this.discover.tv = [];
-
-      const sort_by = `${tvSortBy}.${tv_sort_order}`;
-
-      for (let i = 1; i <= 2; i++) {
-        const shows = await useAPIStore().getTVDiscover(
-          sort_by,
-          (page = i),
-          tv_vote_average,
-          tv_vote_sort,
-          tvGenre
-        );
-
-        for (const show in shows.results) {
-          this.discover.tv.push(shows.results[show]);
-        }
-      }
-
-      this.discover.isLoading = false;
-    },
-
-    clearDiscoverMovies() {
-      this.discover.movies = [];
-    },
-    clearDiscoverTV() {
-      this.discover.tv = [];
+    clearDiscover() {
+      this.discover.results = [];
     },
   },
 });
