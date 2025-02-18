@@ -1,6 +1,11 @@
 <template>
-  <div class="flex flex-col justify-between items-center w-full">
-    <div v-if="!user.user" class="flex flex-row justify-evenly w-full">
+  <div
+    class="flex flex-col justify-between items-center w-full space-y-4 pt-12"
+  >
+    <div
+      v-if="!user.user"
+      class="flex flex-row justify-evenly w-full p-4 rounded border border-neutral"
+    >
       <router-link :to="{ name: 'Login' }" class="btn btn-ghost btn-sm"
         >Login</router-link
       >

@@ -23,6 +23,7 @@ export const useTVStore = defineStore("TV", {
     tvGenres: [],
   }),
   getters: {},
+  persist: true,
   actions: {
     async getTVDetails(tv_id) {
       /*
@@ -79,6 +80,7 @@ export const useTVStore = defineStore("TV", {
       this.show.isLoadingSeason = false;
     },
 
+    // DONE
     async getPopularTVShows(page) {
       this.shows.isLoading = true;
 
@@ -92,7 +94,6 @@ export const useTVStore = defineStore("TV", {
           this.shows.popular.push(tvshows.results[show]);
         }
       }
-
       this.shows.isLoading = false;
     },
 

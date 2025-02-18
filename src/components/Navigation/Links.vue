@@ -10,7 +10,7 @@
           :class="link.showWeb ? 'flex' : 'md:hidden'"
         >
           <component :is="link.Icon" class="w-8 h-6 md:hidden" />
-          {{ link.name }}
+          {{ link.DisplayName }}
         </router-link>
       </li>
     </ul>
@@ -28,31 +28,37 @@ import LibraryIcon from "@/assets/icons/LibraryIcon.vue";
 const links = [
   {
     name: "Home",
+    DisplayName: "Home",
     Icon: DashboardIcon,
     showWeb: true,
   },
   {
     name: "TV",
+    DisplayName: "Shows",
     Icon: TVIcon,
     showWeb: true,
   },
   {
     name: "Movie",
+    DisplayName: "Movies",
     Icon: MovieIcon,
     showWeb: true,
   },
   {
     name: "Discover",
+    DisplayName: "Discover",
     Icon: DiscoverIcon,
     showWeb: true,
   },
   {
     name: "Library",
+    DisplayName: "Library",
     Icon: LibraryIcon,
     showWeb: true,
   },
   {
     name: "Settings",
+    DisplayName: "Settings",
     Icon: SettingIcon,
     showWeb: false,
   },
