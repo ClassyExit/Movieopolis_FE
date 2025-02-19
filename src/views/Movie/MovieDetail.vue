@@ -68,7 +68,19 @@
           <div>{{ convertMinutesToHours(movie.results.details.runtime) }}</div>
           <div class="w-1 h-1 bg-neutral rounded-full"></div>
           <div class="flex flex-row items-center space-x-1">
-            <HeartIcon class="h-5 w-5 text-error" />
+            <svg
+              class="stroke-current h-5 w-5 text-error"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+              ></path>
+            </svg>
 
             <div>{{ movie.results.details.vote_average }}</div>
           </div>
@@ -150,7 +162,7 @@ import { ref } from "vue";
 import { useMovieStore } from "@/store/movies";
 import Loading from "@/components/Loading.vue";
 import { storeToRefs } from "pinia";
-import HeartIcon from "@/assets/icons/HeartIcon.vue";
+
 import Recommendations from "./Recommendations.vue";
 import MovieCast from "./MovieCast.vue";
 import MovieReviews from "./MovieReviews.vue";
