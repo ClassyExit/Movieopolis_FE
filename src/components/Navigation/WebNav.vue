@@ -31,6 +31,14 @@
               tabindex="0"
               class="menu menu-sm dropdown-content bg-base-200 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
+              <li>
+                <router-link
+                  :to="{ name: 'Settings' }"
+                  class="flex items-center space-x-2"
+                >
+                  <span>Settings</span>
+                </router-link>
+              </li>
               <li @click="useUserStore().logout()"><a>Logout</a></li>
             </ul>
           </div>
@@ -46,6 +54,7 @@ import SearchGlobal from "../Search/SearchGlobal.vue";
 
 import { useUserStore } from "@/store/user";
 import ProfilePic from "@/assets/icons/ProfilePic.vue";
+import SettingIcon from "@/assets/icons/SettingIcon.vue";
 
 const userStore = useUserStore();
 </script>
