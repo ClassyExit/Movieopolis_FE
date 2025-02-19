@@ -22,7 +22,11 @@
       </div>
     </div>
 
-    <div v-else v-for="review in movie.reviews.results">
+    <div
+      class="bg-base-300 p-2 rounded"
+      v-else
+      v-for="review in movie.reviews.results"
+    >
       <Reviews
         :id="review.id"
         :author="review.author"

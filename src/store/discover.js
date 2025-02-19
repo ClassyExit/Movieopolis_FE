@@ -6,7 +6,9 @@ export const useDiscoverStore = defineStore("Discover", {
     discover: {
       results: [],
       isLoading: false,
+      trailer: {},
     },
+
     genres: {},
   }),
 
@@ -59,6 +61,16 @@ export const useDiscoverStore = defineStore("Discover", {
           this.discover.results.push(movie);
         });
       }
+
+      this.discover.isLoading = false;
+    },
+
+    async getTrailer() {
+      // Get the trailer for the movie
+
+      this.discover.isLoading = true;
+
+      this.discover.trailer = await useAPIStore().getDiscoverTrailers();
 
       this.discover.isLoading = false;
     },

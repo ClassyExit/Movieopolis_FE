@@ -61,7 +61,6 @@ export const useTVStore = defineStore("TV", {
       this.show.isLoading = false;
     },
 
-    // TEST
     async getTVSeasonDetails(tv_id, season_number) {
       this.show.isLoadingSeason = true;
 
@@ -74,7 +73,6 @@ export const useTVStore = defineStore("TV", {
       this.show.isLoadingSeason = false;
     },
 
-    // DONE
     async getPopularTVShows(page) {
       this.shows.isLoading = true;
 

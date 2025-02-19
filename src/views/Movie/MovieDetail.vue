@@ -81,7 +81,7 @@
     </div>
 
     <div
-      class="flex flex-row w-fit cursor-pointer overflow-auto scrollbar-hide py-4"
+      class="flex flex-row w-full cursor-pointer overflow-auto scrollbar-hide py-4"
     >
       <div
         class="border-b-2 px-4"
@@ -108,6 +108,17 @@
       <div
         class="border-b-2 px-4"
         :class="
+          SelectedOption == 'collection'
+            ? ' border-primary text-primary  '
+            : 'text-base-content'
+        "
+        @click="updateSelectedOption('collection')"
+      >
+        Collection
+      </div>
+      <div
+        class="border-b-2 px-4"
+        :class="
           SelectedOption == 'about'
             ? ' border-primary text-primary  '
             : 'text-base-content'
@@ -118,7 +129,7 @@
       </div>
     </div>
 
-    <div v-if="SelectedOption == 'recommendations'" class="">
+    <div v-if="SelectedOption == 'recommendations'" class="flex flex-col">
       <Recommendations />
     </div>
 
@@ -127,6 +138,9 @@
     </div>
 
     <div v-if="SelectedOption == 'reviews'" class=""><MovieReviews /></div>
+    <div v-if="SelectedOption == 'collection'" class="">
+      <MovieCollections />
+    </div>
   </div>
 </template>
 
@@ -141,6 +155,7 @@ import Recommendations from "./Recommendations.vue";
 import MovieCast from "./MovieCast.vue";
 import MovieReviews from "./MovieReviews.vue";
 import MovieTrailer from "./MovieTrailer.vue";
+import MovieCollections from "./MovieCollections.vue";
 
 import AddToList from "@/components/Actions/AddToList.vue";
 import MobileReturn from "@/components/Actions/MobileReturn.vue";
@@ -159,11 +174,6 @@ const id = route.params.id; // read movie id from router
 
 // Get movie details
 movieStore.getMovieDetails(id);
-
-let USDollar = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-});
 
 function convertMinutesToHours(minutes) {
   const hrs = Math.floor(minutes / 60);

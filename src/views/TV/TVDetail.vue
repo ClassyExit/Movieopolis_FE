@@ -88,7 +88,7 @@
     </div>
 
     <div
-      class="flex flex-row w-fit cursor-pointer overflow-auto scrollbar-hide py-4"
+      class="flex flex-row w-full cursor-pointer overflow-auto scrollbar-hide py-4"
     >
       <div
         class="border-b-2 px-4"

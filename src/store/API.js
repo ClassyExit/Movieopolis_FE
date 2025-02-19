@@ -29,7 +29,6 @@ export const useAPIStore = defineStore("API", {
       throw new Error("All fetch attempts failed.");
     },
 
-    // DONE
     async getTrendingAPI(media_type = "all", time_window = "day") {
       /*
       Retrieves the trending content for the specified parameters
@@ -53,7 +52,6 @@ export const useAPIStore = defineStore("API", {
       }
     },
 
-    // DONE
     async getMovieDetailsAPI(movie_id) {
       if (!movie_id) return;
 
@@ -71,7 +69,6 @@ export const useAPIStore = defineStore("API", {
       }
     },
 
-    // DONE
     async getPopularMoviesAPI(page = 1) {
       const urls = [
         `https://tmdb-backend.herokuapp.com/api/movie/popular`,
@@ -87,7 +84,6 @@ export const useAPIStore = defineStore("API", {
       }
     },
 
-    // DONE
     async getUpcomingMoviesAPI(page = 1) {
       const urls = [
         `https://tmdb-backend.herokuapp.com/api/upcoming`,
@@ -103,7 +99,6 @@ export const useAPIStore = defineStore("API", {
       }
     },
 
-    // DONE
     async getTopRatedAPI() {
       const urls = [
         `https://tmdb-backend.herokuapp.com/api/top-rated`,
@@ -119,7 +114,6 @@ export const useAPIStore = defineStore("API", {
       }
     },
 
-    // DONE
     async getPopularTVShowsAPI(page = 1) {
       const urls = [
         `https://tmdb-backend.herokuapp.com/api/tv/popular?page=${page}`,
@@ -135,7 +129,6 @@ export const useAPIStore = defineStore("API", {
       }
     },
 
-    // DONE
     async getTVDetailsAPI(tv_id) {
       if (!tv_id) return;
 
@@ -153,7 +146,6 @@ export const useAPIStore = defineStore("API", {
       }
     },
 
-    // TEST
     async getTVSeasonDetails(tv_id, season_number) {
       if (!tv_id) return;
 
@@ -171,7 +163,6 @@ export const useAPIStore = defineStore("API", {
       }
     },
 
-    // DONE
     async getGenres() {
       const response = await fetch(
         `https://tmdb-backend.herokuapp.com/api/genres`
@@ -179,7 +170,6 @@ export const useAPIStore = defineStore("API", {
       return response.json();
     },
 
-    // TEST
     async getDiscover(
       type = "movie",
       include_adult = false,
@@ -206,7 +196,6 @@ export const useAPIStore = defineStore("API", {
       }
     },
 
-    // TEST
     async getSearchResults(query, page = 1) {
       // Get search results based on query
 
@@ -226,7 +215,6 @@ export const useAPIStore = defineStore("API", {
       }
     },
 
-    // DONE
     async getReviews(type, id) {
       // Get reviews based on id
       // Type can be either movie | tv
@@ -247,15 +235,14 @@ export const useAPIStore = defineStore("API", {
       }
     },
 
-    // TEST
-    async getCollections(id) {
+    async getCollectionsAPI(id) {
       // Gather collections for a tv/movie show
 
       if (!id) return;
 
       const urls = [
-        `https://tmdb-backend.herokuapp.com/api/collections?id=${id}`,
-        `https://tmdb-backend.autoidleapp.com/api/collections?id=${id}`,
+        `https://tmdb-backend.herokuapp.com/api/collections?collection_id=${id}`,
+        `https://tmdb-backend.autoidleapp.com/api/collections?collection_id=${id}`,
       ];
 
       try {
@@ -264,6 +251,20 @@ export const useAPIStore = defineStore("API", {
       } catch (error) {
         console.error("Failed to get content:", error);
         return null;
+      }
+    },
+
+    async getDiscoverTrailers() {
+      const urls = [
+        `https://tmdb-backend.herokuapp.com/api/discover/trailer`,
+        `https://tmdb-backend.autoidleapp.com/api/discover/trailer`,
+      ];
+
+      try {
+        const data = await this.fetchAPI(urls);
+        return data;
+      } catch (error) {
+        console.error("Failed to get content:", error);
       }
     },
   },

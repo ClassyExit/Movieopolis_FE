@@ -1,6 +1,7 @@
 <template>
   <div
-    class="relative w-full max-w-7xl h-0 pb-[56.25%] overflow-hidden rounded-lg shadow-lg"
+    class="relative w-full overflow-hidden rounded-lg shadow-lg"
+    :class="containerClass"
   >
     <iframe
       :src="`https://www.youtube.com/embed/${props.ytID}?autoplay=${props.autoPlay}`"
@@ -14,10 +15,17 @@
 </template>
 
 <script setup>
-// Props: Accept the YouTube video ID
+import { computed } from "vue";
+
+// Props: Accept the YouTube video ID and autoplay state
 const props = defineProps({
-  ytID: String, // Youtube ID
+  ytID: String, // YouTube Video ID
   id: String,
-  autoPlay: 0 | 1, // 0 - off; 1 - on
+  autoPlay: Number, // 0 - Off; 1 - On
+});
+
+// Dynamic container class based on screen size
+const containerClass = computed(() => {
+  return "h-[500px] sm:h-[400px] md:h-[500px] lg:h-[800px] xl:h-[900px]";
 });
 </script>

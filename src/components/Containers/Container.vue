@@ -103,8 +103,12 @@
 </template>
 
 <script setup>
+import { useRoute } from "vue-router";
 import AddToList from "@/components/Actions/AddToList.vue";
 import { computed } from "vue";
+
+const route = useRoute();
+const id = route.params.id; // read movie id from router
 
 const props = defineProps({
   id: Number,

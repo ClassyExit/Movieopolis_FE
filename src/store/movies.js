@@ -8,7 +8,7 @@ export const useMovieStore = defineStore("Movie", {
 
       trailer: {},
       reviews: [],
-      collections: [],
+      collections: {},
       isLoading: false,
     },
 
@@ -27,6 +27,7 @@ export const useMovieStore = defineStore("Movie", {
       this.movie.isLoading = true;
 
       this.movie.trailer = {};
+      this.movie.collections = [];
 
       const details = await useAPIStore().getMovieDetailsAPI(movie_id);
       const reviews = await useAPIStore().getReviews("movie", movie_id);
@@ -58,16 +59,20 @@ export const useMovieStore = defineStore("Movie", {
       this.movie.isLoading = false;
     },
 
-    // TEST
-    async getCollections(collection_id) {
-      if (!collection_id) return;
+    async getCollections() {
+      // Check if there is a collection
 
-      const collections = await useAPIStore().getCollections(collection_id);
+      if (this.movie.results.details.belongs_to_collection) {
+        const id = this.movie.results.details.belongs_to_collection.id;
 
-      this.movie.collections = collections;
+        const results = await useAPIStore().getCollectionsAPI(id);
+
+        this.movie.collections = results;
+      } else {
+        this.movie.collections = {};
+      }
     },
 
-    // DONE
     async getPopularMovies(page) {
       this.movies.isLoading = true;
 
