@@ -7,6 +7,7 @@ export const useDiscoverStore = defineStore("Discover", {
       results: [],
       isLoading: false,
     },
+    genres: {},
   }),
 
   getters: {},
@@ -64,6 +65,10 @@ export const useDiscoverStore = defineStore("Discover", {
 
     clearDiscover() {
       this.discover.results = [];
+    },
+
+    async getGenres() {
+      this.genres = await useAPIStore().getGenres();
     },
   },
 });
