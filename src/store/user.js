@@ -272,72 +272,80 @@ export const useUserStore = defineStore("user", {
     },
 
     async deleteUserAccount(currentPassword) {
-      /* DELETE A USERS ACCOUNT */
-
       const auth = getAuth();
       const user = auth.currentUser;
 
       this.deleteAccountResults = { result: "", message: "" };
 
+      if (!user) {
+        this.deleteAccountResults.result = "error";
+        this.deleteAccountResults.message = "No user is currently signed in.";
+        return;
+      }
+
       try {
+        // Reauthenticate user
         const credential = EmailAuthProvider.credential(
           user.email,
           currentPassword
         );
+        await reauthenticateWithCredential(user, credential);
 
-        reauthenticateWithCredential(user, credential)
-          .then(() => {
-            deleteUser(user)
-              .then((res) => {
-                // Delete user from database
-                const request_options = {
-                  method: "DELETE",
-                  headers: {
-                    "Content-Type": "application/json",
-                    uid: res.user.uid,
-                  },
-                };
-                this.manageUserWithDB(request_options);
+        // Delete user
+        await deleteUser(user);
+        console.log("User deleted successfully");
 
-                // Reset store data
-                resetStore();
-                alert("Account Deleted Successfully");
+        // Remove user from database
+        console.log(user.uid);
+        const request_options = {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            uid: user.uid,
+          },
+        };
+        await this.manageUserWithDB(request_options);
+        console.log("User deleted from database successfully");
+        // Reset store data
+        resetStore();
+        console.log("Store data reset successfully");
 
-                // Push to homepage
-                router.push({ name: "Home" });
-              })
-              .catch((error) => {
-                //Error
-                this.deleteAccountResults.result = "error";
-                this.deleteAccountResults.message =
-                  "Something went wrong. Please try again";
-              });
-          })
-          .catch((error) => {
-            //Error
-            switch (error.code) {
-              case "auth/wrong-password":
-                this.deleteAccountResults.result = "error";
-                this.deleteAccountResults.message =
-                  "Incorrect Current Password";
-                break;
-              case "auth/too-many-requests":
-                this.deleteAccountResults.result = "error";
-                this.deleteAccountResults.message =
-                  "Uh-oh, too many requests. Try again in a few seconds";
-                break;
-              default:
-                this.deleteAccountResults.result = "error";
-                this.deleteAccountResults.message =
-                  "Something went wrong. Please try again";
-                break;
-            }
-          });
+        // Show success message
+        alert("Account Deleted Successfully");
+        console.log("Account Deleted Successfully");
+
+        // Redirect to homepage
+        router.push({ name: "Home" });
+        console.log("Redirected to homepage");
       } catch (error) {
-        //error
-        this.deleteAccountResults.result = "error";
-        this.deleteAccountResults.message =
-          "Something went wrong. Please try again";
+        console.error("Error deleting user:", error);
+
+        switch (error.code) {
+          case "auth/wrong-password":
+            this.deleteAccountResults.result = "error";
+            this.deleteAccountResults.message = "Incorrect Current Password";
+            break;
+          case "auth/too-many-requests":
+            this.deleteAccountResults.result = "error";
+            this.deleteAccountResults.message =
+              "Uh-oh, too many requests. Try again in a few seconds";
+            break;
+          case "auth/requires-recent-login":
+            this.deleteAccountResults.result = "error";
+            this.deleteAccountResults.message =
+              "Please log in again before deleting your account.";
+            break;
+          case "auth/missing-password":
+            this.deleteAccountResults.result = "error";
+            this.deleteAccountResults.message =
+              "Please input your current password";
+            break;
+          default:
+            this.deleteAccountResults.result = "error";
+            this.deleteAccountResults.message =
+              "Unable to delete account. Please try again";
+            break;
+        }
       }
     },
   },

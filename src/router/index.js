@@ -21,6 +21,9 @@ import Library from "@/views/Library/Library.vue";
 import Setting from "@/views/Setting/Setting.vue";
 // Discover
 import Discover from "@/views/Discover/Discover.vue";
+// Setting
+import Password from "@/views/Setting/Password.vue";
+import DeleteAccount from "@/views/Setting/DeleteAccount.vue";
 
 const routes = [
   {
@@ -91,12 +94,12 @@ const routes = [
     component: DefaultLayout,
     children: [
       { path: "overview", name: "Settings", component: Setting },
-      // {
-      //   path: "change-password",
-      //   name: "ChangePassword",
-      //   component: ChangePassword,
-      // },
-      // { path: "delete-acc", name: "Delete", component: DeleteAccount },
+      {
+        path: "change-password",
+        name: "Password",
+        component: Password,
+      },
+      { path: "delete-account", name: "Delete", component: DeleteAccount },
     ],
   },
 
