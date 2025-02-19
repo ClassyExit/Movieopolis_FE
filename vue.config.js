@@ -1,5 +1,5 @@
 const { defineConfig } = require("@vue/cli-service");
-const path = require("path"); // <-- Add this line
+const path = require("path");
 
 module.exports = defineConfig({
   transpileDependencies: true,
@@ -8,6 +8,7 @@ module.exports = defineConfig({
       alias: {
         "@": path.resolve(__dirname, "src"),
       },
+      extensions: [".js", ".vue", ".json"],
     },
   },
 });
