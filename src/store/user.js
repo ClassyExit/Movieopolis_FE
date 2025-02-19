@@ -17,6 +17,7 @@ import {
   getAdditionalUserInfo,
 } from "firebase/auth";
 
+import { useAPIStore } from "./API";
 import { resetStore } from "./resetStore";
 
 export const useUserStore = defineStore("user", {

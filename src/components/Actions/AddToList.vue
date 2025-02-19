@@ -3,16 +3,14 @@
     <div
       class="btn btn-sm btn-outline"
       v-if="checkListIfMarked(id) == true"
-      @click="removeFromList(id)"
+      @click="remove(id)"
     >
       <Icon class="h-5 w-5" icon="material-symbols:bookmark" />
     </div>
 
     <div
       v-else
-      @click="
-        addToList(id, poster, title_movie, title_tv, overview, media_type)
-      "
+      @click="add(id, poster, title_movie, title_tv, overview, media_type)"
       class="btn btn-sm btn-outline btn-primary"
     >
       <Icon class="h-5 w-5" icon="ic:outline-bookmark-add" />
@@ -33,26 +31,26 @@ const props = defineProps({
   overview: String | undefined,
 });
 
-const addToList = (id, poster, title_movie, title_tv, overview, media_type) => {
+const add = (id, poster, title_movie, title_tv, overview, media_type) => {
   const details = {
-    id: id,
+    item_id: id,
     poster: poster,
     title: title_movie || title_tv,
     overview: overview,
     type: media_type,
   };
 
-  useLibraryStore().addToList(details);
+  useLibraryStore().addToLibrary(details);
 };
 
-const removeFromList = (id) => {
-  useLibraryStore().removeFromList(id);
+const remove = (id) => {
+  useLibraryStore().removeFromLibrary(id);
 };
 
 const checkListIfMarked = (id) => {
   if (!useUserStore().user) return;
 
-  if (useLibraryStore().data.list.filter((item) => item.id == id).length > 0)
+  if (useLibraryStore().library.filter((item) => item.item_id == id).length > 0)
     return true;
   return false;
 };

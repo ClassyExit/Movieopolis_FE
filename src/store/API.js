@@ -5,11 +5,14 @@ export const useAPIStore = defineStore("API", {
   getters: {},
   persist: true,
   actions: {
-    async fetchAPI(urls, retries = 2) {
+    async fetchAPI(urls, request_options, retries = 2) {
+      // URLS - LIST OF URLS TO REQUEST FROM
+      // REQUEST_OPTIONS: HEADERS, BODY, METHODS
+
       for (let url of urls) {
         for (let attempt = 0; attempt <= retries; attempt++) {
           try {
-            const response = await fetch(url);
+            const response = await fetch(url, request_options);
             if (response.ok) {
               return await response.json();
             } else {

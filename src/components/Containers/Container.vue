@@ -17,7 +17,7 @@
     <router-link :to="detailsLink" class="hover:cursor-pointer">
       <div
         v-if="listView"
-        class="flex flex-row h-16 w-full bg-backgroundSecondary hover:bg-backgroundPrimary border border-border rounded-xl px-4 justify-between"
+        class="flex flex-row h-16 w-full bg-base-300 hover:bg-base-100 border border-border rounded-xl px-4 justify-between"
       >
         <div class="flex flex-wrap items-center text-left rounded truncate">
           <span>{{ title }}</span>
@@ -72,7 +72,7 @@
         </div>
 
         <div
-          class="flex flex-row text-sm p-1 bg-backgroundSecondary justify-between rounded-md"
+          class="flex flex-row text-sm p-1 bg-base-300 justify-between rounded-md"
         >
           <div class="flex flex-row items-center space-x-1">
             <div class="stat-figure text-primary">
