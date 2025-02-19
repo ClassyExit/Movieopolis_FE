@@ -6,7 +6,7 @@ export const useLibraryStore = defineStore("Library", {
   state: () => ({
     library: [],
   }),
-  persist: true,
+
   getters: {},
   actions: {
     async addToLibrary(data) {
@@ -89,23 +89,32 @@ export const useLibraryStore = defineStore("Library", {
       }
     },
 
-    // async getListFromDB() {
-    //   // Retrieve user list data
-    //   if (!useUserStore().user) return console.error("User Auth Error");
+    async getFromLibrary() {
+      // Retrieve user list data
+      if (!useUserStore().user) return;
 
-    //   this.data.list = [];
-    //   this.data.filteredList = [];
+      this.library = [];
 
-    //   const q = query(
-    //     collection(db, `${useUserStore().user.uid}`, "UserData", "MyList")
-    //   );
+      const request_options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          uid: useUserStore().user.uid,
+        },
+      };
 
-    //   const querySnapshot = await getDocs(q);
+      const urls = [
+        `https://tmdb-backend.herokuapp.com/api/list`,
+        `https://tmdb-backend.autoidleapp.com/api/list`,
+      ];
 
-    //   // Push data to state
-    //   querySnapshot.forEach((doc) => this.data.list.push(doc.data()));
-
-    //   this.data.filteredList = this.data.list;
-    // },
+      try {
+        const data = await useAPIStore().fetchAPI(urls, request_options);
+        this.library = data;
+      } catch (error) {
+        console.error("Failed to get content:", error);
+        return null;
+      }
+    },
   },
 });
