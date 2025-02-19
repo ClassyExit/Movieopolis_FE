@@ -4,24 +4,20 @@ import { useAPIStore } from "./API";
 export const useMovieStore = defineStore("Movie", {
   state: () => ({
     movie: {
-      details: {},
-      credits: {},
-      recommendations: [],
-      videos: [],
+      results: {},
+
       trailer: {},
       reviews: [],
-      collections: [],
+      collections: {},
       isLoading: false,
     },
 
-    movieGenres: [],
-
     movies: {
       popular: [],
-      isLoadingMovies: false,
-      latest: [],
+      isLoading: false,
     },
   }),
+  persist: true,
   getters: {},
   actions: {
     async getMovieDetails(movie_id) {
@@ -29,82 +25,56 @@ export const useMovieStore = defineStore("Movie", {
         Retrieve the movie credits belonging to the movie_id
       */
       this.movie.isLoading = true;
-      this.movie.videos = [];
-      this.movie.trailer = {};
 
-      const credits = await useAPIStore().getMovieCreditsAPI(movie_id);
+      this.movie.trailer = {};
+      this.movie.collections = [];
+
       const details = await useAPIStore().getMovieDetailsAPI(movie_id);
-      const recommendations = await useAPIStore().getMovieRecommendationsAPI(
-        movie_id
-      );
-      const videos = await useAPIStore().getMovieVideos(movie_id);
       const reviews = await useAPIStore().getReviews("movie", movie_id);
 
       // Find only videos from Youtube
-      for (let item in videos.results) {
-        if (videos.results[item].site.includes("YouTube")) {
-          this.movie.videos.push(videos.results[item]);
+      if (details.videos.results) {
+        for (let item in details.videos.results) {
+          if (details.videos.results[item].site.includes("YouTube")) {
+            // Store all videos from youtube - not needed
+            // this.movie.videos.push(details.videos.results[item]);
 
-          // Find the trailer
-          // Parameters:
-          // type: Trailer
-          // isOfficial: true
-          // site: Youtube
-          if (
-            videos.results[item].type.includes("Trailer")
-            //&& videos.results[item].official == true
-          ) {
-            this.movie.trailer = videos.results[item];
+            // Find the trailer
+            // Parameters:
+            // type: Trailer
+            // isOfficial: true
+            // site: Youtube
+            if (
+              details.videos.results[item].type.includes("Trailer")
+              //&& videos.results[item].official == true
+            ) {
+              this.movie.trailer = details.videos.results[item];
+            }
           }
         }
       }
 
-      const findTrailer = () => {
-        // Exit if no videos
-        if (!movieStore.movie.videos) return;
-      };
-
-      this.movie.credits = credits;
-      this.movie.details = details;
-      this.movie.recommendations = recommendations;
+      this.movie.results = details;
       this.movie.reviews = reviews;
       this.movie.isLoading = false;
     },
 
-    async getCollections(collection_id) {
-      if (!collection_id) return;
+    async getCollections() {
+      // Check if there is a collection
 
-      const collections = await useAPIStore().getCollections(collection_id);
+      if (this.movie.results.details.belongs_to_collection) {
+        const id = this.movie.results.details.belongs_to_collection.id;
 
-      this.movieCollections = collections;
-    },
+        const results = await useAPIStore().getCollectionsAPI(id);
 
-    async getLatestMovie() {
-      /* Get the latest movies */
-      const latest = await useAPIStore().getLatestMoviesAPI();
-      this.movies.latest = latest;
-    },
-
-    async getTopRatedMovies(page) {
-      /* Get the top rated movies */
-
-      this.movies.isLoadingMovies = true;
-      // Unload the old movies
-      this.movies.popular = [];
-
-      for (let i = page; i < 2 + page; i++) {
-        const movies = await useAPIStore().getTopRatedMoviesAPI(i);
-
-        for (const movie in movies.results) {
-          this.movies.popular.push(movies.results[movie]);
-        }
+        this.movie.collections = results;
+      } else {
+        this.movie.collections = {};
       }
-
-      this.movies.isLoadingMovies = false;
     },
 
     async getPopularMovies(page) {
-      this.isLoadingMovies = true;
+      this.movies.isLoading = true;
 
       // Unload the old movies
       this.movies.popular = [];
@@ -116,31 +86,7 @@ export const useMovieStore = defineStore("Movie", {
           this.movies.popular.push(movies.results[movie]);
         }
       }
-
-      this.isLoadingMovies = false;
-    },
-
-    async getNowPlayingMovies(page) {
-      this.movies.isLoadingMovies = true;
-
-      // Unload the old movies
-      this.movies.popular = [];
-
-      for (let i = page; i < 2 + page; i++) {
-        const movies = await useAPIStore().getNowPlayingMoviesAPI(i);
-
-        for (const movie in movies.results) {
-          this.movies.popular.push(movies.results[movie]);
-        }
-      }
-
-      this.movies.isLoadingMovies = false;
-    },
-
-    async getMovieGenres() {
-      const genres = await useAPIStore().getMovieGenres();
-
-      this.movieGenres = genres;
+      this.movies.isLoading = false;
     },
   },
 });

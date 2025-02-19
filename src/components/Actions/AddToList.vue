@@ -1,61 +1,59 @@
 <template>
   <div class="flex items-center md:justify-between">
     <div
-      class="btn btn-xs md:btn-sm btn-outline-primary"
-      v-if="checkListIfMarked(id) == true"
-      @click="removeFromList(id)"
+      class="btn btn-sm btn-outline btn-primary"
+      v-if="isMarked"
+      @click="remove(props.id)"
     >
+      <span>Saved</span>
       <Icon class="h-5 w-5" icon="material-symbols:bookmark" />
     </div>
 
-    <div
-      v-else
-      @click="
-        addToList(id, poster, title_movie, title_tv, overview, media_type)
-      "
-      class="btn btn-xs md:btn-sm btn-outline-primary"
-    >
+    <div v-else @click="add()" class="btn btn-sm btn-outline btn-primary">
+      <span>Save</span>
       <Icon class="h-5 w-5" icon="ic:outline-bookmark-add" />
     </div>
   </div>
 </template>
 
 <script setup>
+import { computed } from "vue";
 import { useLibraryStore } from "@/store/library";
 import { useUserStore } from "@/store/user";
 
 const props = defineProps({
   id: Number,
-  poster: String | undefined,
-  title_movie: String | undefined,
-  title_tv: String | undefined,
-  media_type: String | " ",
-  overview: String | undefined,
+  poster: String,
+  title_movie: String,
+  title_tv: String,
+  media_type: String,
+  overview: String,
 });
 
-const addToList = (id, poster, title_movie, title_tv, overview, media_type) => {
-  const details = {
-    id: id,
-    poster: poster,
-    title: title_movie || title_tv,
-    overview: overview,
-    type: media_type,
-  };
+const libraryStore = useLibraryStore();
+const userStore = useUserStore();
 
-  useLibraryStore().addToList(details);
+// Ensure library is an array before checking
+const isMarked = computed(() => {
+  if (!userStore.user) return false;
+  return Array.isArray(libraryStore.library)
+    ? libraryStore.library.some((item) => item.item_id === props.id)
+    : false;
+});
+
+// Add item to library
+const add = () => {
+  libraryStore.addToLibrary({
+    item_id: props.id,
+    poster: props.poster,
+    title: props.title_movie || props.title_tv,
+    overview: props.overview,
+    type: props.media_type,
+  });
 };
 
-const removeFromList = (id) => {
-  useLibraryStore().removeFromList(id);
-};
-
-const checkListIfMarked = (id) => {
-  if (!useUserStore().user) return;
-
-  if (useLibraryStore().data.list.filter((item) => item.id == id).length > 0)
-    return true;
-  return false;
+// Remove item from library
+const remove = (id) => {
+  libraryStore.removeFromLibrary(id);
 };
 </script>
-
-<style scoped></style>

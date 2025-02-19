@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full">
+  <div class="w-full pb-8">
     <div
       class="flex flex-col items-center justify-center w-full h-full"
       v-if="show.isLoading"
@@ -7,228 +7,153 @@
       <Loading />
     </div>
 
-    <div v-else class="flex flex-col h-screen items-center mx-auto">
+    <div v-else class="w-full flex flex-col space-y-4">
       <div
-        id="backdrop-tv"
-        :class="
-          show.details.backdrop_path
-            ? 'relative inset-y-0 top-0 w-full h-2/5 z-0 md:pb-5'
-            : 'hidden'
-        "
+        id="backdrop-show"
+        class="relative w-full h-[60vh] bg-cover bg-center flex items-end"
       >
+        <!-- Backdrop  -->
         <img
-          class="h-full w-full object-cover blur-xs z-0"
-          :src="`https://image.tmdb.org/t/p/original/${show.details.backdrop_path}`"
-          :alt="`${show.details.original_name} backdrop`"
+          class="h-full w-full object-cover blur-[1px] z-0 rounded"
+          :src="`https://image.tmdb.org/t/p/original/${show.results.details.backdrop_path}`"
+          :alt="`${show.results.details.name} backdrop`"
+          loading="lazy"
         />
 
-        <div class="absolute top-2 left-2 z-40"><MobileReturn /></div>
-      </div>
+        <!-- Gradient Overlay for Better Text Visibility -->
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-neutral to-transparent z-10"
+        ></div>
 
-      <div
-        aria-label="layout"
-        class="w-full flex flex-col space-y-4 md:space-y-0 mx-auto"
-      >
-        <div class="w-full flex flex-col md:flex-row justify-center">
-          <div aria-label="main channel" class="p-2 pb-24 space-y-4">
-            <div
-              :class="
-                Object.keys(show.trailer).length > 0
-                  ? 'max-w-7xl w-full bg-backgroundSecondary p-2 rounded-xl mt-2 md:mt-0'
-                  : 'hidden'
-              "
+        <!-- Return Button -->
+        <div class="absolute top-2 left-2 z-40">
+          <MobileReturn />
+        </div>
+
+        <!-- Movie Title, Details, Poster -->
+        <div
+          class="text-neutral-content text-left absolute top-3/4 inset-y-1/2 left-4 z-20 text-base-content"
+        >
+          <h1 class="text-3xl md:text-4xl flex flex-wrap font-bold">
+            {{ show.results.details.name }}
+          </h1>
+          <p
+            v-if="show.results.details.tagline"
+            class="italic text-xs md:text-md"
+          >
+            "{{ show.results.details.tagline }}"
+          </p>
+          <div class="flex overflow-auto scrollbar-hide gap-2 mt-2">
+            <span
+              v-for="genre in show.results.details.genres"
+              :key="genre.id"
+              class="badge badge-primary px-2 py-1 rounded-full text-sm"
             >
-              <TVTrailer />
-            </div>
-
-            <div
-              aria-label="main label"
-              class="flex flex-row space-x-4 max-w-7xl w-full bg-backgroundSecondary p-2 rounded-xl mt-2 md:mt-0"
-            >
-              <div class="hidden md:block min-w-fit max-w-2/5">
-                <img
-                  class="h-full object-contain z-10 rounded-lg"
-                  :src="`https://image.tmdb.org/t/p/w300/${show.details.poster_path}`"
-                  :alt="`${show.details.original_name} poster`"
-                />
-              </div>
-
-              <div class="flex flex-col space-y-4 w-full">
-                <div class="text-3xl">
-                  <div class="flex flex-row text-content1 space-x-2">
-                    <div class="space-x-2">
-                      <span class="text-bold">
-                        {{ show.details.original_name }}
-                      </span>
-
-                      <span class="text-content2"
-                        >({{ show.details.first_air_date.slice(0, 4) }})</span
-                      >
-                    </div>
-                  </div>
-                </div>
-
-                <div class="flex flex-col space-y-4">
-                  <div class="text-left space-y-4 flex flex-row items-center">
-                    <div class="flex flex-row space-x-3">
-                      <span class="badge badge-sm badge-primary">{{
-                        show.details.status
-                      }}</span>
-                      <div
-                        class="flex flex-row items-center justify-center space-x-1 p-2 rounded-lg"
-                      >
-                        <Icon
-                          icon="streamline:interface-favorite-heart-reward-social-rating-media-heart-it-like-favorite-love"
-                          width="20"
-                          height="20"
-                        />
-
-                        <span class="text-content1">{{
-                          show.details.vote_average.toFixed(2)
-                        }}</span>
-                      </div>
-
-                      <AddToList
-                        :id="show.details.id"
-                        :poster="show.details.poster"
-                        :title_tv="show.details.original_name"
-                        :media_type="show.details.media_type"
-                        :overview="show.details.overview"
-                      />
-                    </div>
-                  </div>
-                  <div class="text-left text-md text-content2">
-                    {{ show.details?.overview }}
-                  </div>
-                </div>
-
-                <div class="w-full">
-                  <div class="grid grid-cols-2 w-fit">
-                    <div
-                      class="flex flex-col text-left space-y-2 text-content1"
-                    >
-                      <div class="text-bold">Release Date</div>
-                      <div class="text-bold">Language(s)</div>
-                      <div class="text-bold">Last Air Date</div>
-                      <div class="text-bold">Networks</div>
-                      <div class="text-bold">Season(s)</div>
-                      <div class="text-bold">Total Episodes</div>
-                      <div class="text-bold">Genre(s)</div>
-                    </div>
-
-                    <div
-                      class="flex flex-col text-left space-y-2 text-content2"
-                    >
-                      <div class="">{{ show.details.first_air_date }}</div>
-                      <div class="flex flex-wrap gap-1">
-                        <div
-                          v-for="item in show.details.languages"
-                          class="flex flex-wrap badge w-fit uppercase"
-                        >
-                          {{ item }}
-                        </div>
-                      </div>
-                      <div class="text-bold">
-                        {{ show.details.last_air_date }}
-                      </div>
-                      <div class="flex flex-wrap gap-1">
-                        <div
-                          v-for="item in show.details.networks"
-                          class="flex flex-wrap badge badge-secondary w-fit uppercase"
-                        >
-                          {{ item.name }}
-                        </div>
-                      </div>
-                      <div class="">{{ show.details.number_of_seasons }}</div>
-                      <div class="">{{ show.details.number_of_episodes }}</div>
-                      <div class="flex flex-wrap gap-1">
-                        <div
-                          v-for="item in show.details.genres"
-                          class="flex flex-wrap badge badge-primary w-fit"
-                        >
-                          {{ item.name }}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="flex flex-row overflow-auto space-x-2 scrollbar-hide">
-              <div
-                @click="updateSelectedOption('recommendations')"
-                class="btn"
-                :class="
-                  SelectedOption == 'recommendations'
-                    ? 'btn-primary'
-                    : 'btn-outline-primary'
-                "
-              >
-                Recommendations
-              </div>
-
-              <div
-                @click="updateSelectedOption('seasons')"
-                class="btn"
-                :class="
-                  SelectedOption == 'seasons'
-                    ? 'btn-primary'
-                    : 'btn-outline-primary'
-                "
-              >
-                Seasons
-              </div>
-              <div
-                @click="updateSelectedOption('reviews')"
-                class="btn"
-                :class="
-                  SelectedOption == 'reviews'
-                    ? 'btn-primary'
-                    : 'btn-outline-primary'
-                "
-              >
-                Reviews
-              </div>
-              <div
-                @click="updateSelectedOption('videos')"
-                class="btn"
-                :class="
-                  SelectedOption == 'videos'
-                    ? 'btn-primary'
-                    : 'btn-outline-primary'
-                "
-              >
-                Videos
-              </div>
-            </div>
-
-            <Recommendations v-if="SelectedOption == 'recommendations'" />
-            <Reviews v-if="SelectedOption == 'reviews'" />
-            <Seasons v-if="SelectedOption == 'seasons'" />
-            <Videos v-if="SelectedOption == 'videos'" />
+              {{ genre.name }}
+            </span>
           </div>
         </div>
       </div>
+
+      <!-- INFO -->
+      <div class="w-full bg-base-300 rounded p-2 space-y-4">
+        <div class="flex flex-row space-x-4">
+          <TVTrailer />
+          <AddToList />
+        </div>
+
+        <div
+          class="overflow-auto w-full flex flex-row items-center space-x-2 text-sm"
+        >
+          <div class="flex flex-row space-x-2">
+            <div
+              v-for="network in show.results.details.networks"
+              class="badge badge-primary badge-outline"
+            >
+              {{ network.name }}
+            </div>
+          </div>
+          <div class="w-1 h-1 bg-neutral rounded-full"></div>
+          <div class="flex flex-row items-center space-x-1">
+            <HeartIcon class="h-5 w-5 text-error" />
+
+            <div>{{ show.results.details.vote_average }}</div>
+          </div>
+        </div>
+
+        <div class="text-left text-sm md:text-md w-full md:w-1/2">
+          {{ show.results.details.overview }}
+        </div>
+      </div>
     </div>
+
+    <div
+      class="flex flex-row w-full cursor-pointer overflow-auto scrollbar-hide py-4"
+    >
+      <div
+        class="border-b-2 px-4"
+        :class="
+          SelectedOption == 'recommendations'
+            ? ' border-primary text-primary  '
+            : 'text-base-content'
+        "
+        @click="updateSelectedOption('recommendations')"
+      >
+        Recommendations
+      </div>
+      <div
+        class="border-b-2 px-4"
+        :class="
+          SelectedOption == 'reviews'
+            ? ' border-primary text-primary  '
+            : 'text-base-content'
+        "
+        @click="updateSelectedOption('reviews')"
+      >
+        Reviews
+      </div>
+      <div
+        class="border-b-2 px-4"
+        :class="
+          SelectedOption == 'about'
+            ? ' border-primary text-primary  '
+            : 'text-base-content'
+        "
+        @click="updateSelectedOption('about')"
+      >
+        About
+      </div>
+    </div>
+
+    <div v-if="SelectedOption == 'recommendations'" class="">
+      <Recommendations />
+    </div>
+
+    <div v-if="SelectedOption == 'about'" class="">
+      <TVCast />
+    </div>
+
+    <div v-if="SelectedOption == 'reviews'" class=""><TVReviews /></div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
 import { useRoute } from "vue-router";
+import { ref } from "vue";
 import { useTVStore } from "@/store/tv";
 import Loading from "@/components/Loading.vue";
 import { storeToRefs } from "pinia";
-
-import Reviews from "./Reviews.vue";
-import Seasons from "./Seasons.vue";
-import Videos from "./Videos.vue";
+import HeartIcon from "@/assets/icons/HeartIcon.vue";
 import Recommendations from "./Recommendations.vue";
+import TVCast from "./TVCast.vue";
+import TVReviews from "./TVReviews.vue";
+import TVTrailer from "./TVTrailer.vue";
 
 import AddToList from "@/components/Actions/AddToList.vue";
 import MobileReturn from "@/components/Actions/MobileReturn.vue";
-import TVTrailer from "./TVTrailer.vue";
+
+const tvStore = useTVStore();
+const { show } = storeToRefs(tvStore);
 
 // Select different options to show
 const SelectedOption = ref("recommendations");
@@ -236,12 +161,9 @@ const updateSelectedOption = (newOption) => {
   SelectedOption.value = newOption;
 };
 
-const tvStore = useTVStore();
-const { show } = storeToRefs(tvStore);
-
 const route = useRoute();
-const id = route.params.id;
+const id = route.params.id; // read show id from router
 
-// Get TV show details
+// Get tv details
 tvStore.getTVDetails(id);
 </script>

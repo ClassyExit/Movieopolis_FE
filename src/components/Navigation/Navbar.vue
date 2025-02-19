@@ -1,31 +1,73 @@
 <template>
-  <nav
-    class="w-screen p-4 md:px-16 md:py-2 bg-backgroundPrimary border-b border-border"
-  >
-    <div class="flex justify-between items-center">
-      <!-- Web Navigation Links -->
-      <div class="hidden md:flex">
-        <slot name="web-left"> </slot>
-      </div>
+  <div class="drawer">
+    <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
+    <div class="drawer-content flex flex-col">
+      <!-- Navbar -->
+      <div
+        class="navbar w-full flex items-center bg-base-300 rounded-b-xl px-2 md:px-4"
+      >
+        <!-- Mobile sidebar -->
+        <div class="flex md:hidden">
+          <label
+            for="my-drawer-3"
+            aria-label="open sidebar"
+            class="btn btn-square btn-ghost"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              class="inline-block h-6 w-6 stroke-current"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </label>
+        </div>
 
-      <div class="hidden md:flex">
-        <slot name="web-center"></slot>
-      </div>
+        <!-- Logo -->
+        <router-link
+          :to="{ name: 'Home' }"
+          class="hidden md:flex flex-row space-x-2"
+        >
+          <img class="h-8 w-8" src="../../assets/logo.png" />
+          <div class="">Movieopolis</div>
+        </router-link>
 
-      <div class="hidden md:flex">
-        <slot name="web-right"></slot>
-      </div>
+        <!-- Navigation -->
+        <div
+          class="flex-1 flex-row items-center justify-end md:justify-between space-x-4"
+        >
+          <div class="hidden md:flex pl-8"><Links /></div>
 
-      <!-- Mobile View -->
-      <div class="md:hidden flex flex-row justify-between items-center w-full">
-        <slot name="mobile-drop"></slot>
-
-        <slot name="mobile-right" class="flex flex-row items-center"> </slot>
+          <WebNav />
+        </div>
       </div>
     </div>
-  </nav>
+
+    <div class="drawer-side z-50">
+      <label
+        for="my-drawer-3"
+        aria-label="close sidebar"
+        class="drawer-overlay"
+      ></label>
+      <div class="menu bg-base-200 min-h-full w-80 p-4">
+        <!-- Sidebar content here -->
+        <MobileNav />
+      </div>
+    </div>
+  </div>
 </template>
 
-<script setup></script>
+<script setup>
+import Theme from "../Theme/Theme.vue";
+import MobileNav from "./MobileNav.vue";
+import WebNav from "./WebNav.vue";
+import Links from "./Links.vue";
+</script>
 
 <style scoped></style>

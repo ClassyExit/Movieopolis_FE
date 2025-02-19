@@ -4,10 +4,8 @@ import { useAPIStore } from "./API";
 export const useHomeStore = defineStore("Home", {
   state: () => ({
     isLoading: {
-      popularMovies: false,
-      popularTVShows: false,
-      upcomingMovies: false,
       trending: false,
+      home: false,
     },
 
     movies: {
@@ -15,46 +13,29 @@ export const useHomeStore = defineStore("Home", {
       popularTVShows: [],
       upcoming: [],
       trending: [],
+      topRated: [],
     },
   }),
   actions: {
-    async getPopularMoviesHome(page) {
+    async getHomeData() {
       /*
-              Get the popular movies to display
+              Get the popular movies and shows to display
       
               NOTE: Only for the homepage -> limit the amount to show 
               and use movies page to show more
             */
-      this.isLoading.popularMovies = true;
-      const movies = await useAPIStore().getPopularMoviesAPI((page = page));
+      this.isLoading.home = true;
+      const movies = await useAPIStore().getPopularMoviesAPI();
+      const TVShows = await useAPIStore().getPopularTVShowsAPI();
+      const upcomingMovies = await useAPIStore().getUpcomingMoviesAPI();
+      const topRated = await useAPIStore().getTopRatedAPI();
+
       this.movies.popularMovies = movies;
+      this.movies.popularTVShows = TVShows;
+      this.movies.upcoming = upcomingMovies;
+      this.movies.topRated = topRated;
 
-      this.isLoading.popularMovies = false;
-    },
-
-    async getUpcomingMovies(page) {
-      /* Get the upcoming movies for the home screen */
-
-      this.isLoading.upcomingMovies = true;
-
-      const upcoming = await useAPIStore().getUpcomingMoviesAPI((page = page));
-      this.movies.upcoming = upcoming;
-
-      this.isLoading.upcomingMovies = false;
-    },
-
-    async getPopularTVHome(page) {
-      /* 
-            Retrieve the popular tv shows to display on home screen
-        */
-
-      this.isLoading.popularTVShows = true;
-      const popularTVShows = await useAPIStore().getPopularTVShowsAPI(
-        (page = page)
-      );
-      this.movies.popularTVShows = popularTVShows;
-
-      this.isLoading.popularTVShows = false;
+      this.isLoading.home = false;
     },
 
     async getTrendingContent(media_type, time_window) {

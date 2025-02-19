@@ -1,16 +1,34 @@
 import { defineStore } from "pinia";
 
 export const useAPIStore = defineStore("API", {
-  state: () => ({
-    APIStatus: {
-      results: [],
-      lastUpdated: "",
-      isLoading: false,
-    },
-  }),
+  state: () => ({}),
   getters: {},
   persist: true,
   actions: {
+    async fetchAPI(urls, request_options, retries = 2) {
+      // URLS - LIST OF URLS TO REQUEST FROM
+      // REQUEST_OPTIONS: HEADERS, BODY, METHODS
+
+      for (let url of urls) {
+        for (let attempt = 0; attempt <= retries; attempt++) {
+          try {
+            const response = await fetch(url, request_options);
+            if (response.ok) {
+              return await response.json();
+            } else {
+              console.error(`Fetch error: ${response.status} on ${url}`);
+            }
+          } catch (error) {
+            console.error(
+              `Fetch failed for URL: ${url} (Attempt: ${attempt + 1})`,
+              error
+            );
+          }
+        }
+      }
+      throw new Error("All fetch attempts failed.");
+    },
+
     async getTrendingAPI(media_type = "all", time_window = "day") {
       /*
       Retrieves the trending content for the specified parameters
@@ -20,245 +38,181 @@ export const useAPIStore = defineStore("API", {
       time_window: day | week
       */
 
+      const urls = [
+        `https://tmdb-backend.herokuapp.com/api/trending?media_type=${media_type}&time_window=${time_window}`,
+        `https://tmdb-backend.autoidleapp.com/api/trending?media_type=${media_type}&time_window=${time_window}`,
+      ];
+
       try {
-        const response = await fetch(
-          `https://tmdb-backend.herokuapp.com/api/trending?media_type=${media_type}&time_window=${time_window}`
-        );
-        return response.json();
-      } catch {
-        // Server is idling, fallback to second URL
-        const response = await fetch(
-          `https://tmdb-backend.autoidleapp.com/api/trending?media_type=${media_type}&time_window=${time_window}`
-        );
-        return response.json();
+        const data = await this.fetchAPI(urls);
+        return data;
+      } catch (error) {
+        console.error("Failed to get content:", error);
+        return null; // Return null for now, handle error later
       }
-    },
-
-    async getMovieCreditsAPI(movie_id) {
-      if (!movie_id) return;
-
-      const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/movie/credits?movie_id=${movie_id}`
-      );
-      return response.json();
-    },
-
-    async getMovieRecommendationsAPI(movie_id) {
-      if (!movie_id) return;
-
-      const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/movie/recommendations?movie_id=${movie_id}`
-      );
-      return response.json();
     },
 
     async getMovieDetailsAPI(movie_id) {
       if (!movie_id) return;
 
-      const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/movie/details?movie_id=${movie_id}`
-      );
-      return response.json();
+      const urls = [
+        `https://tmdb-backend.herokuapp.com/api/movie/details?movie_id=${movie_id}`,
+        `https://tmdb-backend.autoidleapp.com/api/movie/details?movie_id=${movie_id}`,
+      ];
+
+      try {
+        const data = await this.fetchAPI(urls);
+        return data;
+      } catch (error) {
+        console.error("Failed to get content:", error);
+        return null;
+      }
     },
 
     async getPopularMoviesAPI(page = 1) {
+      const urls = [
+        `https://tmdb-backend.herokuapp.com/api/movie/popular`,
+        `https://tmdb-backend.autoidleapp.com/api/movie/popular`,
+      ];
+
       try {
-        const response = await fetch(
-          `https://tmdb-backend.herokuapp.com/api/movie/popular?page=${page}`
-        );
-        return await response.json();
-      } catch {
-        const response = await fetch(
-          `https://tmdb-backend.autoidleapp.com/api/movie/popular?page=${page}`
-        );
-        return response.json();
+        const data = await this.fetchAPI(urls);
+        return data;
+      } catch (error) {
+        console.error("Failed to get content:", error);
+        return null;
       }
     },
 
     async getUpcomingMoviesAPI(page = 1) {
+      const urls = [
+        `https://tmdb-backend.herokuapp.com/api/upcoming`,
+        `https://tmdb-backend.autoidleapp.com/api/upcoming`,
+      ];
+
       try {
-        const response = await fetch(
-          `https://tmdb-backend.herokuapp.com/api/movie/upcoming?page=${page}`
-        );
-        return response.json();
-      } catch {
-        const response = await fetch(
-          `https://tmdb-backend.autoidleapp.com/api/movie/upcoming?page=${page}`
-        );
-        return response.json();
+        const data = await this.fetchAPI(urls);
+        return data;
+      } catch (error) {
+        console.error("Failed to get content:", error);
+        return null; // Return null for now, handle error later
       }
     },
 
-    async getLatestMovieAPI() {
-      try {
-        const response = await fetch(
-          `https://tmdb-backend.herokuapp.com/api/movie/latest`
-        );
-        return response.json();
-      } catch {
-        const response = await fetch(
-          `https://tmdb-backend.autoidleapp.com/api/movie/latest`
-        );
-        return response.json();
-      }
-    },
+    async getTopRatedAPI() {
+      const urls = [
+        `https://tmdb-backend.herokuapp.com/api/top-rated`,
+        `https://tmdb-backend.autoidleapp.com/api/top-rated`,
+      ];
 
-    async getTopRatedMoviesAPI(page = 1) {
       try {
-        const response = await fetch(
-          `https://tmdb-backend.herokuapp.com/api/movie/toprated?page=${page}`
-        );
-        return response.json();
-      } catch {
-        const response = await fetch(
-          `https://tmdb-backend.autoidleapp.com/api/movie/toprated?page=${page}`
-        );
-        return response.json();
-      }
-    },
-
-    async getTopRatedTVAPI(page = 1) {
-      try {
-        const response = await fetch(
-          `https://tmdb-backend.herokuapp.com/api/tv/toprated?page=${page}`
-        );
-        return response.json();
-      } catch {
-        const response = await fetch(
-          `https://tmdb-backend.autoidleapp.com/api/tv/toprated?page=${page}`
-        );
-        return response.json();
-      }
-    },
-
-    async getNowPlayingMoviesAPI(page) {
-      try {
-        const response = await fetch(
-          `https://tmdb-backend.herokuapp.com/api/movie/nowplaying?page=${page}`
-        );
-        return response.json();
-      } catch {
-        const response = await fetch(
-          `https://tmdb-backend.autoidleapp.com/api/movie/nowplaying?page=${page}`
-        );
-        return response.json();
+        const data = await this.fetchAPI(urls);
+        return data;
+      } catch (error) {
+        console.error("Failed to get content:", error);
+        return null;
       }
     },
 
     async getPopularTVShowsAPI(page = 1) {
+      const urls = [
+        `https://tmdb-backend.herokuapp.com/api/tv/popular?page=${page}`,
+        `https://tmdb-backend.autoidleapp.com/api/tv/popular?page=${page}`,
+      ];
+
       try {
-        const response = await fetch(
-          `https://tmdb-backend.herokuapp.com/api/tv/popular?page=${page}`
-        );
-        return response.json();
-      } catch {
-        const response = await fetch(
-          `https://tmdb-backend.autoidleapp.com/api/tv/popular?page=${page}`
-        );
-        return response.json();
+        const data = await this.fetchAPI(urls);
+        return data;
+      } catch (error) {
+        console.error("Failed to get content:", error);
+        return null;
       }
     },
 
     async getTVDetailsAPI(tv_id) {
       if (!tv_id) return;
 
-      const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/tv/details?tv_id=${tv_id}`
-      );
-      return response.json();
-    },
+      const urls = [
+        `https://tmdb-backend.herokuapp.com/api/tv/details?tv_id=${tv_id}`,
+        `https://tmdb-backend.autoidleapp.com/api/tv/details?tv_id=${tv_id}`,
+      ];
 
-    async getTVRecommendationsAPI(tv_id) {
-      if (!tv_id) return;
-
-      const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/tv/recommendations?tv_id=${tv_id}`
-      );
-      return response.json();
-    },
-
-    async getTVCredits(tv_id) {
-      if (!tv_id) return;
-
-      const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/tv/credits?tv_id=${tv_id}`
-      );
-      return response.json();
+      try {
+        const data = await this.fetchAPI(urls);
+        return data;
+      } catch (error) {
+        console.error("Failed to get content:", error);
+        return null;
+      }
     },
 
     async getTVSeasonDetails(tv_id, season_number) {
+      if (!tv_id) return;
+
+      const urls = [
+        `https://tmdb-backend.herokuapp.com/api/tv/season/details?tv_id=${tv_id}&season_number=${season_number}`,
+        `https://tmdb-backend.autoidleapp.com/api/tv/season/details?tv_id=${tv_id}&season_number=${season_number}`,
+      ];
+
+      try {
+        const data = await this.fetchAPI(urls);
+        return data;
+      } catch (error) {
+        console.error("Failed to get content:", error);
+        return null;
+      }
+    },
+
+    async getGenres() {
       const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/tv/season/details?tv_id=${tv_id}&season_number=${season_number}`
+        `https://tmdb-backend.herokuapp.com/api/genres`
       );
       return response.json();
     },
 
-    async getMovieGenres() {
-      const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/movie/genre`
-      );
-      return response.json();
-    },
-
-    async getTVGenres() {
-      const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/tv/genre`
-      );
-      return response.json();
-    },
-
-    async getMovieDiscover(
-      sort_by,
-      page,
-      vote_average,
-      vote_sort,
-      with_genres
-    ) {
-      const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/discover/movie?sort_by=${sort_by}&page=${page}&vote_average=${vote_average}&vote_sort=${vote_sort}&with_genres=${with_genres}`
-      );
-
-      return response.json();
-    },
-
-    async getTVDiscover(
-      sort_by,
-      page,
-      vote_average,
+    async getDiscover(
+      type = "movie",
+      include_adult = false,
+      language = "en-US",
+      sort_by = "popularity",
+      page = 1,
+      vote_average = 5,
       vote_sort = "gte",
       with_genres
     ) {
-      const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/discover/tv?sort_by=${sort_by}&page=${page}&vote_average=${vote_average}&vote_sort=${vote_sort}&with_genres=${with_genres}`
-      );
+      if (!["movie", "tv"].includes(type)) return;
 
-      return response.json();
+      const urls = [
+        `https://tmdb-backend.herokuapp.com/api/discover/${type}?sort_by=${sort_by}&page=${page}&vote_average=${vote_average}&vote_sort=${vote_sort}&with_genres=${with_genres}&include_adult=${include_adult}&language=${language}`,
+        `https://tmdb-backend.autoidleapp.com/api/discover/${type}?sort_by=${sort_by}&page=${page}&vote_average=${vote_average}&vote_sort=${vote_sort}&with_genres=${with_genres}&include_adult=${include_adult}&language=${language}`,
+      ];
+
+      try {
+        const data = await this.fetchAPI(urls);
+        return data;
+      } catch (error) {
+        console.error("Failed to get content:", error);
+        return null;
+      }
     },
 
-    async getSearchResults(query, type, page = 1) {
-      // Type : multi | movie | tv
+    async getSearchResults(query, page = 1) {
+      // Get search results based on query
 
-      const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/search/${type}?query=${query}&page=${page}`
-      );
+      if (!query) return;
 
-      return response.json();
-    },
+      const urls = [
+        `https://tmdb-backend.herokuapp.com/api/search?query=${query}&page=${page}`,
+        `https://tmdb-backend.autoidleapp.com/api/search?query=${query}&page=${page}`,
+      ];
 
-    async getMovieVideos(movie_id) {
-      const response = await fetch(
-        `https://tmdb-backend.autoidleapp.com/api/movie/videos?movie_id=${movie_id}`
-      );
-
-      return response.json();
-    },
-
-    async getTVVideos(tv_id) {
-      const response = await fetch(
-        `https://tmdb-backend.autoidleapp.com/api/tv/videos?tv_id=${tv_id}`
-      );
-
-      return response.json();
+      try {
+        const data = await this.fetchAPI(urls);
+        return data;
+      } catch (error) {
+        console.error("Failed to get search:", error);
+        return null;
+      }
     },
 
     async getReviews(type, id) {
@@ -267,41 +221,51 @@ export const useAPIStore = defineStore("API", {
 
       if (!id) return;
 
-      const response = await fetch(
-        `https://tmdb-backend.autoidleapp.com/api/${type}/review?tv_id=${id}&movie_id=${id}`
-      );
+      const urls = [
+        `https://tmdb-backend.herokuapp.com/api/${type}/review?tv_id=${id}&movie_id=${id}`,
+        `https://tmdb-backend.autoidleapp.com/api/${type}/review?tv_id=${id}&movie_id=${id}`,
+      ];
 
-      return response.json();
+      try {
+        const data = await this.fetchAPI(urls);
+        return data;
+      } catch (error) {
+        console.error("Failed to get content:", error);
+        return null;
+      }
     },
 
-    async getCollections(id) {
+    async getCollectionsAPI(id) {
       // Gather collections for a tv/movie show
 
       if (!id) return;
 
-      const response = await fetch(
-        `https://tmdb-backend.autoidleapp.com/api/search/collections?id=${id}`
-      );
-
-      return response.json();
-    },
-
-    async getAPIStatus() {
-      this.APIStatus.isLoading = true;
+      const urls = [
+        `https://tmdb-backend.herokuapp.com/api/collections?collection_id=${id}`,
+        `https://tmdb-backend.autoidleapp.com/api/collections?collection_id=${id}`,
+      ];
 
       try {
-        const response = await fetch(
-          `https://tmdb-backend.autoidleapp.com/api/health`
-        );
-
-        this.APIStatus.results = await response
-          .json()
-          .then((this.APIStatus.lastUpdated = new Date().toLocaleString()));
+        const data = await this.fetchAPI(urls);
+        return data;
       } catch (error) {
-        this.APIStatus.results = { name: "API is down", status_code: "error" };
+        console.error("Failed to get content:", error);
+        return null;
       }
+    },
 
-      this.APIStatus.isLoading = false;
+    async getDiscoverTrailers() {
+      const urls = [
+        `https://tmdb-backend.herokuapp.com/api/discover/trailer`,
+        `https://tmdb-backend.autoidleapp.com/api/discover/trailer`,
+      ];
+
+      try {
+        const data = await this.fetchAPI(urls);
+        return data;
+      } catch (error) {
+        console.error("Failed to get content:", error);
+      }
     },
   },
 });

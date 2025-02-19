@@ -14,6 +14,8 @@ import {
   deleteUser,
   signInWithPopup,
   GoogleAuthProvider,
+  getAdditionalUserInfo,
+  reload,
 } from "firebase/auth";
 
 import { resetStore } from "./resetStore";
@@ -41,14 +43,50 @@ export const useUserStore = defineStore("user", {
         await signInWithEmailAndPassword(auth, user.email, user.password);
       } catch (err) {
         status.success = false;
+        status.message = "Invalid email or password";
         return status;
       }
 
       this.user = auth.currentUser;
       router.push({ name: "Home" });
+    },
 
-      status.success = true;
-      return status;
+    async manageUserWithDB(request_options) {
+      /*
+      manage a new user with the database passing in their UID from firebase
+      method:
+      POST: Create a new user
+      DELETE: Delete a user
+      headers: { "Content-Type": "application/json", uid: uid }
+      */
+
+      try {
+        const response = await fetch(
+          `https://tmdb-backend.herokuapp.com/api/user`,
+          request_options
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch from primary URL");
+        }
+        return await response.json();
+      } catch (error) {
+        console.error("Primary request failed:", error);
+
+        // Server is idling, fallback to second URL
+        try {
+          const response = await fetch(
+            `https://tmdb-backend.autoidleapp.com/api/user`,
+            request_options
+          );
+          if (!response.ok) {
+            throw new Error("Failed to fetch from fallback URL");
+          }
+          return await response.json();
+        } catch (error) {
+          console.error("Fallback request failed:", error);
+          throw error;
+        }
+      }
     },
 
     async googleSignIn() {
@@ -56,9 +94,22 @@ export const useUserStore = defineStore("user", {
 
       return signInWithPopup(auth, provider)
         .then((res) => {
+          // Check if the user is signing up for the first time
+          const { isNewUser } = getAdditionalUserInfo(res);
+
+          if (isNewUser) {
+            // Register user with database
+            const request_options = {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                uid: res.user.uid,
+              },
+            };
+            this.manageUserWithDB(request_options);
+          }
           // User signed in
           this.user = res.user;
-
           router.push({ name: "Home" });
         })
         .catch((err) => {
@@ -75,7 +126,21 @@ export const useUserStore = defineStore("user", {
       };
 
       try {
-        await createUserWithEmailAndPassword(auth, user.email, user.password);
+        await createUserWithEmailAndPassword(
+          auth,
+          user.email,
+          user.password
+        ).then((res) => {
+          // Register user with database
+          const request_options = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              uid: res.user.uid,
+            },
+          };
+          this.manageUserWithDB(request_options);
+        });
       } catch (error) {
         switch (error.code) {
           case "auth/email-already-in-use":
@@ -91,20 +156,17 @@ export const useUserStore = defineStore("user", {
       }
 
       this.user = auth.currentUser;
-      status.success = true;
-
       router.push({ name: "Home" });
-
-      return status;
     },
 
     async logout() {
       /* Sign a user out and reset all stores */
       await signOut(auth);
 
+      // Wipe all store data
       resetStore();
 
-      router.push({ name: "Login" });
+      router.push({ name: "Home" });
     },
 
     async resetPassword(user) {
@@ -120,7 +182,7 @@ export const useUserStore = defineStore("user", {
           // Password reset email sent!
           status.success = true;
           status.message =
-            "Success! We have sent an email with instructions on resetting your password to your email.";
+            "We have sent an email with instructions on resetting your password";
         })
         .catch((error) => {
           switch (error.code) {
@@ -136,8 +198,6 @@ export const useUserStore = defineStore("user", {
           }
           return status;
         });
-
-      return status;
     },
 
     async initializeAuth() {
@@ -148,7 +208,6 @@ export const useUserStore = defineStore("user", {
       onAuthStateChanged(auth, (user) => {
         if (user) {
           this.user = auth.currentUser;
-
           // Check to see if user is on auth pages
           if (
             router.currentRoute.value.fullPath === ("/login" || "/register")
@@ -158,7 +217,6 @@ export const useUserStore = defineStore("user", {
         } else {
           resetStore();
         }
-
         this.isLoading = false;
       });
     },
@@ -189,7 +247,7 @@ export const useUserStore = defineStore("user", {
               .catch((error) => {
                 this.updatePasswordResults.result = "error";
                 this.updatePasswordResults.message =
-                  "Uh-oh, something went wrong here. Please try again";
+                  "Something went wrong. Please try again";
               });
           })
           .catch((error) => {
@@ -202,76 +260,86 @@ export const useUserStore = defineStore("user", {
               default:
                 this.updatePasswordResults.result = "error";
                 this.updatePasswordResults.message =
-                  "Uh-oh, something went wrong. Please try again";
-
+                  "Something went wrong. Please try again";
                 break;
             }
           });
       } catch (error) {
         this.updatePasswordResults.result = "error";
         this.updatePasswordResults.message =
-          "Uh-oh, something went wrong here. Please try again";
+          "Something went wrong. Please try again";
       }
     },
 
     async deleteUserAccount(currentPassword) {
-      /* DELETE A USERS ACCOUNT */
-
       const auth = getAuth();
       const user = auth.currentUser;
 
       this.deleteAccountResults = { result: "", message: "" };
 
+      if (!user) {
+        this.deleteAccountResults.result = "error";
+        this.deleteAccountResults.message = "No user is currently signed in.";
+        return;
+      }
+
       try {
+        // Reauthenticate user
         const credential = EmailAuthProvider.credential(
           user.email,
           currentPassword
         );
+        await reauthenticateWithCredential(user, credential);
 
-        reauthenticateWithCredential(user, credential)
-          .then(() => {
-            deleteUser(user)
-              .then(() => {
-                //User Deleted
-                resetStore();
-                alert("Account Deleted Successfully");
-                // Push to homepage
-                router.push({ name: "Home" });
-              })
-              .catch((error) => {
-                //Error
-                this.deleteAccountResults.result = "error";
-                this.deleteAccountResults.message =
-                  "Uh-oh, something went wrong. Please try again";
-              });
-          })
-          .catch((error) => {
-            //Error
+        // Delete user
+        await deleteUser(user);
 
-            switch (error.code) {
-              case "auth/wrong-password":
-                this.deleteAccountResults.result = "error";
-                this.deleteAccountResults.message =
-                  "Incorrect Current Password";
-                break;
-              case "auth/too-many-requests":
-                this.deleteAccountResults.result = "error";
-                this.deleteAccountResults.message =
-                  "Uh-oh, too many requests. Try again in a few seconds";
-                break;
-              default:
-                this.deleteAccountResults.result = "error";
-                this.deleteAccountResults.message =
-                  "Uh-oh, something went wrong. Please try again";
-                break;
-            }
-          });
+        // Remove user from database
+
+        const request_options = {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            uid: user.uid,
+          },
+        };
+        this.manageUserWithDB(request_options);
+
+        // Reset store data
+        resetStore();
+
+        // Show success message
+        alert("Account Deleted Successfully");
+
+        // Redirect to homepage
+        router.push({ name: "Home" });
       } catch (error) {
-        //error
-
-        this.deleteAccountResults.result = "error";
-        this.deleteAccountResults.message =
-          "Uh-oh, something went wrong. Please try again";
+        switch (error.code) {
+          case "auth/wrong-password":
+            this.deleteAccountResults.result = "error";
+            this.deleteAccountResults.message = "Incorrect Current Password";
+            break;
+          case "auth/too-many-requests":
+            this.deleteAccountResults.result = "error";
+            this.deleteAccountResults.message =
+              "Uh-oh, too many requests. Try again in a few seconds";
+            break;
+          case "auth/requires-recent-login":
+            this.deleteAccountResults.result = "error";
+            this.deleteAccountResults.message =
+              "Please log in again before deleting your account.";
+            break;
+          case "auth/missing-password":
+            this.deleteAccountResults.result = "error";
+            this.deleteAccountResults.message =
+              "Please input your current password";
+            break;
+          default:
+            this.deleteAccountResults.result = "error";
+            this.deleteAccountResults.message =
+              "Unable to delete account. Please try again";
+            break;
+        }
       }
     },
   },

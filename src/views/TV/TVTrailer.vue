@@ -1,18 +1,37 @@
 <template>
-  <div v-if="show.trailer.key" class="w-full aspect-auto">
-    <LiteYouTubeEmbed :id="`${show.trailer.key}`" :title="show.trailer.name" />
+  <div v-if="!isEmpty(show.trailer)">
+    <button class="btn btn-sm btn-secondary" onclick="show_trailer.showModal()">
+      Watch Trailer
+    </button>
+    <dialog id="show_trailer" class="modal modal-bottom sm:modal-middle">
+      <div class="modal-box">
+        <div>
+          <Video
+            :id="show.trailer.id"
+            :ytID="`${show.trailer.key}`"
+            :autoPlay="0"
+          ></Video>
+        </div>
+
+        <div class="modal-action">
+          <form method="dialog">
+            <!-- if there is a button in form, it will close the modal -->
+            <button class="btn">Close</button>
+          </form>
+        </div>
+      </div>
+    </dialog>
   </div>
 </template>
 
 <script setup>
-import LiteYouTubeEmbed from "vue-lite-youtube-embed";
-import "vue-lite-youtube-embed/style.css";
 import { useTVStore } from "@/store/tv";
 import { storeToRefs } from "pinia";
+import Video from "@/components/Video.vue";
 
-const tvStore = useTVStore();
+const { show } = storeToRefs(useTVStore());
 
-const { show } = storeToRefs(tvStore);
+function isEmpty(obj) {
+  return Object.keys(obj).length === 0;
+}
 </script>
-
-<style></style>

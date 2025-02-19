@@ -1,68 +1,3 @@
-const rippleUIconfig = {
-  themes: [
-    {
-      themeName: "light",
-      colorScheme: "light",
-      colors: {
-        primary: "#4A90E2",
-        primary2: "#3A7DD4",
-        primary3: "#2A6AC6",
-
-        secondary: "#7E5ACF",
-        secondary2: "#734ECC",
-        secondary3: "#6640C1",
-
-        accent: "#50C878",
-        accent2: "#48B66A",
-        accent3: "#3A9A58",
-
-        link: "#0074D9",
-
-        error: "#E74C3C",
-        success: "#27AE60",
-        warning: "#F39C12",
-
-        backgroundPrimary: "#FFFFFF",
-        content1: "#2C2C2C",
-        backgroundSecondary: "#F4F4F4",
-        content2: "#6B6B6B",
-        border: "#D9D9D9",
-        content3: "#A0A0A0",
-      },
-    },
-    {
-      themeName: "dark",
-      colorScheme: "dark",
-      colors: {
-        primary: "#4A90E2",
-        primary2: "#3A7DD4",
-        primary3: "#2A6AC6",
-
-        secondary: "#7E5ACF",
-        secondary2: "#734ECC",
-        secondary3: "#6640C1",
-
-        accent: "#50C878",
-        accent2: "#48B66A",
-        accent3: "#3A9A58",
-
-        link: "#409EFF",
-
-        error: "#E74C3C",
-        success: "#27AE60",
-        warning: "#F39C12",
-
-        backgroundPrimary: "#1C1C1C",
-        content1: "#F5F5F5",
-        backgroundSecondary: "#292929",
-        content2: "#CCCCCC",
-        border: "#4D4D4D",
-        content3: "#999999",
-      },
-    },
-  ],
-};
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./public/**/*.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
@@ -79,10 +14,67 @@ module.exports = {
     },
     extend: {},
   },
-  plugins: [
-    require("tailwind-scrollbar-hide"),
-    require("rippleui")({
-      ...rippleUIconfig,
-    }),
-  ],
+  plugins: [require("tailwind-scrollbar-hide"), require("daisyui")],
+  daisyui: {
+    themes: [
+      {
+        light: {
+          primary: "#4F46E5", // Indigo-600
+          "primary-focus": "#4338CA", // Indigo-700
+          "primary-content": "#ffffff",
+
+          secondary: "#22D3EE", // Cyan-400
+          "secondary-focus": "#06B6D4", // Cyan-500
+          "secondary-content": "#ffffff",
+
+          accent: "#F59E0B", // Amber-500
+          "accent-focus": "#D97706", // Amber-600
+          "accent-content": "#ffffff",
+
+          neutral: "#6B7280", // Gray-500
+          "neutral-focus": "#4B5563", // Gray-600
+          "neutral-content": "#ffffff",
+
+          "base-100": "#F9FAFB", // Gray-50
+          "base-200": "#E5E7EB", // Gray-200
+          "base-300": "#D1D5DB", // Gray-300
+          "base-content": "#111827", // Gray-900
+
+          info: "#3B82F6", // Blue-500
+          success: "#10B981", // Emerald-500
+          warning: "#F59E0B", // Amber-500
+          error: "#EF4444", // Red-500
+        },
+      },
+      {
+        dark: {
+          primary: "#6366F1", // Indigo-500
+          "primary-focus": "#4F46E5", // Indigo-600
+          "primary-content": "#ffffff",
+
+          secondary: "#22D3EE", // Cyan-400
+          "secondary-focus": "#06B6D4", // Cyan-500
+          "secondary-content": "#0F172A",
+
+          accent: "#FBBF24", // Amber-400
+          "accent-focus": "#F59E0B", // Amber-500
+          "accent-content": "#0F172A",
+
+          neutral: "#4B5563", // Gray-600
+          "neutral-focus": "#374151", // Gray-700
+          "neutral-content": "#F3F4F6", // Gray-100
+
+          "base-100": "#000000", // Pure Black
+          "base-200": "#0F0F0F", // Darker Shade
+          "base-300": "#1F1F1F", // Very Dark Gray
+          "base-content": "#E5E7EB", // Gray-200
+
+          info: "#60A5FA", // Blue-400
+          success: "#34D399", // Emerald-400
+          warning: "#FBBF24", // Amber-400
+          error: "#F87171", // Red-400
+        },
+      },
+    ],
+  },
 };
