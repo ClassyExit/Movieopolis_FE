@@ -2,21 +2,20 @@
   <div aria-label="recommendations" class="flex flex-col rounded-xl">
     <div class="overflow-auto h-fit">
       <div
-        v-if="movie.results.recommendations.results.length"
+        v-if="show.results.recommendations.results.length"
         class="w-full flex md:flex-wrap gap-2"
       >
         <Container
-          v-for="item in movie.results.recommendations.results"
+          v-for="item in show.results.recommendations.results"
           :key="item.id"
           :id="item.id"
           :poster="item.poster_path"
-          :title_movie="item.title"
-          :year_movie="item.release_date"
+          :title_tv="item.original_name"
+          :year_tv="item.first_air_date"
           :rating="item.vote_average"
-          :media_type="`movie`"
+          :media_type="`tv`"
           :type="item.media_type"
           :listView="false"
-          :overview="item.overview"
         >
         </Container>
       </div>
@@ -44,11 +43,11 @@
 </template>
 
 <script setup>
-import { useMovieStore } from "@/store/movies";
+import { useTVStore } from "@/store/tv";
 import { storeToRefs } from "pinia";
 import Container from "@/components/Containers/Container.vue";
 
-const movieStore = useMovieStore();
+const tvStore = useTVStore();
 
-const { movie } = storeToRefs(movieStore);
+const { show } = storeToRefs(tvStore);
 </script>
