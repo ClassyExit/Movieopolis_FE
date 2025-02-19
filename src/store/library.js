@@ -7,10 +7,8 @@ export const useLibraryStore = defineStore("Library", {
     library: [],
   }),
 
-  getters: {},
   actions: {
     async addToLibrary(data) {
-      // Add a item to users library
       /*
             item_id: Number
             title: String || null
@@ -19,7 +17,6 @@ export const useLibraryStore = defineStore("Library", {
             type: Movie | TV 
         */
 
-      // No user logged in
       if (!useUserStore().user) return;
 
       this.library.push(data);
@@ -51,20 +48,17 @@ export const useLibraryStore = defineStore("Library", {
       // Delete a item from users library
       /*
             item_id: Number
-        */
-      // No user logged in
+      */
+
       if (!useUserStore().user) return;
 
-      // Remove a item from  MyList
-      for (const item in this.library) {
-        if (this.library[item].item_id === id) {
-          this.library.splice(item, 1);
-        }
+      if (!Array.isArray(this.library)) {
+        this.library = [];
       }
 
-      const data = {
-        item_id: id,
-      };
+      // Find the index and remove the item safely
+      const index = this.library.findIndex((item) => item.item_id === id);
+      if (index !== -1) this.library.splice(index, 1);
 
       const request_options = {
         method: "DELETE",
@@ -72,7 +66,7 @@ export const useLibraryStore = defineStore("Library", {
           "Content-Type": "application/json",
           uid: useUserStore().user.uid,
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ item_id: id }),
       };
 
       const urls = [
@@ -81,19 +75,18 @@ export const useLibraryStore = defineStore("Library", {
       ];
 
       try {
-        const data = await useAPIStore().fetchAPI(urls, request_options);
-        return data;
+        const response = await useAPIStore().fetchAPI(urls, request_options);
+        return response;
       } catch (error) {
-        console.error("Failed to get content:", error);
+        console.error("Failed to remove content:", error);
         return null;
       }
     },
 
-    async getFromLibrary() {
-      // Retrieve user list data
+    async getLibrary() {
       if (!useUserStore().user) return;
 
-      this.library = [];
+      this.library = []; // Reset before fetching
 
       const request_options = {
         method: "GET",
@@ -109,11 +102,12 @@ export const useLibraryStore = defineStore("Library", {
       ];
 
       try {
-        const data = await useAPIStore().fetchAPI(urls, request_options);
-        this.library = data;
+        const data = await useAPIStore()
+          .fetchAPI(urls, request_options)
+          .then((response) => this.library.push(...response.results));
       } catch (error) {
         console.error("Failed to get content:", error);
-        return null;
+        this.library = []; // Ensure it remains an array
       }
     },
   },

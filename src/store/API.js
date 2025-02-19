@@ -206,14 +206,24 @@ export const useAPIStore = defineStore("API", {
       }
     },
 
-    async getSearchResults(query, type, page = 1) {
-      // Type : multi | movie | tv
+    // TEST
+    async getSearchResults(query, page = 1) {
+      // Get search results based on query
 
-      const response = await fetch(
-        `https://tmdb-backend.herokuapp.com/api/search/${type}?query=${query}&page=${page}`
-      );
+      if (!query) return;
 
-      return response.json();
+      const urls = [
+        `https://tmdb-backend.herokuapp.com/api/search?query=${query}&page=${page}`,
+        `https://tmdb-backend.autoidleapp.com/api/search?query=${query}&page=${page}`,
+      ];
+
+      try {
+        const data = await this.fetchAPI(urls);
+        return data;
+      } catch (error) {
+        console.error("Failed to get search:", error);
+        return null;
+      }
     },
 
     // DONE

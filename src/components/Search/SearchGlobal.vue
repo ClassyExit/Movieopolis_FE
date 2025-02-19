@@ -1,67 +1,73 @@
 <template>
-  <div>
-    <div class="btn btn-sm md:btn-md btn-ghost" @click="openModal = !openModal">
-      <span> <MagnifyingGlass /> </span>
-    </div>
+  <div class="">
+    <!-- Search Button -->
+    <button class="btn btn-ghost btn-sm" @click="openModal">
+      <div class="flex flex-row items-center space-x-2">
+        <MagnifyingGlass class="h-5 w-5" />
+        <span class="hidden md:block">Search...</span>
+      </div>
+    </button>
 
-    <input
-      class="modal-state"
-      id="modal-search"
-      type="checkbox"
-      v-model="openModal"
-    />
-
-    <div class="modal w-full">
-      <label class="modal-overlay" for="modal-search"></label>
-      <div
-        class="absolute top-2 modal-content flex flex-col gap-5 max-w-4xl w-full"
-      >
-        <div class="flex flex-row items-center w-full space-x-2">
-          <div class="w-full">
-            <input
-              class="focus:input-primary w-full p-2 rounded-md border border-primary"
-              type=""
-              placeholder="Search for movies, shows..."
-              v-model="searchQuery"
-              v-debounce:500ms="getResults"
+    <!-- Modal -->
+    <dialog ref="searchModal" class="modal modal-bottom sm:modal-middle z-50">
+      <div class="modal-box flex flex-col bg-base-200">
+        <!-- Search Input -->
+        <label class="input input-bordered flex items-center gap-2">
+          <input
+            type="text"
+            class="grow"
+            placeholder="Search"
+            v-model="searchQuery"
+            v-debounce:500ms="getSearch"
+          />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            class="h-4 w-4 opacity-70"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+              clip-rule="evenodd"
             />
-          </div>
-          <div @click="openModal = !openModal" class="btn btn-sm">X</div>
-        </div>
-        <div class="pb-2 border-b-2 border-border">
-          <div
-            v-if="search.recentSearches.length"
-            class="flex flex-row space-x-4 justify-between pb-1"
-          >
-            <span class="text-primary">Recent</span>
-            <div
-              @click="searchStore.clearRecentSearches"
-              class="btn btn-xs btn-outline-error"
-            >
-              Clear
-            </div>
-          </div>
-          <div class="space-y-2" v-for="search in search.recentSearches">
-            <span> {{ search }}</span>
-          </div>
-        </div>
+          </svg>
+        </label>
 
-        <div class="max-w-4xl">
-          <div
-            v-if="search.results.length"
-            class="flex flex-row space-x-4 pb-4 justify-between"
-          >
-            <span class="text-primary">Results</span>
-            <div
-              @click="searchStore.clearSearchResults"
-              class="btn btn-xs btn-outline-error"
-            >
-              Clear
+        <!-- Search Results -->
+        <div class="h-96">
+          <div class="flex flex-row justify-between py-4">
+            <div class="flex flex-row gap-4">
+              <div
+                @click="UpdateOption('movies')"
+                class="btn btn-sm"
+                :class="
+                  selectedOption == 'movies'
+                    ? 'btn-primary'
+                    : 'btn-outline btn-primary'
+                "
+              >
+                Movies
+              </div>
+              <div
+                @click="UpdateOption('shows')"
+                class="btn btn-sm"
+                :class="
+                  selectedOption == 'shows'
+                    ? 'btn-primary'
+                    : 'btn-outline btn-primary'
+                "
+              >
+                Shows
+              </div>
             </div>
+            <div @click="clearResults" class="btn btn-sm btn-error">Clear</div>
           </div>
+
+          <!-- Movies -->
           <div
-            v-if="search.results[0]?.movies"
-            class="flex gap-2 justify-center gap-4 md:gap-2 md:justify-start flex-wrap"
+            v-if="selectedOption == 'movies' && search.results[0]?.movies"
+            class="grid grid-cols-2 place-items-center h-80 overflow-auto"
           >
             <Container
               v-for="item in search.results[0].movies.results"
@@ -71,15 +77,15 @@
               :title_movie="item.title"
               :year_movie="item.release_date"
               :rating="item.vote_average"
-              :media_type="`movie`"
+              :media_type="'movie'"
               :overview="item.overview"
-            >
-            </Container>
+            />
           </div>
 
+          <!-- TV Shows -->
           <div
-            v-if="search.results[0]?.tv"
-            class="flex gap-2 justify-center gap-4 md:gap-2 md:justify-start flex-wrap"
+            v-if="selectedOption == 'shows' && search.results[0]?.tv"
+            class="grid grid-cols-2 place-items-center h-80 overflow-auto"
           >
             <Container
               v-for="item in search.results[0].tv.results"
@@ -89,33 +95,50 @@
               :title_tv="item.name"
               :year_tv="item.first_air_date"
               :rating="item.vote_average"
-              :media_type="`tv`"
+              :media_type="'tv'"
               :overview="item.overview"
-            >
-            </Container>
+            />
           </div>
         </div>
+
+        <!-- Modal Actions -->
+        <div class="modal-action">
+          <button @click="closeModal" class="btn">Close</button>
+        </div>
       </div>
-    </div>
+    </dialog>
   </div>
 </template>
 
 <script setup>
+import { ref } from "vue";
 import MagnifyingGlass from "@/assets/icons/MagnifyingGlass.vue";
 import { useSearchStore } from "@/store/search";
 import { storeToRefs } from "pinia";
-import { ref } from "vue";
 import Container from "../Containers/Container.vue";
 
 const searchStore = useSearchStore();
 const { search } = storeToRefs(searchStore);
 
-const openModal = ref(false);
 const searchQuery = ref("");
+const searchModal = ref(null);
+const selectedOption = ref("movies");
 
-const getResults = () => {
+const UpdateOption = (option) => {
+  selectedOption.value = option;
+};
+
+// Open and Close Modal
+const openModal = () => searchModal.value?.showModal();
+const closeModal = () => searchModal.value?.close();
+
+const getSearch = () => {
   searchStore.getSearch(searchQuery, "multi");
 };
-</script>
 
-<style></style>
+// Clear Search Results
+const clearResults = () => {
+  searchQuery.value = "";
+  searchStore.clearSearchResults();
+};
+</script>

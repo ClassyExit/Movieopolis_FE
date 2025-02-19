@@ -1,5 +1,8 @@
 <template>
-  <div class="flex flex-row justify-between items-center space-x-2">
+  <div
+    class="flex flex-row justify-between items-center space-x-1 md:space-x-2"
+  >
+    <SearchGlobal />
     <Theme />
 
     <div class="flex flex-row items-center space-x-4">
@@ -39,6 +42,7 @@
 
 <script setup>
 import Theme from "../Theme/Theme.vue";
+import SearchGlobal from "../Search/SearchGlobal.vue";
 
 import { useUserStore } from "@/store/user";
 import ProfilePic from "@/assets/icons/ProfilePic.vue";
