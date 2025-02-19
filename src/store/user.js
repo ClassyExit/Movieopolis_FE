@@ -293,10 +293,9 @@ export const useUserStore = defineStore("user", {
 
         // Delete user
         await deleteUser(user);
-        console.log("User deleted successfully");
 
         // Remove user from database
-        console.log(user.uid);
+
         const request_options = {
           method: "DELETE",
           headers: {
@@ -304,22 +303,17 @@ export const useUserStore = defineStore("user", {
             uid: user.uid,
           },
         };
-        await this.manageUserWithDB(request_options);
-        console.log("User deleted from database successfully");
+        this.manageUserWithDB(request_options);
+
         // Reset store data
         resetStore();
-        console.log("Store data reset successfully");
 
         // Show success message
         alert("Account Deleted Successfully");
-        console.log("Account Deleted Successfully");
 
         // Redirect to homepage
         router.push({ name: "Home" });
-        console.log("Redirected to homepage");
       } catch (error) {
-        console.error("Error deleting user:", error);
-
         switch (error.code) {
           case "auth/wrong-password":
             this.deleteAccountResults.result = "error";
