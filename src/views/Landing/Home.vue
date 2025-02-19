@@ -13,8 +13,6 @@ import Trending from "./Trending.vue";
 import Popular from "./Popular.vue";
 import TopRated from "./TopRated.vue";
 import Upcoming from "./Upcoming.vue";
-
-useHomeStore().getHomeData();
 </script>
 
 <style scoped></style>

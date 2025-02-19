@@ -15,9 +15,9 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   getAdditionalUserInfo,
+  reload,
 } from "firebase/auth";
 
-import { useAPIStore } from "./API";
 import { resetStore } from "./resetStore";
 
 export const useUserStore = defineStore("user", {
