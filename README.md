@@ -6,7 +6,8 @@ Movieopolis is a web application that provides users with a dynamic streaming se
 
 - **Extensive Catalog**: Access a wide range of movies and TV shows with up-to-date information.
 - **Search Functionality**: Easily find specific titles or browse by genre and category.
-- **Discovery Option**: Discover movies or tv shows using user defined filters.
+- **Discovery Option**: Discover movies by watching random trailers.
+- **Library**: Save movies or shows that you may be interested in.
 - **Responsive Design**: Enjoy a user-friendly experience across various devices.
 
 ## Live Demo
@@ -17,6 +18,8 @@ Check out the live application: [Movieopolis](https://movieopolis-714f2.web.app/
 
 - **Frontend**: Vue.js
 - **Backend**: Django
+- **DB**: Supabase
+- **AUTH**: Firebase
 - **API**: TMDB (The Movie Database API)
 
 ## Repositories
@@ -53,7 +56,6 @@ The selected choice to build the frontend was Vuejs due to my experience with it
 
 ## Screenshots
 
-- Can view more photos of project located in the ProjectImages folder
-
-![Homepage Screenshot](ProjectImages/Homepage.png)
-![Search Feature Screenshot](ProjectImages/Search_function.png)
+![Homepage Screenshot](ProjectImages/Home.png)
+![Movies Screenshot](ProjectImages/movies.png)
+![Discover Screenshot](ProjectImages/discover.png)
