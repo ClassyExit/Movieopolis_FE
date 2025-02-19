@@ -56,7 +56,7 @@ export const useLibraryStore = defineStore("Library", {
       if (!useUserStore().user) return;
 
       // Remove a item from  MyList
-      for (const item in this.data.list) {
+      for (const item in this.library) {
         if (this.library[item].item_id === id) {
           this.library.splice(item, 1);
         }
