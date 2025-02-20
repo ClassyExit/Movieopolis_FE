@@ -3,9 +3,8 @@ import { defineStore } from "pinia";
 export const useAPIStore = defineStore("API", {
   state: () => ({}),
   getters: {},
-  persist: true,
   actions: {
-    async fetchAPI(urls, request_options, retries = 2) {
+    async fetchAPI(urls, request_options, retries = 1) {
       // URLS - LIST OF URLS TO REQUEST FROM
       // REQUEST_OPTIONS: HEADERS, BODY, METHODS
 

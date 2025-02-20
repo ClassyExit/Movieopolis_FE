@@ -59,7 +59,14 @@
       <div class="w-full bg-base-300 rounded p-2 space-y-4">
         <div class="flex flex-row space-x-4">
           <TVTrailer />
-          <AddToList />
+          <!-- <AddToList
+            :id="id"
+            :poster="poster"
+            :title_tv="title_tv"
+            :title_movie="title_movie"
+            :media_type="media_type"
+            :overview="overview"
+          /> -->
         </div>
 
         <div

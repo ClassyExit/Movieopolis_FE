@@ -16,6 +16,7 @@ export const useHomeStore = defineStore("Home", {
       topRated: [],
     },
   }),
+  persist: true,
   actions: {
     async getHomeData() {
       /*

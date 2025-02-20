@@ -59,7 +59,13 @@
       <div class="w-full bg-base-300 rounded p-2 space-y-4">
         <div class="flex flex-row space-x-4">
           <MovieTrailer />
-          <AddToList />
+          <AddToList
+            :id="movie.results.details.id"
+            :poster="movie.results.details.poster"
+            :title="movie.results.details.title"
+            :type="movie.results.details.media_type"
+            :overview="movie.results.details.overview"
+          />
         </div>
 
         <div

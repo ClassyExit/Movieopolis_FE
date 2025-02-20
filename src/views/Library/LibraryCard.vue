@@ -10,7 +10,7 @@
           :id="props.id"
           :poster="props.poster"
           :title="props.title"
-          :media_type="props.type"
+          :type="props.type"
           :overview="props.overview"
         />
       </div>

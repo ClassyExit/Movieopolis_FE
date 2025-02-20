@@ -15,10 +15,9 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   getAdditionalUserInfo,
-  reload,
 } from "firebase/auth";
 
-import { resetStore } from "./resetStore";
+import { RESET_USER_DATA } from "./resetStore";
 
 export const useUserStore = defineStore("user", {
   state: () => ({
@@ -163,8 +162,8 @@ export const useUserStore = defineStore("user", {
       /* Sign a user out and reset all stores */
       await signOut(auth);
 
-      // Wipe all store data
-      resetStore();
+      // Wipe all user store data
+      RESET_USER_DATA();
 
       router.push({ name: "Home" });
     },

@@ -5,12 +5,11 @@
   >
     <div class="absolute right-2 top-1 z-40 hover:cursor-pointer text-white">
       <AddToList
-        :id="id"
-        :poster="poster"
-        :title_tv="title_tv"
-        :title_movie="title_movie"
-        :media_type="media_type"
-        :overview="overview"
+        :id="props.id"
+        :poster="props.poster"
+        :title="props.title_tv || props.title_movie"
+        :type="props.type"
+        :overview="props.overview"
       />
     </div>
 
@@ -118,21 +117,21 @@ const props = defineProps({
   year_tv: String,
   year_movie: String,
   rating: Number,
-  media_type: String,
-  overview: String,
+  type: String,
+  overview: String || null,
   listView: Boolean,
 });
 
 const title = computed(() =>
-  props.media_type === "movie" ? props.title_movie : props.title_tv
+  props.type === "movie" ? props.title_movie : props.title_tv
 );
 const year = computed(() =>
-  props.media_type === "movie"
+  props.type === "movie"
     ? props.year_movie?.slice(0, 4)
     : props.year_tv?.slice(0, 4)
 );
 const detailsLink = computed(() => ({
-  name: props.media_type === "movie" ? "Movie-Details" : "TV-Details",
+  name: props.type === "movie" ? "Movie-Details" : "TV-Details",
   params: { id: props.id },
 }));
 </script>

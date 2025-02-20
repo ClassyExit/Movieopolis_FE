@@ -11,7 +11,6 @@ export const useDiscoverStore = defineStore("Discover", {
 
     genres: {},
   }),
-
   getters: {},
   actions: {
     async getDiscover(

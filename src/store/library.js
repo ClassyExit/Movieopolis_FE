@@ -6,7 +6,6 @@ export const useLibraryStore = defineStore("Library", {
   state: () => ({
     library: [],
   }),
-
   actions: {
     async addToLibrary(data) {
       /*
