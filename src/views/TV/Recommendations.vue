@@ -1,5 +1,9 @@
 <template>
-  <div aria-label="recommendations" class="flex flex-col rounded-xl">
+  <div
+    aria-label="recommendations"
+    class="flex flex-col space-y-2 bg-base-300 p-2 rounded"
+  >
+    <div class="text-primary text-2xl text-left">Recommendations</div>
     <div class="overflow-auto h-fit">
       <div
         v-if="show.results.recommendations.results.length"
@@ -13,8 +17,7 @@
           :title_tv="item.original_name"
           :year_tv="item.first_air_date"
           :rating="item.vote_average"
-          :media_type="`tv`"
-          :type="item.media_type"
+          :type="`tv`"
           :listView="false"
         >
         </Container>

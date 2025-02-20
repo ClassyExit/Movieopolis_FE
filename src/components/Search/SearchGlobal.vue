@@ -24,19 +24,21 @@
     </button>
 
     <!-- Modal -->
-    <Teleport to="body" class="md:relative">
-      <dialog
-        ref="searchModal"
-        class="modal modal-bottom sm:modal-middle z-50 w-full"
-      >
+    <Teleport to="body">
+      <dialog ref="searchModal" class="modal modal-bottom sm:modal-middle z-50">
         <div
-          class="modal-box md:w-11/12 md:max-w-5xl flex flex-col bg-base-200 h-[85vh] md:h-[60vh] md:absolute md:top-12 md:translate-y-0"
+          class="modal-box space-y-2 flex flex-col sm:w-11/12 sm:max-w-5xl flex flex-col bg-base-200 h-[91.67vh] sm:h-[80vh] sm:absolute sm:top-12 sm:translate-y-0"
         >
+          <div class="flex justify-end">
+            <button @click="closeModal" class="btn btn-sm btn-outline">
+              X
+            </button>
+          </div>
           <!-- Search Input -->
-          <label class="input input-bordered flex items-center gap-2">
+          <label class="input flex input-bordered items-center gap-2">
             <input
               type="text"
-              class="grow"
+              class="grow p-2"
               placeholder="Search"
               v-model="searchQuery"
               v-debounce:500ms="getSearch"
@@ -55,42 +57,44 @@
             </svg>
           </label>
 
-          <!-- Search Results -->
-          <div class="h-96">
-            <div class="flex flex-row justify-between py-4">
-              <div class="flex flex-row gap-4">
-                <div
-                  @click="UpdateOption('movies')"
-                  class="btn btn-sm"
-                  :class="
-                    selectedOption == 'movies'
-                      ? 'btn-primary'
-                      : 'btn-outline btn-primary'
-                  "
-                >
-                  Movies
-                </div>
-                <div
-                  @click="UpdateOption('shows')"
-                  class="btn btn-sm"
-                  :class="
-                    selectedOption == 'shows'
-                      ? 'btn-primary'
-                      : 'btn-outline btn-primary'
-                  "
-                >
-                  Shows
-                </div>
+          <div class="flex flex-row justify-between">
+            <div class="flex flex-row gap-4">
+              <div
+                @click="UpdateOption('movies')"
+                class="btn btn-sm"
+                :class="
+                  selectedOption == 'movies'
+                    ? 'btn-primary'
+                    : 'btn-outline btn-primary'
+                "
+              >
+                Movies
               </div>
+              <div
+                @click="UpdateOption('shows')"
+                class="btn btn-sm"
+                :class="
+                  selectedOption == 'shows'
+                    ? 'btn-primary'
+                    : 'btn-outline btn-primary'
+                "
+              >
+                Shows
+              </div>
+            </div>
+            <div class="flex flex-row space-x-4">
               <div @click="clearResults" class="btn btn-sm btn-error">
                 Clear
               </div>
             </div>
+          </div>
 
+          <!-- Search Results -->
+          <div class="space-y-4 overflow-auto">
             <!-- Movies -->
             <div
               v-if="selectedOption == 'movies' && search.results[0]?.movies"
-              class="grid grid-cols-2 md:flex md:flex-wrap md:gap-2 place-items-center h-80 overflow-auto"
+              class="grid grid-cols-2 md:flex md:flex-wrap gap-2 place-items-center overflow-auto"
             >
               <Container
                 v-for="item in search.results[0].movies.results"
@@ -100,7 +104,7 @@
                 :title_movie="item.title"
                 :year_movie="item.release_date"
                 :rating="item.vote_average"
-                :media_type="'movie'"
+                :type="'movie'"
                 :overview="item.overview"
               />
             </div>
@@ -108,7 +112,7 @@
             <!-- TV Shows -->
             <div
               v-if="selectedOption == 'shows' && search.results[0]?.tv"
-              class="grid grid-cols-2 md:flex md:flex-wrap md:gap-2 place-items-center h-80 overflow-auto"
+              class="grid grid-cols-2 md:flex md:flex-wrap gap-2 place-items-center overflow-auto"
             >
               <Container
                 v-for="item in search.results[0].tv.results"
@@ -118,17 +122,10 @@
                 :title_tv="item.name"
                 :year_tv="item.first_air_date"
                 :rating="item.vote_average"
-                :media_type="'tv'"
+                :type="'tv'"
                 :overview="item.overview"
               />
             </div>
-          </div>
-
-          <!-- Modal Actions -->
-          <div class="modal-action">
-            <button @click="closeModal" class="btn btn-outline btn-primary">
-              Close
-            </button>
           </div>
         </div>
       </dialog>

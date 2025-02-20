@@ -1,34 +1,23 @@
 <template>
-  <div class="w-full flex flex-row md:flex-wrap overflow-auto scrollbar-hide">
-    <div
-      v-if="!movie.results.credits.cast.length"
-      class="alert alert-shadow text-left"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        class="stroke-primary h-6 w-6 shrink-0"
+  <div
+    v-if="movie.results.credits.cast.length"
+    aria-label="recommendations"
+    class="flex flex-col space-y-2 bg-base-300 p-2 rounded"
+  >
+    <div class="text-primary text-2xl text-left">Cast</div>
+    <div class="overflow-auto h-fit">
+      <div
+        v-if="movie.results.credits.cast.length"
+        class="w-full flex md:flex-wrap gap-2"
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-        ></path>
-      </svg>
-      <div>
-        <h3 class="font-bold">Unable to get cast</h3>
+        <CastTemplate
+          v-for="person in movie.results.credits.cast"
+          :id="person.id"
+          :name="person.name"
+          :character="person.character"
+          :profile_path="person.profile_path"
+        ></CastTemplate>
       </div>
-    </div>
-
-    <div v-else v-for="person in movie.results.credits.cast" class="">
-      <CastTemplate
-        :id="person.id"
-        :name="person.name"
-        :character="person.character"
-        :profile_path="person.profile_path"
-      />
     </div>
   </div>
 </template>

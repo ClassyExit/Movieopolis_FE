@@ -14,11 +14,24 @@
       >
         <!-- Backdrop  -->
         <img
+          v-if="movie.results.details.backdrop_path"
           class="h-full w-full object-cover blur-[1px] z-0 rounded"
           :src="`https://image.tmdb.org/t/p/original/${movie.results.details.backdrop_path}`"
           :alt="`${movie.results.details.original_title} backdrop`"
           loading="lazy"
         />
+
+        <img
+          v-else-if="movie.results.details.poster_path"
+          class="h-full w-full object-cover blur-[1px] z-0 rounded"
+          :src="`https://image.tmdb.org/t/p/original/${movie.results.details.poster_path}`"
+          :alt="`${movie.results.details.poster_path} backdrop`"
+          loading="lazy"
+        />
+
+        <div v-else>
+          <!-- Nothing -->
+        </div>
 
         <!-- Gradient Overlay for Better Text Visibility -->
         <div
@@ -34,12 +47,14 @@
         <div
           class="text-neutral-content text-left absolute top-3/4 inset-y-1/2 left-4 z-20 text-base-content"
         >
-          <h1 class="text-3xl md:text-4xl flex flex-wrap font-bold">
+          <h1
+            class="text-3xl md:text-4xl flex flex-wrap font-bold line-clamp-1"
+          >
             {{ movie.results.details.title }}
           </h1>
           <p
             v-if="movie.results.details.tagline"
-            class="italic text-xs md:text-md"
+            class="italic text-xs md:text-md line-clamp-1"
           >
             "{{ movie.results.details.tagline }}"
           </p>
@@ -66,6 +81,7 @@
             :type="movie.results.details.media_type"
             :overview="movie.results.details.overview"
           />
+          <MovieReviews />
         </div>
 
         <div
@@ -96,68 +112,9 @@
           {{ movie.results.details.overview }}
         </div>
       </div>
-    </div>
-
-    <div
-      class="flex flex-row w-full cursor-pointer overflow-auto scrollbar-hide py-4"
-    >
-      <div
-        class="border-b-2 px-4"
-        :class="
-          SelectedOption == 'recommendations'
-            ? ' border-primary text-primary  '
-            : 'text-base-content'
-        "
-        @click="updateSelectedOption('recommendations')"
-      >
-        Recommendations
-      </div>
-      <div
-        class="border-b-2 px-4"
-        :class="
-          SelectedOption == 'reviews'
-            ? ' border-primary text-primary  '
-            : 'text-base-content'
-        "
-        @click="updateSelectedOption('reviews')"
-      >
-        Reviews
-      </div>
-      <div
-        class="border-b-2 px-4"
-        :class="
-          SelectedOption == 'collection'
-            ? ' border-primary text-primary  '
-            : 'text-base-content'
-        "
-        @click="updateSelectedOption('collection')"
-      >
-        Collection
-      </div>
-      <div
-        class="border-b-2 px-4"
-        :class="
-          SelectedOption == 'about'
-            ? ' border-primary text-primary  '
-            : 'text-base-content'
-        "
-        @click="updateSelectedOption('about')"
-      >
-        About
-      </div>
-    </div>
-
-    <div v-if="SelectedOption == 'recommendations'" class="flex flex-col">
-      <Recommendations />
-    </div>
-
-    <div v-if="SelectedOption == 'about'" class="">
-      <MovieCast />
-    </div>
-
-    <div v-if="SelectedOption == 'reviews'" class=""><MovieReviews /></div>
-    <div v-if="SelectedOption == 'collection'" class="">
       <MovieCollections />
+      <Recommendations />
+      <MovieCast />
     </div>
   </div>
 </template>
@@ -180,12 +137,6 @@ import MobileReturn from "@/components/Actions/MobileReturn.vue";
 
 const movieStore = useMovieStore();
 const { movie } = storeToRefs(movieStore);
-
-// Select different options to show
-const SelectedOption = ref("recommendations");
-const updateSelectedOption = (newOption) => {
-  SelectedOption.value = newOption;
-};
 
 const route = useRoute();
 const id = route.params.id; // read movie id from router

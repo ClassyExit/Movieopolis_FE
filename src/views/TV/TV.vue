@@ -16,13 +16,13 @@
     >
       <Container
         v-for="item in shows.popular"
-        :key="(item.id, item.media_type)"
+        :key="item.id"
         :id="item.id"
         :poster="item.poster_path"
         :title_tv="item.name"
         :year_tv="item.first_air_date"
         :rating="item.vote_average"
-        :media_type="`tv`"
+        :type="`tv`"
         :listView="false"
         :overview="item.overview"
       >

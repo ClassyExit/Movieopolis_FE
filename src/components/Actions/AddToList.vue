@@ -5,12 +5,10 @@
       v-if="isMarked"
       @click="remove(props.id)"
     >
-      <span>Saved</span>
       <Icon class="h-5 w-5" icon="material-symbols:bookmark" />
     </div>
 
     <div v-else @click="add()" class="btn btn-sm btn-outline btn-primary">
-      <span>Save</span>
       <Icon class="h-5 w-5" icon="ic:outline-bookmark-add" />
     </div>
   </div>

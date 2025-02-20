@@ -14,11 +14,24 @@
       >
         <!-- Backdrop  -->
         <img
+          v-if="show.results.details.backdrop_path"
           class="h-full w-full object-cover blur-[1px] z-0 rounded"
           :src="`https://image.tmdb.org/t/p/original/${show.results.details.backdrop_path}`"
           :alt="`${show.results.details.name} backdrop`"
           loading="lazy"
         />
+
+        <img
+          v-else-if="show.results.details.poster_path"
+          class="h-full w-full object-cover blur-[1px] z-0 rounded"
+          :src="`https://image.tmdb.org/t/p/original/${show.results.details.poster_path}`"
+          :alt="`${show.results.details.poster_path} backdrop`"
+          loading="lazy"
+        />
+
+        <div v-else>
+          <!-- Nothing -->
+        </div>
 
         <!-- Gradient Overlay for Better Text Visibility -->
         <div
@@ -59,14 +72,15 @@
       <div class="w-full bg-base-300 rounded p-2 space-y-4">
         <div class="flex flex-row space-x-4">
           <TVTrailer />
-          <!-- <AddToList
-            :id="id"
-            :poster="poster"
-            :title_tv="title_tv"
-            :title_movie="title_movie"
-            :media_type="media_type"
-            :overview="overview"
-          /> -->
+          <AddToList
+            :id="show.results.details.id"
+            :poster="show.results.details.poster"
+            :title="show.results.details.name"
+            :type="`tv`"
+            :overview="show.results.details.overview"
+          />
+
+          <TVReviews />
         </div>
 
         <div
@@ -75,7 +89,7 @@
           <div class="flex flex-row space-x-2">
             <div
               v-for="network in show.results.details.networks"
-              class="badge badge-primary badge-outline"
+              class="badge badge-outline"
             >
               {{ network.name }}
             </div>
@@ -103,55 +117,10 @@
           {{ show.results.details.overview }}
         </div>
       </div>
-    </div>
-
-    <div
-      class="flex flex-row w-full cursor-pointer overflow-auto scrollbar-hide py-4"
-    >
-      <div
-        class="border-b-2 px-4"
-        :class="
-          SelectedOption == 'recommendations'
-            ? ' border-primary text-primary  '
-            : 'text-base-content'
-        "
-        @click="updateSelectedOption('recommendations')"
-      >
-        Recommendations
-      </div>
-      <div
-        class="border-b-2 px-4"
-        :class="
-          SelectedOption == 'reviews'
-            ? ' border-primary text-primary  '
-            : 'text-base-content'
-        "
-        @click="updateSelectedOption('reviews')"
-      >
-        Reviews
-      </div>
-      <div
-        class="border-b-2 px-4"
-        :class="
-          SelectedOption == 'about'
-            ? ' border-primary text-primary  '
-            : 'text-base-content'
-        "
-        @click="updateSelectedOption('about')"
-      >
-        About
-      </div>
-    </div>
-
-    <div v-if="SelectedOption == 'recommendations'" class="">
+      <TVSeason />
       <Recommendations />
-    </div>
-
-    <div v-if="SelectedOption == 'about'" class="">
       <TVCast />
     </div>
-
-    <div v-if="SelectedOption == 'reviews'" class=""><TVReviews /></div>
   </div>
 </template>
 
@@ -169,15 +138,10 @@ import TVTrailer from "./TVTrailer.vue";
 
 import AddToList from "@/components/Actions/AddToList.vue";
 import MobileReturn from "@/components/Actions/MobileReturn.vue";
+import TVSeason from "./TVSeason.vue";
 
 const tvStore = useTVStore();
 const { show } = storeToRefs(tvStore);
-
-// Select different options to show
-const SelectedOption = ref("recommendations");
-const updateSelectedOption = (newOption) => {
-  SelectedOption.value = newOption;
-};
 
 const route = useRoute();
 const id = route.params.id; // read show id from router

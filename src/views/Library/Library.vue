@@ -44,7 +44,8 @@
       v-if="!library.length"
       class="flex h-2/5 items-center justify-center text-content2"
     >
-      You haven't added any titles to your library yet
+      <div v-if="useLibraryStore().isLoading" class=""><Loading /></div>
+      <span v-else>You haven't added any titles to your library yet</span>
     </div>
 
     <div v-else class="flex flex-col space-y-4">
@@ -71,6 +72,7 @@ import { useLibraryStore } from "@/store/library";
 import { useUserStore } from "@/store/user";
 import { storeToRefs } from "pinia";
 import LibraryCard from "@/views/Library/LibraryCard.vue";
+import Loading from "@/components/Loading.vue";
 
 const libraryStore = useLibraryStore();
 

@@ -1,5 +1,9 @@
 <template>
-  <div aria-label="recommendations" class="flex flex-col rounded-xl">
+  <div
+    aria-label="recommendations"
+    class="flex flex-col rounded-xl bg-base-300 p-2"
+  >
+    <div class="text-primary text-2xl text-left">Recommendations</div>
     <div class="overflow-auto h-fit">
       <div
         v-if="movie.results.recommendations.results.length"
@@ -13,8 +17,7 @@
           :title_movie="item.title"
           :year_movie="item.release_date"
           :rating="item.vote_average"
-          :media_type="`movie`"
-          :type="item.media_type"
+          :type="`movie`"
           :listView="false"
           :overview="item.overview"
         >

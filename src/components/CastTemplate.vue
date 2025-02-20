@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-40">
+  <div class="flex flex-col" style="min-width: 154px">
     <img
       v-if="props.profile_path"
       class="rounded"
@@ -21,8 +21,12 @@
       </svg>
     </div>
     <div class="flex flex-col text-left text-xs">
-      <span class="text-base-content">{{ props.name }}</span>
-      <span class="text-neutral">{{ props.character }}</span>
+      <span class="text-base-content truncate" style="max-width: 154px">{{
+        props.name
+      }}</span>
+      <span class="text-neutral truncate" style="max-width: 154px">{{
+        props.character
+      }}</span>
     </div>
   </div>
 </template>

@@ -1,34 +1,40 @@
 <template>
-  <div class="w-full flex flex-col items-center justify-center">
+  <div class="w-full flex justify-center items-start md:items-center pb-8">
     <div
-      class="w-full bg-base-300 p-4 text-left space-y-4 rounded container mx-auto md:max-w-3xl lg:max-w-4xl text-base-content"
+      class="w-full text-base-content max-w-2xl space-y-8 bg-base-300 rounded px-4 py-4"
     >
-      <div class="justify-start flex w-full"><MobileReturn /></div>
-      <div class="text-2xl">Confirm Account Deletion</div>
-      <div class="">
-        Your personal data will be deleted immediately and you will no longer be
-        able to sign in using your current credentials. Please note, after
-        successful deletion, you will be signed out and returned to the home
-        page.
+      <div class="flex w-full justify-start md:justify-center">
+        <MobileReturn />
       </div>
-
       <div
-        class="flex flex-row w-full items-center justify-evenly space-x-8 text-center"
+        class="w-full flex flex-col items-center md:justify-center space-y-4"
       >
-        <!-- The button to open modal -->
-        <button
-          class="btn btn-error w-2/5 rounded cursor-pointer"
-          onclick="delete_modal.showModal()"
-          @click="resetDeleteInfo"
-        >
-          Continue
-        </button>
+        <div class="text-2xl">Confirm Account Deletion</div>
+        <div class="">
+          Your personal data will be deleted immediately and you will no longer
+          be able to sign in using your current credentials. Please note, after
+          successful deletion, you will be signed out and returned to the home
+          page.
+        </div>
 
         <div
-          class="btn btn-ghost rounded w-2/5 p-2 text-base-content cursor-pointer"
-          @click="cancel"
+          class="flex flex-row w-full items-center justify-evenly space-x-8 text-center"
         >
-          Cancel
+          <!-- The button to open modal -->
+          <button
+            class="btn btn-error w-2/5 rounded cursor-pointer"
+            onclick="delete_modal.showModal()"
+            @click="resetDeleteInfo"
+          >
+            Continue
+          </button>
+
+          <div
+            class="btn btn-ghost rounded w-2/5 p-2 text-base-content cursor-pointer"
+            @click="cancel"
+          >
+            Cancel
+          </div>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex justify-center items-start md:items-center">
+  <div class="w-full flex justify-center items-start md:items-center pb-8">
     <div class="w-full text-base-content space-y-8">
       <div class="flex w-full justify-start md:justify-center">
         <MobileReturn />
@@ -54,7 +54,7 @@
         </div>
 
         <div
-          class="flex flex-col text-left space-y-8 rounded max-w-2xl bg-base-300 p-4"
+          class="flex flex-col text-left space-y-8 rounded max-w-2xl w-full bg-base-300 p-4"
         >
           <div class="text-primary">
             <Icon icon="mdi:password-outline" width="30" height="30" />
@@ -64,16 +64,17 @@
             <h1 class="text-3xl text-content1">Change Password</h1>
             <div v-if="signedInWithGoogle" class="">
               <div class="text-error text-xl">
-                Unable to change password when signing using Google
+                Unable to change password when using
+                {{ userStore.user.providerData[0].providerId }} signin method
               </div>
             </div>
-            <p v-if="!signedInWithGoogle" class="text-content2">
+            <p v-else class="text-content2">
               To change your password, please fill in the fields below. Your
               password must contain at least 8 characters.
             </p>
           </div>
 
-          <div class="form-group space-y-4" v-if="!signedInWithGoogle">
+          <div class="form-group space-y-4">
             <div class="form-control relative w-full flex flex-col">
               <div class="flex flex-col w-full space-y-2">
                 <h1 class="text-lg text-content2">Current Password</h1>
@@ -232,7 +233,11 @@
               </span>
             </div>
 
-            <div @click="validateForm()" class="w-full btn btn-primary my-2">
+            <div
+              @click="validateForm()"
+              class="w-full btn my-2"
+              :class="signedInWithGoogle ? 'btn-disabled' : 'btn-primary'"
+            >
               Change Password
             </div>
           </div>
@@ -254,11 +259,13 @@ const { updatePasswordResults } = storeToRefs(useUserStore());
 // Provider Id: password | google
 const signedInWithGoogle = ref(false);
 
-if (useUserStore().user.providerData[0].providerId == "google") {
+const userStore = useUserStore();
+
+if (userStore.user.providerData[0].providerId == "google.com") {
   signedInWithGoogle.value = true;
 }
 
-useUserStore().updatePasswordResults = { result: "", message: "" };
+userStore.updatePasswordResults = { result: "", message: "" };
 
 const revealCurrentPass = ref(false);
 const revealNewPass = ref(false);

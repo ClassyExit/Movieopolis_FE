@@ -5,6 +5,7 @@ import { useAPIStore } from "./API";
 export const useLibraryStore = defineStore("Library", {
   state: () => ({
     library: [],
+    isLoading: false,
   }),
   actions: {
     async addToLibrary(data) {
@@ -86,6 +87,7 @@ export const useLibraryStore = defineStore("Library", {
       if (!useUserStore().user) return;
 
       this.library = []; // Reset before fetching
+      this.isLoading = true;
 
       const request_options = {
         method: "GET",
@@ -108,6 +110,8 @@ export const useLibraryStore = defineStore("Library", {
         console.error("Failed to get content:", error);
         this.library = []; // Ensure it remains an array
       }
+
+      this.isLoading = false;
     },
   },
 });

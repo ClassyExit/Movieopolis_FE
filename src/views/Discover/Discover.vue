@@ -4,8 +4,8 @@
       <AddToList
         :id="discover.trailer.id"
         :poster="discover.trailer.poster"
-        :title_movie="discover.trailer.title"
-        :media_type="discover.trailer.type"
+        :title="discover.trailer.title"
+        :type="discover.trailer.type"
         :overview="discover.trailer.overview"
       />
       <div class="btn btn-sm">
