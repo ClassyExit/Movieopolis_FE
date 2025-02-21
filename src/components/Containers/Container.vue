@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="relative w-full rounded"
-    :class="listView ? 'w-full ' : 'max-w-[154px]'"
-  >
+  <div class="relative w-full rounded" :class="listView ? '' : 'max-w-[154px]'">
     <div class="absolute right-2 top-1 z-40 hover:cursor-pointer text-white">
       <AddToList
         :id="props.id"
@@ -40,7 +37,7 @@
                 ></path>
               </svg>
             </div>
-            {{ rating.toFixed(2) }}
+            <span>{{ rating ? rating.toFixed(2) : "N/A" }}</span>
           </div>
         </div>
       </div>
@@ -71,29 +68,27 @@
         </div>
 
         <div
-          class="flex flex-row text-sm p-1 bg-base-300 justify-between rounded-md"
+          class="flex flex-col text-sm p-1 bg-base-300 justify-between rounded-md"
         >
-          <div class="flex flex-row items-center space-x-1">
-            <div class="stat-figure text-primary">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                class="w-4 h-4 fill-current"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                ></path>
-              </svg>
+          <div class="text-left line-clamp-1 text-xs">{{ props.title }}</div>
+          <div class="flex flex-row items-center justify-between space-x-1">
+            <div class="flex flex-row items-center space-x-1">
+              <div class="rating rating-xs">
+                <input
+                  v-for="star in 5"
+                  :key="star"
+                  type="radio"
+                  name="rating"
+                  class="mask mask-star-2 bg-orange-400"
+                  :value="star"
+                  v-model="computedRating"
+                  disabled
+                />
+              </div>
             </div>
-            <span>{{ rating.toFixed(2) }}</span>
-          </div>
-
-          <div class="flex flex-row items-center">
-            <span>{{ year }}</span>
+            <div class="flex flex-row items-center">
+              <span>{{ year }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -102,34 +97,26 @@
 </template>
 
 <script setup>
-import { useRoute } from "vue-router";
 import AddToList from "@/components/Actions/AddToList.vue";
 import { computed } from "vue";
 
-const route = useRoute();
-const id = route.params.id; // read movie id from router
-
 const props = defineProps({
-  id: Number,
-  poster: String,
-  title_movie: String || null,
-  title_tv: String || null,
-  year_tv: String || null,
-  year_movie: String || null,
-  rating: Number,
-  type: String,
-  overview: String || null,
-  listView: Boolean,
+  id: { type: Number, required: true },
+  poster: { type: String, default: "" },
+  title: { type: String, default: "" },
+  year: { type: String, default: "" },
+  rating: { type: Number, default: 0 },
+  type: { type: String, required: true },
+  overview: { type: String, default: "" },
+  listView: { type: Boolean, default: false },
 });
 
-const title = computed(() =>
-  props.type === "movie" ? props.title_movie : props.title_tv
-);
-const year = computed(() =>
-  props.type === "movie"
-    ? props.year_movie?.slice(0, 4)
-    : props.year_tv?.slice(0, 4)
-);
+const title = computed(() => props.title_movie || props.title_tv || "Unknown");
+const year = computed(() => (props.year || "").slice(0, 4));
+
+// Convert rating (out of 10) to a 5-star scale
+const computedRating = computed(() => Math.round(props.rating / 2));
+
 const detailsLink = computed(() => ({
   name: props.type === "movie" ? "Movie-Details" : "TV-Details",
   params: { id: props.id },

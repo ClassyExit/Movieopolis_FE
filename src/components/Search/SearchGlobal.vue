@@ -101,11 +101,11 @@
                 :key="item.id"
                 :id="item.id"
                 :poster="item.poster_path"
-                :title_movie="item.title"
-                :year_movie="item.release_date"
+                :title="item.title || item.name"
+                :year="item.release_date || item.first_air_date"
                 :rating="item.vote_average"
-                :type="'movie'"
                 :overview="item.overview"
+                :type="'movie'"
               />
             </div>
 
@@ -119,11 +119,11 @@
                 :key="item.id"
                 :id="item.id"
                 :poster="item.poster_path"
-                :title_tv="item.name"
-                :year_tv="item.first_air_date"
+                :title="item.title || item.name"
+                :year="item.release_date || item.first_air_date"
                 :rating="item.vote_average"
-                :type="'tv'"
                 :overview="item.overview"
+                :type="'tv'"
               />
             </div>
           </div>

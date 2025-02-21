@@ -1,9 +1,9 @@
 <template>
   <div
     aria-label="recommendations"
-    class="flex flex-col space-y-2 bg-base-300 p-2 rounded"
+    class="flex flex-col space-y-2 rounded text-left"
   >
-    <div class="text-primary text-2xl text-left">Recommendations</div>
+    <div class="text-base-content text-2xl">Recommendations</div>
     <div class="overflow-auto h-fit">
       <div
         v-if="show.results.recommendations.results.length"
@@ -14,11 +14,11 @@
           :key="item.id"
           :id="item.id"
           :poster="item.poster_path"
-          :title_tv="item.original_name"
-          :year_tv="item.first_air_date"
+          :title="item.title || item.name"
+          :year="item.release_date || item.first_air_date"
           :rating="item.vote_average"
-          :type="`tv`"
-          :listView="false"
+          :overview="item.overview"
+          :type="'tv'"
         >
         </Container>
       </div>

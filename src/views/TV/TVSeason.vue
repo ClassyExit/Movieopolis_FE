@@ -23,7 +23,7 @@
         <div class="text-primary text-2xl">
           {{ show.seasonDetails.details.name }}
         </div>
-        <div class="text-sm text-gray-500">
+        <div class="text-sm text-base-content">
           {{ show.seasonDetails.details.overview }}
         </div>
       </div>

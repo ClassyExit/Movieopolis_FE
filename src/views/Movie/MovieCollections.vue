@@ -1,24 +1,23 @@
 <template>
   <div
     v-if="Object.keys(movie.collections) != 0"
-    class="flex flex-col bg-base-300 p-2 rounded"
+    class="flex flex-col p-2 rounded text-left space-y-2"
   >
-    <div class="text-primary text-2xl text-left">
+    <span class="text-base-content text-2xl">
       {{ movie.collections.name }}
-    </div>
+    </span>
+
     <div class="flex overflow-auto md:flex-wrap gap-2">
       <Container
         v-for="item in movie.collections.parts"
         :key="item.id"
         :id="item.id"
         :poster="item.poster_path"
-        :title_movie="item.original_title"
-        :year_movie="item.release_date"
+        :title="item.title || item.name"
+        :year="item.release_date || item.first_air_date"
         :rating="item.vote_average"
-        :media_type="`movie`"
-        :type="item.media_type"
-        :listView="false"
         :overview="item.overview"
+        :type="'movie'"
       >
       </Container>
     </div>

@@ -58,11 +58,11 @@
           </div>
 
           <div
-            class="bg-base-300 p-2 rounded overflow-auto scrollbar-hide"
             v-else
-            v-for="review in show.reviews.results"
+            class="flex flex-col space-y-6 overflow-auto pb-4 md:pb-0"
           >
             <Reviews
+              v-for="review in show.reviews.results"
               :id="review.id"
               :author="review.author"
               :created="review.created_at"

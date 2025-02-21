@@ -17,13 +17,11 @@
           :key="item.id"
           :id="item.id"
           :poster="item.poster_path"
-          :title_movie="item.title"
-          :year_tv="item.first_air_date"
-          :year_movie="item.release_date"
+          :title="item.title || item.name"
+          :year="item.release_date || item.first_air_date"
           :rating="item.vote_average"
-          :media_type="`movie`"
-          :type="item.media_type"
           :overview="item.overview"
+          :type="'movie'"
         >
         </Container>
       </div>
@@ -46,12 +44,11 @@
           :key="item.id"
           :id="item.id"
           :poster="item.poster_path"
-          :title_tv="item.name"
-          :year_tv="item.first_air_date"
-          :year_movie="item.release_date"
+          :title="item.title || item.name"
+          :year="item.release_date || item.first_air_date"
           :rating="item.vote_average"
-          :media_type="`tv`"
-          :type="item.media_type"
+          :overview="item.overview"
+          :type="'tv'"
         >
         </Container>
       </div>

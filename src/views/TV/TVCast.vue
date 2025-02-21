@@ -2,11 +2,11 @@
   <div
     v-if="show.results.credits.cast.length"
     aria-label="show-cast"
-    class="flex flex-col space-y-2 bg-base-300 p-2 rounded"
+    class="flex flex-col space-y-2 rounded text-left"
   >
-    <div class="text-primary text-2xl text-left">Cast</div>
+    <div class="text-base-content text-2xl">Cast</div>
     <div class="overflow-auto h-fit">
-      <div class="w-full flex md:flex-wrap gap-2">
+      <div class="w-full flex gap-2">
         <CastTemplate
           v-for="person in show.results.credits.cast"
           :key="person.id"

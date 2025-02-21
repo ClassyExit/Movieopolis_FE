@@ -1,7 +1,7 @@
 <template>
   <div class="w-full space-y-2">
     <div
-      class="w-full flex text-2xl md:text-4xl text-base-content pb-8 space-x-4 md:space-x-0"
+      class="w-full flex text-2xl md:text-4xl text-base-content pb-4 space-x-4 md:space-x-0"
     >
       <MobileReturn />
       <span> Popular Shows </span>
@@ -19,12 +19,11 @@
         :key="item.id"
         :id="item.id"
         :poster="item.poster_path"
-        :title_tv="item.name"
-        :year_tv="item.first_air_date"
+        :title="item.title || item.name"
+        :year="item.release_date || item.first_air_date"
         :rating="item.vote_average"
-        :type="`tv`"
-        :listView="false"
         :overview="item.overview"
+        :type="'tv'"
       >
       </Container>
     </div>
