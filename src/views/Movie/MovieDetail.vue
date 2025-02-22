@@ -78,7 +78,7 @@
             :id="movie.results.details.id"
             :poster="movie.results.details.poster"
             :title="movie.results.details.title"
-            :type="movie.results.details.media_type"
+            :type="`movie`"
             :overview="movie.results.details.overview"
           />
           <MovieReviews />

@@ -4,7 +4,7 @@
       <AddToList
         :id="props.id"
         :poster="props.poster"
-        :title="props.title_tv || props.title_movie"
+        :title="props.title"
         :type="props.type"
         :overview="props.overview"
       />
@@ -114,7 +114,7 @@ const props = defineProps({
   listView: { type: Boolean, default: false },
 });
 
-const title = computed(() => props.title_movie || props.title_tv || "Unknown");
+const title = computed(() => props.title || "Unknown");
 const year = computed(() => (props.year || "").slice(0, 4));
 
 // Convert rating (out of 10) to a 5-star scale
