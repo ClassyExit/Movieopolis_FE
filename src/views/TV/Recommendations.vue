@@ -1,13 +1,14 @@
 <template>
   <div
     aria-label="recommendations"
-    class="flex flex-col space-y-2 rounded text-left"
+    class="flex flex-col rounded text-left space-y-2"
   >
-    <div class="text-base-content text-2xl">Recommendations</div>
-    <div class="overflow-auto h-fit">
+    <span class="text-base-content text-2xl"> Recommendations </span>
+
+    <div class="overflow-x-auto md:overflow-visible">
       <div
-        v-if="show.results.recommendations.results.length"
-        class="w-full flex md:flex-wrap gap-2"
+        v-if="show.results?.recommendations?.results?.length"
+        class="flex gap-2 md:flex-wrap md:justify-start"
       >
         <Container
           v-for="item in show.results.recommendations.results"

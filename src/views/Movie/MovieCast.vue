@@ -2,19 +2,18 @@
   <div
     v-if="movie.results.credits.cast.length"
     aria-label="recommendations"
-    class="flex flex-col space-y-2 p-2 rounded text-left"
+    class="flex flex-col space-y-2 rounded text-left"
   >
     <span class="text-base-content text-2xl"> Cast </span>
-    <div class="overflow-auto h-fit">
-      <div v-if="movie.results.credits.cast.length" class="w-full flex gap-2">
-        <CastTemplate
-          v-for="person in movie.results.credits.cast"
-          :id="person.id"
-          :name="person.name"
-          :character="person.character"
-          :profile_path="person.profile_path"
-        ></CastTemplate>
-      </div>
+    <div class="overflow-x-auto flex gap-1">
+      <CastTemplate
+        v-for="person in movie.results.credits.cast"
+        :key="person.id"
+        :id="person.id"
+        :name="person.name"
+        :character="person.character"
+        :profile_path="person.profile_path"
+      />
     </div>
   </div>
 </template>

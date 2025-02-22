@@ -1,49 +1,48 @@
 <template>
-  <div class="w-full max-w-lg rounded shadow">
+  <div
+    class="w-full max-w-3xl rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105"
+  >
     <router-link
       :to="{ name: 'Movie-Details', params: { id: id } }"
-      class="hover:cursor-pointer"
+      class="hover:cursor-pointer w-full"
     >
-      <div class="flex justify-between bg-base-200 rounded-lg">
-        <div class="flex-1 space-y-8 p-2">
-          <div class="text-2xl text-base-content h-[64px]">{{ title }}</div>
-
-          <div class="space-y-2">
-            <div class="line-clamp-3">{{ overview }}</div>
-            <div class="flex flex-row items-center space-x-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                class="w-6 h-6 fill-primary"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                ></path>
-              </svg>
-              <div class="space-x-1">
-                <span>{{ rating }}</span>
-                <span>({{ rating_amount }})</span>
-              </div>
-              <div class="rounded-full w-[5px] h-[5px] bg-primary"></div>
-              <div class="">
-                {{ release_date }}
-              </div>
-            </div>
-          </div>
+      <div class="relative">
+        <!-- Movie Backdrop -->
+        <div v-if="backdrop">
+          <img
+            class="w-full h-60 md:h-80 object-cover"
+            :src="`https://image.tmdb.org/t/p/${
+              isMobile ? 'w300' : 'w1280'
+            }/${backdrop}`"
+            :title="title"
+          />
         </div>
 
+        <!-- Overlay for readability -->
         <div
-          class="w-[100px] h-[200px] md:w-[185px] md:h-[277px] flex items-center justify-center"
-        >
-          <img
-            class="rounded-r-lg"
-            :src="props.poster"
-            :title="props.title_movie"
-          />
+          class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"
+        ></div>
+
+        <!-- Movie Details -->
+        <div class="absolute bottom-0 p-4 text-white w-full">
+          <h3 class="text-xl font-bold truncate">{{ title }}</h3>
+          <p
+            class="text-sm text-gray-200 line-clamp-1 md:line-clamp-3 text-left"
+          >
+            {{ overview }}
+          </p>
+
+          <!-- Movie Meta Info -->
+          <div class="flex items-center justify-between mt-2">
+            <span class="text-sm text-gray-300">{{
+              formatDate(release_date)
+            }}</span>
+            <span
+              class="bg-accent text-black px-2 py-1 text-xs font-semibold rounded-md"
+            >
+              ⭐ {{ rating.toFixed(1) }}
+            </span>
+          </div>
         </div>
       </div>
     </router-link>
@@ -53,13 +52,26 @@
 <script setup>
 const props = defineProps({
   poster: String,
+  backdrop: String,
   id: Number,
   title: String,
   overview: String,
   rating: Number,
-  rating_amount: Number,
+  rating_count: Number,
   release_date: String,
+  isMobile: Boolean,
 });
+
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  })
+    .format(date)
+    .replace(/(\d+)(?=(st|nd|rd|th))/, "$1");
+}
 </script>
 
 <style scoped></style>

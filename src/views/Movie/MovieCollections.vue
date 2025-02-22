@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="Object.keys(movie.collections) != 0"
-    class="flex flex-col p-2 rounded text-left space-y-2"
+    class="flex flex-col rounded text-left space-y-2"
   >
     <span class="text-base-content text-2xl">
       {{ movie.collections.name }}

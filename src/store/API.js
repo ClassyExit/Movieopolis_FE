@@ -9,7 +9,7 @@ export const useAPIStore = defineStore("API", {
       // REQUEST_OPTIONS: HEADERS, BODY, METHODS
 
       for (let url of urls) {
-        for (let attempt = 0; attempt <= retries; attempt++) {
+        for (let attempt = 0; attempt < retries; attempt++) {
           try {
             const response = await fetch(url, request_options);
             if (response.ok) {

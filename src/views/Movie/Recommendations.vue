@@ -1,13 +1,14 @@
 <template>
   <div
     aria-label="recommendations"
-    class="flex flex-col rounded p-2 text-left space-y-2"
+    class="flex flex-col rounded text-left space-y-2"
   >
     <span class="text-base-content text-2xl"> Recommendations </span>
-    <div class="overflow-auto h-fit">
+
+    <div class="overflow-x-auto md:overflow-visible">
       <div
-        v-if="movie.results.recommendations.results.length"
-        class="w-full flex md:flex-wrap gap-2"
+        v-if="movie.results?.recommendations?.results?.length"
+        class="flex gap-2 md:flex-wrap md:justify-start"
       >
         <Container
           v-for="item in movie.results.recommendations.results"
@@ -19,8 +20,7 @@
           :rating="item.vote_average"
           :overview="item.overview"
           :type="'movie'"
-        >
-        </Container>
+        />
       </div>
 
       <div v-else class="alert alert shadow">
