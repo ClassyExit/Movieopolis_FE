@@ -8,7 +8,6 @@
 </template>
 
 <script setup>
-import { useHomeStore } from "@/store/homeStore";
 import Trending from "./Trending.vue";
 import Popular from "./Popular.vue";
 import TopRated from "./TopRated.vue";

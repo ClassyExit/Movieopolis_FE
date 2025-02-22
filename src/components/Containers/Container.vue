@@ -68,22 +68,25 @@
         </div>
 
         <div
-          class="flex flex-col text-sm p-1 bg-base-300 justify-between rounded-md"
+          class="flex flex-col text-sm bg-base-300 justify-between rounded-b-lg p-2"
         >
           <div class="text-left line-clamp-1 text-xs">{{ props.title }}</div>
           <div class="flex flex-row items-center justify-between space-x-1">
             <div class="flex flex-row items-center space-x-1">
-              <div class="rating rating-xs">
-                <input
-                  v-for="star in 5"
-                  :key="star"
-                  type="radio"
-                  name="rating"
-                  class="mask mask-star-2 bg-orange-400"
-                  :value="star"
-                  v-model="computedRating"
-                  disabled
-                />
+              <div>
+                <div class="rating rating-xs">
+                  <input
+                    v-for="star in computedRating"
+                    :key="star"
+                    type="radio"
+                    name="rating"
+                    class="mask mask-star-2 bg-orange-400"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="flex text-xs text-neutral h-full items-centers">
+                {{ rating ? rating.toFixed(2) : "N/A" }}
               </div>
             </div>
             <div class="flex flex-row items-center">

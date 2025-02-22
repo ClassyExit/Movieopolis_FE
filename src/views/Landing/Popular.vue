@@ -2,16 +2,20 @@
   <div class="w-full space-y-4">
     <div class="w-full space-y-1">
       <div
-        class="text-left text-3xl text-primary flex flex-row items-center space-x-4 pb-1"
+        class="text-left text-3xl text-primary flex flex-row items-center justify-between md:justify-start space-x-2 pb-1"
       >
-        <span class="w-fit line-clamp-1">Popular Movies</span>
+        <span class="">Popular Movies</span>
 
         <router-link
           :to="{ name: 'MoviesLayout' }"
-          class="flex items-center badge badge-sm md:badge-md text-sm bg-base-300 text-base-content"
+          class="flex items-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-xl p-[1px]"
         >
-          <span> View more</span>
-          <Icon icon="ic:twotone-arrow-right" width="20" height="20" />
+          <div
+            class="flex badge badge-md md:badge-lg text-sm text-base-content"
+          >
+            <span class="text-xs md:text-md">View more</span>
+            <Icon icon="ic:twotone-arrow-right" width="20" height="20" />
+          </div>
         </router-link>
       </div>
 
@@ -37,16 +41,20 @@
 
     <div class="w-full rounded p-2 space-y-1">
       <div
-        class="text-left text-3xl text-primary flex flex-row items-center space-x-4 pb-1"
+        class="text-left text-3xl text-primary flex flex-row items-center justify-between md:justify-start space-x-2 pb-1"
       >
-        <span class="line-clamp-1">Popular Shows</span>
+        <span class="">Popular Shows</span>
 
         <router-link
           :to="{ name: 'TVLayout' }"
-          class="flex items-center badge badge-sm md:badge-md text-sm bg-base-300 text-base-content"
+          class="flex items-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-xl p-[1px]"
         >
-          <span> View more</span>
-          <Icon icon="ic:twotone-arrow-right" width="20" height="20" />
+          <div
+            class="flex badge badge-md md:badge-lg text-sm text-base-content"
+          >
+            <span class="text-xs md:text-md">View more</span>
+            <Icon icon="ic:twotone-arrow-right" width="20" height="20" />
+          </div>
         </router-link>
       </div>
 
