@@ -62,7 +62,7 @@
       </div>
 
       <!-- Movie Info Section -->
-      <div class="w-full bg-base-300 p-6 rounded-lg space-y-6 shadow-md">
+      <div class="w-full bg-base-300 p-4 rounded-lg space-y-6 shadow-md">
         <div
           class="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0"
         >
@@ -84,7 +84,7 @@
             <span class="w-2 h-2 bg-neutral rounded-full"></span>
             <div class="flex items-center space-x-2">
               <svg
-                class="h-6 w-6 text-error"
+                class="h-6 w-6 text-error stroke-current"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"

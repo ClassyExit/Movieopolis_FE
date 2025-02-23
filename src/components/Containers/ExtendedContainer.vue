@@ -38,7 +38,7 @@
               formatDate(release_date)
             }}</span>
             <span
-              class="bg-accent text-black px-2 py-1 text-xs font-semibold rounded-md"
+              class="bg-accent text-accent-content px-2 py-1 text-xs font-semibold rounded-md"
             >
               ⭐ {{ rating.toFixed(1) }}
             </span>
