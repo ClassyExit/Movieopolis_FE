@@ -15,7 +15,6 @@ export const useSearchStore = defineStore("Search", {
     async getSearch(query, page = 1) {
       /*
             Get the search results
-            Type:   tv | movie | multi
             query:  String 
 
         */
@@ -24,7 +23,7 @@ export const useSearchStore = defineStore("Search", {
 
       this.search.results = [];
 
-      // Get the search results for the first 3 pages
+      // Get the search results
       const results = await useAPIStore().getSearchResults(
         query.value,
         (page = 1)
@@ -32,18 +31,6 @@ export const useSearchStore = defineStore("Search", {
 
       // Add the results to the search results
       this.search.results.push(results);
-
-      // for (let i = 1; i < 3; i++) {
-      //   // Get the search results for the first 3 pages
-      //   const results = await useAPIStore().getSearchResults(
-      //     query.value,
-      //     type,
-      //     (page = i)
-      //   );
-
-      //   // Add the results to the search results
-      //   this.search.results.push(results.results);
-      // }
     },
 
     clearSearchResults() {

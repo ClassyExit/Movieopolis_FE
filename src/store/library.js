@@ -36,8 +36,7 @@ export const useLibraryStore = defineStore("Library", {
       ];
 
       try {
-        const data = await useAPIStore().fetchAPI(urls, request_options);
-        return data;
+        return await useAPIStore().fetchAPI(urls, request_options);
       } catch (error) {
         console.error("Failed to get content:", error);
         return null;
@@ -75,8 +74,7 @@ export const useLibraryStore = defineStore("Library", {
       ];
 
       try {
-        const response = await useAPIStore().fetchAPI(urls, request_options);
-        return response;
+        return await useAPIStore().fetchAPI(urls, request_options);
       } catch (error) {
         console.error("Failed to remove content:", error);
         return null;

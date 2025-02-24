@@ -7,6 +7,7 @@ export const useAPIStore = defineStore("API", {
     async fetchAPI(urls, request_options, retries = 1) {
       // URLS - LIST OF URLS TO REQUEST FROM
       // REQUEST_OPTIONS: HEADERS, BODY, METHODS
+      // RETRIES: AMOUNT OF TIMES TO ATTEMPT
 
       for (let url of urls) {
         for (let attempt = 0; attempt < retries; attempt++) {
@@ -18,10 +19,11 @@ export const useAPIStore = defineStore("API", {
               console.error(`Fetch error: ${response.status} on ${url}`);
             }
           } catch (error) {
-            console.error(
-              `Fetch failed for URL: ${url} (Attempt: ${attempt + 1})`,
-              error
-            );
+            // DEBUG
+            // console.error(
+            //   `Fetch failed for URL: ${url} (Attempt: ${attempt + 1})`,
+            //   error
+            // );
           }
         }
       }
@@ -43,8 +45,7 @@ export const useAPIStore = defineStore("API", {
       ];
 
       try {
-        const data = await this.fetchAPI(urls);
-        return data;
+        return await this.fetchAPI(urls);
       } catch (error) {
         console.error("Failed to get content:", error);
         return null; // Return null for now, handle error later
@@ -60,8 +61,7 @@ export const useAPIStore = defineStore("API", {
       ];
 
       try {
-        const data = await this.fetchAPI(urls);
-        return data;
+        return await this.fetchAPI(urls);
       } catch (error) {
         console.error("Failed to get content:", error);
         return null;
@@ -70,13 +70,12 @@ export const useAPIStore = defineStore("API", {
 
     async getPopularMoviesAPI(page = 1) {
       const urls = [
-        `https://tmdb-backend.herokuapp.com/api/movie/popular`,
-        `https://tmdb-backend.autoidleapp.com/api/movie/popular`,
+        `https://tmdb-backend.herokuapp.com/api/movie/popular?page=${page}`,
+        `https://tmdb-backend.autoidleapp.com/api/movie/popular?page=${page}`,
       ];
 
       try {
-        const data = await this.fetchAPI(urls);
-        return data;
+        return await this.fetchAPI(urls);
       } catch (error) {
         console.error("Failed to get content:", error);
         return null;
@@ -90,8 +89,7 @@ export const useAPIStore = defineStore("API", {
       ];
 
       try {
-        const data = await this.fetchAPI(urls);
-        return data;
+        return await this.fetchAPI(urls);
       } catch (error) {
         console.error("Failed to get content:", error);
         return null; // Return null for now, handle error later
@@ -105,8 +103,7 @@ export const useAPIStore = defineStore("API", {
       ];
 
       try {
-        const data = await this.fetchAPI(urls);
-        return data;
+        return await this.fetchAPI(urls);
       } catch (error) {
         console.error("Failed to get content:", error);
         return null;
@@ -120,8 +117,7 @@ export const useAPIStore = defineStore("API", {
       ];
 
       try {
-        const data = await this.fetchAPI(urls);
-        return data;
+        return await this.fetchAPI(urls);
       } catch (error) {
         console.error("Failed to get content:", error);
         return null;
@@ -137,8 +133,7 @@ export const useAPIStore = defineStore("API", {
       ];
 
       try {
-        const data = await this.fetchAPI(urls);
-        return data;
+        return await this.fetchAPI(urls);
       } catch (error) {
         console.error("Failed to get content:", error);
         return null;
@@ -154,8 +149,7 @@ export const useAPIStore = defineStore("API", {
       ];
 
       try {
-        const data = await this.fetchAPI(urls);
-        return data;
+        return await this.fetchAPI(urls);
       } catch (error) {
         console.error("Failed to get content:", error);
         return null;
@@ -187,8 +181,7 @@ export const useAPIStore = defineStore("API", {
       ];
 
       try {
-        const data = await this.fetchAPI(urls);
-        return data;
+        return await this.fetchAPI(urls);
       } catch (error) {
         console.error("Failed to get content:", error);
         return null;
@@ -206,8 +199,7 @@ export const useAPIStore = defineStore("API", {
       ];
 
       try {
-        const data = await this.fetchAPI(urls);
-        return data;
+        return await this.fetchAPI(urls);
       } catch (error) {
         console.error("Failed to get search:", error);
         return null;
@@ -226,8 +218,7 @@ export const useAPIStore = defineStore("API", {
       ];
 
       try {
-        const data = await this.fetchAPI(urls);
-        return data;
+        return await this.fetchAPI(urls);
       } catch (error) {
         console.error("Failed to get content:", error);
         return null;
@@ -245,8 +236,7 @@ export const useAPIStore = defineStore("API", {
       ];
 
       try {
-        const data = await this.fetchAPI(urls);
-        return data;
+        return await this.fetchAPI(urls);
       } catch (error) {
         console.error("Failed to get content:", error);
         return null;
@@ -260,8 +250,7 @@ export const useAPIStore = defineStore("API", {
       ];
 
       try {
-        const data = await this.fetchAPI(urls);
-        return data;
+        return await this.fetchAPI(urls);
       } catch (error) {
         console.error("Failed to get content:", error);
       }

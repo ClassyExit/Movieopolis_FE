@@ -1,10 +1,7 @@
 <template>
-  <div>
+  <div class="btn btn-ghost btn-sm">
     <!-- Search Button -->
-    <button
-      class="btn btn-ghost btn-sm px-4 py-2 flex items-center space-x-2 hover:bg-base-300"
-      @click="openModal"
-    >
+    <div class="flex justify-center items-center space-x-2" @click="openModal">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="20"
@@ -21,8 +18,8 @@
           d="M13.5 15a.47.47 0 0 1-.35-.15l-3.38-3.38c-.2-.2-.2-.51 0-.71s.51-.2.71 0l3.38 3.38c.2.2.2.51 0 .71c-.1.1-.23.15-.35.15Z"
         />
       </svg>
-      <span class="hidden md:block text-sm">Search...</span>
-    </button>
+      <span class="hidden md:flex text-sm">Search...</span>
+    </div>
 
     <!-- Modal -->
     <Teleport to="body">
@@ -32,16 +29,13 @@
         >
           <!-- Close Button -->
           <div class="flex justify-end">
-            <button
-              @click="closeModal"
-              class="btn btn-sm btn-outline rounded-full px-3"
-            >
+            <button @click="closeModal" class="btn btn-sm btn-outline rounded">
               ✕
             </button>
           </div>
 
           <!-- Search Input -->
-          <div class="relative">
+          <div class="relative pt-2">
             <input
               type="text"
               class="w-full input input-bordered p-3 pl-10 rounded-md shadow-sm text-base"
@@ -50,7 +44,7 @@
               v-debounce:500ms="getSearch"
             />
             <svg
-              class="absolute left-3 top-3 h-5 w-5 text-gray-400"
+              class="absolute left-3 top-6 h-5 w-5 text-gray-400"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 16 16"
               fill="currentColor"
@@ -65,30 +59,46 @@
 
           <!-- Tabs (Movies & Shows) -->
           <div class="flex justify-between items-center mt-4">
-            <div class="flex space-x-3">
-              <button
-                @click="UpdateOption('movies')"
-                class="btn btn-sm rounded-md"
-                :class="
-                  selectedOption == 'movies'
-                    ? 'btn-primary'
-                    : 'btn-outline btn-primary'
-                "
+            <div role="tablist" class="tabs tabs-boxed">
+              <div
+                @click="listView = !listView"
+                :class="listView == true ? 'tab-active' : ''"
+                class="tab"
               >
-                Movies
-              </button>
-              <button
-                @click="UpdateOption('shows')"
-                class="btn btn-sm rounded-md"
-                :class="
-                  selectedOption == 'shows'
-                    ? 'btn-primary'
-                    : 'btn-outline btn-primary'
-                "
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M7 9V7h14v2zm0 4v-2h14v2zm0 4v-2h14v2zM4 9q-.425 0-.712-.288T3 8t.288-.712T4 7t.713.288T5 8t-.288.713T4 9m0 4q-.425 0-.712-.288T3 12t.288-.712T4 11t.713.288T5 12t-.288.713T4 13m0 4q-.425 0-.712-.288T3 16t.288-.712T4 15t.713.288T5 16t-.288.713T4 17"
+                  />
+                </svg>
+                <div class="">List</div>
+              </div>
+
+              <div
+                @click="listView = !listView"
+                :class="listView == false ? 'tab-active' : ''"
+                class="tab"
               >
-                Shows
-              </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M3 21h4.675v-4.675H3zm6.675 0h4.65v-4.675h-4.65zm6.65 0H21v-4.675h-4.675zM3 14.325h4.675v-4.65H3zm6.675 0h4.65v-4.65h-4.65zm6.65 0H21v-4.65h-4.675zM3 7.675h4.675V3H3zm6.675 0h4.65V3h-4.65zm6.65 0H21V3h-4.675z"
+                  />
+                </svg>
+                <div class="">Grid</div>
+              </div>
             </div>
+
             <button
               @click="clearResults"
               class="btn btn-sm btn-error rounded-md"
@@ -98,14 +108,17 @@
           </div>
 
           <!-- Search Results -->
-          <div class="mt-4 overflow-auto space-y-4 max-h-[60vh]">
-            <!-- Movies -->
+          <div class="mt-4 overflow-auto scroll-hidden space-y-4 max-h-[60vh]">
             <div
-              v-if="selectedOption == 'movies' && search.results[0]?.movies"
-              class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4"
+              class="gap-4"
+              :class="
+                listView
+                  ? 'flex flex-col'
+                  : 'grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 '
+              "
             >
               <Container
-                v-for="item in search.results[0].movies.results"
+                v-for="item in search.results[0].results"
                 :key="item.id"
                 :id="item.id"
                 :poster="item.poster_path"
@@ -113,25 +126,8 @@
                 :year="item.release_date || item.first_air_date"
                 :rating="item.vote_average"
                 :overview="item.overview"
-                :type="'movie'"
-              />
-            </div>
-
-            <!-- TV Shows -->
-            <div
-              v-if="selectedOption == 'shows' && search.results[0]?.tv"
-              class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4"
-            >
-              <Container
-                v-for="item in search.results[0].tv.results"
-                :key="item.id"
-                :id="item.id"
-                :poster="item.poster_path"
-                :title="item.title || item.name"
-                :year="item.release_date || item.first_air_date"
-                :rating="item.vote_average"
-                :overview="item.overview"
-                :type="'tv'"
+                :type="item.type"
+                :listView="listView"
               />
             </div>
           </div>
@@ -152,11 +148,7 @@ const { search } = storeToRefs(searchStore);
 
 const searchQuery = ref("");
 const searchModal = ref(null);
-const selectedOption = ref("movies");
-
-const UpdateOption = (option) => {
-  selectedOption.value = option;
-};
+const listView = ref(true);
 
 // Open and Close Modal
 const openModal = () => searchModal.value?.showModal();
