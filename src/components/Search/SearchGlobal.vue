@@ -63,7 +63,7 @@
               <div
                 @click="listView = !listView"
                 :class="listView == true ? 'tab-active' : ''"
-                class="tab"
+                class="tab space-x-1"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +82,7 @@
               <div
                 @click="listView = !listView"
                 :class="listView == false ? 'tab-active' : ''"
-                class="tab"
+                class="tab space-x-1"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -118,7 +118,7 @@
               "
             >
               <Container
-                v-for="item in search.results[0].results"
+                v-for="item in search.results?.[0]?.results || []"
                 :key="item.id"
                 :id="item.id"
                 :poster="item.poster_path"
@@ -155,7 +155,7 @@ const openModal = () => searchModal.value?.showModal();
 const closeModal = () => searchModal.value?.close();
 
 const getSearch = () => {
-  searchStore.getSearch(searchQuery, "multi");
+  searchStore.getSearch(searchQuery.value, "multi");
 };
 
 // Clear Search Results

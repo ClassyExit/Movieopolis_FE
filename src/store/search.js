@@ -19,15 +19,12 @@ export const useSearchStore = defineStore("Search", {
 
         */
 
-      if (!query.value) return;
+      if (!query) return;
 
       this.search.results = [];
 
       // Get the search results
-      const results = await useAPIStore().getSearchResults(
-        query.value,
-        (page = 1)
-      );
+      const results = await useAPIStore().getSearchResults(query, (page = 1));
 
       // Add the results to the search results
       this.search.results.push(results);
