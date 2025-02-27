@@ -27,7 +27,7 @@
 <script setup>
 import { useTVStore } from "@/store/tv";
 import { storeToRefs } from "pinia";
-import Video from "@/components/Video.vue";
+import Video from "@/components/Trailer.vue";
 
 const { show } = storeToRefs(useTVStore());
 

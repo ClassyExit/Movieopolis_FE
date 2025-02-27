@@ -30,6 +30,22 @@ export const useAPIStore = defineStore("API", {
       throw new Error("All fetch attempts failed.");
     },
 
+    async getUserPermissions(id) {
+      if (!id) return;
+
+      const urls = [
+        `https://tmdb-backend.herokuapp.com/api/user`,
+        `https://tmdb-backend.autoidleapp.com/api/user`,
+      ];
+
+      try {
+        return await this.fetchAPI(urls);
+      } catch (error) {
+        console.error("Failed to get content:", error);
+        return null;
+      }
+    },
+
     async getTrendingAPI(media_type = "all", time_window = "day") {
       /*
       Retrieves the trending content for the specified parameters
@@ -247,6 +263,32 @@ export const useAPIStore = defineStore("API", {
       const urls = [
         `https://tmdb-backend.herokuapp.com/api/discover/trailer`,
         `https://tmdb-backend.autoidleapp.com/api/discover/trailer`,
+      ];
+
+      try {
+        return await this.fetchAPI(urls);
+      } catch (error) {
+        console.error("Failed to get content:", error);
+      }
+    },
+
+    async getMovieVideoLinks(movie_id) {
+      const urls = [
+        `https://tmdb-backend.herokuapp.com/api/movie-videos?movie_id=${movie_id}`,
+        `https://tmdb-backend.autoidleapp.com/api/movie-videos?movie_id=${movie_id}`,
+      ];
+
+      try {
+        return await this.fetchAPI(urls);
+      } catch (error) {
+        console.error("Failed to get content:", error);
+      }
+    },
+
+    async getShowVideoLinks(tv_id, season_number, episode_number) {
+      const urls = [
+        `https://tmdb-backend.herokuapp.com/api/show-videos?tv_id=${tv_id}&season_number=${season_number}&episode_number=${episode_number}`,
+        `https://tmdb-backend.autoidleapp.com/api/show-videos?tv_id=${tv_id}&season_number=${season_number}&episode_number=${episode_number}`,
       ];
 
       try {

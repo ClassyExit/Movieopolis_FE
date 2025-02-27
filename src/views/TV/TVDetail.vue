@@ -62,6 +62,8 @@
         </div>
       </div>
 
+      <TVPlayer />
+
       <!-- INFO -->
       <div class="w-full bg-base-300 rounded-lg p-6 space-y-6 shadow-md">
         <div
@@ -139,6 +141,7 @@ import TVTrailer from "./TVTrailer.vue";
 import AddToList from "@/components/Actions/AddToList.vue";
 import MobileReturn from "@/components/Actions/MobileReturn.vue";
 import TVSeason from "./TVSeason.vue";
+import TVPlayer from "./TVPlayer.vue";
 
 import TVRecommendations from "./TVRecommendations.vue";
 

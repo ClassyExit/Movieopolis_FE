@@ -30,7 +30,7 @@
 <script setup>
 import { useMovieStore } from "@/store/movies";
 import { storeToRefs } from "pinia";
-import Video from "@/components/Video.vue";
+import Video from "@/components/Trailer.vue";
 
 const { movie } = storeToRefs(useMovieStore());
 

@@ -61,6 +61,7 @@
         </div>
       </div>
 
+      <MoviePlayer />
       <!-- Movie Info Section -->
       <div class="w-full bg-base-300 p-4 rounded-lg space-y-6 shadow-md">
         <div
@@ -126,6 +127,7 @@ import MovieTrailer from "./MovieTrailer.vue";
 import MovieCollections from "./MovieCollections.vue";
 import MovieRecommendations from "./MovieRecommendations.vue";
 import MovieCast from "./MovieCast.vue";
+import MoviePlayer from "./MoviePlayer.vue";
 
 import AddToList from "@/components/Actions/AddToList.vue";
 import MobileReturn from "@/components/Actions/MobileReturn.vue";

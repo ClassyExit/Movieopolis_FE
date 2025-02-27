@@ -11,6 +11,8 @@ export const useMovieStore = defineStore("Movie", {
       isLoading: false,
     },
 
+    movie_links: [],
+
     movies: {
       popular: [],
       isLoading: false,
@@ -86,6 +88,14 @@ export const useMovieStore = defineStore("Movie", {
         }
       }
       this.movies.isLoading = false;
+    },
+
+    async getMovieLinks(movie_id) {
+      if (!movie_id) return;
+
+      const results = await useAPIStore().getMovieVideoLinks(movie_id);
+
+      this.movie_links = results;
     },
   },
 });

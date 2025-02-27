@@ -1,11 +1,10 @@
 <template>
-  <div @click="expandedView = !expandedView">
-    <div v-if="expandedView" class="card bg-base-300 w-full shadow-xl">
+  <div @click="expandedView">
+    <div v-if="expand" class="card bg-base-300 w-full shadow-xl">
       <div class="card-body">
-        <h2 class="card-title text-left">{{ props.name }}</h2>
-
+        <h2 class="card-title text-left">{{ name }}</h2>
         <div class="text-left text-sm text-gray-500">
-          {{ props.overview }}
+          {{ overview }}
         </div>
       </div>
     </div>
@@ -13,7 +12,7 @@
       v-else
       class="p-3 w-12 flex items-center justify-center bg-base-300 rounded"
     >
-      {{ props.episodeNumber }}
+      {{ episodeNumber }}
     </div>
   </div>
 </template>
@@ -26,7 +25,15 @@ const props = defineProps({
   name: String,
   overview: String,
   episodeNumber: Number,
+  cantExpand: Boolean,
 });
 
-const expandedView = ref(false);
+const expand = ref(false);
+
+const expandedView = () => {
+  // If user can view videos, limit expansion of cards
+  if (props.cantExpand) return;
+
+  expand.value = !expand.value;
+};
 </script>

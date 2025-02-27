@@ -30,11 +30,13 @@
 
       <div class="flex flex-wrap gap-4 max-h-80 overflow-auto">
         <EpisodeCard
+          @click="UpdateTVPlayer(tv_id, selectedSeason, episode.episode_number)"
           v-for="episode in show.seasonDetails.details.episodes"
           :id="episode.id"
           :name="episode.name"
           :overview="episode.overview"
           :episodeNumber="episode.episode_number"
+          :cantExpand="useUserStore().permissions.canViewVideos"
         />
       </div>
     </div>
@@ -46,6 +48,7 @@ import { useRoute } from "vue-router";
 import { useTVStore } from "@/store/tv";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
+import { useUserStore } from "@/store/user";
 import EpisodeCard from "./EpisodeCard.vue";
 
 const tvStore = useTVStore();
@@ -58,6 +61,11 @@ const selectedSeason = ref(1);
 
 const getSeasonDetails = (id, season) => {
   tvStore.getTVSeasonDetails(id, season);
+};
+
+const UpdateTVPlayer = (id, season, episode) => {
+  // console.log(id, season, episode);
+  tvStore.getShowLinks(id, season, episode);
 };
 
 if (tvStore.show.results.details.seasons.length > 0) {

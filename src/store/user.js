@@ -22,6 +22,7 @@ import { RESET_USER_DATA } from "./resetStore";
 export const useUserStore = defineStore("user", {
   state: () => ({
     user: null,
+    permissions: {},
 
     // type: success || error, message: Describe to user what happen
     deleteAccountResults: { result: "", message: "" },
@@ -47,7 +48,23 @@ export const useUserStore = defineStore("user", {
       }
 
       this.user = auth.currentUser;
+      console.log("Email login ID: ", auth.currentUser.uid);
+      this.getUserPerms(auth.currentUser.uid);
       router.push({ name: "Home" });
+    },
+
+    async getUserPerms(uid) {
+      if (!uid) return;
+
+      const request_options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          uid: uid,
+        },
+      };
+
+      this.permissions = await this.manageUserWithDB(request_options);
     },
 
     async manageUserWithDB(request_options) {
@@ -56,6 +73,7 @@ export const useUserStore = defineStore("user", {
       method:
       POST: Create a new user
       DELETE: Delete a user
+      GET: Get user info/permissions
       headers: { "Content-Type": "application/json", uid: uid }
       */
 
@@ -89,31 +107,30 @@ export const useUserStore = defineStore("user", {
     },
 
     async googleSignIn() {
-      const provider = await new GoogleAuthProvider();
+      const provider = new GoogleAuthProvider();
 
-      return signInWithPopup(auth, provider)
-        .then((res) => {
-          // Check if the user is signing up for the first time
-          const { isNewUser } = getAdditionalUserInfo(res);
+      try {
+        const res = await signInWithPopup(auth, provider);
+        const { isNewUser } = getAdditionalUserInfo(res);
 
-          if (isNewUser) {
-            // Register user with database
-            const request_options = {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                uid: res.user.uid,
-              },
-            };
-            this.manageUserWithDB(request_options);
-          }
-          // User signed in
-          this.user = res.user;
-          router.push({ name: "Home" });
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
+        // Add new user to DB
+        if (isNewUser) {
+          const request_options = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              uid: res.user.uid,
+            },
+          };
+          await this.manageUserWithDB(request_options);
+        }
+
+        this.user = res.user;
+        await this.getUserPerms(res.user.uid);
+        router.push({ name: "Home" });
+      } catch (err) {
+        // console.error("Google Sign-In Failed:", err.message);
+      }
     },
 
     async register(user) {
@@ -155,6 +172,7 @@ export const useUserStore = defineStore("user", {
       }
 
       this.user = auth.currentUser;
+      this.getUserPerms(auth.currentUser.uid);
       router.push({ name: "Home" });
     },
 
@@ -207,6 +225,10 @@ export const useUserStore = defineStore("user", {
       onAuthStateChanged(auth, (user) => {
         if (user) {
           this.user = auth.currentUser;
+
+          // Get user perms
+          this.getUserPerms(auth.currentUser.uid);
+
           // Check to see if user is on auth pages
           if (
             router.currentRoute.value.fullPath === ("/login" || "/register")

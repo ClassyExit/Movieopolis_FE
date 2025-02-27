@@ -36,7 +36,7 @@
 
 <script setup>
 import { useDiscoverStore } from "@/store/discover";
-import Video from "@/components/Video.vue";
+import Video from "@/components/Trailer.vue";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
 import AddToList from "@/components/Actions/AddToList.vue";
