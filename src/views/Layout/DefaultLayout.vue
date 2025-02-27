@@ -11,6 +11,9 @@
 
 <script setup>
 import Navbar from "@/components/Navigation/Navbar.vue";
+import { useUserStore } from "@/store/user";
+
+useUserStore().initializeAuth();
 </script>
 
 <style scoped></style>

@@ -222,6 +222,8 @@ export const useUserStore = defineStore("user", {
 
       this.isLoading = true;
 
+      console.log("Auth...");
+
       onAuthStateChanged(auth, (user) => {
         if (user) {
           this.user = auth.currentUser;
@@ -236,7 +238,7 @@ export const useUserStore = defineStore("user", {
             router.push({ name: "Home" });
           }
         } else {
-          resetStore();
+          RESET_USER_DATA();
         }
         this.isLoading = false;
       });
@@ -327,7 +329,7 @@ export const useUserStore = defineStore("user", {
         this.manageUserWithDB(request_options);
 
         // Reset store data
-        resetStore();
+        RESET_USER_DATA();
 
         // Show success message
         alert("Account Deleted Successfully");
