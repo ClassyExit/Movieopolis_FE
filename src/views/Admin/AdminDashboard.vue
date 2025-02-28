@@ -4,8 +4,8 @@
 
     <div class="flex flex-col space-y-2">
       <div
-        v-if="admin.queue?.length > 0"
-        v-for="item in admin.queue"
+        v-if="admin.queue.queue?.length > 0"
+        v-for="item in admin.queue.queue"
         :key="item.firebase_uid"
         class="flex flex-row space-x-2 items-center justify-between"
       >
