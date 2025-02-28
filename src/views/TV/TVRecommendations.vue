@@ -8,7 +8,7 @@
     <div class="overflow-x-auto md:overflow-visible">
       <div
         v-if="show.results?.recommendations?.results?.length"
-        class="flex gap-2 overflow-x-auto flex-nowrap md:flex-wrap scroll-container"
+        class="grid grid-cols-2 gap-2 md:flex md:flex-wrap"
       >
         <Container
           v-for="item in show.results.recommendations.results"

@@ -86,7 +86,7 @@
 
         <div class="flex justify-center space-x-4 w-full">
           <div
-            class="flex justify-center items-center px-12 py-4 rounded-xl cursor-pointer shadow shadow-primary bg-base-200"
+            class="flex justify-center items-center px-12 py-4 rounded-xl cursor-pointer shadow shadow-primary bg-base-300"
             @click="googleSignIn()"
           >
             <svg

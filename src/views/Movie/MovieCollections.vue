@@ -1,14 +1,15 @@
 <template>
   <div
     v-if="Object.keys(movie.collections) != 0"
-    class="flex flex-col rounded text-left space-y-2"
+    class="flex w-full flex-col rounded text-left space-y-2"
   >
     <span class="text-base-content text-2xl">
       {{ movie.collections.name }}
     </span>
 
-    <div class="flex overflow-auto md:flex-wrap gap-2 scroll-container">
+    <div class="flex w-full overflow-auto md:flex-wrap gap-2">
       <Container
+        class=""
         v-for="item in movie.collections.parts"
         :key="item.id"
         :id="item.id"
