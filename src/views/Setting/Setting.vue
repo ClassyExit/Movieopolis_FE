@@ -11,9 +11,29 @@
           <template #title>Change Theme</template>
 
           <template #content>
-            <div class="flex flex-row justify-between items-center px-4">
-              <div class="text-xl">Theme</div>
-              <div class=""><Theme /></div>
+            <div class="space-y-4 px-4">
+              <div class="flex flex-row justify-between items-center">
+                <div class="text-xl">Theme</div>
+                <div class=""><Theme /></div>
+              </div>
+
+              <div
+                v-if="!useUserStore().permissions.canViewVideos"
+                class="flex flex-row justify-between items-center text-xl"
+              >
+                <div class="">Apply for video access</div>
+
+                <div
+                  v-if="!useUserStore().permissions.ticket_info_data"
+                  @click="useUserStore().submitQueueTicket"
+                  class="btn btn-success"
+                >
+                  Apply
+                </div>
+                <div v-else class="text-success">
+                  {{ useUserStore().permissions.ticket_info_data }}
+                </div>
+              </div>
             </div>
           </template>
         </Headers>

@@ -25,6 +25,8 @@ import Discover from "@/views/Discover/Discover.vue";
 import Password from "@/views/Setting/Password.vue";
 import DeleteAccount from "@/views/Setting/DeleteAccount.vue";
 
+import AdminDashboard from "@/views/Admin/AdminDashboard.vue";
+
 const routes = [
   {
     path: "/",
@@ -103,11 +105,12 @@ const routes = [
     ],
   },
 
-  // {
-  //   path: "/status",
-  //   name: "Status",
-  //   component: Status,
-  // },
+  {
+    path: "/admin",
+    name: "Admin",
+    component: AdminDashboard,
+  },
+
   // Path not found
   { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
 ];

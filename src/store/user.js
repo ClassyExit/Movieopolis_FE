@@ -18,9 +18,14 @@ import {
 } from "firebase/auth";
 import { RESET_USER_DATA } from "./resetStore";
 
-const API_URLS = [
+const USER_API_URLS = [
   "https://tmdb-backend.herokuapp.com/api/user",
   "https://tmdb-backend.autoidleapp.com/api/user",
+];
+
+const QUEUE_API_URLS = [
+  "https://tmdb-backend.herokuapp.com/api/approve-user",
+  "https://tmdb-backend.autoidleapp.com/api/approve-user",
 ];
 
 export const useUserStore = defineStore("user", {
@@ -30,6 +35,10 @@ export const useUserStore = defineStore("user", {
     deleteAccountResults: { result: "", message: "" },
     updatePasswordResults: { result: "", message: "" },
     isLoading: false,
+
+    admin: {
+      queue: [],
+    },
   }),
   persist: true,
   actions: {
@@ -51,7 +60,12 @@ export const useUserStore = defineStore("user", {
           email,
           password
         );
-        await this.manageUserWithDB("POST", user.uid);
+        const options = {
+          method: "POST",
+          headers: { "Content-Type": "application/json", uid: user.uid },
+        };
+        await this.manageUserWithDB(options);
+
         this.user = auth.currentUser;
         await this.getUserPerms(user.uid);
         router.push({ name: "Home" });
@@ -65,7 +79,11 @@ export const useUserStore = defineStore("user", {
         const provider = new GoogleAuthProvider();
         const res = await signInWithPopup(auth, provider);
         if (getAdditionalUserInfo(res).isNewUser) {
-          await this.manageUserWithDB("POST", res.user.uid);
+          const options = {
+            method: "POST",
+            headers: { "Content-Type": "application/json", uid: res.user.uid },
+          };
+          await this.manageUserWithDB(options);
         }
         this.user = res.user;
         await this.getUserPerms(res.user.uid);
@@ -112,7 +130,13 @@ export const useUserStore = defineStore("user", {
           EmailAuthProvider.credential(user.email, currentPassword)
         );
         await deleteUser(user);
-        await this.manageUserWithDB("DELETE", user.uid);
+
+        const options = {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json", uid: user.uid },
+        };
+
+        await this.manageUserWithDB(options);
         RESET_USER_DATA();
         router.push({ name: "Home" });
         return { success: true, message: "Account deleted" };
@@ -122,6 +146,7 @@ export const useUserStore = defineStore("user", {
     },
 
     async initializeAuth() {
+      console.log("Initializing auth...");
       this.isLoading = true;
       onAuthStateChanged(auth, async (user) => {
         this.isLoading = false;
@@ -141,16 +166,16 @@ export const useUserStore = defineStore("user", {
 
     async getUserPerms(uid) {
       if (uid) {
-        this.permissions = await this.manageUserWithDB("GET", uid);
+        const options = {
+          method: "GET",
+          headers: { "Content-Type": "application/json", uid },
+        };
+        this.permissions = (await this.manageUserWithDB(options)) || {};
       }
     },
 
-    async manageUserWithDB(method, uid) {
-      const options = {
-        method,
-        headers: { "Content-Type": "application/json", uid },
-      };
-      for (const url of API_URLS) {
+    async manageUserWithDB(options) {
+      for (const url of USER_API_URLS) {
         try {
           const response = await fetch(url, options);
           if (response.ok) return await response.json();
@@ -158,7 +183,74 @@ export const useUserStore = defineStore("user", {
           console.error(`Request to ${url} failed`, error);
         }
       }
-      throw new Error("All API requests failed");
+      return null; // Avoid throwing errors that could break the app
+    },
+
+    async manageQueueWithDB(options) {
+      for (const url of QUEUE_API_URLS) {
+        try {
+          const response = await fetch(url, options);
+          if (response.ok) return await response.json();
+        } catch (error) {
+          console.error(`Request to ${url} failed`, error);
+        }
+      }
+      return null;
+    },
+
+    async getAdminQueue(uid) {
+      if (!uid) return;
+
+      const options = {
+        method: "GET",
+        headers: { "Content-Type": "application/json", uid: this.user.uid },
+      };
+      this.admin.queue = (await this.manageQueueWithDB(options)) || [];
+    },
+
+    async submitQueueTicket() {
+      const options = {
+        method: "POST",
+        headers: { "Content-Type": "application/json", uid: this.user.uid },
+      };
+
+      await this.manageQueueWithDB(options);
+    },
+
+    async deleteQueueTicket(uid) {
+      if (!uid) return;
+
+      const options = {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json", uid: this.user.uid },
+        body: JSON.stringify({ update_uid: uid }),
+      };
+
+      const response = await this.manageQueueWithDB(options);
+
+      if (response?.success) {
+        this.admin.queue.queue = this.admin.queue.queue.filter(
+          (user) => user.firebase_uid !== uid
+        );
+      }
+    },
+
+    async approveUserTicket(uid) {
+      if (!uid) return;
+
+      const options = {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json", uid: this.user.uid },
+        body: JSON.stringify({ update_uid: uid }),
+      };
+
+      const response = await this.manageUserWithDB(options);
+
+      if (response?.success) {
+        this.admin.queue.queue = this.admin.queue.queue.filter(
+          (user) => user.firebase_uid !== uid
+        );
+      }
     },
 
     handleAuthError(error) {
