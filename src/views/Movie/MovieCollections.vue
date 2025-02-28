@@ -7,7 +7,9 @@
       {{ movie.collections.name }}
     </span>
 
-    <div class="flex w-full overflow-auto md:flex-wrap gap-2">
+    <div
+      class="w-full grid grid-cols-2 overflow-auto md:flex md:flex-wrap gap-2"
+    >
       <Container
         class=""
         v-for="item in movie.collections.parts"

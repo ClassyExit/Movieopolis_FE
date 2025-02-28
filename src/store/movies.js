@@ -31,6 +31,15 @@ export const useMovieStore = defineStore("Movie", {
       this.movie.collections = [];
 
       const details = await useAPIStore().getMovieDetailsAPI(movie_id);
+
+      let collection = [];
+      // Get movie collections if it has any
+      if (details.details.belongs_to_collection.id) {
+        collection = await useAPIStore().getCollectionsAPI(
+          details.details.belongs_to_collection.id
+        );
+      }
+
       const reviews = await useAPIStore().getReviews("movie", movie_id);
 
       // Find only videos from Youtube
@@ -57,6 +66,7 @@ export const useMovieStore = defineStore("Movie", {
 
       this.movie.results = details;
       this.movie.reviews = reviews;
+      this.movie.collections = collection;
       this.movie.isLoading = false;
     },
 
