@@ -34,7 +34,7 @@ export const useMovieStore = defineStore("Movie", {
 
       let collection = [];
       // Get movie collections if it has any
-      if (details.details.belongs_to_collection.id) {
+      if (details.details.belongs_to_collection?.id) {
         collection = await useAPIStore().getCollectionsAPI(
           details.details.belongs_to_collection.id
         );
