@@ -8,7 +8,7 @@
     </span>
 
     <div
-      class="w-full grid grid-cols-2 overflow-auto md:flex md:flex-wrap gap-2"
+      class="w-full flex flex-row space-x-2 overflow-auto md:flex-wrap md:gap-2 md:space-x-0"
     >
       <Container
         class=""

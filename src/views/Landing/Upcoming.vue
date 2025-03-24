@@ -1,11 +1,5 @@
 <template>
   <div class="w-full">
-    <div
-      class="flex flex-col lg:flex-row items-start lg:space-x-2 text-left text-3xl text-primary pb-1"
-    >
-      <span>Upcoming Releases</span>
-    </div>
-
     <div v-if="isLoading.home" class="skeleton h-64">
       <!-- <Loading /> -->
     </div>

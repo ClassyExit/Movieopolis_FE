@@ -1,5 +1,8 @@
 <template>
-  <div class="relative w-full rounded" :class="listView ? '' : 'max-w-[154px]'">
+  <div
+    class="relative w-full rounded"
+    :class="listView ? '' : 'max-w-[154px] md:max-w-[185px]'"
+  >
     <div class="absolute right-2 top-1 z-40 hover:cursor-pointer text-white">
       <AddToList
         :id="props.id"
@@ -62,17 +65,18 @@
         </div>
       </div>
 
-      <div v-else class="w-[154px] h-fit shadow rounded-md">
+      <div v-else class="w-[154px] md:w-[185px] h-fit shadow rounded-md">
         <img
           v-if="poster"
           class="rounded-t-lg"
-          :src="`https://image.tmdb.org/t/p/w154/${poster}`"
+          :src="`https://image.tmdb.org/t/p/w185/${poster}`"
+          :style="{ height: viewSize.height, width: viewSize.width }"
           :alt="title"
-          style="width: 154px; height: 231px"
         />
         <div
           v-else
-          class="flex items-center justify-center bg-white w-[154px] h-[231px] rounded-md opacity-30"
+          class="flex items-center justify-center bg-white rounded-md opacity-30"
+          :style="{ height: viewSize.height, width: viewSize.width }"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +125,7 @@
 
 <script setup>
 import AddToList from "@/components/Actions/AddToList.vue";
-import { computed } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 
 const props = defineProps({
   id: { type: Number, required: true },
@@ -136,6 +140,29 @@ const props = defineProps({
 
 const title = computed(() => props.title || "Unknown");
 const year = computed(() => (props.year || "").slice(0, 4));
+
+// Compute container sizes
+const viewSize = ref({ width: "154px", height: "231px" });
+
+const updateViewSize = () => {
+  if (window.innerWidth >= 768) {
+    //breakpoint (768px and above)
+    viewSize.value = { width: "185px", height: "277px" };
+  } else {
+    // Mobile devices
+    viewSize.value = { width: "154px", height: "231px" };
+  }
+};
+
+// Watch for screen resizing
+onMounted(() => {
+  updateViewSize();
+  window.addEventListener("resize", updateViewSize);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", updateViewSize);
+});
 
 // Convert rating (out of 10) to a 5-star scale
 const computedRating = computed(() => Math.round(props.rating / 2));

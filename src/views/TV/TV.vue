@@ -4,7 +4,7 @@
       class="w-full flex text-2xl md:text-4xl text-base-content pb-4 space-x-4 md:space-x-0"
     >
       <MobileReturn />
-      <span> Popular Shows </span>
+      <span> TV Shows </span>
     </div>
 
     <div v-if="shows.isLoading" class="skeleton h-64">
@@ -52,10 +52,8 @@ let currentPage = ref(1);
 let nextPage = ref(currentPage.value + 1);
 let prevPage = ref(currentPage.value - 1);
 
-// Load initial batch unless already populated
-if (!tvStore.shows.popular.length) {
-  tvStore.getPopularTVShows(currentPage.value);
-}
+// Get shows
+tvStore.getPopularTVShows(currentPage.value);
 
 const loadMovies = (page) => {
   if (page < 1) {

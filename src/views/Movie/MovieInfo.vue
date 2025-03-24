@@ -48,7 +48,7 @@
         {{ movie.results.details.overview }}
       </div>
 
-      <div class="flex flex-wrap gap-2 mt-2">
+      <div class="flex flex-row overflow-auto md:flex-wrap gap-2 mt-2">
         <span
           v-for="genre in movie.results.details.genres"
           :key="genre.id"
@@ -75,11 +75,11 @@
 
           <div class="flex flex-row space-x-2 items-center">
             <span class="font-semibold text-base-content">Cast:</span>
-            <div class="flex flex-row space-x-2 overflow-x-auto flex-nowrap">
+            <div class="flex w-fit flex-row space-x-2 overflow-x-auto">
               <span
                 v-for="person in computeCastLimit"
                 :key="person.id"
-                class="bg-gray-700 text-white px-2 py-1 rounded-md"
+                class="bg-gray-700 text-white px-2 py-1 rounded-md whitespace-nowrap"
               >
                 {{ person.name }}
               </span>

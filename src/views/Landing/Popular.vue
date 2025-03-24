@@ -87,7 +87,5 @@ import { storeToRefs } from "pinia";
 
 const { movies, isLoading } = storeToRefs(useHomeStore());
 
-if (useHomeStore().movies.popularMovies?.length === 0) {
-  useHomeStore().getHomeData();
-}
+useHomeStore().getHomeData();
 </script>

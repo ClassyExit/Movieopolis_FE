@@ -4,18 +4,13 @@
       class="w-full flex text-2xl md:text-4xl text-base-content pb-4 space-x-4 md:space-x-0"
     >
       <MobileReturn />
-      <span class="text-base-content text-2xl md:text-4xl">
-        Popular Movies
-      </span>
+      <span class="text-base-content text-2xl md:text-4xl"> Movies </span>
     </div>
 
     <div v-if="movies.isLoading" class="skeleton h-64">
       <!-- <Loading /> -->
     </div>
-    <div
-      v-else
-      class="flex justify-center gap-4 md:gap-2 md:justify-start flex-wrap"
-    >
+    <div v-else class="grid grid-cols-2 gap-2 md:flex md:flex-wrap">
       <Container
         v-for="item in movies.popular"
         :key="item.id"
@@ -54,10 +49,8 @@ let currentPage = ref(1);
 let nextPage = ref(currentPage.value + 1);
 let prevPage = ref(currentPage.value - 1);
 
-// Load initial batch unless already populated
-if (!movieStore.movies.popular.length) {
-  movieStore.getPopularMovies(currentPage.value);
-}
+// Load movies
+movieStore.getPopularMovies(currentPage.value);
 
 const loadMovies = (page) => {
   if (page < 1) {

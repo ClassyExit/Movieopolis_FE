@@ -102,10 +102,7 @@ const showFilter = ref(false);
 let trendingOption = ref("all");
 let trendingTime = ref("week");
 
-if (!homeStore.movies.trending.results) {
-  // If trending content is empty, fetch new results
-  homeStore.getTrendingContent(trendingOption.value, trendingTime.value);
-}
+homeStore.getTrendingContent(trendingOption.value, trendingTime.value);
 
 const updateTrendingFilter = (media_type, time_window) => {
   trendingOption.value = media_type;

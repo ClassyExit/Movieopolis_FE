@@ -48,7 +48,7 @@
         {{ show.results.details.overview }}
       </div>
 
-      <div class="flex flex-wrap gap-2 mt-2">
+      <div class="overflow-auto flex flex-row md:flex-wrap gap-2 mt-2">
         <span
           v-for="genre in show.results.details.genres"
           :key="genre.id"
@@ -72,7 +72,7 @@
               <span
                 v-for="item in show.results.details.networks"
                 :key="item.id"
-                class="bg-gray-700 text-white px-2 py-1 rounded-md"
+                class="bg-gray-700 text-white px-2 py-1 rounded-md whitespace-nowrap"
               >
                 {{ item.name }}
               </span>
@@ -85,7 +85,7 @@
               <span
                 v-for="person in computeCastLimit"
                 :key="person.id"
-                class="bg-gray-700 text-white px-2 py-1 rounded-md"
+                class="w-fit bg-gray-700 text-white px-2 py-1 rounded-md whitespace-nowrap"
               >
                 {{ person.name }}
               </span>

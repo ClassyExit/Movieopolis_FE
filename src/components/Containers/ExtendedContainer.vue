@@ -25,9 +25,9 @@
 
         <!-- Movie Details -->
         <div class="absolute bottom-0 p-4 text-white w-full">
-          <h3 class="text-xl font-bold truncate">{{ title }}</h3>
+          <h3 class="text-left text-xl font-bold truncate">{{ title }}</h3>
           <p
-            class="text-sm text-gray-200 line-clamp-1 md:line-clamp-3 text-left"
+            class="text-sm text-gray-200 opacity-80 line-clamp-1 md:line-clamp-3 text-left"
           >
             {{ overview }}
           </p>

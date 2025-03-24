@@ -146,7 +146,6 @@ export const useUserStore = defineStore("user", {
     },
 
     async initializeAuth() {
-      console.log("Initializing auth...");
       this.isLoading = true;
       onAuthStateChanged(auth, async (user) => {
         this.isLoading = false;
