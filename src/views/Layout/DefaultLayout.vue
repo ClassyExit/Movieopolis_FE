@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col h-screen mx-4 lg:mx-8 xl:mx-16">
-    <div class="bg-base-300 rounded-b-2xl">
+  <div class="flex flex-col min-h-screen mx-4 lg:mx-8 xl:mx-16">
+    <div class="bg-base-300 rounded-b-2xl sticky top-0 z-50">
       <Navbar />
     </div>
     <div class="flex flex-grow pt-4 lg:pt-8">
